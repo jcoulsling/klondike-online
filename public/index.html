@@ -66,7 +66,7 @@
       </div>
       <div class="rowpad"><button class="k" data-k="select">Select</button><button class="k" data-k="start">Start</button></div>
     </div>
-    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button></div>
+    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button></div>
     <p>You can see the other players walk around on the same map. You cannot talk to them or trade and battle yet.</p>
   </section>
 
@@ -115,6 +115,22 @@
     }
     if (crc32(out) !== wantTgt) throw new Error('The game did not come out right (its check number is wrong).');
     return out;
+  }
+
+
+  /* ---------- the made game is kept in this browser (never uploaded), so a refresh starts it again ---------- */
+  function idb(fn) {
+    try {
+      var r = indexedDB.open('klondike-own-copy', 1);
+      r.onupgradeneeded = function () { r.result.createObjectStore('f'); };
+      r.onsuccess = function () { try { fn(r.result); } catch (e) {} };
+    } catch (e) {}
+  }
+  function keepGame(rom) { idb(function (db) { db.transaction('f', 'readwrite').objectStore('f').put(rom, 'rom'); }); }
+  function forgetGame() { idb(function (db) { db.transaction('f', 'readwrite').objectStore('f').delete('rom'); }); }
+  function keptGame(done) {
+    idb(function (db) { var q = db.transaction('f').objectStore('f').get('rom'); q.onsuccess = function () { done(q.result || null); }; q.onerror = function () { done(null); }; });
+    setTimeout(function () { done(null); }, 1500);
   }
 
   function say(t, k) { $('msg').textContent = t; $('msg').className = k || ''; }
@@ -220,10 +236,20 @@
       try { rom = applyBps(romData, patchData); } catch (e) { say(e.message, 'bad'); $('go').disabled = false; return; }
       var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
       try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
+      keepGame(rom);
       say('Starting…');
       $('setup').style.display = 'none'; $('game').style.display = 'block';
       startEmulator(rom, nm, room);
     }, 30);
+  });
+
+
+  var autoDone = false;
+  keptGame(function (rom) {
+    if (autoDone || !rom || /[?&]setup/.test(location.search)) return; autoDone = true;
+    var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
+    $('setup').style.display = 'none'; $('game').style.display = 'block';
+    startEmulator(new Uint8Array(rom), nm, room);
   });
 
   function startEmulator(rom, nm, room) {
@@ -256,8 +282,9 @@
   });
   $('fs').addEventListener('click', function () { var w = $('screenwrap'); if (w.requestFullscreen) w.requestFullscreen(); });
   $('mute').addEventListener('click', function () { muted = !muted; if (Module) Module.setVolume(muted ? 0 : 100); $('mute').textContent = muted ? 'Sound off' : 'Sound on'; });
-  $('restart').addEventListener('click', function () { if (Module) { Module.quickReload(); var c = $('screen'); if (c) c.focus(); } });
-  $('leave').addEventListener('click', function () { if (ws) ws.send(JSON.stringify({ t: 'leave' })); location.reload(); });
+  $('restart').addEventListener('click', function () { if (Module) { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonPress(k); }); setTimeout(function () { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonUnpress(k); }); }, 400); var c = $('screen'); if (c) c.focus(); } });
+  $('forget').addEventListener('click', function () { forgetGame(); setTimeout(function () { location.reload(); }, 300); });
+  $('leave').addEventListener('click', function () { if (ws) ws.send(JSON.stringify({ t: 'leave' })); location.href = location.pathname + '?setup'; });
 })();
 </script>
 </body>
