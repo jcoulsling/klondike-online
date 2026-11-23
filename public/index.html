@@ -35,6 +35,24 @@
   @media (pointer:coarse) { #pad { display:block; } }
   small { display:block; margin-top:24px; opacity:.75; }
   details { margin-top:14px; } summary { cursor:pointer; }
+  #teachbar { display:none; margin:14px 0 0; }
+  #teach { display:none; margin-top:10px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px; }
+  #teach .tabs { display:flex; gap:6px; margin:0 0 8px; flex-wrap:wrap; align-items:center; }
+  #teach .tabs button { padding:8px 14px; background:transparent; color:var(--fg); border:1px solid var(--line); font-weight:500; }
+  #teach .tabs button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  #teach .who { font-size:.85rem; opacity:.8; margin:0 0 8px; }
+  #chatlog { height:260px; overflow-y:auto; border:1px solid var(--line); border-radius:10px; padding:8px; background:var(--bg); font-size:.95rem; }
+  #chatlog p { margin:0 0 6px; overflow-wrap:anywhere; } #chatlog b { color:var(--accent); } #chatlog .me b { color:var(--ok); } #chatlog .sys { opacity:.7; font-size:.85rem; }
+  #chatform { display:flex; gap:8px; margin-top:8px; } #chatform input { flex:1; font:inherit; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); }
+  #tools { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:0 0 8px; }
+  #tools button { padding:7px 10px; font-size:.9rem; } #tools button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  #tools .sw { width:26px; height:26px; padding:0; border-radius:50%; border:2px solid var(--line); } #tools .sw.on { outline:3px solid var(--accent); outline-offset:1px; }
+  #boardwrap { position:relative; background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; touch-action:none; }
+  #board { display:block; width:100%; height:auto; aspect-ratio:4/3; cursor:crosshair; touch-action:none; }
+  #textin { position:absolute; display:none; font:inherit; padding:2px 4px; border:1px dashed #666; background:#fffbe6; color:#000; min-width:120px; }
+  #lockmsg { font-size:.85rem; margin:6px 0 0; min-height:1.2em; color:var(--bad); }
+  .hide { display:none !important; }
+
 </style>
 </head>
 <body>
@@ -51,6 +69,7 @@
     </div>
     <div id="open" style="font-size:.9rem;margin:0 0 12px"></div>
     <button class="wide" id="go" disabled>Play</button>
+    <button class="wide ghost" id="boardonly" style="margin-top:10px">Chat and whiteboard only (no game file needed)</button>
     <p id="msg" role="status"></p>
   </section>
 
@@ -67,7 +86,27 @@
       <div class="rowpad"><button class="k" data-k="select">Select</button><button class="k" data-k="start">Start</button></div>
     </div>
     <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button></div>
-    <p>You can see the other players walk around on the same map. You cannot talk to them or trade and battle yet.</p>
+    <p>You can see the other players walk around on the same map. You can chat and share a whiteboard with the room below the game. You cannot trade and battle yet.</p>
+  </section>
+
+  <div id="teachbar"><button class="ghost" id="teachtoggle">Chat and whiteboard <span id="unread"></span></button></div>
+  <section id="teach" aria-label="Chat and whiteboard">
+    <div class="tabs"><button id="tabchat" class="on">Chat</button><button id="tabboard">Whiteboard</button><button class="ghost" id="teachleave" style="margin-left:auto">Leave</button></div>
+    <p class="who" id="who"></p>
+    <div id="paneChat">
+      <div id="chatlog" aria-live="polite"></div>
+      <form id="chatform"><input id="chatin" maxlength="300" placeholder="Write to everyone in the room" autocomplete="off"><button type="submit">Send</button></form>
+    </div>
+    <div id="paneBoard" class="hide">
+      <div id="tools">
+        <button class="ghost on" id="toolPen">Pen</button><button class="ghost" id="toolEraser">Eraser</button><button class="ghost" id="toolText">Text</button>
+        <span id="swatches"></span>
+        <button class="ghost" id="wThin">Thin</button><button class="ghost on" id="wMid">Medium</button><button class="ghost" id="wThick">Thick</button>
+        <button class="ghost" id="undo">Undo</button><button class="ghost" id="clear">Clear</button><button class="ghost" id="savepng">Save picture</button><button class="ghost hide" id="lock">Only I can draw</button>
+      </div>
+      <div id="boardwrap"><canvas id="board" width="1000" height="750"></canvas><input id="textin" maxlength="120"></div>
+      <p id="lockmsg" role="status"></p>
+    </div>
   </section>
 
   <small>This page does not contain, host or share any game. The emulator is mGBA (MPL 2.0, mgba.io). A note on the use of an LLM (AI assistant): this page and its server were written with the help of Claude, an AI assistant from Anthropic, and checked by running them.</small>
@@ -164,13 +203,14 @@
     ws.onclose = function () { $('net').textContent = 'Not connected'; ws = null; slots = {}; clearSlots(); renderPlayers(); };
     ws.onmessage = function (ev) {
       var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (window.__teach) window.__teach.on(m);
       if (m.t === 'hello') { myId = m.id; showRooms(m.rooms); }
       else if (m.t === 'rooms') showRooms(m.rooms);
-      else if (m.t === 'joined') { $('net').textContent = 'Room ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { names[o.id] = o.name; }); renderPlayers(); }
+      else if (m.t === 'joined') { $('net').textContent = 'Room ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { if (!o.b) names[o.id] = o.name; }); renderPlayers(); }
       else if (m.t === 'full') { $('net').textContent = 'That room is full'; }
       else if (m.t === 'trade') { gotTrade(m); }
       else if (m.t === 'lnk') { gotLink(m); }
-      else if (m.t === 'arrived') { names[m.id] = m.name; renderPlayers(); }
+      else if (m.t === 'arrived') { if (!m.b) { names[m.id] = m.name; renderPlayers(); } }
       else if (m.t === 'left') { var sl = slots[m.id]; if (sl !== undefined) writeOther(sl, null); delete slots[m.id]; delete names[m.id]; renderPlayers(); }
       else if (m.t === 's') {
         var s = slots[m.id];
@@ -186,6 +226,8 @@
     el.textContent = list.length ? 'Open rooms: ' + list.map(function (r) { return r.code + ' (' + r.players + ')'; }).join(', ') : 'No rooms are open yet. Pick any code and tell your friends.';
   }
   connect();
+  window.__send = function (o) { if (ws && ws.readyState === 1) { ws.send(JSON.stringify(o)); return true; } return false; };
+  window.__join = function (room, nm, board) { var j = function () { ws.send(JSON.stringify({ t: 'join', room: room, name: nm, board: board ? 1 : 0 })); }; if (ws && ws.readyState === 1) j(); else connect(j); };
 
   /* ---------- the mailbox in the emulator's memory ---------- */
   function heap() { return new Uint8Array(window.__wasmMem.buffer); }
@@ -351,6 +393,192 @@
   $('restart').addEventListener('click', function () { if (Module) { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonPress(k); }); setTimeout(function () { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonUnpress(k); }); }, 400); var c = $('screen'); if (c) c.focus(); } });
   $('forget').addEventListener('click', function () { forgetGame(); setTimeout(function () { location.reload(); }, 300); });
   $('leave').addEventListener('click', function () { if (ws) ws.send(JSON.stringify({ t: 'leave' })); location.href = location.pathname + '?setup'; });
+})();
+</script>
+<script>
+// Chat and a shared whiteboard for the people in a room (for teaching). Everything goes through the same web socket
+// as the game; the server keeps the last chat lines and the drawing only while someone is in the room.
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var W = 1000, H = 750, COLOURS = ['#111111', '#d32f2f', '#1565c0', '#2e7d32', '#ef6c00', '#6a1b9a', '#6d4c41'];
+  var cv = $('board'), ctx = cv.getContext('2d');
+  var myId = 0, hostId = 0, locked = false, boardOnly = false, joined = false, people = {};
+  var strokes = [], byKey = {};           // what is on the board: {key, k, c, w, p, s}
+  var tool = 'p', colour = COLOURS[0], width = 4, unread = 0, tab = 'chat', open = false;
+  var strokeSeq = 0, cur = null, pending = [], timer = 0;
+
+  /* ---------- chat ---------- */
+  function addLine(line, sys) {
+    var log = $('chatlog'), p = document.createElement('p');
+    var stick = log.scrollTop + log.clientHeight >= log.scrollHeight - 30;
+    if (sys) { p.className = 'sys'; p.textContent = line; }
+    else {
+      if (line.id === myId) p.className = 'me';
+      var b = document.createElement('b'); b.textContent = line.name + ': ';
+      p.appendChild(b); p.appendChild(document.createTextNode(line.s));
+    }
+    log.appendChild(p);
+    if (stick || (!sys && line.id === myId)) log.scrollTop = log.scrollHeight;
+    if (!sys && line.id !== myId && !(open && tab === 'chat')) { unread++; showUnread(); }
+  }
+  function showUnread() { $('unread').textContent = unread ? '(' + unread + ' new)' : ''; }
+  function renderWho() {
+    var ids = Object.keys(people), names = ids.map(function (id) { return people[id] + (+id === hostId ? ' (teacher)' : ''); });
+    $('who').textContent = names.length + (names.length === 1 ? ' person here: ' : ' people here: ') + names.join(', ') + '.';
+    $('lock').classList.toggle('hide', myId !== hostId || !joined);
+    $('lock').textContent = locked ? 'Let everyone draw' : 'Only I can draw';
+    $('lockmsg').textContent = locked && myId !== hostId ? 'The teacher has locked the board. You can watch and chat.' : '';
+  }
+  $('chatform').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('chatin').value.trim(); if (!v) return;
+    if (window.__send({ t: 'chat', s: v })) $('chatin').value = '';
+  });
+
+  /* ---------- the board ---------- */
+  function drawStroke(st, from) {
+    if (st.k === 't') {
+      ctx.fillStyle = st.c; ctx.font = (st.w * 6) + 'px system-ui, sans-serif'; ctx.textBaseline = 'top';
+      ctx.fillText(st.s, st.p[0], st.p[1]); return;
+    }
+    ctx.strokeStyle = st.k === 'e' ? '#ffffff' : st.c; ctx.lineWidth = st.k === 'e' ? st.w * 4 : st.w;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    var p = st.p, i = from || 0;
+    ctx.beginPath();
+    if (p.length === 2) { ctx.moveTo(p[0], p[1]); ctx.lineTo(p[0] + 0.01, p[1]); }
+    else { i = Math.max(0, i - 1); ctx.moveTo(p[i * 2], p[i * 2 + 1]); for (i = i + 1; i < p.length / 2; i++) ctx.lineTo(p[i * 2], p[i * 2 + 1]); }
+    ctx.stroke();
+  }
+  function redraw() {
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+    strokes.forEach(function (st) { drawStroke(st, 0); });
+  }
+  function addPiece(m) {          // a piece of a stroke from someone else
+    var st = byKey[m.key];
+    if (!st) { st = { key: m.key, k: m.k, c: m.c, w: m.w, p: [], s: m.s }; byKey[m.key] = st; strokes.push(st); }
+    var from = st.p.length / 2;
+    if (st.k === 't') st.p = m.p.slice(0, 2); else st.p = st.p.concat(m.p);
+    drawStroke(st, from);
+  }
+  function pos(e) {
+    var r = cv.getBoundingClientRect();
+    return [Math.max(0, Math.min(W, Math.round((e.clientX - r.left) / r.width * W))), Math.max(0, Math.min(H, Math.round((e.clientY - r.top) / r.height * H)))];
+  }
+  function canDraw() { return joined && (!locked || myId === hostId); }
+  function flush() {
+    timer = 0;
+    if (!cur || !pending.length) return;
+    var p = pending; pending = [];
+    window.__send({ t: 'wb', id: cur.id, k: cur.k, c: cur.c, w: cur.w, p: p });
+  }
+  function begin(e) {
+    if (e.button > 0) return;
+    if (!canDraw()) { $('lockmsg').textContent = joined ? 'The teacher has locked the board.' : 'Not connected to a room.'; return; }
+    var q = pos(e);
+    if (tool === 't') { startText(q, e); return; }
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    var st = { key: myId + ':' + (++strokeSeq).toString(36), id: (++strokeSeq).toString(36) + Date.now().toString(36).slice(-4), k: tool, c: colour, w: width, p: [q[0], q[1]], s: '' };
+    st.key = myId + ':' + st.id; strokes.push(st); byKey[st.key] = st; cur = st; pending = [q[0], q[1]];
+    drawStroke(st, 0);
+    if (!timer) timer = setTimeout(flush, 40);
+  }
+  function move(e) {
+    if (!cur) return;
+    var evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e]; if (!evs.length) evs = [e];
+    evs.forEach(function (ev) {
+      var q = pos(ev), n = cur.p.length;
+      if (q[0] === cur.p[n - 2] && q[1] === cur.p[n - 1]) return;
+      var from = n / 2; cur.p.push(q[0], q[1]); pending.push(q[0], q[1]);
+      drawStroke(cur, from);
+      if (pending.length >= 40) { if (timer) clearTimeout(timer); flush(); }
+    });
+    if (!timer) timer = setTimeout(flush, 40);
+  }
+  function end() { if (!cur) return; if (timer) clearTimeout(timer); flush(); cur = null; }
+  cv.addEventListener('pointerdown', begin); cv.addEventListener('pointermove', move);
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+
+  /* text: a small box on the board; Enter puts the words there */
+  function startText(q, e) {
+    e.preventDefault();
+    var r = cv.getBoundingClientRect(), box = $('textin');
+    box.style.display = 'block'; box.style.left = Math.min(r.width - 130, q[0] / W * r.width) + 'px'; box.style.top = (q[1] / H * r.height) + 'px';
+    box.style.fontSize = (width * 6 * r.width / W) + 'px'; box.style.color = colour; box.value = ''; box.dataset.x = q[0]; box.dataset.y = q[1];
+    setTimeout(function () { box.focus(); }, 0);
+  }
+  function commitText() {
+    var box = $('textin'), v = box.value.trim();
+    box.style.display = 'none';
+    if (!v || !canDraw()) return;
+    var id = (++strokeSeq).toString(36) + Date.now().toString(36).slice(-4), st = { key: myId + ':' + id, k: 't', c: colour, w: width, p: [+box.dataset.x, +box.dataset.y], s: v };
+    strokes.push(st); byKey[st.key] = st; drawStroke(st, 0);
+    window.__send({ t: 'wb', id: id, k: 't', c: colour, w: width, p: st.p, s: v });
+  }
+  $('textin').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); commitText(); } else if (e.key === 'Escape') this.style.display = 'none'; });
+  $('textin').addEventListener('blur', commitText);
+
+  /* ---------- the buttons ---------- */
+  function pick(group, id) { group.forEach(function (g) { $(g).classList.toggle('on', g === id); }); }
+  var tools = ['toolPen', 'toolEraser', 'toolText'], widths = ['wThin', 'wMid', 'wThick'];
+  $('toolPen').onclick = function () { tool = 'p'; pick(tools, 'toolPen'); };
+  $('toolEraser').onclick = function () { tool = 'e'; pick(tools, 'toolEraser'); };
+  $('toolText').onclick = function () { tool = 't'; pick(tools, 'toolText'); };
+  $('wThin').onclick = function () { width = 2; pick(widths, 'wThin'); };
+  $('wMid').onclick = function () { width = 4; pick(widths, 'wMid'); };
+  $('wThick').onclick = function () { width = 8; pick(widths, 'wThick'); };
+  COLOURS.forEach(function (c, i) {
+    var b = document.createElement('button'); b.className = 'sw' + (i ? '' : ' on'); b.style.background = c; b.setAttribute('aria-label', 'Colour ' + (i + 1)); b.type = 'button';
+    b.onclick = function () { colour = c; Array.prototype.forEach.call($('swatches').children, function (x) { x.classList.remove('on'); }); b.classList.add('on'); if (tool === 'e') $('toolPen').onclick(); };
+    $('swatches').appendChild(b);
+  });
+  $('undo').onclick = function () { window.__send({ t: 'wbundo' }); };
+  $('clear').onclick = function () { if (strokes.length && window.confirm('Clear the whole board for everyone?')) window.__send({ t: 'wbclear' }); };
+  $('lock').onclick = function () { window.__send({ t: 'wblock', on: !locked }); };
+  $('savepng').onclick = function () {
+    var a = document.createElement('a'); a.download = 'whiteboard.png'; a.href = cv.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove();
+  };
+  function showTab(t) {
+    tab = t; $('paneChat').classList.toggle('hide', t !== 'chat'); $('paneBoard').classList.toggle('hide', t !== 'board');
+    $('tabchat').classList.toggle('on', t === 'chat'); $('tabboard').classList.toggle('on', t === 'board');
+    if (t === 'chat') { unread = 0; showUnread(); var l = $('chatlog'); l.scrollTop = l.scrollHeight; }
+  }
+  $('tabchat').onclick = function () { showTab('chat'); }; $('tabboard').onclick = function () { showTab('board'); };
+  $('teachtoggle').onclick = function () { open = !open; $('teach').style.display = open ? 'block' : 'none'; if (open && tab === 'chat') { unread = 0; showUnread(); } };
+  $('teachleave').onclick = function () { window.__send({ t: 'leave' }); location.href = location.pathname + '?setup'; };
+
+  /* ---------- the board-only door ---------- */
+  $('boardonly').onclick = function () {
+    var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
+    try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
+    boardOnly = true; $('setup').style.display = 'none'; open = true; $('teach').style.display = 'block';
+    window.__join(room, nm, true);
+  };
+
+  /* ---------- from the server ---------- */
+  window.__teach = { on: function (m) {
+    if (m.t === 'joined') {
+      myId = m.id; hostId = m.host; locked = !!m.locked; joined = true; people = {}; strokes = []; byKey = {};
+      people[m.id] = ($('name').value.trim() || 'Player').slice(0, 12);
+      m.others.forEach(function (o) { people[o.id] = o.name; });
+      $('chatlog').textContent = ''; (m.chat || []).forEach(function (l) { addLine(l); }); unread = 0; showUnread();
+      addLine('You are in room ' + m.room + '.', true);
+      redraw();
+      if (!boardOnly) $('teachbar').style.display = 'block';
+      renderWho();
+    } else if (m.t === 'arrived') { people[m.id] = m.name; addLine(m.name + ' came in.', true); renderWho(); }
+    else if (m.t === 'left') { var n = people[m.id]; delete people[m.id]; if (n) addLine(n + ' left.', true); renderWho(); }
+    else if (m.t === 'host') { hostId = m.id; if (people[m.id]) addLine(people[m.id] + ' is now the teacher.', true); renderWho(); }
+    else if (m.t === 'chat') addLine(m.line);
+    else if (m.t === 'wbfull') { strokes = m.strokes; byKey = {}; strokes.forEach(function (s) { byKey[s.key] = s; }); redraw(); }
+    else if (m.t === 'wb') addPiece(m);
+    else if (m.t === 'wbundo') { var st = byKey[m.key]; if (st) { delete byKey[m.key]; strokes.splice(strokes.indexOf(st), 1); if (cur === st) cur = null; redraw(); } }
+    else if (m.t === 'wbclear') { strokes = []; byKey = {}; cur = null; redraw(); if (m.by !== myId && people[m.by]) addLine(people[m.by] + ' cleared the board.', true); }
+    else if (m.t === 'wblock') { locked = !!m.on; renderWho(); addLine(locked ? 'The teacher locked the board: only they can draw.' : 'The board is open: everyone can draw.', true); }
+    else if (m.t === 'wbdenied') { $('lockmsg').textContent = 'The teacher has locked the board.'; }
+    else if (m.t === 'full') { $('who').textContent = 'That room is full.'; $('setup').style.display = 'block'; $('teach').style.display = 'none'; }
+  } };
+  redraw();
 })();
 </script>
 </body>
