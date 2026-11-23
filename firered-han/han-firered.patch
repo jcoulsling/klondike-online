@@ -34396,10 +34396,10 @@ index 0000000..f86d462
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..7f700ce
+index 0000000..18b9861
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,332 @@
+@@ -0,0 +1,339 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34565,16 +34565,20 @@ index 0000000..7f700ce
 +            groups.append([i])
 +    if len(groups) > 1 and gap(groups[0][0], groups[-1][-1]) < 0.07:     # red wraps round
 +        groups[0] += groups.pop()
-+    while len(groups) < 3:      # too few hues for three stripes: split the biggest by brightness
++    late = []       # groups cut from a bigger one by brightness: the lighter part, which takes the second or third stripe
++    while len(groups) + len(late) < 3:
 +        big = max(groups, key=lambda g: (len(g), sum(cnt[i] for i in g)))
 +        if len(big) < 2:
 +            break
 +        order = sorted(big, key=lambda i: hsv(pal[i])[2])
 +        h = (len(order) + 1) // 2
 +        groups.remove(big)
-+        groups += [order[:h], order[h:]]
++        groups.append(order[:h])        # the darker part (the outlines and shading) stays with the main colour
++        late.append(order[h:])
 +    groups.sort(key=lambda g: -sum(cnt[i] for i in g))
-+    return {i: min(r, 2) for r, g in enumerate(groups) for i in g}
++    late.sort(key=lambda g: -sum(cnt[i] for i in g))
++    ranked = groups + late
++    return {i: min(r, 2) for r, g in enumerate(ranked) for i in g}
 +
 +
 +def trans_flag(pic, pal, follow=None):
@@ -34605,8 +34609,11 @@ index 0000000..7f700ce
 +        vmin = min(hsv(pal[i])[2] for i in g)
 +        for i in g:
 +            t = (hsv(pal[i])[2] - vmin) / (vmax - vmin) if vmax > vmin else 1
-+            f = (0.78 + 0.22 * t) if r == 2 else (0.62 + 0.38 * t)
-+            p[i] = tuple(min(255, int(c * f)) for c in TRANS[r])
++            col = r
++            if r == 2 and hsv(pal[i])[2] < 0.7:     # a darker shade of what is white is a darker pink, not a grey
++                col = 1
++            f = (0.78 + 0.22 * t) if col == 2 else (0.62 + 0.38 * t)
++            p[i] = tuple(min(255, int(c * f)) for c in TRANS[col])
 +    return p
 +
 +
