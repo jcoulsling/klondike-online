@@ -64,13 +64,31 @@ wss.on('connection', (ws) => {
       for (const o of r.values()) if (o.id !== c.id) send(o.ws, { t: 'arrived', id: c.id, name: c.name });
       return;
     }
-    if (m.t === 's' && c.room && Array.isArray(m.s) && m.s.length === 8) {
+    if (m.t === 's' && c.room && Array.isArray(m.s) && m.s.length >= 8 && m.s.length <= 12) {
       const now = Date.now();
       if (now - c.last < 40) return;           // at most 25 a second
       c.last = now;
-      const s = m.s.map((v) => v | 0);
+      const s = m.s.map((v) => v | 0);   // [active, group, num, facing, x, y, gfx, walking, picture, palette, follower]
       const r = rooms.get(c.room);
       if (r) for (const o of r.values()) if (o.id !== c.id) send(o.ws, { t: 's', id: c.id, s });
+      return;
+    }
+    if (m.t === 'trade' && c.room) {          // a trade message to one player of the room: kind 1 to 7, a Pokémon (80 bytes) or none
+      const r = rooms.get(c.room), to = r && r.get(m.to | 0);
+      const kind = m.kind | 0;
+      if (!to || to.id === c.id || kind < 1 || kind > 7) return;
+      const mon = Array.isArray(m.mon) && m.mon.length === 80 ? m.mon.map((v) => v & 255) : null;
+      send(to.ws, { t: 'trade', from: c.id, kind, mon });
+      return;
+    }
+    if (m.t === 'lnk' && c.room) {            // the cable of a battle: k 'b' a block (up to 256 bytes), 's' a stand-by count, 'c' ready to close
+      const r = rooms.get(c.room), to = r && r.get(m.to | 0);
+      if (!to || to.id === c.id) return;
+      if (m.k === 'b') {
+        if (!Array.isArray(m.d) || m.d.length > 256) return;
+        send(to.ws, { t: 'lnk', from: c.id, k: 'b', d: m.d.map((v) => v & 255) });
+      } else if (m.k === 's') send(to.ws, { t: 'lnk', from: c.id, k: 's', n: m.n & 255 });
+      else if (m.k === 'c') send(to.ws, { t: 'lnk', from: c.id, k: 'c' });
       return;
     }
     if (m.t === 'leave') return leave(c);

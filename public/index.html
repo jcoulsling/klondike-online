@@ -168,6 +168,8 @@
       else if (m.t === 'rooms') showRooms(m.rooms);
       else if (m.t === 'joined') { $('net').textContent = 'Room ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { names[o.id] = o.name; }); renderPlayers(); }
       else if (m.t === 'full') { $('net').textContent = 'That room is full'; }
+      else if (m.t === 'trade') { gotTrade(m); }
+      else if (m.t === 'lnk') { gotLink(m); }
       else if (m.t === 'arrived') { names[m.id] = m.name; renderPlayers(); }
       else if (m.t === 'left') { var sl = slots[m.id]; if (sl !== undefined) writeOther(sl, null); delete slots[m.id]; delete names[m.id]; renderPlayers(); }
       else if (m.t === 's') {
@@ -196,23 +198,82 @@
   }
   function writeOther(slot, s) {
     if (base < 0 || !window.__wasmMem) return;
-    var h = heap(), p = base + 24 + 12 * slot;
+    var h = heap(), p = base + 28 + 16 * slot;
     if (!s) { h[p] = 0; return; }
     var dv = new DataView(h.buffer, h.byteOffset);
-    // s = [active, group, num, facing, x, y, gfx, walking]
+    // s = [active, group, num, facing, x, y, gfx, walking, picture, palette, follower species]
     h[p + 1] = s[1]; h[p + 2] = s[2]; h[p + 3] = s[3];
     dv.setInt16(p + 4, s[4], true); dv.setInt16(p + 6, s[5], true);
-    h[p + 8] = s[6]; h[p + 9] = s[7]; h[p] = s[0] ? 1 : 0;
+    h[p + 8] = s[6]; h[p + 9] = s[7]; h[p + 10] = s[8] || 0; h[p + 11] = s[9] || 0; dv.setUint16(p + 12, s[10] || 0, true);
+    h[p] = s[0] ? 1 : 0;
+  }
+  /* trading: the game leaves a message in out (base+100: seq, kind, slot, pad, 80 bytes) and the page sends it to the player
+     in that slot; what comes back is written to in (base+184) and in.seq goes up */
+  var lastOutSeq = -1;
+  function slotToId(sl) { for (var id in slots) if (slots[id] === sl) return +id; return 0; }
+  function pumpTrade() {
+    var h = heap(), p = base + 100;
+    if (lastOutSeq < 0) { lastOutSeq = h[p]; return; }
+    if (h[p] === lastOutSeq) return;
+    lastOutSeq = h[p];
+    var kind = h[p + 1], to = slotToId(h[p + 2]);
+    if (!to || !ws || ws.readyState !== 1) return;
+    ws.send(JSON.stringify({ t: 'trade', to: to, kind: kind, mon: (kind === 1 || kind === 2 || kind === 5 || kind === 6) ? Array.prototype.slice.call(h, p + 4, p + 84) : null }));
+  }
+  function gotTrade(m) {
+    if (base < 0 || !window.__wasmMem) return;
+    var sl = slots[m.from]; if (sl === undefined) return;
+    var h = heap(), p = base + 184;
+    if (m.mon && m.mon.length === 80) for (var i = 0; i < 80; i++) h[p + 4 + i] = m.mon[i];
+    h[p + 1] = m.kind; h[p + 2] = sl;
+    h[p] = (h[p] + 1) & 255;
+  }
+  /* battling: the game's own link battle, the cable is this. The game puts a block in its send buffer (txSeq goes up), the page sends it;
+     a block from the other player is written to the game's receive buffer when the game has used the last one. base+268: see HanLinkCtl. */
+  var rxQ = [], pageSyncIn = 0, pageClose = false, linkWasOn = false;
+  function gameMem(dv, gameAddr) { return base - (dv.getUint32(base + 268 + 24, true) - 0x02000000) + (gameAddr - 0x02000000); }
+  function pumpLink() {
+    var h = heap(), dv = new DataView(h.buffer, h.byteOffset), p = base + 268;
+    var on = h[p] === 1;
+    if (on) linkWasOn = true;
+    var to = slotToId(h[p + 2]);
+    var open = to && ws && ws.readyState === 1;
+    // ready to close: told even if the game has just closed (closeOut stays up until the next battle)
+    if (h[p + 10] && !lastCloseOut && linkWasOn) { lastCloseOut = 1; if (open) ws.send(JSON.stringify({ t: 'lnk', to: to, k: 'c' })); }
+    if (!h[p + 10]) lastCloseOut = 0;
+    if (!on) { if (linkWasOn && h[p + 10]) { linkWasOn = false; rxQ = []; pageSyncIn = 0; pageClose = false; lastSyncOut = 0; } return; }
+    if (to === 0 || !ws || ws.readyState !== 1) h[p + 14] = 1;   // the other player is gone
+    if (h[p + 3] !== h[p + 4]) {                       // a block to send
+      if (open) {
+        var a = gameMem(dv, dv.getUint32(p + 16, true)), n = dv.getUint16(p + 12, true);
+        ws.send(JSON.stringify({ t: 'lnk', to: to, k: 'b', d: Array.prototype.slice.call(h, a, a + n) }));
+      }
+      h[p + 4] = h[p + 3];
+    }
+    if (h[p + 8] !== lastSyncOut) { lastSyncOut = h[p + 8]; if (open) ws.send(JSON.stringify({ t: 'lnk', to: to, k: 's', n: lastSyncOut })); }
+    h[p + 9] = pageSyncIn; if (pageClose) h[p + 11] = 1;
+    if (rxQ.length && !h[p + 7] && h[p + 6] === h[p + 5]) {   // the game has used the last block: the next one
+      var b = rxQ.shift(), r = gameMem(dv, dv.getUint32(p + 20, true));
+      for (var i = 0; i < b.length; i++) h[r + i] = b[i];
+      h[p + 5] = (h[p + 5] + 1) & 255;
+    }
+  }
+  var lastSyncOut = 0, lastCloseOut = 0;
+  function gotLink(m) {
+    if (m.k === 'b' && Array.isArray(m.d)) rxQ.push(m.d);
+    else if (m.k === 's') pageSyncIn = m.n & 255;
+    else if (m.k === 'c') pageClose = true;
   }
   function clearSlots() { for (var i = 0; i < SLOTS; i++) writeOther(i, null); }
   function readMine() {
     var h = heap(), p = base + 12, dv = new DataView(h.buffer, h.byteOffset);
-    return [h[p], h[p + 1], h[p + 2], h[p + 3], dv.getInt16(p + 4, true), dv.getInt16(p + 6, true), h[p + 8], h[p + 9]];
+    return [h[p], h[p + 1], h[p + 2], h[p + 3], dv.getInt16(p + 4, true), dv.getInt16(p + 6, true), h[p + 8], h[p + 9], h[p + 10], h[p + 11], dv.getUint16(p + 12, true)];
   }
   function tick() {
     if (!Module || !window.__wasmMem) return;
     if (base < 0) { var t0 = Date.now(); if (t0 - lastScan < 1000) return; lastScan = t0; base = findMailbox(); if (base < 0) return; }
     if (!ws || ws.readyState !== 1) return;
+    pumpTrade(); pumpLink();
     var s = readMine(); if (!s[0]) return;
     var key = s.join(','), now = Date.now();
     if (key !== lastSent || now - lastSentAt > 500) { ws.send(JSON.stringify({ t: 's', s: s })); lastSent = key; lastSentAt = now; }
@@ -262,6 +323,11 @@
       var file = paths.gamePath + '/klondike.gba';
       try { Module.FS.mkdir(paths.gamePath); } catch (e) {}
       Module.FS.writeFile(file, rom);
+      // a refresh starts at the title screen: no automatic resume of where you were (the in-game save still works)
+      try { Module.setCoreSettings({ autoSaveStateEnable: 0, restoreAutoSaveStateOnLoad: 0 }); } catch (e) {}
+      [paths.autosave, paths.saveStatePath, paths.gamePath].forEach(function (d) {
+        try { Module.FS.readdir(d).forEach(function (f) { if (/_auto\.ss$/.test(f) || d === paths.autosave && f !== '.' && f !== '..') { try { Module.FS.unlink(d + '/' + f); } catch (e) {} } }); } catch (e) {}
+      });
       if (!Module.loadGame(file)) { $('net').textContent = 'The game did not start'; return; }
       Module.addCoreCallbacks({ saveDataUpdatedCallback: function () { Module.FSSync(); } });
       canvas.focus();
