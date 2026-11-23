@@ -34396,10 +34396,10 @@ index 0000000..f86d462
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..f19f032
+index 0000000..7f700ce
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,331 @@
+@@ -0,0 +1,332 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34544,13 +34544,14 @@ index 0000000..f19f032
 +    return out
 +
 +
++DARK = 0.38   # colours darker than this are outlines and shadows
 +TRANS = [(91, 206, 250), (245, 169, 184), (255, 255, 255)]   # the trans flag: light blue, pink, white
 +
 +
 +def _flag_ranks(pic, pal):
 +    """-> {colour number: 0 blue, 1 pink, 2 white} for the picture's coloured parts."""
 +    cnt = counts(pic)
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and hsv(pal[i])[2] >= DARK]
 +    if not mov:
 +        return {}
 +    def gap(a, b):
@@ -34580,8 +34581,8 @@ index 0000000..f19f032
 +    """The coloured parts (not skin, not grey) become the flag: the biggest patch of one hue light blue, the next pink,
 +    the rest white. Each colour keeps its own brightness, so the shading stays. follow = (pic, pal) of the big picture:
 +    a walking picture takes each colour's part of the flag from the nearest colour of the big picture, so they match."""
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
-+    p = list(pal)
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and hsv(pal[i])[2] >= DARK]
++    p = list(pal)   # the dark colours (the outlines) stay as they are, or the flag looks messy
 +    if not mov:
 +        return p
 +    if follow is None:
