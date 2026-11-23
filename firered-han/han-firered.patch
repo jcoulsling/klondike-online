@@ -34396,10 +34396,10 @@ index 0000000..f86d462
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..18b9861
+index 0000000..3ecd202
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,339 @@
+@@ -0,0 +1,345 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34480,6 +34480,12 @@ index 0000000..18b9861
 +    return 12 / 360 < h < 42 / 360 and 0.12 < s < 0.55 and v > 0.55
 +
 +
++def is_skin_or_shade(c):
++    """Skin, and the darker, redder shades that skin has in shadow: the trans flag leaves these alone."""
++    h, s, v = hsv(c)
++    return is_skin(c) or (h < 42 / 360 and 0.12 < s < 0.66 and 0.4 < v and not (h < 10 / 360 and s > 0.5))
++
++
 +def colourful(c):
 +    h, s, v = hsv(c)
 +    return s > 0.14 and 0.18 < v
@@ -34551,7 +34557,7 @@ index 0000000..18b9861
 +def _flag_ranks(pic, pal):
 +    """-> {colour number: 0 blue, 1 pink, 2 white} for the picture's coloured parts."""
 +    cnt = counts(pic)
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and hsv(pal[i])[2] >= DARK]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK]
 +    if not mov:
 +        return {}
 +    def gap(a, b):
@@ -34585,7 +34591,7 @@ index 0000000..18b9861
 +    """The coloured parts (not skin, not grey) become the flag: the biggest patch of one hue light blue, the next pink,
 +    the rest white. Each colour keeps its own brightness, so the shading stays. follow = (pic, pal) of the big picture:
 +    a walking picture takes each colour's part of the flag from the nearest colour of the big picture, so they match."""
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and hsv(pal[i])[2] >= DARK]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK]
 +    p = list(pal)   # the dark colours (the outlines) stay as they are, or the flag looks messy
 +    if not mov:
 +        return p
