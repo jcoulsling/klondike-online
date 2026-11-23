@@ -13911,10 +13911,10 @@ index 069924f..1c6f2a2 100644
  extern const u32 gUnusedLevelupAnimationGfx[];
 diff --git a/include/han_custom.h b/include/han_custom.h
 new file mode 100644
-index 0000000..472d7fa
+index 0000000..7440cbe
 --- /dev/null
 +++ b/include/han_custom.h
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,54 @@
 +#ifndef GUARD_HAN_CUSTOM_H
 +#define GUARD_HAN_CUSTOM_H
 +
@@ -13946,6 +13946,7 @@ index 0000000..472d7fa
 +void HanCustomHeapReset(void); // the heap was started again: the pictures kept in it are gone
 +u8 HanPicStep(u8 pic, s8 dir, u8 gender); // the next picture that suits MALE or FEMALE
 +u8 HanPicFits(u8 pic, u8 gender);
++u8 HanPicNumber(u8 pic); // the number the customizer shows for a picture
 +u8 HanLookMax(u8 part); // how many choices a part has (including "none" where there is one); 0 if there is no customizer
 +void HanLookDefault(void);
 +void HanLookRandom(void);
@@ -16876,7 +16877,7 @@ index 64c9e59..87fb53b 100644
          {
              for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
 diff --git a/src/battle_message.c b/src/battle_message.c
-index a6392be..7940da0 100644
+index a6392be..b96aa2c 100644
 --- a/src/battle_message.c
 +++ b/src/battle_message.c
 @@ -45,65 +45,65 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
@@ -17205,7 +17206,7 @@ index a6392be..7940da0 100644
 -static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!{PAUSE 60}");
 -static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_BUFF1}!");
 +static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_OPPONENT_MON1_NAME}\nnënähchį!{PAUSE 60}");
-+static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_OPPONENT_MON1_NAME}\nchą̀ {B_OPPONENT_MON2_NAME}nënähchį!{PAUSE 60}");
++static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_OPPONENT_MON1_NAME}\nchą̀ {B_OPPONENT_MON2_NAME} nënähchį!{PAUSE 60}");
 +static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\n{B_BUFF1}sent out!");
  static const u8 sText_LinkTrainerSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME}!");
  static const u8 sText_LinkTrainerSentOutTwoPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!");
@@ -24760,10 +24761,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..0bb068d
+index 0000000..c7010e6
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,754 @@
+@@ -0,0 +1,770 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -24818,18 +24819,26 @@ index 0000000..0bb068d
 +    sTried = FALSE;
 +}
 +
-+// the next picture (dir +1 or -1) that can be chosen for this gender, wrapping round; 0 is the game's own and fits both
++// the next picture (dir +1 or -1) that can be chosen for this gender, wrapping round; 0 is the game's own and fits both.
++// They go in the order of sHanPicAt: the game's own, the ordinary player characters, then all the others.
 +u8 HanPicStep(u8 pic, s8 dir, u8 gender)
 +{
-+    u8 i;
++    u8 i, pos = sHanPicPos[pic];
 +
 +    for (i = 0; i < HAN_N_PIC; i++)
 +    {
-+        pic = (pic + HAN_N_PIC + dir) % HAN_N_PIC;
++        pos = (pos + HAN_N_PIC + dir) % HAN_N_PIC;
++        pic = sHanPicAt[pos];
 +        if (sHanPicSex[pic] == 2 || sHanPicSex[pic] == gender)
 +            return pic;
 +    }
 +    return 0;
++}
++
++// the number shown for a picture in the customizer
++u8 HanPicNumber(u8 pic)
++{
++    return pic < HAN_N_PIC ? sHanPicPos[pic] : 0;
 +}
 +
 +u8 HanPicFits(u8 pic, u8 gender)
@@ -25406,6 +25415,13 @@ index 0000000..0bb068d
 +
 +        LoadPalette(sCollar, offset + 5, sizeof(sCollar));
 +    }
++    if (id == TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN && look[HAN_LOOK_PAL] == 12)
++    {
++        // his red (colours 12 and 13 of the back picture, kept red in the front picture for the Poké Ball) is the flag's pink
++        static const u16 sRed[2] = {RGB(30, 21, 23), RGB(23, 16, 17)};
++
++        LoadPalette(sRed, offset + 12, sizeof(sRed));
++    }
 +    return TRUE;
 +}
 +
@@ -25498,6 +25514,7 @@ index 0000000..0bb068d
 +u8 HanLookMax(u8 part) { return 0; }
 +u8 HanPicStep(u8 pic, s8 dir, u8 gender) { return pic; }
 +u8 HanPicFits(u8 pic, u8 gender) { return TRUE; }
++u8 HanPicNumber(u8 pic) { return pic; }
 +void HanLookDefault(void) {}
 +void HanLookRandom(void) {}
 +bool8 HanCustomMake(void) { return FALSE; }
@@ -27651,7 +27668,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..8c93682 100644
+index 77dd3db..16b6043 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27772,7 +27789,7 @@ index 77dd3db..8c93682 100644
 +        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 16 + 1, r->textColor, 0, label);
 +        if (i != 0)
 +        {
-+            ConvertIntToDecimalStringN(buf, gSaveBlock2Ptr->hanLook[i == 1 ? HAN_LOOK_PIC : HAN_LOOK_PAL], STR_CONV_MODE_LEFT_ALIGN, 3);
++            ConvertIntToDecimalStringN(buf, i == 1 ? HanPicNumber(gSaveBlock2Ptr->hanLook[HAN_LOOK_PIC]) : gSaveBlock2Ptr->hanLook[HAN_LOOK_PAL], STR_CONV_MODE_LEFT_ALIGN, 3);
 +            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 16 + 1, r->textColor, 0, buf);
 +        }
 +    }
@@ -39445,10 +39462,10 @@ index 0000000..b06642d
 +    main()
 diff --git a/tools/han/han_custom.py b/tools/han/han_custom.py
 new file mode 100644
-index 0000000..ef68e00
+index 0000000..2372a49
 --- /dev/null
 +++ b/tools/han/han_custom.py
-@@ -0,0 +1,326 @@
+@@ -0,0 +1,336 @@
 +#!/usr/bin/env python3
 +"""Build-time data for the character customizer (Jane, 22 November 2026).
 +
@@ -39744,6 +39761,16 @@ index 0000000..ef68e00
 +        n_ = _d[0] if _d else ""
 +        _sx.append(2 if n_ in _both else (1 if (n_ in _fem or n_.endswith("_F")) else 0))
 +    L.append("static const u8 sHanPicSex[%d] = {" % len(_sx) + ", ".join(map(str, _sx)) + "};")
++    # the order the customizer steps through: the game's own, then the ordinary player characters, then the rest
++    _first = ["RED", "LEAF", "RS_BRENDAN_1", "RS_MAY_1", "RS_BRENDAN_2", "RS_MAY_2"]
++    _names = [""] + [(_d[0] if _d else "") for _d in _pd]
++    _at = [0] + [_names.index(n_) for n_ in _first if n_ in _names]
++    _at += [i_ for i_ in range(1, len(_sx)) if i_ not in _at]
++    _pos = [0] * len(_sx)
++    for _k, _i in enumerate(_at):
++        _pos[_i] = _k
++    L.append("static const u8 sHanPicAt[%d] = {" % len(_sx) + ", ".join(map(str, _at)) + "};")
++    L.append("static const u8 sHanPicPos[%d] = {" % len(_sx) + ", ".join(map(str, _pos)) + "};")
 +    (OUT_DIR / "pics.bin").write_bytes(bytes(blob))
 +    L.append("#define HAN_N_PIC %d // values: 0 the game's own Red or Leaf, then the game's trainer pictures in order" % (len(pals) + 1))
 +    L.append("#define HAN_N_PAL %d // palettes: the original, 7 rainbow colours, black, white, 2 that suit the picture" % P.N_VARIANTS)
