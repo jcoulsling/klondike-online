@@ -22785,10 +22785,10 @@ index c193609..b7738e4 100644
      u8 selectedMonParty;
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..038908a
+index 0000000..4cd28cc
 --- /dev/null
 +++ b/tools/han/README.md
-@@ -0,0 +1,1002 @@
+@@ -0,0 +1,1007 @@
 +# Hän letters in pokefirered
 +
 +This folder adds the Hän alphabet to the game's four Latin fonts.
@@ -23791,6 +23791,11 @@ index 0000000..038908a
 +a random name (27 in `sQuickNames`, `src/main_menu.c`), a random look, and now always a random PICTURE (the game's own
 +Red or Leaf, or any other) and PALETTE. The walking sprite follows the picture. Tested in the emulator three times from
 +the title screen: different names (WREN, FINCH, EMBER), pictures and palettes each time.
++
++### Version number on the title screen (23 November 2026)
++
++The title screen shows "VER .67" in small white letters under KLONDIKE VERSION, so you can tell which patch you are on.
++It is drawn into the logo by `tools/han/han_klondike.py` (`VERSION = "VER .67"` at the top; change that line for the next patch; it has the digits 6 and 7 and a dot, so a new digit needs a glyph added to GLYPHS).
 diff --git a/tools/han/cmudict_LICENSE.txt b/tools/han/cmudict_LICENSE.txt
 new file mode 100644
 index 0000000..81a0ae8
@@ -33798,10 +33803,10 @@ index 0000000..f1add7f
 +    main()
 diff --git a/tools/han/han_klondike.py b/tools/han/han_klondike.py
 new file mode 100644
-index 0000000..3e58533
+index 0000000..25f229d
 --- /dev/null
 +++ b/tools/han/han_klondike.py
-@@ -0,0 +1,163 @@
+@@ -0,0 +1,193 @@
 +#!/usr/bin/env python3
 +"""The title screen of Hän FireRed: "POKéMON KLONDIKE VERSION", with an UNOWN D where the CHARIZARD stood.
 +
@@ -33840,7 +33845,12 @@ index 0000000..3e58533
 +    "V": ["#...#", "#...#", "#...#", "#...#", ".#.#.", ".#.#.", "..#.."],
 +    "R": ["####.", "#...#", "#...#", "####.", "#.#..", "#..#.", "#...#"],
 +    "S": [".####", "#....", "#....", ".###.", "....#", "....#", "####."],
++    "6": [".###.", "#....", "#....", "####.", "#...#", "#...#", ".###."],
++    "7": ["#####", "....#", "...#.", "..#..", ".#...", ".#...", ".#..."],
++    ".": [".", ".", ".", ".", ".", ".", "#"],
++    " ": ["..", "..", "..", "..", "..", "..", ".."],
 +}
++VERSION = "VER .67"      # the patch number, shown small under KLONDIKE VERSION on the title screen
 +BLACK, WHITE, GREY = 206, 207, 205     # entries of the logo's own palette
 +
 +
@@ -33900,6 +33910,30 @@ index 0000000..3e58533
 +        px[x, y] = WHITE if y - top < 10 else GREY
 +
 +
++def draw_small(px, text, right_x, top):
++    """The version number: small white letters, one pixel a stroke, with a black edge, ending at right_x."""
++    cols = []
++    for ch in text:
++        cols += [GLYPHS[ch]] + [None]
++    width = sum((len(g[0]) if g else 1) for g in cols)
++    x = right_x - width + 1
++    fill = set()
++    for g in cols:
++        if g is None:
++            x += 1
++            continue
++        for gy in range(7):
++            for gx in range(len(g[0])):
++                if g[gy][gx] == "#":
++                    fill.add((x + gx, top + gy))
++        x += len(g[0])
++    edge = {(a + dx, b + dy) for (a, b) in fill for dx in (-1, 0, 1) for dy in (-1, 0, 1)} - fill
++    for (a, b) in edge:
++        px[a, b] = BLACK
++    for (a, b) in fill:
++        px[a, b] = WHITE
++
++
 +def logo():
 +    t = (SRC / "game_title_logo.8bpp").read_bytes()
 +    m = struct.unpack("<640H", (SRC / "game_title_logo.bin").read_bytes())
@@ -33923,6 +33957,7 @@ index 0000000..3e58533
 +                px[x, y] = 0
 +    draw_line(px, "KLONDIKE", 87, 59)
 +    draw_line(px, "VERSION", 87, 77)
++    draw_small(px, VERSION, 128, 94)
 +    uniq, tmap = tiles_of(img, 32, 20, 8)
 +    if len(uniq) > 256:
 +        sys.exit("han_klondike.py: the logo needs %d tiles, the game has room for 256" % len(uniq))

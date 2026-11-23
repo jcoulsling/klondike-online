@@ -1000,3 +1000,8 @@ Select, Select, Select, Up on the title screen (or main menu) starts a new game 
 a random name (27 in `sQuickNames`, `src/main_menu.c`), a random look, and now always a random PICTURE (the game's own
 Red or Leaf, or any other) and PALETTE. The walking sprite follows the picture. Tested in the emulator three times from
 the title screen: different names (WREN, FINCH, EMBER), pictures and palettes each time.
+
+### Version number on the title screen (23 November 2026)
+
+The title screen shows "VER .67" in small white letters under KLONDIKE VERSION, so you can tell which patch you are on.
+It is drawn into the logo by `tools/han/han_klondike.py` (`VERSION = "VER .67"` at the top; change that line for the next patch; it has the digits 6 and 7 and a dot, so a new digit needs a glyph added to GLYPHS).
