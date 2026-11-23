@@ -18013,10 +18013,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..1386215
+index 0000000..83c0777
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,623 @@
+@@ -0,0 +1,619 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -18108,11 +18108,7 @@ index 0000000..1386215
 +        l[HAN_LOOK_HAT] = 0; // most are bareheaded
 +    if (Random() % 3 != 0)
 +        l[HAN_LOOK_OUTFIT] = 0;
-+    if (Random() % 3 == 0)
-+    {
-+        l[HAN_LOOK_PIC] = 0; // a third keep the game's own big picture
-+        l[HAN_LOOK_PAL] = 0;
-+    }
++    // PICTURE and PALETTE stay as drawn above: any of the pictures (0 is the game's own Red or Leaf) in any palette
 +}
 +
 +static void FixLook(u8 *l)
@@ -20283,7 +20279,7 @@ index 542b0f5..d11d84f 100644
          CallCallbacks();
  }
 diff --git a/src/main_menu.c b/src/main_menu.c
-index 5cef7c4..e1bb76f 100644
+index 5cef7c4..1eb7578 100644
 --- a/src/main_menu.c
 +++ b/src/main_menu.c
 @@ -15,8 +15,14 @@
@@ -20319,7 +20315,7 @@ index 5cef7c4..e1bb76f 100644
      MainMenuGpuInit(1);
  }
  
-@@ -565,8 +575,261 @@ static void MoveWindowByMenuTypeAndCursorPos(u8 menuType, u8 cursorPos)
+@@ -565,8 +575,268 @@ static void MoveWindowByMenuTypeAndCursorPos(u8 menuType, u8 cursorPos)
      SetGpuReg(REG_OFFSET_WIN0V, (win0vTop + (2 << 8)) | (win0vBot - 2));
  }
  
@@ -20378,10 +20374,17 @@ index 5cef7c4..e1bb76f 100644
 +extern const u8 gNameChoice_Leaf[];
 +extern const u8 gNameChoice_Green[];
 +
++static const u8 sQuickNames[][PLAYER_NAME_LENGTH + 1] = {
++    _("AMBER"), _("ASPEN"), _("BIRCH"), _("CEDAR"), _("CLOVER"), _("DAWN"), _("EMBER"), _("FERN"), _("FINCH"),
++    _("HAZEL"), _("IVY"), _("JUNIPER"), _("KIT"), _("LARK"), _("MAPLE"), _("MOSS"), _("NOVA"), _("ONYX"),
++    _("PEBBLE"), _("QUILL"), _("RAVEN"), _("ROWAN"), _("SAGE"), _("SKY"), _("TANSY"), _("WREN"), _("YARROW"),
++};
++
 +void HanQuickStart(void)
 +{
 +    gSaveBlock2Ptr->playerGender = Random() & 1;
-+    StringCopy(gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender == MALE ? gNameChoice_Red : gNameChoice_Leaf);
++    // a random name (Jane asked, 23 November 2026), along with the random look
++    StringCopy(gSaveBlock2Ptr->playerName, sQuickNames[Random() % ARRAY_COUNT(sQuickNames)]);
 +    HanLookRandom(); // a random look too, when the customizer is in the game
 +    StringCopy(gSaveBlock1Ptr->rivalName, gNameChoice_Green);
 +    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_MID;
@@ -22782,10 +22785,10 @@ index c193609..b7738e4 100644
      u8 selectedMonParty;
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..ba93611
+index 0000000..038908a
 --- /dev/null
 +++ b/tools/han/README.md
-@@ -0,0 +1,995 @@
+@@ -0,0 +1,1002 @@
 +# Hän letters in pokefirered
 +
 +This folder adds the Hän alphabet to the game's four Latin fonts.
@@ -23781,6 +23784,13 @@ index 0000000..ba93611
 +The walking colours are changed by the numbers of the big picture (main hue, brightness range), so PALETTE looks the
 +same on both. PALETTE 12 is the trans flag (light blue, pink, white; `trans_flag` in han_pics.py). The palette count is
 +`N_VARIANTS` there (13 now).
++
++### Quick start: random name, picture and palette (23 November 2026)
++
++Select, Select, Select, Up on the title screen (or main menu) starts a new game in the bedroom with a random boy or girl,
++a random name (27 in `sQuickNames`, `src/main_menu.c`), a random look, and now always a random PICTURE (the game's own
++Red or Leaf, or any other) and PALETTE. The walking sprite follows the picture. Tested in the emulator three times from
++the title screen: different names (WREN, FINCH, EMBER), pictures and palettes each time.
 diff --git a/tools/han/cmudict_LICENSE.txt b/tools/han/cmudict_LICENSE.txt
 new file mode 100644
 index 0000000..81a0ae8

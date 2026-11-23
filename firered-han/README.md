@@ -993,3 +993,10 @@ The new pictures are graphics ids 154 and up (`OBJ_EVENT_GFX_HAN_PEOPLE`, room f
 The walking colours are changed by the numbers of the big picture (main hue, brightness range), so PALETTE looks the
 same on both. PALETTE 12 is the trans flag (light blue, pink, white; `trans_flag` in han_pics.py). The palette count is
 `N_VARIANTS` there (13 now).
+
+### Quick start: random name, picture and palette (23 November 2026)
+
+Select, Select, Select, Up on the title screen (or main menu) starts a new game in the bedroom with a random boy or girl,
+a random name (27 in `sQuickNames`, `src/main_menu.c`), a random look, and now always a random PICTURE (the game's own
+Red or Leaf, or any other) and PALETTE. The walking sprite follows the picture. Tested in the emulator three times from
+the title screen: different names (WREN, FINCH, EMBER), pictures and palettes each time.
