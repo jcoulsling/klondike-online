@@ -144,7 +144,19 @@ wss.on('connection', (ws) => {
         r.byKey.set(key, st); r.strokes.push(st);
       } else if (st.k === 't') return;
       st.p.push(...(kind === 't' ? p.slice(0, 2) : p)); r.points += p.length / 2;
-      for (const o of r.values()) if (o.id !== c.id) send(o.ws, { t: 'wb', key, k: st.k, c: st.c, w: st.w, p, s: st.s, first: st.p.length === p.length ? 1 : 0 });
+      for (const o of r.values()) if (o.id !== c.id) send(o.ws, { t: 'wb', by: c.id, key, k: st.k, c: st.c, w: st.w, p, s: st.s, first: st.p.length === p.length ? 1 : 0 });
+      return;
+    }
+    if (m.t === 'wbtype' && c.room) {         // someone is typing a line of text: show it to the others letter by letter (not kept)
+      const r = rooms.get(c.room);
+      if (!r || (r.locked && c.id !== r.host)) return;
+      const now = Date.now();
+      if (now - c.countAt > 1000) { c.countAt = now; c.count = 0; }
+      if (++c.count > 80) return;
+      const msg = { t: 'wbtype', by: c.id, x: Math.max(0, Math.min(1000, m.x | 0)), y: Math.max(0, Math.min(1000, m.y | 0)),
+                    c: COLOUR.test(m.c) ? m.c : '#000000', w: Math.max(1, Math.min(60, m.w | 0 || 3)),
+                    s: String(m.s || '').replace(/[\u0000-\u001f]/g, ' ').slice(0, 120) };
+      for (const o of r.values()) if (o.id !== c.id) send(o.ws, msg);
       return;
     }
     if (m.t === 'wbundo' && c.room) {         // takes back your own last stroke

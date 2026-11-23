@@ -24761,10 +24761,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..c7010e6
+index 0000000..697a5b7
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,770 @@
+@@ -0,0 +1,777 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -25329,18 +25329,25 @@ index 0000000..c7010e6
 +// The battle sprite of a chosen picture: its front picture, uncompressed in ROM, for all five frames.
 +static EWRAM_DATA struct SpriteFrameImage sBackImg[5] = {0};
 +
++static const u8 sBlankBack[0x800] = {0};
++
 +const struct SpriteFrameImage *HanBackImages(void)
 +{
 +    u8 look[HAN_LOOK_SIZE];
-+    u8 i;
++    u8 i, pic;
 +
-+    return NULL; // the game's own back picture is used (its palette follows PALETTE, see HanCustomPicData)
 +    GetLook(look);
 +    if (look[HAN_LOOK_PIC] == 0)
 +        return NULL;
++    pic = look[HAN_LOOK_PIC] - 1;
++    if (pic == TRAINER_PIC_RED || pic == TRAINER_PIC_LEAF
++     || pic == TRAINER_PIC_RS_BRENDAN_1 || pic == TRAINER_PIC_RS_BRENDAN_2
++     || pic == TRAINER_PIC_RS_MAY_1 || pic == TRAINER_PIC_RS_MAY_2)
++        return NULL; // the game has a back picture for these
++    // no back picture exists for this character: show a blank one
 +    for (i = 0; i < 5; i++)
 +    {
-+        sBackImg[i].data = (const u8 *)&sHanPics[(look[HAN_LOOK_PIC] - 1) * 0x200];
++        sBackImg[i].data = sBlankBack;
 +        sBackImg[i].size = 0x800;
 +    }
 +    return sBackImg;
@@ -25672,10 +25679,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..18d5954
+index 0000000..1c23446
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,324 @@
+@@ -0,0 +1,287 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -25701,15 +25708,14 @@ index 0000000..18d5954
 +EWRAM_DATA u16 gHanFollowPal[16] = {0};
 +static EWRAM_DATA u8 sSpriteId = 0;   // the sprite plus 1; 0 for none
 +static EWRAM_DATA u16 sSpecies = 0;   // what the frames and palette were last made for (bit 15: shiny)
-+#define HIST_MAX 4
-+static EWRAM_DATA u8 sHistN = 0;      // how many tiles the player left are waiting, oldest first
-+static EWRAM_DATA s16 sHistX[HIST_MAX] = {0};   // tile coordinates (the follower walks the player's own path, so it never cuts a corner)
-+static EWRAM_DATA s16 sHistY[HIST_MAX] = {0};
-+static EWRAM_DATA s16 sLastX = 0;     // where the player was last frame
-+static EWRAM_DATA s16 sLastY = 0;
-+static EWRAM_DATA u8 sSpeed = 16;     // frames the player took for the last tile
-+static EWRAM_DATA u16 sAcc = 0;       // sixteenths of a pixel (fixed point, 8 bits) not yet walked
-+static EWRAM_DATA u8 sSince = 0;      // frames since the player changed tile
++// The follower walks the player's own path, in pixels: the player's sprite position is written down every frame it
++// changes, and the follower stands where the player was 16 pixels (one tile) of walking ago. So it moves exactly when
++// the player moves, at the player's speed (walk, run, bike), round every corner, and stops one tile behind.
++#define TRAIL_N 48
++static EWRAM_DATA s16 sTrailX[TRAIL_N] = {0};   // newest at sTrailHead, going back
++static EWRAM_DATA s16 sTrailY[TRAIL_N] = {0};
++static EWRAM_DATA u8 sTrailHead = 0;
++static EWRAM_DATA u8 sTrailLen = 0;
 +static EWRAM_DATA u8 sFacing = 0;
 +
 +static void SpriteCB_Follower(struct Sprite *sprite)
@@ -25756,13 +25762,6 @@ index 0000000..18d5954
 +    sSpecies = what;
 +}
 +
-+static void Place(struct Sprite *sprite, s16 wx, s16 wy)
-+{
-+    SetSpritePosToMapCoords((wx >> 4) + MAP_OFFSET, (wy >> 4) + MAP_OFFSET, &sprite->x, &sprite->y);
-+    sprite->x += (wx & 15) + 8;
-+    sprite->y += (wy & 15) + 16 + sprite->centerToCornerVecY;
-+}
-+
 +static void Destroy(void)
 +{
 +    struct Sprite *sprite = &gSprites[sSpriteId - 1];
@@ -25772,12 +25771,103 @@ index 0000000..18d5954
 +    sSpriteId = 0;
 +}
 +
++// Called every frame with the follower's sprite and the player's.
++static void HanFollowTrail(struct Sprite *sprite, struct Sprite *player)
++{
++    s16 x = player->x + player->x2;
++    s16 y = player->y + player->y2;
++    s16 fx, fy, nx, ny, dx, dy, seg, left;
++    s16 ox, oy;
++    u8 i, idx, prev, dir;
++
++    if (sTrailLen != 0)
++    {
++        s16 hx = sTrailX[sTrailHead], hy = sTrailY[sTrailHead];
++
++        dx = x - hx;
++        dy = y - hy;
++        if (dx > 24 || dx < -24 || dy > 24 || dy < -24)
++            sTrailLen = 0; // a warp, or the map moved under us: come out from under the player again
++    }
++    if (sTrailLen == 0)
++    {
++        sTrailHead = 0;
++        sTrailX[0] = x;
++        sTrailY[0] = y;
++        sTrailLen = 1;
++        sprite->invisible = TRUE;
++    }
++    else if (x != sTrailX[sTrailHead] || y != sTrailY[sTrailHead])
++    {
++        sTrailHead = (sTrailHead + 1) % TRAIL_N;
++        sTrailX[sTrailHead] = x;
++        sTrailY[sTrailHead] = y;
++        if (sTrailLen < TRAIL_N)
++            sTrailLen++;
++    }
++
++    // walk back along the path 16 pixels from the player; short of that, stand at the start of it
++    ox = sprite->x;
++    oy = sprite->y;
++    fx = x;
++    fy = y;
++    left = 16;
++    dir = sFacing;
++    idx = sTrailHead;
++    for (i = 1; i < sTrailLen && left > 0; i++)
++    {
++        prev = (idx + TRAIL_N - 1) % TRAIL_N;
++        nx = sTrailX[prev];
++        ny = sTrailY[prev];
++        dx = nx - sTrailX[idx];
++        dy = ny - sTrailY[idx];
++        seg = (dx < 0 ? -dx : dx) + (dy < 0 ? -dy : dy);
++        if (seg >= left)
++        {
++            fx = sTrailX[idx] + dx * left / seg;
++            fy = sTrailY[idx] + dy * left / seg;
++            left = 0;
++        }
++        else
++        {
++            fx = nx;
++            fy = ny;
++            left -= seg;
++        }
++        // the way the follower goes along this stretch is the way the player went: from the older point to the newer
++        if (dx != 0 || dy != 0)
++        {
++            if ((dx < 0 ? -dx : dx) >= (dy < 0 ? -dy : dy))
++                dir = dx < 0 ? DIR_EAST : DIR_WEST;
++            else
++                dir = dy < 0 ? DIR_SOUTH : DIR_NORTH;
++        }
++        idx = prev;
++    }
++    // (the loop went newest to oldest, so dir is the direction of the oldest stretch used; the follower is on it)
++    sprite->x = fx;
++    sprite->y = fy;
++    sprite->x2 = 0;
++    sprite->y2 = 0;
++    if (fx != ox || fy != oy)
++    {
++        sFacing = dir;
++        StartSpriteAnimIfDifferent(sprite, GetMoveDirectionAnimNum(dir));
++    }
++    else
++        StartSpriteAnimIfDifferent(sprite, GetFaceDirectionAnimNum(sFacing));
++    sprite->invisible = left > 8; // hidden until it is out from under the player
++    sprite->oam.priority = player->oam.priority;
++    if (fy > y)
++        sprite->subpriority = player->subpriority - 1; // in front of the player
++    else
++        sprite->subpriority = player->subpriority + 1;
++}
++
 +void HanFollowerFrame(void)
 +{
 +    struct Sprite *sprite, *player;
 +    u16 want;
-+    s16 px, py, wx, wy, tx, ty, dx, dy, adx, ady;
-+    u8 dir, i;
 +
 +    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
 +        return;
@@ -25792,8 +25882,6 @@ index 0000000..18d5954
 +    if (want != sSpecies)
 +        MakeFrames(want);
 +
-+    px = gSaveBlock1Ptr->pos.x;
-+    py = gSaveBlock1Ptr->pos.y;
 +    sprite = &gSprites[sSpriteId - 1];
 +    if (sSpriteId == 0 || !sprite->inUse || sprite->data[7] != FOLLOW_TAG)
 +    {
@@ -25815,136 +25903,18 @@ index 0000000..18d5954
 +        }
 +        sprite = &gSprites[id];
 +        sprite->data[7] = FOLLOW_TAG;
-+        sprite->data[0] = px * 16;
-+        sprite->data[1] = py * 16;
 +        sprite->coordOffsetEnabled = TRUE;
 +        sprite->centerToCornerVecX = -16;
 +        sprite->centerToCornerVecY = -16;
 +        sprite->invisible = TRUE;
 +        sprite->oam.priority = gSprites[gPlayerAvatar.spriteId].oam.priority;
-+        sHistN = 0;
-+        sLastX = px;
-+        sLastY = py;
++        sTrailHead = 0;
++        sTrailLen = 0;
 +        sFacing = DIR_SOUTH;
 +        StartSpriteAnim(sprite, GetFaceDirectionAnimNum(DIR_SOUTH));
 +    }
 +    player = &gSprites[gPlayerAvatar.spriteId];
-+
-+    // the player changed tile
-+    if (px != sLastX || py != sLastY)
-+    {
-+        dx = px - sLastX;
-+        dy = py - sLastY;
-+        if (dx > 3 || dx < -3 || dy > 3 || dy < -3)
-+        {
-+            // a warp, or the map moved under us: come out from under the player again
-+            sprite->data[0] = px * 16;
-+            sprite->data[1] = py * 16;
-+            sHistN = 0;
-+            sprite->invisible = TRUE;
-+        }
-+        else
-+        {
-+            if (sHistN == HIST_MAX)
-+            {
-+                // far behind: jump to the oldest waiting tile (a tile on the player's own path) and go on from there
-+                sprite->data[0] = sHistX[0] * 16;
-+                sprite->data[1] = sHistY[0] * 16;
-+                for (i = 1; i < HIST_MAX; i++)
-+                {
-+                    sHistX[i - 1] = sHistX[i];
-+                    sHistY[i - 1] = sHistY[i];
-+                }
-+                sHistN--;
-+            }
-+            sHistX[sHistN] = sLastX;
-+            sHistY[sHistN] = sLastY;
-+            sHistN++;
-+            sSpeed = sSince == 0 || sSince > 16 ? 16 : (sSince < 2 ? 2 : sSince);
-+            sSince = 0;
-+        }
-+        sLastX = px;
-+        sLastY = py;
-+    }
-+    else if (sSince < 255)
-+        sSince++;
-+
-+    wx = sprite->data[0];
-+    wy = sprite->data[1];
-+    if (sHistN)
-+    {
-+        u8 step;
-+
-+        tx = sHistX[0] * 16;
-+        ty = sHistY[0] * 16;
-+        dx = tx - wx;
-+        dy = ty - wy;
-+        adx = dx < 0 ? -dx : dx;
-+        ady = dy < 0 ? -dy : dy;
-+        if (adx > 48 || ady > 48)
-+        {
-+            wx = tx;
-+            wy = ty;
-+            dx = dy = 0;
-+            adx = ady = 0;
-+        }
-+        if (adx != 0 || ady != 0)
-+        {
-+            // one axis at a time along the player's path; faster the more tiles are waiting
-+            // a tile in the player's own time, with the fraction carried over so the walk is smooth;
-+            // faster when more than one tile is waiting
-+            sAcc += (16 * 256 / sSpeed) * (sHistN > 1 ? sHistN : 1);
-+            step = sAcc >> 8;
-+            sAcc &= 255;
-+            if (step > 8)
-+                step = 8;
-+            sprite->invisible = FALSE;
-+            if (adx != 0)
-+            {
-+                dir = dx > 0 ? DIR_EAST : DIR_WEST;
-+                if (adx <= step)
-+                    wx = tx;
-+                else
-+                    wx += dx > 0 ? step : -step;
-+            }
-+            else
-+            {
-+                dir = dy > 0 ? DIR_SOUTH : DIR_NORTH;
-+                if (ady <= step)
-+                    wy = ty;
-+                else
-+                    wy += dy > 0 ? step : -step;
-+            }
-+            sFacing = dir;
-+            StartSpriteAnimIfDifferent(sprite, GetMoveDirectionAnimNum(dir));
-+        }
-+        else
-+        {
-+            StartSpriteAnimIfDifferent(sprite, GetFaceDirectionAnimNum(sFacing));
-+        }
-+        if (wx == tx && wy == ty)
-+        {
-+            // arrived: on to the next tile of the path. When the player has stopped, it ends beside the player.
-+            for (i = 1; i < sHistN; i++)
-+            {
-+                sHistX[i - 1] = sHistX[i];
-+                sHistY[i - 1] = sHistY[i];
-+            }
-+            sHistN--;
-+        }
-+    }
-+    else
-+    {
-+        StartSpriteAnimIfDifferent(sprite, GetFaceDirectionAnimNum(sFacing));
-+    }
-+    sprite->data[0] = wx;
-+    sprite->data[1] = wy;
-+    Place(sprite, wx, wy);
-+    sprite->oam.priority = player->oam.priority;
-+    if (wy > py * 16)
-+        sprite->subpriority = player->subpriority - 1; // in front of the player
-+    else
-+        sprite->subpriority = player->subpriority + 1;
++    HanFollowTrail(sprite, player);
 +}
 +
 +// ---- the followers of the other players (src/han_multiplayer.c): a sprite made from the pictures in ROM, with its
@@ -27668,7 +27638,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..16b6043 100644
+index 77dd3db..f8d708f 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27734,9 +27704,9 @@ index 77dd3db..16b6043 100644
 +    .tilemapLeft = 12,
 +    .tilemapTop = 8,
 +    .width = 16,
-+    .height = 6,
++    .height = 5,
 +    .paletteNum = 15,
-+    .baseBlock = 545
++    .baseBlock = 421
 +};
 +
 +static const u8 sHanText_Arrow[] = _("{RIGHT_ARROW}");
@@ -27781,16 +27751,16 @@ index 77dd3db..16b6043 100644
 +        r->textColor[2] = 3;
 +        if (i == r->hanRow)
 +        {
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 0, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 78, i * 16 + 1, r->textColor, 0, sHanText_ArrowL);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 114, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 0, i * 13, r->textColor, 0, sHanText_Arrow);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 78, i * 13, r->textColor, 0, sHanText_ArrowL);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 114, i * 13, r->textColor, 0, sHanText_Arrow);
 +        }
 +        label = i == 0 ? (gSaveBlock2Ptr->playerGender == MALE ? gText_Boy : gText_Girl) : (i == 1 ? sHanText_Picture : sHanText_Palette);
-+        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 16 + 1, r->textColor, 0, label);
++        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 13, r->textColor, 0, label);
 +        if (i != 0)
 +        {
 +            ConvertIntToDecimalStringN(buf, i == 1 ? HanPicNumber(gSaveBlock2Ptr->hanLook[HAN_LOOK_PIC]) : gSaveBlock2Ptr->hanLook[HAN_LOOK_PAL], STR_CONV_MODE_LEFT_ALIGN, 3);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 16 + 1, r->textColor, 0, buf);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 13, r->textColor, 0, buf);
 +        }
 +    }
 +    while (IsTextPrinterActive(r->hanWin))

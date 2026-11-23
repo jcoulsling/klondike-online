@@ -450,9 +450,16 @@
     else { i = Math.max(0, i - 1); ctx.moveTo(p[i * 2], p[i * 2 + 1]); for (i = i + 1; i < p.length / 2; i++) ctx.lineTo(p[i * 2], p[i * 2 + 1]); }
     ctx.stroke();
   }
+  var live = {};                   // lines of text other people are typing right now, shown as they type
+  function drawLive() {
+    Object.keys(live).forEach(function (k) {
+      var l = live[k]; ctx.fillStyle = l.c; ctx.font = (l.w * 6) + 'px system-ui, sans-serif'; ctx.textBaseline = 'top'; ctx.fillText(l.s, l.x, l.y);
+    });
+  }
   function redraw() {
     ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
     strokes.forEach(function (st) { drawStroke(st, 0); });
+    drawLive();
   }
   function addPiece(m) {          // a piece of a stroke from someone else
     var st = byKey[m.key];
@@ -510,6 +517,7 @@
   function commitText() {
     var box = $('textin'), v = box.value.trim();
     box.style.display = 'none';
+    if (canDraw() && box.dataset.x) window.__send({ t: 'wbtype', x: +box.dataset.x, y: +box.dataset.y, c: colour, w: width, s: '' });   // the others stop showing it as typed
     if (!v || !canDraw()) return;
     var id = (++strokeSeq).toString(36) + Date.now().toString(36).slice(-4), st = { key: myId + ':' + id, k: 't', c: colour, w: width, p: [+box.dataset.x, +box.dataset.y], s: v };
     strokes.push(st); byKey[st.key] = st; drawStroke(st, 0);
@@ -517,6 +525,9 @@
   }
   $('textin').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); commitText(); } else if (e.key === 'Escape') this.style.display = 'none'; });
   $('textin').addEventListener('blur', commitText);
+  $('textin').addEventListener('input', function () {      // the others see the words appear as you type them
+    if (canDraw()) window.__send({ t: 'wbtype', x: +this.dataset.x, y: +this.dataset.y, c: colour, w: width, s: this.value });
+  });
 
   /* ---------- the buttons ---------- */
   function pick(group, id) { group.forEach(function (g) { $(g).classList.toggle('on', g === id); }); }
@@ -567,11 +578,12 @@
       if (!boardOnly) $('teachbar').style.display = 'block';
       renderWho();
     } else if (m.t === 'arrived') { people[m.id] = m.name; addLine(m.name + ' came in.', true); renderWho(); }
-    else if (m.t === 'left') { var n = people[m.id]; delete people[m.id]; if (n) addLine(n + ' left.', true); renderWho(); }
+    else if (m.t === 'left') { if (live[m.id]) { delete live[m.id]; redraw(); } var n = people[m.id]; delete people[m.id]; if (n) addLine(n + ' left.', true); renderWho(); }
     else if (m.t === 'host') { hostId = m.id; if (people[m.id]) addLine(people[m.id] + ' is now the teacher.', true); renderWho(); }
     else if (m.t === 'chat') addLine(m.line);
     else if (m.t === 'wbfull') { strokes = m.strokes; byKey = {}; strokes.forEach(function (s) { byKey[s.key] = s; }); redraw(); }
-    else if (m.t === 'wb') addPiece(m);
+    else if (m.t === 'wbtype') { if (m.s) live[m.by] = m; else delete live[m.by]; redraw(); }
+    else if (m.t === 'wb') { if (m.k === 't' && live[m.by]) { delete live[m.by]; redraw(); } addPiece(m); }
     else if (m.t === 'wbundo') { var st = byKey[m.key]; if (st) { delete byKey[m.key]; strokes.splice(strokes.indexOf(st), 1); if (cur === st) cur = null; redraw(); } }
     else if (m.t === 'wbclear') { strokes = []; byKey = {}; cur = null; redraw(); if (m.by !== myId && people[m.by]) addLine(people[m.by] + ' cleared the board.', true); }
     else if (m.t === 'wblock') { locked = !!m.on; renderWho(); addLine(locked ? 'The teacher locked the board: only they can draw.' : 'The board is open: everyone can draw.', true); }
