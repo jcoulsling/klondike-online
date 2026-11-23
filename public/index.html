@@ -66,7 +66,7 @@
       </div>
       <div class="rowpad"><button class="k" data-k="select">Select</button><button class="k" data-k="start">Start</button></div>
     </div>
-    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="leave">Leave</button></div>
+    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button></div>
     <p>You can see the other players walk around on the same map. You cannot talk to them or trade and battle yet.</p>
   </section>
 
@@ -256,6 +256,7 @@
   });
   $('fs').addEventListener('click', function () { var w = $('screenwrap'); if (w.requestFullscreen) w.requestFullscreen(); });
   $('mute').addEventListener('click', function () { muted = !muted; if (Module) Module.setVolume(muted ? 0 : 100); $('mute').textContent = muted ? 'Sound off' : 'Sound on'; });
+  $('restart').addEventListener('click', function () { if (Module) { Module.quickReload(); var c = $('screen'); if (c) c.focus(); } });
   $('leave').addEventListener('click', function () { if (ws) ws.send(JSON.stringify({ t: 'leave' })); location.reload(); });
 })();
 </script>
