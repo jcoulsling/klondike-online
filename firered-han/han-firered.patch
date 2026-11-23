@@ -34396,10 +34396,10 @@ index 0000000..f86d462
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..3ecd202
+index 0000000..318ec3c
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,345 @@
+@@ -0,0 +1,446 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34462,8 +34462,109 @@ index 0000000..3ecd202
 +        for i in range(16):
 +            v = raw[i * 2] | (raw[i * 2 + 1] << 8)
 +            rgb.append(((v & 31) * 255 // 31, ((v >> 5) & 31) * 255 // 31, ((v >> 10) & 31) * 255 // 31))
-+        out[idx] = (name, pic, rgb)
++        pic, rgb = protect(pic, rgb)
++        out[idx] = (name, pic, list(rgb))
 +    return out
++
++
++KEEP = {}   # palette (as a tuple) -> colour numbers no variant changes: the lips and blush on a face
++
++
++def _decode(raw):
++    g = [[0] * 64 for _ in range(64)]
++    for t in range(64):
++        for y in range(8):
++            for x in range(8):
++                b = raw[t * 32 + y * 4 + x // 2]
++                g[(t // 8) * 8 + y][(t % 8) * 8 + x] = (b >> 4) if x & 1 else b & 15
++    return g
++
++
++def _encode(g):
++    raw = bytearray(0x800)
++    for t in range(64):
++        for y in range(8):
++            for x in range(4):
++                lo, hi = g[(t // 8) * 8 + y][(t % 8) * 8 + 2 * x], g[(t // 8) * 8 + y][(t % 8) * 8 + 2 * x + 1]
++                raw[t * 32 + y * 4 + x] = lo | (hi << 4)
++    return bytes(raw)
++
++
++def _reddish(c):
++    h, s, v = hsv(c)
++    return (h < 22 / 360 or h > 335 / 360) and s > 0.25 and v > 0.4
++
++
++def protect(pic, pal):
++    """Lips and blush: small patches of red or pink that sit in skin. They share a colour number with clothes, so their
++    pixels are given a number of their own (the same colour), which no palette changes. A number is freed, when the
++    picture uses all 16, by joining its two nearest colours if they are close (within 50 in total). -> pic, pal"""
++    if len(pic) < 0x800:
++        return pic, pal
++    g = _decode(pic)
++    pal = list(pal)
++    skin = lambda c: c and is_skin_or_shade(pal[c]) and colourful(pal[c])
++    seen, found = set(), {}
++    for y in range(64):
++        for x in range(64):
++            c = g[y][x]
++            if (x, y) in seen or not (c and colourful(pal[c]) and not is_skin_or_shade(pal[c]) and _reddish(pal[c])):
++                continue
++            comp = [(x, y)]
++            seen.add((x, y))
++            k = 0
++            while k < len(comp):
++                cx, cy = comp[k]
++                k += 1
++                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
++                    q = (cx + dx, cy + dy)
++                    if 0 <= q[0] < 64 and 0 <= q[1] < 64 and q not in seen and g[q[1]][q[0]] == c:
++                        seen.add(q)
++                        comp.append(q)
++            if len(comp) > 14:
++                continue
++            cs = set(comp)
++            nb = {(cx + dx, cy + dy) for cx, cy in comp for dx in (-1, 0, 1) for dy in (-1, 0, 1)
++                  if (cx + dx, cy + dy) not in cs and 0 <= cx + dx < 64 and 0 <= cy + dy < 64}
++            if nb and sum(1 for q in nb if skin(g[q[1]][q[0]])) / len(nb) >= 0.6:
++                found.setdefault(c, []).extend(comp)
++    if not found:
++        return pic, tuple(pal)
++    keep = set()
++    for c, px in sorted(found.items(), key=lambda kv: -len(kv[1])):
++        used = {v for row in g for v in row}
++        free = [i for i in range(1, 16) if i not in used]
++        if not free:    # join the two nearest colours
++            best = None
++            for i in range(1, 16):
++                for j in range(i + 1, 16):
++                    if i in keep or j in keep:
++                        continue
++                    if is_skin_or_shade(pal[i]) != is_skin_or_shade(pal[j]) or colourful(pal[i]) != colourful(pal[j]):
++                        continue    # skin is never joined to clothes: it would turn with them
++                    dh = abs(hsv(pal[i])[0] - hsv(pal[j])[0])
++                    if colourful(pal[i]) and min(dh, 1 - dh) > 0.06:
++                        continue
++                    d = sum(abs(pal[i][k] - pal[j][k]) for k in range(3))
++                    small = min(sum(row.count(i) for row in g), sum(row.count(j) for row in g))
++                    if d > 50 and not (small <= 6 and d <= 180):
++                        continue        # the change must not be seen: a close colour, or a few pixels only
++                    if best is None or d * max(small, 1) < best[0]:
++                        best = (d * max(small, 1), i, j)
++            if best is None:
++                continue
++            _, i, j = best
++            drop, into = (i, j) if sum(row.count(i) for row in g) <= sum(row.count(j) for row in g) else (j, i)
++            g = [[into if v == drop else v for v in row] for row in g]
++            free = [drop]
++        n = free[0]
++        pal[n] = pal[c]
++        for x, y in px:
++            g[y][x] = n
++        keep.add(n)
++    pal = tuple(pal)
++    KEEP[pal] = keep
++    return _encode(g), pal
 +
 +
 +def hsv(c):
@@ -34502,7 +34603,7 @@ index 0000000..3ecd202
 +def reference(pic, pal):
 +    """The numbers that decide how a picture's colours are changed: its main hue and its range of brightness."""
 +    cnt = counts(pic)
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and i not in KEEP.get(tuple(pal), ())]
 +    main_h = hsv(pal[max(mov, key=lambda i: cnt[i])])[0] if mov else None
 +    vs = [hsv(pal[i])[2] for i in mov] or [0.5]
 +    return main_h, min(vs), max(vs)
@@ -34510,7 +34611,7 @@ index 0000000..3ecd202
 +
 +def variants(pic, pal, ref=None, follow=None):
 +    cnt = counts(pic)
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i]) and i not in KEEP.get(tuple(pal), ())]
 +    # the main colour: the hue with most pixels
 +    main_h = None
 +    if mov:
@@ -34557,7 +34658,7 @@ index 0000000..3ecd202
 +def _flag_ranks(pic, pal):
 +    """-> {colour number: 0 blue, 1 pink, 2 white} for the picture's coloured parts."""
 +    cnt = counts(pic)
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK and i not in KEEP.get(tuple(pal), ())]
 +    if not mov:
 +        return {}
 +    def gap(a, b):
@@ -34591,7 +34692,7 @@ index 0000000..3ecd202
 +    """The coloured parts (not skin, not grey) become the flag: the biggest patch of one hue light blue, the next pink,
 +    the rest white. Each colour keeps its own brightness, so the shading stays. follow = (pic, pal) of the big picture:
 +    a walking picture takes each colour's part of the flag from the nearest colour of the big picture, so they match."""
-+    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK]
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin_or_shade(pal[i]) and hsv(pal[i])[2] >= DARK and i not in KEEP.get(tuple(pal), ())]
 +    p = list(pal)   # the dark colours (the outlines) stay as they are, or the flag looks messy
 +    if not mov:
 +        return p
