@@ -13810,10 +13810,10 @@ index 069924f..1c6f2a2 100644
  extern const u32 gUnusedLevelupAnimationGfx[];
 diff --git a/include/han_custom.h b/include/han_custom.h
 new file mode 100644
-index 0000000..3e3905a
+index 0000000..59da616
 --- /dev/null
 +++ b/include/han_custom.h
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,51 @@
 +#ifndef GUARD_HAN_CUSTOM_H
 +#define GUARD_HAN_CUSTOM_H
 +
@@ -13843,6 +13843,8 @@ index 0000000..3e3905a
 +extern bool8 gHanQuick;
 +
 +void HanCustomHeapReset(void); // the heap was started again: the pictures kept in it are gone
++u8 HanPicStep(u8 pic, s8 dir, u8 gender); // the next picture that suits MALE or FEMALE
++u8 HanPicFits(u8 pic, u8 gender);
 +u8 HanLookMax(u8 part); // how many choices a part has (including "none" where there is one); 0 if there is no customizer
 +void HanLookDefault(void);
 +void HanLookRandom(void);
@@ -24590,10 +24592,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..71da70d
+index 0000000..ac334d7
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,684 @@
+@@ -0,0 +1,705 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -24646,6 +24648,25 @@ index 0000000..71da70d
 +{
 +    sMade = NULL;
 +    sTried = FALSE;
++}
++
++// the next picture (dir +1 or -1) that can be chosen for this gender, wrapping round; 0 is the game's own and fits both
++u8 HanPicStep(u8 pic, s8 dir, u8 gender)
++{
++    u8 i;
++
++    for (i = 0; i < HAN_N_PIC; i++)
++    {
++        pic = (pic + HAN_N_PIC + dir) % HAN_N_PIC;
++        if (sHanPicSex[pic] == 2 || sHanPicSex[pic] == gender)
++            return pic;
++    }
++    return 0;
++}
++
++u8 HanPicFits(u8 pic, u8 gender)
++{
++    return pic < HAN_N_PIC && (sHanPicSex[pic] == 2 || sHanPicSex[pic] == gender);
 +}
 +
 +u8 HanLookMax(u8 part)
@@ -25260,6 +25281,8 @@ index 0000000..71da70d
 +
 +void HanCustomHeapReset(void) {}
 +u8 HanLookMax(u8 part) { return 0; }
++u8 HanPicStep(u8 pic, s8 dir, u8 gender) { return pic; }
++u8 HanPicFits(u8 pic, u8 gender) { return TRUE; }
 +void HanLookDefault(void) {}
 +void HanLookRandom(void) {}
 +bool8 HanCustomMake(void) { return FALSE; }
@@ -27336,7 +27359,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..7152f9e 100644
+index 77dd3db..72d1edf 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27387,7 +27410,7 @@ index 77dd3db..7152f9e 100644
          CreateMonSpritesGfxManager(1, 1);
          break;
      case 2:
-@@ -1284,10 +1302,146 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
+@@ -1284,10 +1302,151 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
      }
  }
  
@@ -27431,7 +27454,7 @@ index 77dd3db..7152f9e 100644
 +static void HanEd_ShowPreview(void)
 +{
 +    HanEd_ClosePreview();
-+    sOakSpeechResources->hanPic = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 72, 80, 5, TAG_NONE);
++    sOakSpeechResources->hanPic = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 50, 80, 5, TAG_NONE);
 +}
 +
 +static void HanEd_Draw(void)
@@ -27489,6 +27512,8 @@ index 77dd3db..7152f9e 100644
 +            gSaveBlock2Ptr->playerGender = gSaveBlock2Ptr->playerGender == MALE ? FEMALE : MALE;
 +            if (l[HAN_LOOK_SET] != 2)
 +                l[HAN_LOOK_SET] = 0;
++            else if (!HanPicFits(l[HAN_LOOK_PIC], gSaveBlock2Ptr->playerGender))
++                l[HAN_LOOK_PIC] = 0; // a picture of the other gender goes back to the game's own
 +        }
 +        else
 +        {
@@ -27496,7 +27521,10 @@ index 77dd3db..7152f9e 100644
 +            max = HanLookMax(part);
 +            if (l[HAN_LOOK_SET] == 0)
 +                HanLookDefault();
-+            l[part] = JOY_NEW(DPAD_RIGHT) ? (l[part] + 1) % max : (l[part] + max - 1) % max;
++            if (part == HAN_LOOK_PIC)
++                l[part] = HanPicStep(l[part], JOY_NEW(DPAD_RIGHT) ? 1 : -1, gSaveBlock2Ptr->playerGender);
++            else
++                l[part] = JOY_NEW(DPAD_RIGHT) ? (l[part] + 1) % max : (l[part] + max - 1) % max;
 +            l[HAN_LOOK_SET] = 2;
 +        }
 +        redraw = TRUE;
@@ -27534,7 +27562,7 @@ index 77dd3db..7152f9e 100644
          gTasks[taskId].tMenuWindowId = AddWindow(&sIntro_WindowTemplates[WIN_INTRO_BOYGIRL]);
          PutWindowTilemap(gTasks[taskId].tMenuWindowId);
          DrawStdFrameWithCustomTileAndPalette(gTasks[taskId].tMenuWindowId, TRUE, GetStdWindowBaseTileNum(), 14);
-@@ -1300,7 +1454,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1300,7 +1459,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
          sOakSpeechResources->textColor[1] = 2;
          sOakSpeechResources->textColor[2] = 3;
          AddTextPrinterParameterized3(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 8, 17, sOakSpeechResources->textColor, 0, gText_Girl);
@@ -27543,7 +27571,7 @@ index 77dd3db..7152f9e 100644
          CopyWindowToVram(gTasks[taskId].tMenuWindowId, COPYWIN_FULL);
          gTasks[taskId].func = Task_OakSpeech_HandleGenderInput;
      }
-@@ -1308,7 +1462,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1308,7 +1467,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
  
  static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  {
@@ -27554,7 +27582,7 @@ index 77dd3db..7152f9e 100644
      switch (input)
      {
      case 0: // BOY
-@@ -1328,6 +1484,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
+@@ -1328,6 +1489,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  static void Task_OakSpeech_ClearGenderWindows(u8 taskId)
  {
      s16 *data = gTasks[taskId].data;
@@ -27564,7 +27592,7 @@ index 77dd3db..7152f9e 100644
      ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
      RemoveWindow(tMenuWindowId);
      tMenuWindowId = WIN_INTRO_TEXTBOX;
-@@ -1967,6 +2126,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
+@@ -1967,6 +2131,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
  {
      u32 i;
  
@@ -39092,10 +39120,10 @@ index 0000000..b06642d
 +    main()
 diff --git a/tools/han/han_custom.py b/tools/han/han_custom.py
 new file mode 100644
-index 0000000..f986441
+index 0000000..ef68e00
 --- /dev/null
 +++ b/tools/han/han_custom.py
-@@ -0,0 +1,314 @@
+@@ -0,0 +1,326 @@
 +#!/usr/bin/env python3
 +"""Build-time data for the character customizer (Jane, 22 November 2026).
 +
@@ -39378,7 +39406,19 @@ index 0000000..f986441
 +    L.append("static const u16 sHanLiteral[24] = {" + ", ".join("0x%04X" % snap555(c) for c in litc) + "};")
 +    fams, bigc = big_tables()
 +    import han_pics as P
-+    blob, pals, _ = P.build()
++    blob, pals, _pd = P.build()
++    # who a picture can be chosen by: 0 boy, 1 girl, 2 either (pairs, twins and the game's own default)
++    _fem = {"RS_AROMA_LADY", "HEX_MANIAC", "RS_LADY", "RS_BEAUTY", "RS_PSYCHIC_F", "ELITE_FOUR_PHOEBE", "LEADER_ROXANNE",
++            "BATTLE_GIRL", "PARASOL_LADY", "RS_PICNICKER", "RS_MAY_1", "RS_MAY_2", "RS_LASS", "LEADER_FLANNERY", "LEADER_WINONA",
++            "ELITE_FOUR_GLACIA", "LASS", "PICNICKER", "BEAUTY", "ELITE_FOUR_LORELEI", "ELITE_FOUR_AGATHA", "LEADER_ERIKA",
++            "LEADER_MISTY", "LEADER_SABRINA", "CRUSH_GIRL", "AROMA_LADY", "LADY", "LEAF", "POKEMON_BREEDER"}
++    _both = {"LEADER_TATE_AND_LIZA", "SR_AND_JR", "OLD_COUPLE", "RS_YOUNG_COUPLE", "RS_SIS_AND_BRO", "RS_TWINS", "TWINS",
++             "COOL_COUPLE", "YOUNG_COUPLE", "CRUSH_KIN", "SIS_AND_BRO"}
++    _sx = [2]
++    for _d in _pd:
++        n_ = _d[0] if _d else ""
++        _sx.append(2 if n_ in _both else (1 if (n_ in _fem or n_.endswith("_F")) else 0))
++    L.append("static const u8 sHanPicSex[%d] = {" % len(_sx) + ", ".join(map(str, _sx)) + "};")
 +    (OUT_DIR / "pics.bin").write_bytes(bytes(blob))
 +    L.append("#define HAN_N_PIC %d // values: 0 the game's own Red or Leaf, then the game's trainer pictures in order" % (len(pals) + 1))
 +    L.append("#define HAN_N_PAL %d // palettes: the original, 7 rainbow colours, black, white, 2 that suit the picture" % P.N_VARIANTS)
