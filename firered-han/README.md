@@ -986,6 +986,10 @@ Face another player, press A, say No to trading, Yes to battling. The other play
 The player's walking picture follows the PICTURE row. Hoenn characters have no walking picture in FireRed, so
 `tools/han/han_people.py` brings 27 from Emerald (Team Aqua and Magma members, Archie, Maxie, Wally, Wallace, the Hoenn
 gym leaders and Elite Four, and others) next to the copy of pokeemerald that `han_emerald.py` already reads. Emerald's
-gym leaders and Elite Four have three frames, so their walking steps are the standing frame with a one pixel bob.
+gym leaders and Elite Four have three frames, so their walking steps are drawn from the standing frames (one foot lifts at a time).
 Pictures with no Emerald match take the nearest of FireRed's own, by sex and kind (`OW_OF` and `EM_OF` in han_pics.py).
 The new pictures are graphics ids 154 and up (`OBJ_EVENT_GFX_HAN_PEOPLE`, room for 40).
+
+The walking colours are changed by the numbers of the big picture (main hue, brightness range), so PALETTE looks the
+same on both. PALETTE 12 is the trans flag (light blue, pink, white; `trans_flag` in han_pics.py). The palette count is
+`N_VARIANTS` there (13 now).

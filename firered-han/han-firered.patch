@@ -22782,10 +22782,10 @@ index c193609..b7738e4 100644
      u8 selectedMonParty;
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..ee2b139
+index 0000000..ba93611
 --- /dev/null
 +++ b/tools/han/README.md
-@@ -0,0 +1,991 @@
+@@ -0,0 +1,995 @@
 +# Hän letters in pokefirered
 +
 +This folder adds the Hän alphabet to the game's four Latin fonts.
@@ -23774,9 +23774,13 @@ index 0000000..ee2b139
 +The player's walking picture follows the PICTURE row. Hoenn characters have no walking picture in FireRed, so
 +`tools/han/han_people.py` brings 27 from Emerald (Team Aqua and Magma members, Archie, Maxie, Wally, Wallace, the Hoenn
 +gym leaders and Elite Four, and others) next to the copy of pokeemerald that `han_emerald.py` already reads. Emerald's
-+gym leaders and Elite Four have three frames, so their walking steps are the standing frame with a one pixel bob.
++gym leaders and Elite Four have three frames, so their walking steps are drawn from the standing frames (one foot lifts at a time).
 +Pictures with no Emerald match take the nearest of FireRed's own, by sex and kind (`OW_OF` and `EM_OF` in han_pics.py).
 +The new pictures are graphics ids 154 and up (`OBJ_EVENT_GFX_HAN_PEOPLE`, room for 40).
++
++The walking colours are changed by the numbers of the big picture (main hue, brightness range), so PALETTE looks the
++same on both. PALETTE 12 is the trans flag (light blue, pink, white; `trans_flag` in han_pics.py). The palette count is
++`N_VARIANTS` there (13 now).
 diff --git a/tools/han/cmudict_LICENSE.txt b/tools/han/cmudict_LICENSE.txt
 new file mode 100644
 index 0000000..81a0ae8
@@ -34199,10 +34203,10 @@ index 0000000..1312c54
 +        sys.exit(__doc__)
 diff --git a/tools/han/han_people.py b/tools/han/han_people.py
 new file mode 100644
-index 0000000..a2a421c
+index 0000000..f86d462
 --- /dev/null
 +++ b/tools/han/han_people.py
-@@ -0,0 +1,156 @@
+@@ -0,0 +1,187 @@
 +#!/usr/bin/env python3
 +"""Brings Emerald's little walking pictures into the build, for the player's PICTURE.
 +
@@ -34259,9 +34263,42 @@ index 0000000..a2a421c
 +    return out
 +
 +
++def _walk(stand, palette, way, step):
++    """One walking frame drawn from a standing one. The legs are the bottom rows. Facing down or up, one foot lifts a
++    pixel at a time, left then right. Facing left, the front foot reaches forward and lifts, then the back one."""
++    from PIL import Image
++    px = stand.load()
++    rows = [y for y in range(32) if any(px[x, y] for x in range(16))]
++    bottom = rows[-1]
++    top = bottom - 5                      # the legs: the last six rows
++    fr = Image.new("P", (16, 32), 0)
++    fr.putpalette(palette)
++    out = fr.load()
++    for y in range(32):
++        for x in range(16):
++            c = px[x, y]
++            if not c:
++                continue
++            if y < top:
++                out[x, y - 1 if y > 0 else y] = c      # the body rises a pixel on a step
++                continue
++            if way == "side":
++                front = x < 8
++                lift = (front and step == 0) or (not front and step == 1)
++                nx = x + (-1 if front and step == 0 else (1 if not front and step == 1 else 0))
++            else:
++                left = x < 8
++                lift = (left and step == 0) or (not left and step == 1)
++                nx = x
++            ny = y - 1 if lift else y
++            if 0 <= nx < 16 and 0 <= ny < 32:
++                out[nx, ny] = c
++    return fr
++
++
 +def nine_frames(raw):
 +    """Emerald's gym leaders and Elite Four have three frames only (facing down, up, left). The walking picture
-+    needs nine, so the two steps of each way are the standing frame, the first one a pixel higher: a little bob."""
++    needs nine, so the steps are drawn from the standing frames by _walk."""
 +    import io
 +    from PIL import Image
 +    im = Image.open(io.BytesIO(raw))
@@ -34269,16 +34306,14 @@ index 0000000..a2a421c
 +        return raw
 +    if im.size != (48, 32):
 +        sys.exit("han_people.py: a walking picture of %s is not what it expects" % (im.size,))
++    pal = im.getpalette()
 +    out = Image.new("P", (144, 32), 0)
-+    out.putpalette(im.getpalette())
-+    stand = [im.crop((16 * i, 0, 16 * i + 16, 32)) for i in range(3)]
++    out.putpalette(pal)
 +    for i in range(3):
-+        out.paste(stand[i], (16 * i, 0))
-+        up = Image.new("P", (16, 32), 0)
-+        up.putpalette(im.getpalette())
-+        up.paste(stand[i].crop((0, 1, 16, 32)), (0, 0))
-+        out.paste(up, (16 * (3 + 2 * i), 0))
-+        out.paste(stand[i], (16 * (4 + 2 * i), 0))
++        stand = im.crop((16 * i, 0, 16 * i + 16, 32))
++        out.paste(stand, (16 * i, 0))
++        for step in (0, 1):
++            out.paste(_walk(stand, pal, "side" if i == 2 else "front", step), (16 * (3 + 2 * i + step), 0))
 +    buf = io.BytesIO()
 +    out.save(buf, format="PNG", transparency=0)
 +    return buf.getvalue()
@@ -34361,10 +34396,10 @@ index 0000000..a2a421c
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..c6d49f5
+index 0000000..f19f032
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,248 @@
+@@ -0,0 +1,331 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34382,7 +34417,7 @@ index 0000000..c6d49f5
 +from pathlib import Path
 +
 +ROOT = Path(__file__).resolve().parents[2]
-+N_VARIANTS = 12
++N_VARIANTS = 13   # 0 the original, 1 to 7 rainbow, 8 black, 9 white, 10 and 11 that suit the picture, 12 the trans flag
 +RAINBOW = [0.0, 30 / 360, 56 / 360, 125 / 360, 220 / 360, 262 / 360, 290 / 360]
 +
 +
@@ -34458,7 +34493,16 @@ index 0000000..c6d49f5
 +    return n
 +
 +
-+def variants(pic, pal):
++def reference(pic, pal):
++    """The numbers that decide how a picture's colours are changed: its main hue and its range of brightness."""
++    cnt = counts(pic)
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    main_h = hsv(pal[max(mov, key=lambda i: cnt[i])])[0] if mov else None
++    vs = [hsv(pal[i])[2] for i in mov] or [0.5]
++    return main_h, min(vs), max(vs)
++
++
++def variants(pic, pal, ref=None, follow=None):
 +    cnt = counts(pic)
 +    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
 +    # the main colour: the hue with most pixels
@@ -34466,12 +34510,16 @@ index 0000000..c6d49f5
 +    if mov:
 +        best = max(mov, key=lambda i: cnt[i])
 +        main_h = hsv(pal[best])[0]
++    if ref is not None:     # a walking picture is changed by the numbers of its big picture, so the two match
++        main_h = ref[0]
 +    targets = list(RAINBOW)
 +    if main_h is None:
 +        main_h = 0.6
 +    targets += [None, None]
 +    vs = [hsv(pal[i])[2] for i in mov] or [0.5]
 +    vlo, vhi = min(vs), max(vs)
++    if ref is not None:
++        vlo, vhi = ref[1], ref[2]
 +    out = []
 +    for v in range(N_VARIANTS):
 +        p = list(pal)
@@ -34492,7 +34540,73 @@ index 0000000..c6d49f5
 +            else:
 +                p[i] = rgb(h - main_h + main_h + 1 / 3, max(s, 0.45), val)
 +        out.append(p)
++    out[12] = trans_flag(pic, pal, follow)
 +    return out
++
++
++TRANS = [(91, 206, 250), (245, 169, 184), (255, 255, 255)]   # the trans flag: light blue, pink, white
++
++
++def _flag_ranks(pic, pal):
++    """-> {colour number: 0 blue, 1 pink, 2 white} for the picture's coloured parts."""
++    cnt = counts(pic)
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    if not mov:
++        return {}
++    def gap(a, b):
++        d = abs(hsv(pal[a])[0] - hsv(pal[b])[0])
++        return min(d, 1 - d)
++    groups = []
++    for i in sorted(mov, key=lambda i: hsv(pal[i])[0]):
++        if groups and gap(i, groups[-1][-1]) < 0.07:
++            groups[-1].append(i)
++        else:
++            groups.append([i])
++    if len(groups) > 1 and gap(groups[0][0], groups[-1][-1]) < 0.07:     # red wraps round
++        groups[0] += groups.pop()
++    while len(groups) < 3:      # too few hues for three stripes: split the biggest by brightness
++        big = max(groups, key=lambda g: (len(g), sum(cnt[i] for i in g)))
++        if len(big) < 2:
++            break
++        order = sorted(big, key=lambda i: hsv(pal[i])[2])
++        h = (len(order) + 1) // 2
++        groups.remove(big)
++        groups += [order[:h], order[h:]]
++    groups.sort(key=lambda g: -sum(cnt[i] for i in g))
++    return {i: min(r, 2) for r, g in enumerate(groups) for i in g}
++
++
++def trans_flag(pic, pal, follow=None):
++    """The coloured parts (not skin, not grey) become the flag: the biggest patch of one hue light blue, the next pink,
++    the rest white. Each colour keeps its own brightness, so the shading stays. follow = (pic, pal) of the big picture:
++    a walking picture takes each colour's part of the flag from the nearest colour of the big picture, so they match."""
++    mov = [i for i in range(1, 16) if colourful(pal[i]) and not is_skin(pal[i])]
++    p = list(pal)
++    if not mov:
++        return p
++    if follow is None:
++        rank = _flag_ranks(pic, pal)
++    else:
++        fr = _flag_ranks(*follow)
++        fp = follow[1]
++        rank = {}
++        for i in mov:
++            h, _, v = hsv(pal[i])
++            def dist(j):
++                d = abs(h - hsv(fp[j])[0])
++                return 2 * min(d, 1 - d) + 0.3 * abs(v - hsv(fp[j])[2])
++            rank[i] = fr[min(fr, key=dist)] if fr else 0
++    for r in range(3):
++        g = [i for i in mov if rank.get(i) == r]
++        if not g:
++            continue
++        vmax = max(hsv(pal[i])[2] for i in g)
++        vmin = min(hsv(pal[i])[2] for i in g)
++        for i in g:
++            t = (hsv(pal[i])[2] - vmin) / (vmax - vmin) if vmax > vmin else 1
++            f = (0.78 + 0.22 * t) if r == 2 else (0.62 + 0.38 * t)
++            p[i] = tuple(min(255, int(c * f)) for c in TRANS[r])
++    return p
 +
 +
 +def c555(c):
@@ -34591,28 +34705,32 @@ index 0000000..c6d49f5
 +        for i in range(16):
 +            v = struct.unpack_from("<H", raw, i * 2)[0]
 +            rgb.append(((v & 31) * 255 // 31, ((v >> 5) & 31) * 255 // 31, ((v >> 10) & 31) * 255 // 31))
-+        bases.append([[c555(c) for c in p] for p in variants(bytes(range(256)), rgb)])
++        bases.append(rgb)
 +    norm = {k.replace("_", "").lower(): v for k, v in gfx_consts.items()}
 +    pics = parse()
 +    out = []
-+    for d in pics:
++    pals = []
++    for n, d in enumerate(pics):
 +        if d is None:
-+            out.append((norm["rednormal"], 4))
++            out.append((norm["rednormal"], n))
++            pals.append([[c555(c) for c in p] for p in variants(bytes(range(256)), bases[4])])
 +            continue
 +        name = d[0]
 +        if EM_OF.get(name) == "STEVEN":     # Emerald's STEVEN already stands where KOGA stood
-+            out.append((norm["koga"], 5))
-+            continue
-+        if name in EM_OF:
++            gfx, base = norm["koga"], 5
++        elif name in EM_OF:
 +            import han_people
-+            out.append((han_people.ids()[EM_OF[name]], han_people.base_of(EM_OF[name])))
-+            continue
-+        camel = OW_OF.get(name)
-+        if camel is None:
-+            female = name.endswith("_F") or any(w in name for w in ("GIRL", "LADY", "MAY", "WOMAN", "BEAUTY", "MISS"))
-+            camel = "Lass" if female else "Youngster"
-+        out.append((norm[camel.lower()], OW_TAG[infos[camel].replace("OBJ_EVENT_PAL_TAG_", "")]))
-+    return bases, out
++            gfx, base = han_people.ids()[EM_OF[name]], han_people.base_of(EM_OF[name])
++        else:
++            camel = OW_OF.get(name)
++            if camel is None:
++                female = name.endswith("_F") or any(w in name for w in ("GIRL", "LADY", "MAY", "WOMAN", "BEAUTY", "MISS"))
++                camel = "Lass" if female else "Youngster"
++            gfx, base = norm[camel.lower()], OW_TAG[infos[camel].replace("OBJ_EVENT_PAL_TAG_", "")]
++        out.append((gfx, n))
++        # the walking colours are changed by the numbers of this picture's own big picture, so they match it
++        pals.append([[c555(c) for c in p] for p in variants(bytes(range(256)), bases[base], reference(d[1], d[2]), (d[1], d[2]))])
++    return pals, out
 diff --git a/tools/han/han_pok3.py b/tools/han/han_pok3.py
 new file mode 100644
 index 0000000..7855add
