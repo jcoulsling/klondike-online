@@ -27336,7 +27336,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..b0d5416 100644
+index 77dd3db..7152f9e 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27399,18 +27399,18 @@ index 77dd3db..b0d5416 100644
 +static const struct WindowTemplate sHanBoyGirl_WindowTemplate =
 +{
 +    .bg = 0,
-+    .tilemapLeft = 15,
++    .tilemapLeft = 12,
 +    .tilemapTop = 8,
-+    .width = 13,
++    .width = 16,
 +    .height = 6,
 +    .paletteNum = 15,
-+    .baseBlock = 430
++    .baseBlock = 545
 +};
 +
 +static const u8 sHanText_Arrow[] = _("{RIGHT_ARROW}");
 +static const u8 sHanText_ArrowL[] = _("{LEFT_ARROW}");
-+static const u8 sHanText_Picture[] = _("PICTURE");
-+static const u8 sHanText_Palette[] = _("PALETTE");
++static const u8 sHanText_Picture[] = _("Dòk");
++static const u8 sHanText_Palette[] = _("Jì Dënäkär");
 +
 +static void HanEd_ClosePreview(void)
 +{
@@ -27450,15 +27450,15 @@ index 77dd3db..b0d5416 100644
 +        if (i == r->hanRow)
 +        {
 +            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 0, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 56, i * 16 + 1, r->textColor, 0, sHanText_ArrowL);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 92, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 78, i * 16 + 1, r->textColor, 0, sHanText_ArrowL);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 114, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
 +        }
 +        label = i == 0 ? (gSaveBlock2Ptr->playerGender == MALE ? gText_Boy : gText_Girl) : (i == 1 ? sHanText_Picture : sHanText_Palette);
 +        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 16 + 1, r->textColor, 0, label);
 +        if (i != 0)
 +        {
 +            ConvertIntToDecimalStringN(buf, gSaveBlock2Ptr->hanLook[i == 1 ? HAN_LOOK_PIC : HAN_LOOK_PAL], STR_CONV_MODE_LEFT_ALIGN, 3);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 66, i * 16 + 1, r->textColor, 0, buf);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 16 + 1, r->textColor, 0, buf);
 +        }
 +    }
 +    CopyWindowToVram(r->hanWin, COPYWIN_FULL);
