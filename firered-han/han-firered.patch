@@ -8933,10 +8933,10 @@ index 069924f..1c6f2a2 100644
  extern const u32 gUnusedLevelupAnimationGfx[];
 diff --git a/include/han_custom.h b/include/han_custom.h
 new file mode 100644
-index 0000000..4961cd4
+index 0000000..74af181
 --- /dev/null
 +++ b/include/han_custom.h
-@@ -0,0 +1,47 @@
+@@ -0,0 +1,48 @@
 +#ifndef GUARD_HAN_CUSTOM_H
 +#define GUARD_HAN_CUSTOM_H
 +
@@ -8981,6 +8981,7 @@ index 0000000..4961cd4
 +void HanLookPicPal(u8 *pic, u8 *pal);
 +bool8 HanOwFor(u8 pic, u8 pal, u16 *gfx, const u16 **colours);
 +void HanReflectionOf(const u16 *pal, u16 *out);
++bool8 HanOakPic(u8 *dest); // the chosen character on the Oak speech screens: TRUE if it was put in video memory
 +bool8 HanCustomPicData(const void *src, void *dest); // the palette of the player's front or back picture: writes the recoloured one
 +
 +#endif // GUARD_HAN_CUSTOM_H
@@ -18013,10 +18014,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..83c0777
+index 0000000..f3a0729
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,619 @@
+@@ -0,0 +1,659 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -18616,6 +18617,45 @@ index 0000000..83c0777
 +    return TRUE;
 +}
 +
++// The player's picture on the Oak speech screens (the boy or girl choice, the name): when a character or a palette was
++// chosen, its big picture (64 by 64) is put into the 64 by 96, 256 colour tile data of the screen, standing at the bottom,
++// with its palette; dest is the video memory for the tiles. FALSE (nothing done) for the game's own Red or Leaf picture.
++bool8 HanOakPic(u8 *dest)
++{
++    u8 look[HAN_LOOK_SIZE];
++    u8 *buf;
++    u16 pic, pal;
++    u32 t, p, x, v;
++    const u8 *src;
++    u8 *out;
++
++    if (gSaveBlock2Ptr->hanLook[HAN_LOOK_SET] == 0 || (gSaveBlock2Ptr->hanLook[HAN_LOOK_PIC] == 0 && gSaveBlock2Ptr->hanLook[HAN_LOOK_PAL] == 0))
++        return FALSE;
++    GetLook(look);
++    pic = look[HAN_LOOK_PIC] - 1;
++    pal = look[HAN_LOOK_PAL];
++    buf = AllocZeroed(0x1800);
++    if (buf == NULL)
++        return FALSE;
++    for (t = 32; t < 96; t++)       // the first four rows of tiles stay empty
++    {
++        src = (const u8 *)&sHanPics[pic * 0x200] + (t - 32) * 32;
++        out = buf + t * 64;
++        for (p = 0; p < 32; p++)
++        {
++            for (x = 0; x < 2; x++)
++            {
++                v = x == 0 ? (src[p] & 15) : (src[p] >> 4);
++                out[p * 2 + x] = v != 0 ? 64 + v : 0;
++            }
++        }
++    }
++    CpuCopy32(buf, dest, 0x1800);
++    Free(buf);
++    LoadPalette(sHanPicPal[pic][pal], BG_PLTT_ID(4), 32);
++    return TRUE;
++}
++
 +#else // no pack: the game keeps its own pictures
 +
 +void HanCustomHeapReset(void) {}
@@ -18627,6 +18667,7 @@ index 0000000..83c0777
 +const u16 *HanCustomPalette(void) { return NULL; }
 +const u16 *HanCustomReflPalette(void) { return NULL; }
 +bool8 HanCustomPicData(const void *src, void *dest) { return FALSE; }
++bool8 HanOakPic(u8 *dest) { return FALSE; }
 +const struct SpriteFrameImage *HanBackImages(void) { return NULL; }
 +u16 HanLinkOppPic(void) { return 0xFFFF; }
 +void HanLinkOppPalette(u8 paletteNum) {}
@@ -20676,7 +20717,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..6a11805 100644
+index 77dd3db..b0d5416 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -20712,8 +20753,8 @@ index 77dd3db..6a11805 100644
  static void Task_OakSpeech_ShowGenderOptions(u8);
  static void Task_OakSpeech_HandleGenderInput(u8);
  static void Task_OakSpeech_ClearGenderWindows(u8);
-+static void HanEd_Open(u8 taskId);
-+static void HanEd_ShowPreview(u8 count);
++static void Task_HanBoyGirl_Input(u8);
++static void HanEd_ShowPreview(void);
 +static void HanEd_ClosePreview(void);
  static void Task_OakSpeech_LoadPlayerPic(u8);
  static void Task_OakSpeech_YourNameWhatIsIt(u8);
@@ -20727,66 +20768,31 @@ index 77dd3db..6a11805 100644
          CreateMonSpritesGfxManager(1, 1);
          break;
      case 2:
-@@ -1284,6 +1302,232 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
+@@ -1284,10 +1302,146 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
      }
  }
  
-+// ---- Hän build: the character customizer on the boy and girl screen (Jane, 22 November 2026).
-+// On the screen that asks boy or girl, a window with an arrow says the look can be customized; the character stands
-+// beside it as it is now. Right opens the list of parts. Up and Down move the arrow, A takes the part, Left and Right
-+// slide its value, A (or B) lets go of it, B leaves the list. The look is 12 bytes in the save (src/han_custom.c).
++// ---- Hän build: the character customizer is part of the boy and girl dialog (Jane, 23 November 2026).
++// One window: the first line is BOY or GIRL and Left or Right swaps it, the next two are PICTURE and PALETTE and Left
++// or Right slide them. Up and Down move the arrow, A takes what is shown. The character stands beside the dialog as
++// it is now, in the chosen palette. The look is in the save (src/han_custom.c).
 +
-+static const struct WindowTemplate sHanInd_WindowTemplate =
++static const struct WindowTemplate sHanBoyGirl_WindowTemplate =
 +{
 +    .bg = 0,
-+    .tilemapLeft = 18,
-+    .tilemapTop = 5,
-+    .width = 9,
-+    .height = 2,
++    .tilemapLeft = 15,
++    .tilemapTop = 8,
++    .width = 13,
++    .height = 6,
 +    .paletteNum = 15,
-+    .baseBlock = 354
++    .baseBlock = 430
 +};
 +
-+static const struct WindowTemplate sHanEdit_WindowTemplate =
-+{
-+    .bg = 0,
-+    .tilemapLeft = 1,
-+    .tilemapTop = 1,
-+    .width = 16,
-+    .height = 12,
-+    .paletteNum = 15,
-+    .baseBlock = 1
-+};
-+
-+static const u8 sHanText_Look[] = _("{RIGHT_ARROW} LOOK");
 +static const u8 sHanText_Arrow[] = _("{RIGHT_ARROW}");
 +static const u8 sHanText_ArrowL[] = _("{LEFT_ARROW}");
-+static const u8 sHanText_None[] = _("-");
-+static const u8 sHanText_Head[] = _("HEAD");
-+static const u8 sHanText_Eyes[] = _("EYES");
-+static const u8 sHanText_Hair[] = _("HAIR");
-+static const u8 sHanText_Hat[] = _("HAT");
-+static const u8 sHanText_Outfit[] = _("OUTFIT");
-+static const u8 sHanText_Skin[] = _("SKIN");
-+static const u8 sHanText_HairColor[] = _("HAIR COLOR");
-+static const u8 sHanText_EyeColor[] = _("EYE COLOR");
-+static const u8 sHanText_ColorA[] = _("COLOR A");
-+static const u8 sHanText_ColorB[] = _("COLOR B");
-+static const u8 sHanText_ColorC[] = _("COLOR C");
 +static const u8 sHanText_Picture[] = _("PICTURE");
 +static const u8 sHanText_Palette[] = _("PALETTE");
 +
-+static const u8 *const sHanEd_Labels[HAN_ROWS] = {
-+    sHanText_Head, sHanText_Eyes, sHanText_Hair, sHanText_Hat, sHanText_Outfit, sHanText_Skin,
-+    sHanText_HairColor, sHanText_EyeColor, sHanText_ColorA, sHanText_ColorB, sHanText_ColorC, sHanText_Picture, sHanText_Palette
-+};
-+
-+#define HAN_ED_SHOWN 6
-+// Jane (22 November 2026): the screen only picks a character (PICTURE) and its palette (PALETTE)
-+#define HAN_ED_FIRST HAN_LOOK_PIC
-+#define HAN_ED_ROWS (HAN_ROWS + HAN_LOOK_HEAD - HAN_ED_FIRST)
-+
-+// count 1: the character facing the front, left of the menu. count 3: front, side and back, right of the list.
 +static void HanEd_ClosePreview(void)
 +{
 +    u8 i;
@@ -20802,131 +20808,85 @@ index 77dd3db..6a11805 100644
 +    sOakSpeechResources->hanPic = 0xFFFF;
 +}
 +
-+static void HanEd_ShowPreview(u8 count)
++// the character beside the dialog: the big picture, in its palette
++static void HanEd_ShowPreview(void)
 +{
-+    static const u8 anims[3] = {ANIM_STD_FACE_SOUTH, ANIM_STD_FACE_WEST, ANIM_STD_FACE_NORTH};
-+    u8 i, id;
-+    s16 x, y;
-+    u16 gfx = gSaveBlock2Ptr->playerGender == MALE ? OBJ_EVENT_GFX_RED_NORMAL : OBJ_EVENT_GFX_GREEN_NORMAL;
-+
 +    HanEd_ClosePreview();
-+    if (count == 3)
-+    {
-+        // the row that changes the big pictures: show the front picture
-+        sOakSpeechResources->hanPic = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 196, 84, 5, TAG_NONE);
-+        return;
-+    }
-+    for (i = 0; i < count; i++)
-+    {
-+        if (count == 1)
-+        {
-+            x = 112;
-+            y = 96;
-+        }
-+        else
-+        {
-+            x = 160 + i * 28;
-+            y = 92;
-+        }
-+        id = CreateObjectGraphicsSprite(gfx, SpriteCallbackDummy, x, y, 0);
-+        if (id != MAX_SPRITES)
-+        {
-+            gSprites[id].oam.priority = 0;
-+            StartSpriteAnim(&gSprites[id], anims[count == 1 ? 0 : i]);
-+        }
-+        sOakSpeechResources->hanPrev[i] = id;
-+    }
++    sOakSpeechResources->hanPic = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 72, 80, 5, TAG_NONE);
 +}
 +
 +static void HanEd_Draw(void)
 +{
 +    struct OakSpeechResources *r = sOakSpeechResources;
-+    u8 i, row, part, v;
++    u8 i;
 +    u8 buf[8];
++    const u8 *label;
 +
 +    FillWindowPixelBuffer(r->hanWin, PIXEL_FILL(1));
-+    for (i = 0; i < HAN_ED_SHOWN; i++)
++    for (i = 0; i < 3; i++)
 +    {
-+        row = r->hanTop + i;
-+        if (row >= HAN_ED_ROWS)
-+            break;
-+        part = row + HAN_ED_FIRST;
 +        r->textColor[0] = 1;
 +        r->textColor[1] = 2;
 +        r->textColor[2] = 3;
-+        if (row == r->hanRow)
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 0, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
-+        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 16 + 1, r->textColor, 0, sHanEd_Labels[part - HAN_LOOK_HEAD]);
-+        v = gSaveBlock2Ptr->hanLook[part];
-+        if (v == 0 && (part == HAN_LOOK_HAIR || part == HAN_LOOK_HAT || part == HAN_LOOK_OUTFIT))
-+            StringCopy(buf, sHanText_None);
-+        else
-+            ConvertIntToDecimalStringN(buf, v + ((part == HAN_LOOK_HAIR || part == HAN_LOOK_HAT || part == HAN_LOOK_OUTFIT || part == HAN_LOOK_PIC || part == HAN_LOOK_PAL) ? 0 : 1), STR_CONV_MODE_LEFT_ALIGN, 3);
-+        if (row == r->hanRow && r->hanSlide)
++        if (i == r->hanRow)
 +        {
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 16 + 1, r->textColor, 0, sHanText_ArrowL);
-+            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 116, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 0, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 56, i * 16 + 1, r->textColor, 0, sHanText_ArrowL);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 92, i * 16 + 1, r->textColor, 0, sHanText_Arrow);
 +        }
-+        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 99, i * 16 + 1, r->textColor, 0, buf);
++        label = i == 0 ? (gSaveBlock2Ptr->playerGender == MALE ? gText_Boy : gText_Girl) : (i == 1 ? sHanText_Picture : sHanText_Palette);
++        AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 10, i * 16 + 1, r->textColor, 0, label);
++        if (i != 0)
++        {
++            ConvertIntToDecimalStringN(buf, gSaveBlock2Ptr->hanLook[i == 1 ? HAN_LOOK_PIC : HAN_LOOK_PAL], STR_CONV_MODE_LEFT_ALIGN, 3);
++            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 66, i * 16 + 1, r->textColor, 0, buf);
++        }
 +    }
 +    CopyWindowToVram(r->hanWin, COPYWIN_FULL);
 +}
 +
-+static void Task_HanEd_Input(u8 taskId)
++static void Task_HanBoyGirl_Input(u8 taskId)
 +{
 +    struct OakSpeechResources *r = sOakSpeechResources;
 +    u8 *l = gSaveBlock2Ptr->hanLook;
-+    u8 part = r->hanRow + HAN_ED_FIRST;
-+    u8 max = HanLookMax(part);
++    u8 part, max;
 +    bool8 redraw = FALSE;
 +
-+    if (!r->hanSlide)
++    if (JOY_NEW(DPAD_UP) && r->hanRow > 0)
 +    {
-+        if (JOY_NEW(DPAD_UP) && r->hanRow > 0)
-+        {
-+            r->hanRow--;
-+            redraw = TRUE;
-+            HanEd_ShowPreview(3);
-+        }
-+        else if (JOY_NEW(DPAD_DOWN) && r->hanRow < HAN_ED_ROWS - 1)
-+        {
-+            r->hanRow++;
-+            redraw = TRUE;
-+            HanEd_ShowPreview(3);
-+        }
-+        else if (JOY_NEW(A_BUTTON))
-+        {
-+            r->hanSlide = TRUE;
-+            redraw = TRUE;
-+        }
-+        else if (JOY_NEW(B_BUTTON))
-+        {
-+            PlaySE(SE_SELECT);
-+            ClearStdWindowAndFrameToTransparent(r->hanWin, TRUE);
-+            RemoveWindow(r->hanWin);
-+            HanEd_ClosePreview();
-+            gTasks[taskId].func = Task_OakSpeech_ShowGenderOptions;
-+            return;
-+        }
-+        if (r->hanRow < r->hanTop)
-+            r->hanTop = r->hanRow;
-+        if (r->hanRow >= r->hanTop + HAN_ED_SHOWN)
-+            r->hanTop = r->hanRow - HAN_ED_SHOWN + 1;
++        r->hanRow--;
++        redraw = TRUE;
 +    }
-+    else
++    else if (JOY_NEW(DPAD_DOWN) && r->hanRow < 2)
 +    {
-+        if (JOY_NEW(DPAD_LEFT) || JOY_NEW(DPAD_RIGHT))
++        r->hanRow++;
++        redraw = TRUE;
++    }
++    else if (JOY_NEW(DPAD_LEFT) || JOY_NEW(DPAD_RIGHT))
++    {
++        if (r->hanRow == 0)
 +        {
++            // swap boy and girl: its body, and the look that goes with it
++            gSaveBlock2Ptr->playerGender = gSaveBlock2Ptr->playerGender == MALE ? FEMALE : MALE;
++            if (l[HAN_LOOK_SET] != 2)
++                l[HAN_LOOK_SET] = 0;
++        }
++        else
++        {
++            part = r->hanRow == 1 ? HAN_LOOK_PIC : HAN_LOOK_PAL;
++            max = HanLookMax(part);
++            if (l[HAN_LOOK_SET] == 0)
++                HanLookDefault();
 +            l[part] = JOY_NEW(DPAD_RIGHT) ? (l[part] + 1) % max : (l[part] + max - 1) % max;
 +            l[HAN_LOOK_SET] = 2;
-+            redraw = TRUE;
-+            HanEd_ShowPreview(3);
 +        }
-+        else if (JOY_NEW(A_BUTTON) || JOY_NEW(B_BUTTON))
-+        {
-+            r->hanSlide = FALSE;
-+            redraw = TRUE;
-+        }
++        redraw = TRUE;
++        HanEd_ShowPreview();
++    }
++    else if (JOY_NEW(A_BUTTON))
++    {
++        gTasks[taskId].func = Task_OakSpeech_ClearGenderWindows;
++        return;
 +    }
 +    if (redraw)
 +    {
@@ -20935,97 +20895,68 @@ index 77dd3db..6a11805 100644
 +    }
 +}
 +
-+static void HanEd_Open(u8 taskId)
-+{
-+    struct OakSpeechResources *r = sOakSpeechResources;
-+
-+    // the boy and girl menu and its sign go; the look is for the one the cursor was on
-+    gSaveBlock2Ptr->playerGender = Menu_GetCursorPos();
-+    ClearStdWindowAndFrameToTransparent(gTasks[taskId].tMenuWindowId, TRUE);
-+    RemoveWindow(gTasks[taskId].tMenuWindowId);
-+    ClearStdWindowAndFrameToTransparent(r->hanInd, TRUE);
-+    RemoveWindow(r->hanInd);
-+    gHanQuick = TRUE; // while editing only the three standing pictures are made, so that it is quick
-+    r->hanRow = 0;
-+    r->hanTop = 0;
-+    r->hanSlide = FALSE;
-+    r->hanWin = AddWindow(&sHanEdit_WindowTemplate);
-+    PutWindowTilemap(r->hanWin);
-+    DrawStdFrameWithCustomTileAndPalette(r->hanWin, TRUE, GetStdWindowBaseTileNum(), 14);
-+    HanEd_ShowPreview(3);
-+    HanEd_Draw();
-+    gTasks[taskId].func = Task_HanEd_Input;
-+}
-+
  static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
  {
      if (!IsTextPrinterActive(WIN_INTRO_TEXTBOX))
-@@ -1300,15 +1544,47 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+     {
++        if (HanLookMax(HAN_LOOK_PIC) != 0)
++        {
++            // the customizer is in the same dialog as boy or girl
++            sOakSpeechResources->hanWin = AddWindow(&sHanBoyGirl_WindowTemplate);
++            gTasks[taskId].tMenuWindowId = sOakSpeechResources->hanWin;
++            PutWindowTilemap(sOakSpeechResources->hanWin);
++            DrawStdFrameWithCustomTileAndPalette(sOakSpeechResources->hanWin, TRUE, GetStdWindowBaseTileNum(), 14);
++            sOakSpeechResources->hanRow = 0;
++            HanEd_ShowPreview();
++            HanEd_Draw();
++            gTasks[taskId].func = Task_HanBoyGirl_Input;
++            return;
++        }
+         gTasks[taskId].tMenuWindowId = AddWindow(&sIntro_WindowTemplates[WIN_INTRO_BOYGIRL]);
+         PutWindowTilemap(gTasks[taskId].tMenuWindowId);
+         DrawStdFrameWithCustomTileAndPalette(gTasks[taskId].tMenuWindowId, TRUE, GetStdWindowBaseTileNum(), 14);
+@@ -1300,7 +1454,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
          sOakSpeechResources->textColor[1] = 2;
          sOakSpeechResources->textColor[2] = 3;
          AddTextPrinterParameterized3(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 8, 17, sOakSpeechResources->textColor, 0, gText_Girl);
 -        Menu_InitCursor(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 0, 1, GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT) + 2, 2, 0);
 +        Menu_InitCursor(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 0, 1, GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT) + 2, 2, gSaveBlock2Ptr->playerGender);
          CopyWindowToVram(gTasks[taskId].tMenuWindowId, COPYWIN_FULL);
-+        if (HanLookMax(HAN_LOOK_HEAD) != 0)
-+        {
-+            // the sign that the look can be customized: the character as it is now, and an arrow to the right
-+            sOakSpeechResources->hanInd = AddWindow(&sHanInd_WindowTemplate);
-+            PutWindowTilemap(sOakSpeechResources->hanInd);
-+            DrawStdFrameWithCustomTileAndPalette(sOakSpeechResources->hanInd, TRUE, GetStdWindowBaseTileNum(), 14);
-+            FillWindowPixelBuffer(sOakSpeechResources->hanInd, PIXEL_FILL(1));
-+            sOakSpeechResources->textColor[0] = 1;
-+            sOakSpeechResources->textColor[1] = 2;
-+            sOakSpeechResources->textColor[2] = 3;
-+            AddTextPrinterParameterized3(sOakSpeechResources->hanInd, FONT_NORMAL, 8, 1, sOakSpeechResources->textColor, 0, sHanText_Look);
-+            CopyWindowToVram(sOakSpeechResources->hanInd, COPYWIN_FULL);
-+        }
          gTasks[taskId].func = Task_OakSpeech_HandleGenderInput;
      }
- }
+@@ -1308,7 +1462,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
  
  static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  {
 -    s8 input = Menu_ProcessInputNoWrapAround();
 +    s8 input;
 +
-+    if (HanLookMax(HAN_LOOK_HEAD) != 0)
-+    {
-+        if (Menu_GetCursorPos() != gSaveBlock2Ptr->playerGender)
-+        {
-+            // the cursor moved to the other one: its body, and the look that goes with it
-+            gSaveBlock2Ptr->playerGender = Menu_GetCursorPos();
-+            if (gSaveBlock2Ptr->hanLook[HAN_LOOK_SET] != 2)
-+                gSaveBlock2Ptr->hanLook[HAN_LOOK_SET] = 0;
-+            HanEd_ShowPreview(1);
-+        }
-+        if (JOY_NEW(DPAD_RIGHT))
-+        {
-+            PlaySE(SE_SELECT);
-+            HanEd_Open(taskId);
-+            return;
-+        }
-+    }
 +    input = Menu_ProcessInputNoWrapAround();
      switch (input)
      {
      case 0: // BOY
-@@ -1328,7 +1604,14 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
+@@ -1328,6 +1484,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  static void Task_OakSpeech_ClearGenderWindows(u8 taskId)
  {
      s16 *data = gTasks[taskId].data;
--    ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
 +
-+    if (HanLookMax(HAN_LOOK_HEAD) != 0)
-+    {
-+        gHanQuick = FALSE; // from here on the game makes all the pictures
++    if (HanLookMax(HAN_LOOK_PIC) != 0)
 +        HanEd_ClosePreview();
-+        ClearStdWindowAndFrameToTransparent(sOakSpeechResources->hanInd, TRUE);
-+        RemoveWindow(sOakSpeechResources->hanInd);
-+    }    ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
+     ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
      RemoveWindow(tMenuWindowId);
      tMenuWindowId = WIN_INTRO_TEXTBOX;
-     ClearDialogWindowAndFrame(tMenuWindowId, TRUE);
+@@ -1967,6 +2126,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
+ {
+     u32 i;
+ 
++    if ((whichPic == MALE_PLAYER_PIC || whichPic == FEMALE_PLAYER_PIC) && HanOakPic((u8 *)VRAM + 0x600 + tileOffset))
++    {
++        // Hän build: the chosen character in the chosen palette, in place of the game's own Red or Leaf picture
++    }
++    else
+     switch (whichPic)
+     {
+     case MALE_PLAYER_PIC:
 diff --git a/src/option_menu.c b/src/option_menu.c
 index 0b55a34..d356cbd 100644
 --- a/src/option_menu.c
@@ -22785,10 +22716,10 @@ index c193609..b7738e4 100644
      u8 selectedMonParty;
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..4cd28cc
+index 0000000..fed9c9f
 --- /dev/null
 +++ b/tools/han/README.md
-@@ -0,0 +1,1007 @@
+@@ -0,0 +1,1023 @@
 +# Hän letters in pokefirered
 +
 +This folder adds the Hän alphabet to the game's four Latin fonts.
@@ -23796,6 +23727,22 @@ index 0000000..4cd28cc
 +
 +The title screen shows "VER .67" in small white letters under KLONDIKE VERSION, so you can tell which patch you are on.
 +It is drawn into the logo by `tools/han/han_klondike.py` (`VERSION = "VER .67"` at the top; change that line for the next patch; it has the digits 6 and 7 and a dot, so a new digit needs a glyph added to GLYPHS).
++
++### Customizer in the boy and girl dialog (23 November 2026)
++
++The customizer is no longer a separate LOOK screen. The boy or girl dialog is now one window with three lines: BOY or GIRL
++(Left or Right swaps it), PICTURE and PALETTE (Left or Right slide them). Up and Down move the arrow, A takes what is
++shown. The chosen character stands beside the dialog in the chosen palette, and on the screens after it (the name
++question) the big picture is the chosen character in its palette too (`HanOakPic` in `src/han_custom.c` puts the 64 by 64
++picture into the Oak speech's 64 by 96, 256 colour tile data, at the bottom). The game's own Red or Leaf picture stays
++when nothing was chosen. Code: `Task_HanBoyGirl_Input` and friends in `src/oak_speech.c`.
++
++### Walking animation for standing pictures (23 November 2026)
++
++FireRed's gym leaders and Elite Four (Brock, Misty, Lt. Surge, Erika, Sabrina, Blaine, Bruno, Agatha, Lance) and OLD MAN 2
++have three standing frames only, so a player who chose one of them slid without moving their legs. `han_people.py` now
++draws nine frames for them (the same drawing as Emerald's leaders: one foot lifts at a time and the body rises a pixel
++on each step) and adds them as new walking pictures (graphics ids from 154; 37 in all of 40 places).
 diff --git a/tools/han/cmudict_LICENSE.txt b/tools/han/cmudict_LICENSE.txt
 new file mode 100644
 index 0000000..81a0ae8
@@ -34248,10 +34195,10 @@ index 0000000..1312c54
 +        sys.exit(__doc__)
 diff --git a/tools/han/han_people.py b/tools/han/han_people.py
 new file mode 100644
-index 0000000..f86d462
+index 0000000..8525562
 --- /dev/null
 +++ b/tools/han/han_people.py
-@@ -0,0 +1,187 @@
+@@ -0,0 +1,204 @@
 +#!/usr/bin/env python3
 +"""Brings Emerald's little walking pictures into the build, for the player's PICTURE.
 +
@@ -34283,9 +34230,21 @@ index 0000000..f86d462
 +    "HexManiac", "RichBoy", "RunningTriathleteM",
 +    "RunningTriathleteF", "SwimmerM", "SwimmerF", "ReporterM", "PsychicM",
 +]
++# FireRed's own gym leaders and Elite Four are standing pictures too (three frames, the steps repeat them), so they
++# walk by the same drawing: key, picture file in graphics/object_events/pics/people, FireRed's name for the graphics
++FIRERED_STATIC = [
++    ("Brock", "brock", "Brock"), ("Misty", "misty", "Misty"), ("LtSurge", "lt_surge", "LtSurge"),
++    ("Erika", "erika", "Erika"), ("Sabrina", "sabrina", "Sabrina"), ("Blaine", "blaine", "Blaine"),
++    ("Bruno", "bruno", "Bruno"), ("Agatha", "agatha", "Agatha"), ("Lance", "lance", "Lance"),
++    ("OldMan2", "old_man_2", "OldMan2"),
++]
 +# Emerald's palette tag -> (file name here, base number in han_pics.OW_BASES)
 +PAL = {"NPC_1": ("emerald_npc_1", 8), "NPC_2": ("emerald_twin", 6), "NPC_3": ("emerald_npc_3", 9), "NPC_4": ("emerald_steven", 5)}
 +EMERALD_PAL_FILE = {"NPC_1": "npc_1", "NPC_2": "npc_2", "NPC_3": "npc_3", "NPC_4": "npc_4"}
++
++
++def all_people():
++    return PEOPLE + ["FR" + k for k, _, _ in FIRERED_STATIC]
 +
 +
 +def snake(name):
@@ -34377,20 +34336,25 @@ index 0000000..f86d462
 +def main(argv):
 +    import han_emerald
 +    emerald = han_emerald.find_emerald(argv)
-+    if len(PEOPLE) > MAX:
++    if len(all_people()) > MAX:
 +        sys.exit("han_people.py: too many pictures")
 +    got = info(emerald)
 +    n = 0
 +    for name, (png, tag) in got.items():
 +        n += put(ROOT / ("graphics/object_events/pics/people/emerald_people/%s.png" % snake(name)),
 +                 nine_frames((emerald / "graphics/object_events" / png).read_bytes()))
++    for key, png, _ in FIRERED_STATIC:
++        src = ROOT / "graphics/object_events/pics/people" / (png + ".png")
++        if not src.exists():
++            continue
++        n += put(ROOT / ("graphics/object_events/pics/people/emerald_people/%s.png" % snake("FR" + key)), nine_frames(src.read_bytes()))
 +    for tag, (stem, _) in PAL.items():
 +        n += put(ROOT / ("graphics/object_events/palettes/%s.pal" % stem),
 +                 (emerald / ("graphics/object_events/palettes/%s.pal" % EMERALD_PAL_FILE[tag])).read_bytes())
 +    decl = ["// Made by tools/han/han_people.py. Do not edit.", ""]
 +    data = ["// Made by tools/han/han_people.py. Do not edit.", ""]
 +    ptr = []
-+    for i, name in enumerate(PEOPLE):
++    for i, name in enumerate(all_people()):
 +        s = snake(name)
 +        decl.append("extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HanP%s;" % name)
 +        ptr.append("    [%d] = &gObjectEventGraphicsInfo_HanP%s, \\" % (FIRST_ID + i, name))
@@ -34424,12 +34388,12 @@ index 0000000..f86d462
 +    decl.append("")
 +    n += put(ROOT / "src/data/object_events/han_people_decl.h", "\n".join(decl))
 +    n += put(ROOT / "src/data/object_events/han_people.h", "\n".join(data))
-+    print("han_people.py: %d walking pictures from Emerald (%d files new or changed)" % (len(PEOPLE), n))
++    print("han_people.py: %d walking pictures drawn or from Emerald (%d files new or changed)" % (len(all_people()), n))
 +
 +
 +def ids():
 +    """key -> (gfx id, base number)"""
-+    return {name: FIRST_ID + i for i, name in enumerate(PEOPLE)}
++    return {name: FIRST_ID + i for i, name in enumerate(all_people())}
 +
 +
 +def base_of(name):
@@ -34441,10 +34405,10 @@ index 0000000..f86d462
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..318ec3c
+index 0000000..46855c2
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,446 @@
+@@ -0,0 +1,454 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34883,6 +34847,14 @@ index 0000000..318ec3c
 +            gfx, base = han_people.ids()[EM_OF[name]], han_people.base_of(EM_OF[name])
 +        else:
 +            camel = OW_OF.get(name)
++            import han_people
++            fr = {c: k for k, _, c in han_people.FIRERED_STATIC}
++            if camel in fr:     # FireRed's standing pictures are drawn to walk (han_people.py)
++                out.append((han_people.ids()["FR" + fr[camel]], n))
++                pals.append(None)
++                base = OW_TAG[infos[camel].replace("OBJ_EVENT_PAL_TAG_", "")]
++                pals[-1] = [[c555(c) for c in p] for p in variants(bytes(range(256)), bases[base], reference(d[1], d[2]), (d[1], d[2]))]
++                continue
 +            if camel is None:
 +                female = name.endswith("_F") or any(w in name for w in ("GIRL", "LADY", "MAY", "WOMAN", "BEAUTY", "MISS"))
 +                camel = "Lass" if female else "Youngster"

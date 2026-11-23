@@ -1005,3 +1005,19 @@ the title screen: different names (WREN, FINCH, EMBER), pictures and palettes ea
 
 The title screen shows "VER .67" in small white letters under KLONDIKE VERSION, so you can tell which patch you are on.
 It is drawn into the logo by `tools/han/han_klondike.py` (`VERSION = "VER .67"` at the top; change that line for the next patch; it has the digits 6 and 7 and a dot, so a new digit needs a glyph added to GLYPHS).
+
+### Customizer in the boy and girl dialog (23 November 2026)
+
+The customizer is no longer a separate LOOK screen. The boy or girl dialog is now one window with three lines: BOY or GIRL
+(Left or Right swaps it), PICTURE and PALETTE (Left or Right slide them). Up and Down move the arrow, A takes what is
+shown. The chosen character stands beside the dialog in the chosen palette, and on the screens after it (the name
+question) the big picture is the chosen character in its palette too (`HanOakPic` in `src/han_custom.c` puts the 64 by 64
+picture into the Oak speech's 64 by 96, 256 colour tile data, at the bottom). The game's own Red or Leaf picture stays
+when nothing was chosen. Code: `Task_HanBoyGirl_Input` and friends in `src/oak_speech.c`.
+
+### Walking animation for standing pictures (23 November 2026)
+
+FireRed's gym leaders and Elite Four (Brock, Misty, Lt. Surge, Erika, Sabrina, Blaine, Bruno, Agatha, Lance) and OLD MAN 2
+have three standing frames only, so a player who chose one of them slid without moving their legs. `han_people.py` now
+draws nine frames for them (the same drawing as Emerald's leaders: one foot lifts at a time and the body rises a pixel
+on each step) and adds them as new walking pictures (graphics ids from 154; 37 in all of 40 places).
