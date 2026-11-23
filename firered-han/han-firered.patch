@@ -30003,7 +30003,7 @@ index 90b481a..789ecec 100644
  ALIGNED(4) const u8 gText_UR_Exit[] = _("EXIT");
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..59f6bfb
+index 0000000..2cffd21
 --- /dev/null
 +++ b/tools/han/README.md
 @@ -0,0 +1,1024 @@
@@ -30025,7 +30025,7 @@ index 0000000..59f6bfb
 +| `han_unown_trio.py` | Puts the game's own pictures of UNOWN J, C and ? into one picture, for CHAMPION JANE's UNOWN. The three touch and do not overlap, and the script checks that. `make` runs it. |
 +| `han_sylveon.py` | Makes the pictures of MANDI's SYLVEON from a picture that whoever builds supplies. `han_emerald.py` runs it. |
 +| `han_klondike.py` | Makes the title screen: KLONDIKE VERSION under the POKéMON logo and an UNOWN D where the CHARIZARD stood, from the game's own files. `han_emerald.py` runs it. Output is in `graphics/title_screen/klondike/`, not in git. |
-+| `han_states.py` | Draws the player's bike, surf, fishing, item-get and VS Seeker pictures for every chosen character: the character's own head and colours on the game's Red poses. `han_custom.py` runs it. Output is `graphics/han_custom/st_*.bin`, not in git. The run animations use the walking steps in their own order (`sHanRunFrom` in `src/event_object_movement.c`). |
++| `han_states.py` | Draws the player's bike, surf, fishing, item-get and VS Seeker pictures for every chosen character: the character's own head and colours on the game's Red poses (Leaf's for women). `han_custom.py` runs it. Output is `graphics/han_custom/st_*.bin`, not in git. The run animations use the walking steps in their own order (`sHanRunFrom` in `src/event_object_movement.c`). |
 +| `han_pok3.py` | Puts a trainer together from the layers of the Pokémon Gen 3 Trainer pack (Jordan Bunke, itch.io) the way the pack's own manifest does, and writes test pictures. The pack is not in the repository: put the folder `pok3` next to `pokefirered`. |
 +| `han_theme.py` | Puts CHAMPION JANE's battle theme into the build if whoever builds has the music, as a MIDI file or as a recording. The music is in neither git nor the patch. `make` and `han_text.py` run it. |
 +| `han_theme_midi.py` | Arranges the MIDI file for the game: where it starts, which parts are kept, their instruments and volumes. `han_theme.py` uses it. |
@@ -42583,10 +42583,10 @@ index 0000000..13dbcf5
 +    out.save(sys.argv[1])
 diff --git a/tools/han/han_states.py b/tools/han/han_states.py
 new file mode 100644
-index 0000000..fc8d412
+index 0000000..ab4d798
 --- /dev/null
 +++ b/tools/han/han_states.py
-@@ -0,0 +1,277 @@
+@@ -0,0 +1,296 @@
 +#!/usr/bin/env python3
 +"""The player's other overworld pictures (bike, surf, fishing, item-get and VS Seeker) for every chosen character.
 +
@@ -42613,12 +42613,22 @@ index 0000000..fc8d412
 +OUT_DIR = ROOT / "graphics/han_custom"
 +# state: (sheet, frame width, frames used, directions of those frames: S N W, or - for always south)
 +STATES = {
-+    "bike": ("red_bike", 32, 9, "SNWSSNNWW"),
-+    "surf": ("red_surf_run", 16, 3, "SNW"),
-+    "fish": ("red_fish", 32, 12, "WWWWNNNNSSSS"),
-+    "item": ("red_item", 16, 9, "SSSSSSSSS"),
-+    "vsbike": ("red_vs_seeker_bike", 32, 6, "SSSSSS"),
++    "bike": ("bike", 32, 9, "SNWSSNNWW"),
++    "surf": ("surf_run", 16, 3, "SNW"),
++    "fish": ("fish", 32, 12, "WWWWNNNNSSSS"),
++    "item": ("item", 16, 9, "SSSSSSSSS"),
++    "vsbike": ("vs_seeker_bike", 32, 6, "SSSSSS"),
 +}
++# Red's poses for the men, Leaf's for the women (Jane, 23 November 2026)
++FEMALE_WORDS = ("lass", "woman", "beauty", "picnicker", "girl", "nurse", "may", "_f", "roxanne", "winona", "flannery",
++                "phoebe", "glacia", "misty", "erika", "sabrina", "agatha", "lorelei", "aqua_member_f", "magma_member_f")
++
++
++def is_female_png(png):
++    stem = png.stem.lower()
++    if stem.endswith("_m") or stem.endswith("m_land"):
++        return False
++    return any(w in stem for w in FEMALE_WORDS)
 +OUT = 15                       # Red's outline
 +RED_BODY_SKIN = (2, 3, 4)
 +HEAD_COLOURS = {1, 2, 3, 4, 8, 9, 10, 11, 12, 15}
@@ -42696,6 +42706,14 @@ index 0000000..fc8d412
 +    t1, t2 = pick(topc, h1)
 +    b1, b2 = pick(botc, t2)
 +    return {"out": outline, "skin": skin, "hair": (h1, h2), "top": (t1, t2), "bot": (b1, b2), "light": light, "dark": dark}
++
++
++def leaf_map(r):
++    """Leaf's palette numbers -> the character's (her hair is brown, 4, and hangs down the back)."""
++    sk = r["skin"]
++    return {0: 0, 15: r["out"], 6: r["out"], 9: r["light"], 10: r["light"], 4: r["hair"][0], 1: r["hair"][0], 8: r["hair"][1],
++            2: sk[0], 3: sk[1], 11: r["top"][0], 12: r["top"][1], 13: r["top"][0], 14: r["top"][1], 5: r["bot"][0],
++            7: r["bot"][0]}
 +
 +
 +def red_map(r):
@@ -42823,18 +42841,19 @@ index 0000000..fc8d412
 +    order = []
 +    idx = []
 +    blobs = {k: bytearray() for k in STATES}
-+    sheets = {k: load_sheet(PEOPLE / v[0] if False else PEOPLE / (v[0] + ".png"), v[1], v[2]) for k, v in STATES.items()}
++    sheets = {(sex, k): load_sheet(PEOPLE / (("green_" if sex == "F" else "red_") + v[0] + ".png"), v[1], v[2]) for k, v in STATES.items() for sex in "MF"}
 +    seen = {}
 +    for n, (gfx, _) in enumerate(owof):
 +        if gfx in (0, 7):                 # the game's own Red and Leaf have their own
 +            idx.append(255)
 +            continue
 +        base = base_of[n]
-+        key = (gfx, base)
++        png = png_of(gfx)
++        sex = "F" if png and is_female_png(png) else "M"
++        key = (gfx, base, sex)
 +        if key in seen:
 +            idx.append(seen[key])
 +            continue
-+        png = png_of(gfx)
 +        stand = stand_frames(png) if png and png.exists() else None
 +        if stand is None:
 +            idx.append(255)
@@ -42842,14 +42861,14 @@ index 0000000..fc8d412
 +            continue
 +        rgb = bases_rgb[base]
 +        r = roles(stand, rgb, P.is_skin)
-+        rmap = red_map(r)
++        rmap = leaf_map(r) if sex == "F" else red_map(r)
 +        hc = head_height(stand[0], set(r["skin"]))
 +        cs = {"S": stand[0], "N": stand[1], "W": stand[2]}
 +        for k, (sheet, w, nf, dirs) in STATES.items():
-+            blobs[k] += pack(make_frames(sheets[k], dirs, cs, rmap, r, None, hc))
++            blobs[k] += pack(make_frames(sheets[(sex, k)], dirs, cs, rmap, r, None, hc))
 +        seen[key] = len(order)
 +        idx.append(len(order))
-+        order.append((gfx, base))
++        order.append((gfx, base, sex))
 +    return {k: bytes(v) for k, v in blobs.items()}, idx, order
 +
 +
