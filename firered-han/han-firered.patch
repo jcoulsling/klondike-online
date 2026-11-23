@@ -17398,7 +17398,7 @@ index a6392be..b96aa2c 100644
                      toCpy = gTrainerClassNames[gTrainers[gTrainerBattleOpponent_A].trainerClass];
                  break;
 diff --git a/src/battle_script_commands.c b/src/battle_script_commands.c
-index 67f90a3..22bd2df 100644
+index 67f90a3..a694857 100644
 --- a/src/battle_script_commands.c
 +++ b/src/battle_script_commands.c
 @@ -1,4 +1,5 @@
@@ -17731,7 +17731,7 @@ index 67f90a3..22bd2df 100644
          {
              gBattleTextBuff2[1] = B_BUFF_STRING;
              gBattleTextBuff2[2] = STRINGID_STATSHARPLY;
-@@ -6860,6 +6972,12 @@ static void Cmd_setmultihitcounter(void)
+@@ -6860,6 +6972,17 @@ static void Cmd_setmultihitcounter(void)
      {
          gMultiHitCounter = gBattlescriptCurrInstr[1];
      }
@@ -17740,11 +17740,16 @@ index 67f90a3..22bd2df 100644
 +        gMultiHitCounter = 2 + Random() % 9; // Hän build: 2 to 10 hits, each number as likely as the others
 +        // Hän build: the move takes a type that is super effective against the target, for all its hits
 +        gBattleStruct->dynamicMoveType = GetBestTypeAgainst(gBattlerTarget, TRUE) | F_DYNAMIC_TYPE_2;
++        // Hän build: it also makes the target flinch, if the target has not moved yet this turn
++        if (GetBattlerTurnOrderNum(gBattlerTarget) > gCurrentTurnActionNumber
++         && gBattleMons[gBattlerTarget].ability != ABILITY_INNER_FOCUS
++         && !(gBattleMons[gBattlerTarget].status2 & STATUS2_SUBSTITUTE))
++            gBattleMons[gBattlerTarget].status2 |= STATUS2_FLINCHED;
 +    }
      else
      {
          gMultiHitCounter = Random() & 3;
-@@ -6874,7 +6992,7 @@ static void Cmd_setmultihitcounter(void)
+@@ -6874,7 +6997,7 @@ static void Cmd_setmultihitcounter(void)
  
  static void Cmd_initmultihitstring(void)
  {
@@ -17753,7 +17758,7 @@ index 67f90a3..22bd2df 100644
  
      gBattlescriptCurrInstr++;
  }
-@@ -7245,9 +7363,32 @@ static void Cmd_weatherdamage(void)
+@@ -7245,9 +7368,32 @@ static void Cmd_weatherdamage(void)
                  gBattleMoveDamage = 0;
              }
          }
@@ -17786,7 +17791,7 @@ index 67f90a3..22bd2df 100644
                  && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERGROUND)
                  && !(gStatuses3[gBattlerAttacker] & STATUS3_UNDERWATER))
              {
-@@ -7357,6 +7498,8 @@ static void Cmd_updatestatusicon(void)
+@@ -7357,6 +7503,8 @@ static void Cmd_updatestatusicon(void)
      {
  
          gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
@@ -25679,7 +25684,7 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..1c23446
+index 0000000..1c5f475
 --- /dev/null
 +++ b/src/han_follower.c
 @@ -0,0 +1,287 @@
@@ -25711,7 +25716,7 @@ index 0000000..1c23446
 +// The follower walks the player's own path, in pixels: the player's sprite position is written down every frame it
 +// changes, and the follower stands where the player was 16 pixels (one tile) of walking ago. So it moves exactly when
 +// the player moves, at the player's speed (walk, run, bike), round every corner, and stops one tile behind.
-+#define TRAIL_N 48
++#define TRAIL_N 20
 +static EWRAM_DATA s16 sTrailX[TRAIL_N] = {0};   // newest at sTrailHead, going back
 +static EWRAM_DATA s16 sTrailY[TRAIL_N] = {0};
 +static EWRAM_DATA u8 sTrailHead = 0;
@@ -28076,7 +28081,7 @@ index 01960d2..0acce5d 100644
              categoryStr[index] = categoryName[index];
              index++;
 diff --git a/src/pokemon.c b/src/pokemon.c
-index 66a5c3d..c299f13 100644
+index 66a5c3d..4cfa903 100644
 --- a/src/pokemon.c
 +++ b/src/pokemon.c
 @@ -1,6 +1,8 @@
@@ -28295,16 +28300,18 @@ index 66a5c3d..c299f13 100644
      if (species < SPECIES_OLD_UNOWN_B - 1)
          return species;
  
-@@ -5857,6 +5923,8 @@ static u16 GetBattleBGM(void)
+@@ -5857,6 +5923,10 @@ static u16 GetBattleBGM(void)
          return MUS_RS_VS_TRAINER;
      if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
      {
 +        if (HAN_JANE_THEME && IsJaneBattle()) // Hän build: her own theme, when the build has it
 +            return MUS_HAN_JANE;
++        if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) // Hän build: the double battle against Yuhke and Rowan has its own music
++            return MUS_RS_VS_TRAINER;
          switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
          {
          case TRAINER_CLASS_CHAMPION:
-@@ -6451,3 +6519,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
+@@ -6451,3 +6521,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
          return sMonSpritesGfxManager->spritePointers[spriteNum];
      }
  }
@@ -28494,7 +28501,7 @@ index 124b646..9ab384e 100644
              gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
              gSprites[gBattlerSpriteIds[battler]].callback = SpriteCallbackDummy;
 diff --git a/src/script_pokemon_util.c b/src/script_pokemon_util.c
-index bc11dc0..4b52477 100644
+index bc11dc0..0a5f5f1 100644
 --- a/src/script_pokemon_util.c
 +++ b/src/script_pokemon_util.c
 @@ -8,22 +8,176 @@
@@ -28930,9 +28937,9 @@ index bc11dc0..4b52477 100644
 +
 +static const struct CheatMon sJaneCheatTeam[PARTY_SIZE] = {
 +    {{SPECIES_TOTODILE, SPECIES_CROCONAW, SPECIES_FERALIGATR}, {18, 30}, FALSE, FALSE,
-+        {MOVE_SWORDS_DANCE, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_HYDRO_PUMP}},
++        {MOVE_ICE_BEAM, MOVE_EARTHQUAKE, MOVE_SURF, MOVE_HYDRO_PUMP}},
 +    {{SPECIES_AERODACTYL, SPECIES_AERODACTYL, SPECIES_AERODACTYL}, {0, 0}, FALSE, FALSE,
-+        {MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_DOUBLE_EDGE, MOVE_AERIAL_ACE}},
++        {MOVE_BITE, MOVE_EARTHQUAKE, MOVE_WING_ATTACK, MOVE_FLY}},
 +    {{SPECIES_MAREEP, SPECIES_FLAAFFY, SPECIES_AMPHAROS}, {15, 30}, FALSE, FALSE,
 +        {MOVE_THUNDER_PUNCH, MOVE_THUNDER_WAVE, MOVE_HEADBUTT, MOVE_LIGHT_SCREEN}},
 +    {{SPECIES_ZUBAT, SPECIES_GOLBAT, SPECIES_CROBAT}, {22, 40}, FALSE, FALSE,
@@ -41408,10 +41415,10 @@ index 0000000..f1add7f
 +    main()
 diff --git a/tools/han/han_klondike.py b/tools/han/han_klondike.py
 new file mode 100644
-index 0000000..25f229d
+index 0000000..3d24b7a
 --- /dev/null
 +++ b/tools/han/han_klondike.py
-@@ -0,0 +1,193 @@
+@@ -0,0 +1,200 @@
 +#!/usr/bin/env python3
 +"""The title screen of Hän FireRed: "POKéMON KLONDIKE VERSION", with an UNOWN D where the CHARIZARD stood.
 +
@@ -41424,7 +41431,7 @@ index 0000000..25f229d
 +  game_title_logo.*   The POKéMON logo as it is. The words FIRERED VERSION are taken out and
 +                      KLONDIKE VERSION is drawn in their place, white with a black edge. The letters are
 +                      drawn by this script from small bitmaps below (K L O N D I E V R S). It is not a font.
-+  box_art_mon.*       The CHARIZARD is taken out and the UNOWN D picture of the game is put on the lower right.
++  box_art_mon.*       The CHARIZARD is taken out and four UNOWN pictures of the game (D E N E, two by two) are put on the lower right.
 +
 +Safe to run again.
 +"""
@@ -41437,7 +41444,8 @@ index 0000000..25f229d
 +ROOT = Path(__file__).resolve().parents[2]
 +SRC = ROOT / "graphics/title_screen/firered"
 +OUT = ROOT / "graphics/title_screen/klondike"
-+UNOWN = ROOT / "graphics/pokemon/unown/d/front.png"
++UNOWN = str(ROOT) + "/graphics/pokemon/unown/%s/front.png"
++WORD = ["DE", "NE"]      # four UNOWN stacked two by two, reading DENE (Jane, 23 November 2026)
 +
 +GLYPHS = {   # five wide, seven high
 +    "K": ["#...#", "#..#.", "#.#..", "##...", "#.#..", "#..#.", "#...#"],
@@ -41581,14 +41589,20 @@ index 0000000..25f229d
 +
 +
 +def box_art():
-+    u = Image.open(UNOWN)
++    u = Image.open(UNOWN % "d")
 +    pal = u.getpalette()[:48]
 +    rgb = [tuple(pal[i * 3:i * 3 + 3]) for i in range(16)]
 +    screen = Image.new("P", (256, 160), 0)
 +    screen.putpalette(pal)
-+    big = u.resize((96, 96), Image.NEAREST)                 # one and a half times as big
-+    left, top = 18 * 8, 7 * 8                               # tile column 18, row 7: the lower right
-+    screen.paste(big, (left, top))
++    left, top = 154, 54                                     # the lower right, clear of the START line and the footer
++    cell = 40
++    for r, row in enumerate(WORD):
++        for c, ch in enumerate(row):
++            g = Image.open(UNOWN % ch.lower())
++            g = g.crop(g.convert("RGBA").getbbox() if g.mode != "P" else Image.eval(g, lambda v: 255 if v else 0).getbbox())
++            k = min((cell - 2) / g.width, (cell - 2) / g.height)
++            g = g.resize((max(1, round(g.width * k)), max(1, round(g.height * k))), Image.NEAREST)
++            screen.paste(g, (left + c * cell + (cell - g.width) // 2, top + r * cell + (cell - g.height) // 2))
 +    uniq, tmap = tiles_of(screen, 32, 20, 4)
 +    full = [0xD000 | n for n in tmap]                       # palette 13, as the CHARIZARD's
 +    put(OUT / "box_art_mon.png", png_bytes(sheet(uniq, 16, pal)))
