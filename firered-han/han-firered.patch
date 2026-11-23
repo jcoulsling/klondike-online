@@ -30003,7 +30003,7 @@ index 90b481a..789ecec 100644
  ALIGNED(4) const u8 gText_UR_Exit[] = _("EXIT");
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..2cffd21
+index 0000000..59f6bfb
 --- /dev/null
 +++ b/tools/han/README.md
 @@ -0,0 +1,1024 @@
@@ -30025,7 +30025,7 @@ index 0000000..2cffd21
 +| `han_unown_trio.py` | Puts the game's own pictures of UNOWN J, C and ? into one picture, for CHAMPION JANE's UNOWN. The three touch and do not overlap, and the script checks that. `make` runs it. |
 +| `han_sylveon.py` | Makes the pictures of MANDI's SYLVEON from a picture that whoever builds supplies. `han_emerald.py` runs it. |
 +| `han_klondike.py` | Makes the title screen: KLONDIKE VERSION under the POKéMON logo and an UNOWN D where the CHARIZARD stood, from the game's own files. `han_emerald.py` runs it. Output is in `graphics/title_screen/klondike/`, not in git. |
-+| `han_states.py` | Draws the player's bike, surf, fishing, item-get and VS Seeker pictures for every chosen character: the character's own head and colours on the game's Red poses (Leaf's for women). `han_custom.py` runs it. Output is `graphics/han_custom/st_*.bin`, not in git. The run animations use the walking steps in their own order (`sHanRunFrom` in `src/event_object_movement.c`). |
++| `han_states.py` | Draws the player's bike, surf, fishing, item-get and VS Seeker pictures for every chosen character: the character's own head and colours on the game's Red poses. `han_custom.py` runs it. Output is `graphics/han_custom/st_*.bin`, not in git. The run animations use the walking steps in their own order (`sHanRunFrom` in `src/event_object_movement.c`). |
 +| `han_pok3.py` | Puts a trainer together from the layers of the Pokémon Gen 3 Trainer pack (Jordan Bunke, itch.io) the way the pack's own manifest does, and writes test pictures. The pack is not in the repository: put the folder `pok3` next to `pokefirered`. |
 +| `han_theme.py` | Puts CHAMPION JANE's battle theme into the build if whoever builds has the music, as a MIDI file or as a recording. The music is in neither git nor the patch. `make` and `han_text.py` run it. |
 +| `han_theme_midi.py` | Arranges the MIDI file for the game: where it starts, which parts are kept, their instruments and volumes. `han_theme.py` uses it. |
@@ -42583,7 +42583,7 @@ index 0000000..13dbcf5
 +    out.save(sys.argv[1])
 diff --git a/tools/han/han_states.py b/tools/han/han_states.py
 new file mode 100644
-index 0000000..7c8eebd
+index 0000000..3a2f466
 --- /dev/null
 +++ b/tools/han/han_states.py
 @@ -0,0 +1,326 @@
@@ -42619,7 +42619,7 @@ index 0000000..7c8eebd
 +    "item": ("item", 16, 9, "SSSSSSSSS"),
 +    "vsbike": ("vs_seeker_bike", 32, 6, "SSSSSS"),
 +}
-+# Red's poses for the men, Leaf's for the women (Jane, 23 November 2026)
++# Red's poses for everyone: Leaf's long hair got in the way of the new head. (Leaf's sheets and maps stay for a later try.)
 +FEMALE_WORDS = ("lass", "woman", "beauty", "picnicker", "girl", "nurse", "may", "_f", "roxanne", "winona", "flannery",
 +                "phoebe", "glacia", "misty", "erika", "sabrina", "agatha", "lorelei", "aqua_member_f", "magma_member_f")
 +
@@ -42879,7 +42879,7 @@ index 0000000..7c8eebd
 +            continue
 +        base = base_of[n]
 +        png = png_of(gfx)
-+        sex = "F" if png and is_female_png(png) else "M"
++        sex = "M"      # Leaf's hair hides the new head, so Red's poses are used for everyone (Jane, 23 November 2026)
 +        key = (gfx, base, sex)
 +        if key in seen:
 +            idx.append(seen[key])
