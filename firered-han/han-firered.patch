@@ -1,8 +1,8 @@
 diff --git a/.gitignore b/.gitignore
-index fa6c4c1..490838f 100644
+index fa6c4c1..78b1751 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -68,3 +68,34 @@ build-cmake-*/
+@@ -68,3 +68,38 @@ build-cmake-*/
  CMakeLists.txt
  compile_commands.json
  .porydaw/
@@ -23,6 +23,10 @@ index fa6c4c1..490838f 100644
 +include/han_jane_theme.h
 +sound/songs/mus_han_jane.s
 +graphics/object_events/pics/people/emerald_twin.png
++graphics/object_events/pics/people/emerald_people/
++graphics/object_events/palettes/emerald_npc_*
++src/data/object_events/han_people.h
++src/data/object_events/han_people_decl.h
 +graphics/object_events/palettes/emerald_twin.pal
 +graphics/object_events/pics/people/emerald_steven.png
 +graphics/object_events/palettes/emerald_steven.pal
@@ -38,7 +42,7 @@ index fa6c4c1..490838f 100644
 +graphics/han_custom/
 +src/data/han_custom_data.h
 diff --git a/Makefile b/Makefile
-index 8b454db..5529078 100644
+index 8b454db..7d421f3 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -184,6 +184,8 @@ DATA_ASM_SRCS := $(wildcard $(DATA_ASM_SUBDIR)/*.s)
@@ -50,7 +54,7 @@ index 8b454db..5529078 100644
  SONG_OBJS := $(patsubst $(SONG_SUBDIR)/%.s,$(SONG_BUILDDIR)/%.o,$(SONG_SRCS))
  
  MID_SRCS := $(wildcard $(MID_SUBDIR)/*.mid)
-@@ -295,6 +297,32 @@ $(C_BUILDDIR)/battle_tower.o: CFLAGS += -Wno-div-by-zero
+@@ -295,6 +297,34 @@ $(C_BUILDDIR)/battle_tower.o: CFLAGS += -Wno-div-by-zero
  $(C_BUILDDIR)/librfu_intr.o: override CFLAGS += -marm -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast
  endif
  
@@ -68,6 +72,8 @@ index 8b454db..5529078 100644
 +AUTO_GEN_TARGETS += src/data/graphics/pokemon_emerald.h
 +# The same script copies the little pictures of Emerald's TWIN and STEVEN, for the twins and BRANDON on the maps.
 +graphics/object_events/pics/people/emerald_twin.4bpp graphics/object_events/pics/people/emerald_steven.4bpp: %.4bpp: %.png
++	$(GFX) $< $@ -mwidth 2 -mheight 4
++graphics/object_events/pics/people/emerald_people/%.4bpp: graphics/object_events/pics/people/emerald_people/%.png
 +	$(GFX) $< $@ -mwidth 2 -mheight 4
 +src/data/graphics/pokemon_emerald.h: tools/han/han_emerald.py src/data/graphics/pokemon.h
 +	python3 tools/han/han_emerald.py --touch
@@ -8714,10 +8720,10 @@ index 24cc01c..cf45d9b 100644
  // This is the string id that gBattleStringsTable starts with.
  // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,
 diff --git a/include/constants/event_objects.h b/include/constants/event_objects.h
-index 9d8c514..1928abf 100644
+index 9d8c514..ed13bab 100644
 --- a/include/constants/event_objects.h
 +++ b/include/constants/event_objects.h
-@@ -156,7 +156,10 @@
+@@ -156,7 +156,11 @@
  #define OBJ_EVENT_GFX_DEOXYS_N 150
  #define OBJ_EVENT_GFX_SS_ANNE 151
  
@@ -8725,7 +8731,8 @@ index 9d8c514..1928abf 100644
 +#define OBJ_EVENT_GFX_MIGHTYENA 152 // Hän build: the MIGHTYENA in the SAFARI ZONE's ice cave
 +
 +#define OBJ_EVENT_GFX_HAN_FOLLOWER 153 // Hän build: the follower Pokémon (src/han_follower.c)
-+#define NUM_OBJ_EVENT_GFX     154
++#define OBJ_EVENT_GFX_HAN_PEOPLE 154 // Hän build: Emerald's walking pictures, up to 40 (tools/han/han_people.py)
++#define NUM_OBJ_EVENT_GFX     194
  
  // These are dynamic object gfx ids.
  // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.
@@ -13268,7 +13275,7 @@ index 4e229cb..efce8b4 100644
  const u16 gObjectEventPic_SurfBlob[] = INCBIN_U16("graphics/object_events/pics/misc/surf_blob.4bpp");
  const u16 gObjectEventPic_Policeman[] = INCBIN_U16("graphics/object_events/pics/people/policeman.4bpp");
 diff --git a/src/data/object_events/object_event_graphics_info.h b/src/data/object_events/object_event_graphics_info.h
-index 78ee95a..1690fb2 100644
+index 78ee95a..d7e26c7 100644
 --- a/src/data/object_events/object_event_graphics_info.h
 +++ b/src/data/object_events/object_event_graphics_info.h
 @@ -13,13 +13,13 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedNormal = {
@@ -13447,7 +13454,7 @@ index 78ee95a..1690fb2 100644
      .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_BRIDGE_REFLECTION,
      .size = 512,
      .width = 32,
-@@ -2923,3 +2923,43 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne = {
+@@ -2923,3 +2923,45 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne = {
      .images = sPicTable_SSAnne,
      .affineAnims = gDummySpriteAffineAnimTable,
  };
@@ -13491,11 +13498,13 @@ index 78ee95a..1690fb2 100644
 +    .images = gHanFollowImages,
 +    .affineAnims = gDummySpriteAffineAnimTable,
 +};
++
++#include "han_people.h" // Hän build: Emerald's walking pictures
 diff --git a/src/data/object_events/object_event_graphics_info_pointers.h b/src/data/object_events/object_event_graphics_info_pointers.h
-index af2f8af..e000c83 100644
+index af2f8af..31a6507 100644
 --- a/src/data/object_events/object_event_graphics_info_pointers.h
 +++ b/src/data/object_events/object_event_graphics_info_pointers.h
-@@ -150,6 +150,8 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysD;
+@@ -150,8 +150,12 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysD;
  const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysA;
  const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysN;
  const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne;
@@ -13503,13 +13512,18 @@ index af2f8af..e000c83 100644
 +const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HanFollower;
  
  
++#include "han_people_decl.h"
++
  const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
-@@ -305,4 +307,6 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
+     [OBJ_EVENT_GFX_RED_NORMAL]               = &gObjectEventGraphicsInfo_RedNormal,
+     [OBJ_EVENT_GFX_RED_BIKE]                 = &gObjectEventGraphicsInfo_RedBike,
+@@ -305,4 +309,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
      [OBJ_EVENT_GFX_DEOXYS_A]                 = &gObjectEventGraphicsInfo_DeoxysA,
      [OBJ_EVENT_GFX_DEOXYS_N]                 = &gObjectEventGraphicsInfo_DeoxysN,
      [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
 +    [OBJ_EVENT_GFX_MIGHTYENA]                = &gObjectEventGraphicsInfo_Mightyena,
 +    [OBJ_EVENT_GFX_HAN_FOLLOWER]             = &gObjectEventGraphicsInfo_HanFollower,
++    HAN_PEOPLE_POINTERS
  };
 diff --git a/src/data/object_events/object_event_pic_tables.h b/src/data/object_events/object_event_pic_tables.h
 index 70889d7..8b8af17 100644
@@ -22768,10 +22782,10 @@ index c193609..b7738e4 100644
      u8 selectedMonParty;
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
-index 0000000..61d9854
+index 0000000..ee2b139
 --- /dev/null
 +++ b/tools/han/README.md
-@@ -0,0 +1,981 @@
+@@ -0,0 +1,991 @@
 +# Hän letters in pokefirered
 +
 +This folder adds the Hän alphabet to the game's four Latin fonts.
@@ -23753,6 +23767,16 @@ index 0000000..61d9854
 +- If the other player leaves (page sets `link.gone`), `HanLinkAbortBattle()` ends the battle as a draw and closes the link.
 +- Not done: multi battles; the new texts are English (Hän must be written by a person).
 +- Bug worth remembering: copying 32 bytes into a 28 byte `struct LinkPlayer` crashed only one of the two sides. `sizeof`, always.
++
++
++## Walking picture matches the chosen character
++
++The player's walking picture follows the PICTURE row. Hoenn characters have no walking picture in FireRed, so
++`tools/han/han_people.py` brings 27 from Emerald (Team Aqua and Magma members, Archie, Maxie, Wally, Wallace, the Hoenn
++gym leaders and Elite Four, and others) next to the copy of pokeemerald that `han_emerald.py` already reads. Emerald's
++gym leaders and Elite Four have three frames, so their walking steps are the standing frame with a one pixel bob.
++Pictures with no Emerald match take the nearest of FireRed's own, by sex and kind (`OW_OF` and `EM_OF` in han_pics.py).
++The new pictures are graphics ids 154 and up (`OBJ_EVENT_GFX_HAN_PEOPLE`, room for 40).
 diff --git a/tools/han/cmudict_LICENSE.txt b/tools/han/cmudict_LICENSE.txt
 new file mode 100644
 index 0000000..81a0ae8
@@ -32126,10 +32150,10 @@ index 0000000..8afcaa3
 +    main(sys.argv)
 diff --git a/tools/han/han_emerald.py b/tools/han/han_emerald.py
 new file mode 100644
-index 0000000..d07622d
+index 0000000..2593c78
 --- /dev/null
 +++ b/tools/han/han_emerald.py
-@@ -0,0 +1,279 @@
+@@ -0,0 +1,281 @@
 +#!/usr/bin/env python3
 +"""Brings the Pokémon pictures and animations of Pokémon Emerald into the build.
 +
@@ -32399,6 +32423,8 @@ index 0000000..d07622d
 +        (ROOT / "src/data/graphics/pokemon_emerald.h").touch()
 +    print("han_emerald.py: Emerald's pictures for %d Pokémon (%d files new or changed). FireRed's own stay for: %s"
 +          % (len(use), copied, ", ".join(kept) or "none"))
++    import han_people
++    han_people.main(["han_people.py"])      # the walking pictures of Emerald's characters
 +    import han_sylveon
 +    han_sylveon.main(["han_sylveon.py"])    # MANDI's SYLVEON: its pictures
 +    import han_custom
@@ -34171,12 +34197,174 @@ index 0000000..1312c54
 +        preview(dict(a.split("=", 1) for a in sys.argv[3:]), sys.argv[2])
 +    else:
 +        sys.exit(__doc__)
+diff --git a/tools/han/han_people.py b/tools/han/han_people.py
+new file mode 100644
+index 0000000..a2a421c
+--- /dev/null
++++ b/tools/han/han_people.py
+@@ -0,0 +1,156 @@
++#!/usr/bin/env python3
++"""Brings Emerald's little walking pictures into the build, for the player's PICTURE.
++
++    python3 tools/han/han_people.py [PATH/TO/pokeemerald]      (han_emerald.py runs it)
++
++Jane asked (23 November 2026) that the walking picture match the chosen character as closely as it can: she chose a
++Team Aqua grunt and walked as a LASS. FireRed has no walking picture for the Hoenn characters, so they come from
++Emerald's own, which have the same nine frames, 16 by 32, as FireRed's people.
++
++It writes, from a copy of the pokeemerald source (nothing below is in git):
++
++  graphics/object_events/pics/people/emerald_people/NAME.png   each picture
++  graphics/object_events/palettes/emerald_npc_1.pal, emerald_npc_3.pal   Emerald's colours (2 and 4 are STEVEN's and TWIN's)
++  src/data/object_events/han_people_decl.h    the declarations and the pointer-table lines (OBJ_EVENT_GFX_HAN_PEOPLE + n)
++  src/data/object_events/han_people.h         the pictures, frame tables and graphics info
++
++The list below is the order of the ids. A trainer picture that has one of these takes it in tools/han/han_pics.py.
++"""
++import sys
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[2]
++FIRST_ID = 154          # OBJ_EVENT_GFX_HAN_PEOPLE in include/constants/event_objects.h
++MAX = 40
++# key, Emerald's name for the graphics (gObjectEventPic_NAME / gObjectEventGraphicsInfo_NAME)
++PEOPLE = [
++    "AquaMemberM", "AquaMemberF", "Archie", "MagmaMemberM", "MagmaMemberF", "Maxie", "Wally", "Wallace",
++    "Roxanne", "Brawly", "Tate", "Wattson", "Flannery", "Norman", "Winona", "Sidney", "Phoebe", "Glacia", "Drake",
++    "HexManiac", "RichBoy", "RunningTriathleteM",
++    "RunningTriathleteF", "SwimmerM", "SwimmerF", "ReporterM", "PsychicM",
++]
++# Emerald's palette tag -> (file name here, base number in han_pics.OW_BASES)
++PAL = {"NPC_1": ("emerald_npc_1", 8), "NPC_2": ("emerald_twin", 6), "NPC_3": ("emerald_npc_3", 9), "NPC_4": ("emerald_steven", 5)}
++EMERALD_PAL_FILE = {"NPC_1": "npc_1", "NPC_2": "npc_2", "NPC_3": "npc_3", "NPC_4": "npc_4"}
++
++
++def snake(name):
++    import re
++    return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
++
++
++def info(emerald):
++    """-> {name: (png path in Emerald, palette tag)}"""
++    import re
++    pics = (emerald / "src/data/object_events/object_event_graphics.h").read_text()
++    infos = (emerald / "src/data/object_events/object_event_graphics_info.h").read_text()
++    out = {}
++    for n in PEOPLE:
++        m = re.search(r"gObjectEventPic_%s\[\] = INCGFX_U32\(\"graphics/object_events/(pics/people/[^\"]*\.png)\"" % n, pics)
++        t = re.search(r"gObjectEventGraphicsInfo_%s = \{\n.*?\.paletteTag = OBJ_EVENT_PAL_TAG_(NPC_\d)" % n, infos, re.S)
++        if not m or not t:
++            sys.exit("han_people.py: Emerald has no walking picture %s as expected" % n)
++        out[n] = (m.group(1), t.group(1))
++    return out
++
++
++def nine_frames(raw):
++    """Emerald's gym leaders and Elite Four have three frames only (facing down, up, left). The walking picture
++    needs nine, so the two steps of each way are the standing frame, the first one a pixel higher: a little bob."""
++    import io
++    from PIL import Image
++    im = Image.open(io.BytesIO(raw))
++    if im.size == (144, 32):
++        return raw
++    if im.size != (48, 32):
++        sys.exit("han_people.py: a walking picture of %s is not what it expects" % (im.size,))
++    out = Image.new("P", (144, 32), 0)
++    out.putpalette(im.getpalette())
++    stand = [im.crop((16 * i, 0, 16 * i + 16, 32)) for i in range(3)]
++    for i in range(3):
++        out.paste(stand[i], (16 * i, 0))
++        up = Image.new("P", (16, 32), 0)
++        up.putpalette(im.getpalette())
++        up.paste(stand[i].crop((0, 1, 16, 32)), (0, 0))
++        out.paste(up, (16 * (3 + 2 * i), 0))
++        out.paste(stand[i], (16 * (4 + 2 * i), 0))
++    buf = io.BytesIO()
++    out.save(buf, format="PNG", transparency=0)
++    return buf.getvalue()
++
++
++def put(path, data):
++    path = Path(path)
++    data = data if isinstance(data, bytes) else data.encode("utf-8")
++    if not path.exists() or path.read_bytes() != data:
++        path.parent.mkdir(parents=True, exist_ok=True)
++        path.write_bytes(data)
++        return 1
++    return 0
++
++
++def main(argv):
++    import han_emerald
++    emerald = han_emerald.find_emerald(argv)
++    if len(PEOPLE) > MAX:
++        sys.exit("han_people.py: too many pictures")
++    got = info(emerald)
++    n = 0
++    for name, (png, tag) in got.items():
++        n += put(ROOT / ("graphics/object_events/pics/people/emerald_people/%s.png" % snake(name)),
++                 nine_frames((emerald / "graphics/object_events" / png).read_bytes()))
++    for tag, (stem, _) in PAL.items():
++        n += put(ROOT / ("graphics/object_events/palettes/%s.pal" % stem),
++                 (emerald / ("graphics/object_events/palettes/%s.pal" % EMERALD_PAL_FILE[tag])).read_bytes())
++    decl = ["// Made by tools/han/han_people.py. Do not edit.", ""]
++    data = ["// Made by tools/han/han_people.py. Do not edit.", ""]
++    ptr = []
++    for i, name in enumerate(PEOPLE):
++        s = snake(name)
++        decl.append("extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HanP%s;" % name)
++        ptr.append("    [%d] = &gObjectEventGraphicsInfo_HanP%s, \\" % (FIRST_ID + i, name))
++        data.append('static const u16 gHanPic_%s[] = INCBIN_U16("graphics/object_events/pics/people/emerald_people/%s.4bpp");' % (name, s))
++        data.append("static const struct SpriteFrameImage sHanPicTable_%s[] = {" % name)
++        for f in range(9):
++            data.append("    overworld_frame(gHanPic_%s, 2, 4, %d)," % (name, f))
++        data.append("};")
++        data.append("const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HanP%s = {" % name)
++        data.append("""    .tileTag = TAG_NONE,
++    .paletteTag = OBJ_EVENT_PAL_TAG_EMERALD_STEVEN,
++    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
++    .size = 256,
++    .width = 16,
++    .height = 32,
++    .paletteSlot = PALSLOT_NPC_SPECIAL,
++    .shadowSize = SHADOW_SIZE_M,
++    .inanimate = FALSE,
++    .disableReflectionPaletteLoad = FALSE,
++    .tracks = TRACKS_FOOT,
++    .oam = &gObjectEventBaseOam_16x32,
++    .subspriteTables = gObjectEventSpriteOamTables_16x32,
++    .anims = sAnimTable_Standard,
++    .images = sHanPicTable_%s,
++    .affineAnims = gDummySpriteAffineAnimTable,
++};
++""" % name)
++    decl.append("")
++    decl.append("#define HAN_PEOPLE_POINTERS \\")
++    decl += ptr
++    decl.append("")
++    n += put(ROOT / "src/data/object_events/han_people_decl.h", "\n".join(decl))
++    n += put(ROOT / "src/data/object_events/han_people.h", "\n".join(data))
++    print("han_people.py: %d walking pictures from Emerald (%d files new or changed)" % (len(PEOPLE), n))
++
++
++def ids():
++    """key -> (gfx id, base number)"""
++    return {name: FIRST_ID + i for i, name in enumerate(PEOPLE)}
++
++
++def base_of(name):
++    import han_emerald
++    return PAL[info(han_emerald.find_emerald([]))[name][1]][1]
++
++
++if __name__ == "__main__":
++    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..3345f6b
+index 0000000..c6d49f5
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,207 @@
+@@ -0,0 +1,248 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -34332,7 +34520,7 @@ index 0000000..3345f6b
 +
 +# ---- the overworld sprites: the walking picture of a character is the game's own overworld sprite for it, with its
 +# palette swapped the same way. Pictures with no overworld sprite of their own take Youngster or Lass.
-+OW_BASES = ["npc_blue", "npc_pink", "npc_green", "npc_white", "player", "emerald_steven", "emerald_twin", "jane"]
++OW_BASES = ["npc_blue", "npc_pink", "npc_green", "npc_white", "player", "emerald_steven", "emerald_twin", "jane", "emerald_npc_1", "emerald_npc_3"]
 +OW_TAG = {"NPC_BLUE": 0, "NPC_PINK": 1, "NPC_GREEN": 2, "NPC_WHITE": 3, "PLAYER_RED": 4, "PLAYER_GREEN": 4,
 +          "EMERALD_STEVEN": 5, "EMERALD_TWIN": 6, "JANE": 7}
 +OW_OF = {
@@ -34356,6 +34544,36 @@ index 0000000..3345f6b
 +    "YOUNG_COUPLE": "Lass", "COOL_COUPLE": "CooltrainerM", "CRUSH_KIN": "BlackBelt",
 +}
 +
++# pictures that have a walking picture from Emerald (tools/han/han_people.py)
++EM_OF = {
++    "AQUA_LEADER_ARCHIE": "Archie", "AQUA_GRUNT_M": "AquaMemberM", "AQUA_GRUNT_F": "AquaMemberF",
++    "AQUA_ADMIN_M": "AquaMemberM", "AQUA_ADMIN_F": "AquaMemberF", "MAGMA_LEADER_MAXIE": "Maxie",
++    "MAGMA_GRUNT_M": "MagmaMemberM", "MAGMA_GRUNT_F": "MagmaMemberF", "MAGMA_ADMIN_M": "MagmaMemberM",
++    "MAGMA_ADMIN_F": "MagmaMemberF", "WALLY": "Wally", "LEADER_WALLACE": "Wallace", "LEADER_ROXANNE": "Roxanne",
++    "LEADER_BRAWLY": "Brawly", "LEADER_TATE_AND_LIZA": "Tate", "LEADER_WATTSON": "Wattson",
++    "LEADER_FLANNERY": "Flannery", "LEADER_NORMAN": "Norman", "LEADER_WINONA": "Winona",
++    "ELITE_FOUR_SIDNEY": "Sidney", "ELITE_FOUR_PHOEBE": "Phoebe", "ELITE_FOUR_GLACIA": "Glacia",
++    "ELITE_FOUR_DRAKE": "Drake", "HEX_MANIAC": "HexManiac", "RICH_BOY": "RichBoy",
++    
++    "RUNNING_TRIATHLETE_M": "RunningTriathleteM", "RUNNING_TRIATHLETE_F": "RunningTriathleteF",
++    "SWIMMING_TRIATHLETE_M": "SwimmerM", "SWIMMING_TRIATHLETE_F": "SwimmerF", "RS_SWIMMER_M": "SwimmerM",
++    "RS_SWIMMER_F": "SwimmerF", "INTERVIEWER": "ReporterM", 
++    "RS_PSYCHIC_M": "PsychicM", "CHAMPION_STEVEN": "STEVEN",
++}
++# the rest of the Hoenn pictures: the nearest of FireRed's own
++OW_OF.update({
++    "RS_AROMA_LADY": "Woman2", "RS_RUIN_MANIAC": "Hiker", "RS_COOLTRAINER_M": "CooltrainerM",
++    "RS_COOLTRAINER_F": "CooltrainerF", "RS_LADY": "Woman1", "RS_BEAUTY": "Beauty", "RS_POKEMANIAC": "PokeManiac",
++    "RS_BLACK_BELT": "BlackBelt", "KINDLER": "Hiker", "BUG_MANIAC": "BugCatcher", "RS_CAMPER": "Camper",
++    "RS_PSYCHIC_F": "Woman1", "RS_GENTLEMAN": "Gentleman", "RS_YOUNGSTER": "Youngster", "RS_FISHERMAN": "Fisher",
++    "DRAGON_TAMER": "Man", "RS_BIRD_KEEPER": "Camper", "BATTLE_GIRL": "CrushGirl", "PARASOL_LADY": "Woman1",
++    "RS_PICNICKER": "Picnicker", "RS_TWINS": "Lass", "RS_SAILOR": "Sailor", "COLLECTOR": "Man",
++    "RS_POKEMON_BREEDER_M": "Man", "RS_POKEMON_BREEDER_F": "Woman3", "RS_POKEMON_RANGER_M": "Camper",
++    "RS_POKEMON_RANGER_F": "Picnicker", "RS_LASS": "Lass", "RS_BUG_CATCHER": "BugCatcher", "RS_HIKER": "Hiker",
++    "RS_YOUNG_COUPLE": "Lass", "RS_SIS_AND_BRO": "Lass", "NINJA_BOY": "Boy", "RS_TUBER_F": "SwimmerFLand",
++    "RS_TUBER_M": "SwimmerMLand", "CYCLING_TRIATHLETE_M": "CooltrainerM", "CYCLING_TRIATHLETE_F": "CooltrainerF",
++})
++
 +
 +def ow_tables(gfx_consts, infos):
 +    """-> (variants per base, per picture (0..147) the gfx id and base index). gfx_consts: name -> id; infos: CamelName ->
@@ -34364,7 +34582,11 @@ index 0000000..3345f6b
 +    pal_dir = ROOT / "graphics/object_events/palettes"
 +    bases = []
 +    for b in OW_BASES:
-+        raw = (pal_dir / (b + ".gbapal")).read_bytes()
++        if (pal_dir / (b + ".gbapal")).exists():
++            raw = (pal_dir / (b + ".gbapal")).read_bytes()
++        else:   # not made yet: read the .pal text file
++            L = (pal_dir / (b + ".pal")).read_text().split()[3:]
++            raw = b"".join(struct.pack("<H", ((int(L[i * 3]) >> 3) | ((int(L[i * 3 + 1]) >> 3) << 5) | ((int(L[i * 3 + 2]) >> 3) << 10))) for i in range(16))
 +        rgb = []
 +        for i in range(16):
 +            v = struct.unpack_from("<H", raw, i * 2)[0]
@@ -34378,6 +34600,13 @@ index 0000000..3345f6b
 +            out.append((norm["rednormal"], 4))
 +            continue
 +        name = d[0]
++        if EM_OF.get(name) == "STEVEN":     # Emerald's STEVEN already stands where KOGA stood
++            out.append((norm["koga"], 5))
++            continue
++        if name in EM_OF:
++            import han_people
++            out.append((han_people.ids()[EM_OF[name]], han_people.base_of(EM_OF[name])))
++            continue
 +        camel = OW_OF.get(name)
 +        if camel is None:
 +            female = name.endswith("_F") or any(w in name for w in ("GIRL", "LADY", "MAY", "WOMAN", "BEAUTY", "MISS"))

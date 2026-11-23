@@ -979,3 +979,13 @@ Face another player, press A, say No to trading, Yes to battling. The other play
 - If the other player leaves (page sets `link.gone`), `HanLinkAbortBattle()` ends the battle as a draw and closes the link.
 - Not done: multi battles; the new texts are English (Hän must be written by a person).
 - Bug worth remembering: copying 32 bytes into a 28 byte `struct LinkPlayer` crashed only one of the two sides. `sizeof`, always.
+
+
+## Walking picture matches the chosen character
+
+The player's walking picture follows the PICTURE row. Hoenn characters have no walking picture in FireRed, so
+`tools/han/han_people.py` brings 27 from Emerald (Team Aqua and Magma members, Archie, Maxie, Wally, Wallace, the Hoenn
+gym leaders and Elite Four, and others) next to the copy of pokeemerald that `han_emerald.py` already reads. Emerald's
+gym leaders and Elite Four have three frames, so their walking steps are the standing frame with a one pixel bob.
+Pictures with no Emerald match take the nearest of FireRed's own, by sex and kind (`OW_OF` and `EM_OF` in han_pics.py).
+The new pictures are graphics ids 154 and up (`OBJ_EVENT_GFX_HAN_PEOPLE`, room for 40).
