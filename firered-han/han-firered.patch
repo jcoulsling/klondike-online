@@ -16877,7 +16877,7 @@ index 64c9e59..87fb53b 100644
          {
              for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
 diff --git a/src/battle_message.c b/src/battle_message.c
-index a6392be..b96aa2c 100644
+index a6392be..40bfbd2 100644
 --- a/src/battle_message.c
 +++ b/src/battle_message.c
 @@ -45,65 +45,65 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
@@ -17085,7 +17085,7 @@ index a6392be..b96aa2c 100644
  static const u8 sText_PkmnCantUseMoveSealed[] = _("{B_ACTIVE_NAME_WITH_PREFIX} can't use the\nsealed {B_CURRENT_MOVE}!\p");
  static const u8 sText_PkmnMadeItRain[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX}'s {B_SCR_ACTIVE_ABILITY}\nmade it rain!");
 +// Hän build: the lines of the four new abilities
-+static const u8 sText_PkmnMadeItHail[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} wë{B_SCR_ACTIVE_ABILITY} ch’inlut\ndhohtsąy");
++static const u8 sText_PkmnMadeItHail[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} wë{B_SCR_ACTIVE_ABILITY} ch’inlut\ndhohtsąy!");
 +static const u8 sText_HanSlushRush[] = _("Ch’inlut cha {B_SCR_ACTIVE_NAME_WITH_PREFIX} khän näbà!");
 +static const u8 sText_HanSnowCloak[] = _("Ch’inlut cha {B_ATK_NAME_WITH_PREFIX}\n*hècho-’ąy!");
 +static const u8 sText_HanIceBeard[] = _("Ch’inlut cha {B_ATK_NAME_WITH_PREFIX} nètän!");
@@ -25684,10 +25684,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..1c5f475
+index 0000000..d62d355
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,287 @@
+@@ -0,0 +1,305 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -25796,11 +25796,26 @@ index 0000000..1c5f475
 +    }
 +    if (sTrailLen == 0)
 +    {
-+        sTrailHead = 0;
-+        sTrailX[0] = x;
-+        sTrailY[0] = y;
-+        sTrailLen = 1;
-+        sprite->invisible = TRUE;
++        // a new map, or a warp: it is there at once, one tile behind the player (so that it does not blink out and in)
++        s16 bx = x, by = y;
++
++        switch (GetPlayerFacingDirection())
++        {
++        case DIR_SOUTH: by = y - 16; break;
++        case DIR_NORTH: by = y + 16; break;
++        case DIR_WEST: bx = x + 16; break;
++        default: bx = x - 16; break;
++        }
++        sFacing = GetPlayerFacingDirection();
++        sTrailX[0] = bx;
++        sTrailY[0] = by;
++        sTrailX[1] = x;
++        sTrailY[1] = y;
++        sTrailHead = 1;
++        sTrailLen = 2;
++        sprite->x = bx;
++        sprite->y = by;
++        sprite->invisible = FALSE;
 +    }
 +    else if (x != sTrailX[sTrailHead] || y != sTrailY[sTrailHead])
 +    {
@@ -25863,10 +25878,8 @@ index 0000000..1c5f475
 +        StartSpriteAnimIfDifferent(sprite, GetFaceDirectionAnimNum(sFacing));
 +    sprite->invisible = left > 8; // hidden until it is out from under the player
 +    sprite->oam.priority = player->oam.priority;
-+    if (fy > y)
-+        sprite->subpriority = player->subpriority - 1; // in front of the player
-+    else
-+        sprite->subpriority = player->subpriority + 1;
++    // always on a layer above the player (a lower subpriority is drawn in front)
++    sprite->subpriority = player->subpriority > 0 ? player->subpriority - 1 : 0;
 +}
 +
 +void HanFollowerFrame(void)
@@ -25956,7 +25969,12 @@ index 0000000..1c5f475
 +    pal.tag = palTag;
 +    idx = LoadSpritePalette(&pal);
 +    if (idx == 0xFF)
-+        return MAX_SPRITES;
++    {
++        // the four free sprite palettes are used by the weather, the follower, a ghost player and so on: borrow one of the
++        // palettes the game keeps for water reflections (6 to 9), which a map without reflections does not use
++        idx = 9 - (palTag & 3);
++        LoadPalette(pal.data, OBJ_PLTT_ID(idx), PLTT_SIZE_4BPP);
++    }
 +    id = CreateSprite(&template, 0, 0, 0);
 +    if (id == MAX_SPRITES)
 +    {
@@ -26126,10 +26144,10 @@ index 0000000..0e5d2b3
 +}
 diff --git a/src/han_multiplayer.c b/src/han_multiplayer.c
 new file mode 100644
-index 0000000..46fe95b
+index 0000000..2d31104
 --- /dev/null
 +++ b/src/han_multiplayer.c
-@@ -0,0 +1,292 @@
+@@ -0,0 +1,303 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -26345,14 +26363,25 @@ index 0000000..46fe95b
 +            fs->x += (tx & 15) + 8;
 +            fs->y += (ty & 15) + 16 + fs->centerToCornerVecY;
 +            fs->oam.priority = sprite->oam.priority;
-+            fs->subpriority = sprite->subpriority + 1;
-+            StartSpriteAnimIfDifferent(fs, GetFaceDirectionAnimNum(they->facing));
++            if (fs->x != fs->data[4] || fs->y != fs->data[5])
++                StartSpriteAnimIfDifferent(fs, GetMoveDirectionAnimNum(they->facing)); // walking: it walks behind them
++            else
++                StartSpriteAnimIfDifferent(fs, GetFaceDirectionAnimNum(they->facing));
++            fs->data[4] = fs->x;
++            fs->data[5] = fs->y;
 +        }
 +    }
 +    if (wy > gSaveBlock1Ptr->pos.y * 16)
 +        sprite->subpriority = gSprites[gPlayerAvatar.spriteId].subpriority - 1; // in front of this player
 +    else
 +        sprite->subpriority = gSprites[gPlayerAvatar.spriteId].subpriority + 1;
++    // their follower is on a layer above every player
++    if (gHanMailbox.followIds[slot] != MAX_SPRITES)
++    {
++        u8 low = sprite->subpriority < gSprites[gPlayerAvatar.spriteId].subpriority ? sprite->subpriority : gSprites[gPlayerAvatar.spriteId].subpriority;
++
++        gSprites[gHanMailbox.followIds[slot]].subpriority = low > 0 ? low - 1 : 0;
++    }
 +}
 +
 +// Whether another player stands on this map tile (x and y as the game's own object events have them, with MAP_OFFSET), so

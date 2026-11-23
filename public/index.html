@@ -22,17 +22,48 @@
   button.ghost { background:transparent; color:var(--fg); border:1px solid var(--line); font-weight:500; padding:8px 12px; }
   #msg { margin:12px 0 0; min-height:1.5em; white-space:pre-wrap; } #msg.ok { color:var(--ok); } #msg.bad { color:var(--bad); }
   #game { display:none; }
-  #screenwrap { background:#000; border-radius:10px; overflow:hidden; }
+  #screenwrap { background:#000; border-radius:10px; overflow:hidden; position:relative; }
+  #burger { display:none; }
   canvas#screen { display:block; width:100%; height:auto; aspect-ratio:3/2; image-rendering:pixelated; outline:none; }
   #status { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:.9rem; margin:8px 0; }
   #players { list-style:none; margin:0 0 12px; padding:0; font-size:.95rem; }
   #players li { padding:4px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
-  #pad { display:none; user-select:none; -webkit-user-select:none; touch-action:none; margin-top:10px; }
-  #pad .rowpad { display:flex; justify-content:space-between; align-items:center; margin:6px 0; }
-  #pad button.k { background:var(--pad); color:var(--padfg); padding:14px 0; width:62px; border-radius:14px; font-size:1.1rem; touch-action:none; }
-  #pad .dp { display:grid; grid-template-columns:repeat(3,62px); grid-template-rows:repeat(3,52px); gap:4px; }
-  #pad .ab { display:flex; gap:12px; }
-  @media (pointer:coarse) { #pad { display:block; } }
+  /* touch pad, laid out like the phone GBA emulators (Delta, Pizza Boy, mGBA): the screen at the top, the full width of
+     the phone, and the controls under it on a 414 x 440 canvas: L and R pills at the top corners, a 150 wide d-pad at
+     the left, round A (higher) and B (lower, to its left) at the right, Select and Start pills at the bottom middle. */
+  #pad { display:none; user-select:none; -webkit-user-select:none; touch-action:none; position:relative; width:100%; aspect-ratio:414/440; margin:0; -webkit-touch-callout:none; }
+  #pad button.k { position:absolute; margin:0; padding:0; border:0; background:rgba(30,30,32,.88); color:#f2f2f2; font:600 1rem/1 system-ui,sans-serif; touch-action:none; box-shadow:inset 0 0 0 2px rgba(255,255,255,.12); }
+  #pad button.k.dn { background:#ffd84a; color:#000; }
+  #pad button[data-k=l], #pad button[data-k=r] { top:2%; width:25%; height:8.6%; border-radius:12px 12px 24px 24px; }
+  #pad button[data-k=l] { left:4%; } #pad button[data-k=r] { right:4%; }
+  #pad button[data-k=up], #pad button[data-k=down], #pad button[data-k=left], #pad button[data-k=right] { width:12.1%; height:11.4%; border-radius:8px; }
+  #pad button[data-k=up] { left:18.1%; top:20%; border-radius:12px 12px 4px 4px; }
+  #pad button[data-k=down] { left:18.1%; top:43.4%; border-radius:4px 4px 12px 12px; }
+  #pad button[data-k=left] { left:6%; top:31.7%; border-radius:12px 4px 4px 12px; }
+  #pad button[data-k=right] { left:30.2%; top:31.7%; border-radius:4px 12px 12px 4px; }
+  #pad .dpc { position:absolute; left:18.1%; top:31.7%; width:12.1%; height:11.4%; background:rgba(30,30,32,.88); pointer-events:none; }
+  #pad button[data-k=a], #pad button[data-k=b] { width:16.4%; height:15.5%; border-radius:50%; font-size:1.25rem; }
+  #pad button[data-k=a] { left:74.4%; top:31.5%; } #pad button[data-k=b] { left:56.5%; top:42.5%; }
+  #pad button[data-k=select], #pad button[data-k=start] { top:80%; width:20.5%; height:7.3%; border-radius:20px; font-size:.78rem; transform:rotate(-20deg); }
+  #pad button[data-k=select] { left:27.5%; } #pad button[data-k=start] { left:52%; }
+  @media (pointer:coarse) {
+    #pad { display:block; }
+    main { padding:0 0 24px; max-width:none; }
+    body.playing h1, body.playing .lead { display:none; }
+    body.playing, body.playing html { background:#0e0e10; color:#e8e8ea; }
+    body.playing #pad button.k { background:#3b3c42; color:#f2f2f2; }
+    body.playing #pad button.k.dn { background:#ffd84a; color:#000; }
+    body.playing #pad .dpc { background:#3b3c42; }
+    body.playing button.ghost { color:#e8e8ea; border-color:#4a4b50; }
+    body.playing #screenwrap { border-radius:0; }
+    body.playing #status, body.playing #players { display:none; }
+    body.playing #game > p { display:none; }
+    #game { position:relative; }
+    #burger { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; position:absolute; top:10px; right:10px; width:42px; height:42px; padding:0; border:0; border-radius:10px; background:rgba(14,14,16,.55); z-index:6; }
+    #burger i { display:block; width:22px; height:3px; border-radius:2px; background:#f2f2f2; }
+    body.playing #menu { display:none; position:absolute; top:60px; right:10px; z-index:6; flex-direction:column; align-items:stretch; gap:8px; margin:0 !important; padding:10px; background:rgba(14,14,16,.96); border-radius:12px; box-shadow:0 8px 30px #000a; }
+    body.playing.menuopen #menu { display:flex; }
+  }
   small { display:block; margin-top:24px; opacity:.75; }
   details { margin-top:14px; } summary { cursor:pointer; }
   #teachbar { display:none; margin:14px 0 0; }
@@ -74,18 +105,16 @@
   </section>
 
   <section id="game">
-    <div id="screenwrap"><canvas id="screen" width="240" height="160" tabindex="0"></canvas></div>
+    <div id="screenwrap"><canvas id="screen" width="240" height="160" tabindex="0"></canvas><button id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button></div>
     <div id="status"><span id="net">Not connected</span><span>Keys: arrows, Z = A, X = B, Enter = Start, Backspace = Select</span></div>
     <ul id="players"></ul>
     <div id="pad">
-      <div class="rowpad"><button class="k" data-k="l">L</button><button class="k" data-k="r">R</button></div>
-      <div class="rowpad">
-        <div class="dp"><span></span><button class="k" data-k="up">▲</button><span></span><button class="k" data-k="left">◀</button><span></span><button class="k" data-k="right">▶</button><span></span><button class="k" data-k="down">▼</button><span></span></div>
-        <div class="ab"><button class="k" data-k="b">B</button><button class="k" data-k="a">A</button></div>
-      </div>
-      <div class="rowpad"><button class="k" data-k="select">Select</button><button class="k" data-k="start">Start</button></div>
+      <button class="k" data-k="l">L</button><button class="k" data-k="r">R</button>
+      <button class="k" data-k="up" aria-label="Up">▲</button><button class="k" data-k="left" aria-label="Left">◀</button><span class="dpc"></span><button class="k" data-k="right" aria-label="Right">▶</button><button class="k" data-k="down" aria-label="Down">▼</button>
+      <button class="k" data-k="b">B</button><button class="k" data-k="a">A</button>
+      <button class="k" data-k="select">SELECT</button><button class="k" data-k="start">START</button>
     </div>
-    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button></div>
+    <div class="row" id="menu" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button></div>
     <p>You can see the other players walk around on the same map. You can chat and share a whiteboard with the room below the game. You cannot trade and battle yet.</p>
   </section>
 
@@ -341,7 +370,7 @@
       try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
       keepGame(rom);
       say('Starting…');
-      $('setup').style.display = 'none'; $('game').style.display = 'block';
+      $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
       startEmulator(rom, nm, room);
     }, 30);
   });
@@ -351,7 +380,7 @@
   keptGame(function (rom) {
     if (autoDone || !rom || /[?&]setup/.test(location.search)) return; autoDone = true;
     var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
-    $('setup').style.display = 'none'; $('game').style.display = 'block';
+    $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
     startEmulator(new Uint8Array(rom), nm, room);
   });
 
@@ -383,11 +412,13 @@
   // touch pad
   Array.prototype.forEach.call(document.querySelectorAll('#pad button.k'), function (b) {
     var k = b.getAttribute('data-k');
-    function down(e) { e.preventDefault(); if (Module) Module.buttonPress(k); }
-    function up(e) { e.preventDefault(); if (Module) Module.buttonUnpress(k); }
+    function down(e) { e.preventDefault(); b.classList.add('dn'); if (Module) Module.buttonPress(k); }
+    function up(e) { e.preventDefault(); b.classList.remove('dn'); if (Module) Module.buttonUnpress(k); }
     b.addEventListener('touchstart', down, { passive: false }); b.addEventListener('touchend', up, { passive: false }); b.addEventListener('touchcancel', up, { passive: false });
     b.addEventListener('mousedown', down); b.addEventListener('mouseup', up); b.addEventListener('mouseleave', up);
   });
+  $('burger').addEventListener('click', function () { var o = document.body.classList.toggle('menuopen'); this.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  $('menu').addEventListener('click', function (e) { if (e.target.tagName === 'BUTTON' && e.target.id !== 'mute') document.body.classList.remove('menuopen'); });
   $('fs').addEventListener('click', function () { var w = $('screenwrap'); if (w.requestFullscreen) w.requestFullscreen(); });
   $('mute').addEventListener('click', function () { muted = !muted; if (Module) Module.setVolume(muted ? 0 : 100); $('mute').textContent = muted ? 'Sound off' : 'Sound on'; });
   $('restart').addEventListener('click', function () { if (Module) { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonPress(k); }); setTimeout(function () { ['a', 'b', 'start', 'select'].forEach(function (k) { Module.buttonUnpress(k); }); }, 400); var c = $('screen'); if (c) c.focus(); } });
