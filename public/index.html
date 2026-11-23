@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pokémon Klondike Version online</title>
+<style>
+  :root { --bg:#f6f4ef; --fg:#1d1d1b; --card:#fff; --line:#cfcabd; --accent:#9c2b1f; --ok:#1f6b3a; --bad:#a3261b; --pad:#2b2b2b; --padfg:#f2f2f2; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#17181a; --fg:#ecebe6; --card:#222427; --line:#44464a; --accent:#e0705f; --ok:#6fcf97; --bad:#ff8a7c; --pad:#34363a; } }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:20px 16px 40px; }
+  h1 { font-size:1.5rem; margin:0 0 4px; }
+  .lead { margin:0 0 18px; }
+  .drop { display:block; background:var(--card); border:2px dashed var(--line); border-radius:12px; padding:16px; margin:0 0 12px; text-align:center; cursor:pointer; }
+  .drop.over { border-color:var(--accent); } .drop.done { border-style:solid; border-color:var(--ok); }
+  .drop strong { display:block; } .drop span { opacity:.75; font-size:.9rem; } .drop input { display:none; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 12px; }
+  .row label { flex:1 1 200px; font-size:.9rem; } .row input { width:100%; font:inherit; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); text-transform:none; }
+  button { font:inherit; font-weight:600; padding:13px 18px; border:0; border-radius:12px; background:var(--accent); color:#fff; cursor:pointer; }
+  button.wide { width:100%; } button:disabled { opacity:.4; cursor:default; }
+  button.ghost { background:transparent; color:var(--fg); border:1px solid var(--line); font-weight:500; padding:8px 12px; }
+  #msg { margin:12px 0 0; min-height:1.5em; white-space:pre-wrap; } #msg.ok { color:var(--ok); } #msg.bad { color:var(--bad); }
+  #game { display:none; }
+  #screenwrap { background:#000; border-radius:10px; overflow:hidden; }
+  canvas#screen { display:block; width:100%; height:auto; aspect-ratio:3/2; image-rendering:pixelated; outline:none; }
+  #status { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:.9rem; margin:8px 0; }
+  #players { list-style:none; margin:0 0 12px; padding:0; font-size:.95rem; }
+  #players li { padding:4px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  #pad { display:none; user-select:none; -webkit-user-select:none; touch-action:none; margin-top:10px; }
+  #pad .rowpad { display:flex; justify-content:space-between; align-items:center; margin:6px 0; }
+  #pad button.k { background:var(--pad); color:var(--padfg); padding:14px 0; width:62px; border-radius:14px; font-size:1.1rem; touch-action:none; }
+  #pad .dp { display:grid; grid-template-columns:repeat(3,62px); grid-template-rows:repeat(3,52px); gap:4px; }
+  #pad .ab { display:flex; gap:12px; }
+  @media (pointer:coarse) { #pad { display:block; } }
+  small { display:block; margin-top:24px; opacity:.75; }
+  details { margin-top:14px; } summary { cursor:pointer; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Pokémon Klondike Version online</h1>
+  <p class="lead">An unofficial fan project. You need your own copy of Pokémon FireRed (US, version 1.0) and the patch file. The game is made and played in this page, on your device. No game, patch or save is uploaded. Only where you stand on the map is sent, so that the people in your room can be seen walking in your game.</p>
+
+  <section id="setup">
+    <label class="drop" id="dropRom"><strong>1. Your Pokémon FireRed (US) file</strong><span id="romInfo">Drop it here or tap to choose (.gba)</span><input type="file" id="rom" accept=".gba,.bin,.rom"></label>
+    <label class="drop" id="dropPatch"><strong>2. The patch file</strong><span id="patchInfo">Drop it here or tap to choose (.bps)</span><input type="file" id="patch" accept=".bps"></label>
+    <div class="row">
+      <label>Your name in the room<input id="name" maxlength="12" value="" placeholder="Player" autocomplete="off"></label>
+      <label>Room code (the same for friends)<input id="room" maxlength="8" value="" placeholder="KLONDIKE" autocomplete="off" autocapitalize="characters"></label>
+    </div>
+    <div id="open" style="font-size:.9rem;margin:0 0 12px"></div>
+    <button class="wide" id="go" disabled>Play</button>
+    <p id="msg" role="status"></p>
+  </section>
+
+  <section id="game">
+    <div id="screenwrap"><canvas id="screen" width="240" height="160" tabindex="0"></canvas></div>
+    <div id="status"><span id="net">Not connected</span><span>Keys: arrows, Z = A, X = B, Enter = Start, Backspace = Select</span></div>
+    <ul id="players"></ul>
+    <div id="pad">
+      <div class="rowpad"><button class="k" data-k="l">L</button><button class="k" data-k="r">R</button></div>
+      <div class="rowpad">
+        <div class="dp"><span></span><button class="k" data-k="up">▲</button><span></span><button class="k" data-k="left">◀</button><span></span><button class="k" data-k="right">▶</button><span></span><button class="k" data-k="down">▼</button><span></span></div>
+        <div class="ab"><button class="k" data-k="b">B</button><button class="k" data-k="a">A</button></div>
+      </div>
+      <div class="rowpad"><button class="k" data-k="select">Select</button><button class="k" data-k="start">Start</button></div>
+    </div>
+    <div class="row" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="leave">Leave</button></div>
+    <p>You can see the other players walk around on the same map. You cannot talk to them or trade and battle yet.</p>
+  </section>
+
+  <small>This page does not contain, host or share any game. The emulator is mGBA (MPL 2.0, mgba.io). A note on the use of an LLM (AI assistant): this page and its server were written with the help of Claude, an AI assistant from Anthropic, and checked by running them.</small>
+</main>
+<script>
+// The emulator keeps the whole GBA in the memory of its WebAssembly module and does not hand that memory out,
+// so it is caught here when the module makes it. Where a player stands is read from it, and the others are written to it.
+(function () {
+  var Orig = WebAssembly.Memory;
+  if (!Orig) return;
+  var Patched = function (desc) { var m = new Orig(desc); if (desc && desc.shared) window.__wasmMem = m; return m; };
+  Patched.prototype = Orig.prototype;
+  WebAssembly.Memory = Patched;
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var romData = null, patchData = null;
+  var Module = null, base = -1, ws = null, myId = 0, slots = {}, names = {}, lastSent = '', lastSentAt = 0, muted = false;
+  var SLOTS = 4, lastScan = 0;
+
+  /* ---------- patching: BPS, in this page ---------- */
+  var table = (function () { var t = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(buf, end) { var c = 0xFFFFFFFF; for (var i = 0, n = end === undefined ? buf.length : end; i < n; i++) c = table[(c ^ buf[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function u32(b, a) { return (b[a] | (b[a + 1] << 8) | (b[a + 2] << 16) | (b[a + 3] << 24)) >>> 0; }
+  function hex(n) { return ('00000000' + n.toString(16)).slice(-8); }
+  function applyBps(src, patch) {
+    if (patch.length < 19 || patch[0] !== 0x42 || patch[1] !== 0x50 || patch[2] !== 0x53 || patch[3] !== 0x31) throw new Error('This is not a BPS patch file.');
+    var pos = 4;
+    function num() { var d = 0, sh = 1; for (;;) { if (pos >= patch.length) throw new Error('The patch file is damaged.'); var x = patch[pos++]; d += (x & 0x7F) * sh; if (x & 0x80) break; sh *= 128; d += sh; } return d; }
+    var srcSize = num(), tgtSize = num(), meta = num(); pos += meta;
+    var end = patch.length - 12, wantSrc = u32(patch, end), wantTgt = u32(patch, end + 4), wantPatch = u32(patch, end + 8);
+    if (crc32(patch, patch.length - 4) !== wantPatch) throw new Error('The patch file is damaged (its check number is wrong). Get it again.');
+    if (src.length !== srcSize || crc32(src) !== wantSrc) throw new Error('This is not the right game file.\nThe patch is for Pokémon FireRed (US), version 1.0, 16 MB.\nYour file is ' + src.length + ' bytes, check number ' + hex(crc32(src)) + '.');
+    var out = new Uint8Array(tgtSize), o = 0, sRel = 0, tRel = 0;
+    while (pos < end) {
+      var d = num(), mode = d & 3, len = (d >> 2) + 1;
+      if (o + len > tgtSize) throw new Error('The patch file is damaged.');
+      if (mode === 0) { for (var i = 0; i < len; i++) { out[o] = src[o]; o++; } }
+      else if (mode === 1) { out.set(patch.subarray(pos, pos + len), o); pos += len; o += len; }
+      else { var v = num(), off = (v & 1 ? -1 : 1) * (v >> 1);
+        if (mode === 2) { sRel += off; for (var j = 0; j < len; j++) out[o++] = src[sRel++]; } else { tRel += off; for (var k = 0; k < len; k++) out[o++] = out[tRel++]; } }
+    }
+    if (crc32(out) !== wantTgt) throw new Error('The game did not come out right (its check number is wrong).');
+    return out;
+  }
+
+  function say(t, k) { $('msg').textContent = t; $('msg').className = k || ''; }
+  function read(file, done) { var r = new FileReader(); r.onload = function () { done(new Uint8Array(r.result)); }; r.onerror = function () { say('That file could not be read.', 'bad'); }; r.readAsArrayBuffer(file); }
+  function refresh() { $('go').disabled = !(romData && patchData); }
+  function take(kind, file) {
+    if (!file) return;
+    read(file, function (d) {
+      if (kind === 'rom') { romData = d; $('romInfo').textContent = file.name + ' (' + (d.length / 1048576).toFixed(1) + ' MB)'; $('dropRom').className = 'drop done'; }
+      else { patchData = d; $('patchInfo').textContent = file.name + ' (' + (d.length / 1048576).toFixed(1) + ' MB)'; $('dropPatch').className = 'drop done'; }
+      say(''); refresh();
+    });
+  }
+  [['rom', 'dropRom'], ['patch', 'dropPatch']].forEach(function (p) {
+    var z = $(p[1]);
+    $(p[0]).addEventListener('change', function (e) { take(p[0], e.target.files[0]); });
+    z.addEventListener('dragover', function (e) { e.preventDefault(); z.classList.add('over'); });
+    z.addEventListener('dragleave', function () { z.classList.remove('over'); });
+    z.addEventListener('drop', function (e) { e.preventDefault(); z.classList.remove('over'); take(p[0], e.dataTransfer.files[0]); });
+  });
+  window.addEventListener('dragover', function (e) { e.preventDefault(); });
+  window.addEventListener('drop', function (e) { if (e.target.closest && e.target.closest('.drop')) return; e.preventDefault(); Array.prototype.forEach.call(e.dataTransfer.files, function (f) { take(/\.bps$/i.test(f.name) ? 'patch' : 'rom', f); }); });
+
+  try { $('name').value = localStorage.getItem('klName') || ''; $('room').value = localStorage.getItem('klRoom') || ''; } catch (e) {}
+
+  /* ---------- the room: a web socket ---------- */
+  function connect(cb) {
+    var url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+    ws = new WebSocket(url);
+    ws.onopen = function () { $('net').textContent = 'Connected'; if (cb) cb(); };
+    ws.onclose = function () { $('net').textContent = 'Not connected'; ws = null; slots = {}; clearSlots(); renderPlayers(); };
+    ws.onmessage = function (ev) {
+      var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (m.t === 'hello') { myId = m.id; showRooms(m.rooms); }
+      else if (m.t === 'rooms') showRooms(m.rooms);
+      else if (m.t === 'joined') { $('net').textContent = 'Room ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { names[o.id] = o.name; }); renderPlayers(); }
+      else if (m.t === 'full') { $('net').textContent = 'That room is full'; }
+      else if (m.t === 'arrived') { names[m.id] = m.name; renderPlayers(); }
+      else if (m.t === 'left') { var sl = slots[m.id]; if (sl !== undefined) writeOther(sl, null); delete slots[m.id]; delete names[m.id]; renderPlayers(); }
+      else if (m.t === 's') {
+        var s = slots[m.id];
+        if (s === undefined) { for (var i = 0; i < SLOTS; i++) { var used = false; for (var k in slots) if (slots[k] === i) used = true; if (!used) { s = i; break; } } if (s === undefined) return; slots[m.id] = s; }
+        writeOther(s, m.s); seen[m.id] = Date.now(); where[m.id] = m.s;
+        renderPlayers();
+      }
+    };
+  }
+  var seen = {}, where = {};
+  function showRooms(list) {
+    if (!list) return; var el = $('open');
+    el.textContent = list.length ? 'Open rooms: ' + list.map(function (r) { return r.code + ' (' + r.players + ')'; }).join(', ') : 'No rooms are open yet. Pick any code and tell your friends.';
+  }
+  connect();
+
+  /* ---------- the mailbox in the emulator's memory ---------- */
+  function heap() { return new Uint8Array(window.__wasmMem.buffer); }
+  function findMailbox() {
+    var h = heap(), n = h.length;
+    // the marker: KLNDKMBX
+    var a = new Uint32Array(h.buffer, h.byteOffset, Math.floor(h.length / 4));
+    for (var i = 0; i < a.length - 1; i++) { if (a[i] === 0x444E4C4B && a[i + 1] === 0x58424D4B) return i * 4; }
+    return -1;
+  }
+  function writeOther(slot, s) {
+    if (base < 0 || !window.__wasmMem) return;
+    var h = heap(), p = base + 24 + 12 * slot;
+    if (!s) { h[p] = 0; return; }
+    var dv = new DataView(h.buffer, h.byteOffset);
+    // s = [active, group, num, facing, x, y, gfx, walking]
+    h[p + 1] = s[1]; h[p + 2] = s[2]; h[p + 3] = s[3];
+    dv.setInt16(p + 4, s[4], true); dv.setInt16(p + 6, s[5], true);
+    h[p + 8] = s[6]; h[p + 9] = s[7]; h[p] = s[0] ? 1 : 0;
+  }
+  function clearSlots() { for (var i = 0; i < SLOTS; i++) writeOther(i, null); }
+  function readMine() {
+    var h = heap(), p = base + 12, dv = new DataView(h.buffer, h.byteOffset);
+    return [h[p], h[p + 1], h[p + 2], h[p + 3], dv.getInt16(p + 4, true), dv.getInt16(p + 6, true), h[p + 8], h[p + 9]];
+  }
+  function tick() {
+    if (!Module || !window.__wasmMem) return;
+    if (base < 0) { var t0 = Date.now(); if (t0 - lastScan < 1000) return; lastScan = t0; base = findMailbox(); if (base < 0) return; }
+    if (!ws || ws.readyState !== 1) return;
+    var s = readMine(); if (!s[0]) return;
+    var key = s.join(','), now = Date.now();
+    if (key !== lastSent || now - lastSentAt > 500) { ws.send(JSON.stringify({ t: 's', s: s })); lastSent = key; lastSentAt = now; }
+    for (var id in seen) if (now - seen[id] > 4000) { var sl = slots[id]; if (sl !== undefined) writeOther(sl, null); delete seen[id]; delete where[id]; delete slots[id]; renderPlayers(); }
+  }
+  function renderPlayers() {
+    var ul = $('players'); ul.textContent = '';
+    for (var id in names) {
+      var li = document.createElement('li'), a = document.createElement('span'), b = document.createElement('span');
+      a.textContent = names[id]; b.textContent = where[id] ? 'map ' + where[id][1] + '-' + where[id][2] : 'waiting for them to start';
+      li.appendChild(a); li.appendChild(b); ul.appendChild(li);
+    }
+    if (!Object.keys(names).length) { var l = document.createElement('li'); l.textContent = 'You are the only one in the room.'; ul.appendChild(l); }
+  }
+
+  /* ---------- the emulator ---------- */
+  $('go').addEventListener('click', function () {
+    $('go').disabled = true; say('Making the game…');
+    var rom;
+    setTimeout(function () {
+      try { rom = applyBps(romData, patchData); } catch (e) { say(e.message, 'bad'); $('go').disabled = false; return; }
+      var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
+      try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
+      say('Starting…');
+      $('setup').style.display = 'none'; $('game').style.display = 'block';
+      startEmulator(rom, nm, room);
+    }, 30);
+  });
+
+  function startEmulator(rom, nm, room) {
+    var canvas = $('screen');
+    import('./mgba.js').then(function (mod) { return (mod.default || mod)({ canvas: canvas }); }).then(function (M) {
+      Module = M; window.Module = M;
+      return Module.FSInit().then(function () { return M; });
+    }).then(function () {
+      var paths = Module.filePaths();
+      var file = paths.gamePath + '/klondike.gba';
+      try { Module.FS.mkdir(paths.gamePath); } catch (e) {}
+      Module.FS.writeFile(file, rom);
+      if (!Module.loadGame(file)) { $('net').textContent = 'The game did not start'; return; }
+      Module.addCoreCallbacks({ saveDataUpdatedCallback: function () { Module.FSSync(); } });
+      canvas.focus();
+      if (ws && ws.readyState === 1) ws.send(JSON.stringify({ t: 'join', room: room, name: nm }));
+      else connect(function () { ws.send(JSON.stringify({ t: 'join', room: room, name: nm })); });
+      setInterval(tick, 50);
+      window.__ready = true;
+    }).catch(function (e) { $('net').textContent = 'Error: ' + (e && e.message || e); });
+  }
+
+  // touch pad
+  Array.prototype.forEach.call(document.querySelectorAll('#pad button.k'), function (b) {
+    var k = b.getAttribute('data-k');
+    function down(e) { e.preventDefault(); if (Module) Module.buttonPress(k); }
+    function up(e) { e.preventDefault(); if (Module) Module.buttonUnpress(k); }
+    b.addEventListener('touchstart', down, { passive: false }); b.addEventListener('touchend', up, { passive: false }); b.addEventListener('touchcancel', up, { passive: false });
+    b.addEventListener('mousedown', down); b.addEventListener('mouseup', up); b.addEventListener('mouseleave', up);
+  });
+  $('fs').addEventListener('click', function () { var w = $('screenwrap'); if (w.requestFullscreen) w.requestFullscreen(); });
+  $('mute').addEventListener('click', function () { muted = !muted; if (Module) Module.setVolume(muted ? 0 : 100); $('mute').textContent = muted ? 'Sound off' : 'Sound on'; });
+  $('leave').addEventListener('click', function () { if (ws) ws.send(JSON.stringify({ t: 'leave' })); location.reload(); });
+})();
+</script>
+</body>
+</html>
