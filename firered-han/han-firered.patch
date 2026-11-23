@@ -25438,10 +25438,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..6adc02b
+index 0000000..1b6ceab
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,285 @@
+@@ -0,0 +1,324 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -25467,12 +25467,14 @@ index 0000000..6adc02b
 +EWRAM_DATA u16 gHanFollowPal[16] = {0};
 +static EWRAM_DATA u8 sSpriteId = 0;   // the sprite plus 1; 0 for none
 +static EWRAM_DATA u16 sSpecies = 0;   // what the frames and palette were last made for (bit 15: shiny)
-+static EWRAM_DATA u8 sHistN = 0;      // 0 or 1: a tile the player left is waiting
-+static EWRAM_DATA s16 sHistX = 0;
-+static EWRAM_DATA s16 sHistY = 0;
++#define HIST_MAX 4
++static EWRAM_DATA u8 sHistN = 0;      // how many tiles the player left are waiting, oldest first
++static EWRAM_DATA s16 sHistX[HIST_MAX] = {0};   // tile coordinates (the follower walks the player's own path, so it never cuts a corner)
++static EWRAM_DATA s16 sHistY[HIST_MAX] = {0};
 +static EWRAM_DATA s16 sLastX = 0;     // where the player was last frame
 +static EWRAM_DATA s16 sLastY = 0;
-+static EWRAM_DATA u8 sSpeed = 1;      // pixels per frame
++static EWRAM_DATA u8 sSpeed = 16;     // frames the player took for the last tile
++static EWRAM_DATA u16 sAcc = 0;       // sixteenths of a pixel (fixed point, 8 bits) not yet walked
 +static EWRAM_DATA u8 sSince = 0;      // frames since the player changed tile
 +static EWRAM_DATA u8 sFacing = 0;
 +
@@ -25541,7 +25543,7 @@ index 0000000..6adc02b
 +    struct Sprite *sprite, *player;
 +    u16 want;
 +    s16 px, py, wx, wy, tx, ty, dx, dy, adx, ady;
-+    u8 dir;
++    u8 dir, i;
 +
 +    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
 +        return;
@@ -25609,12 +25611,22 @@ index 0000000..6adc02b
 +        }
 +        else
 +        {
-+            sHistX = sLastX;
-+            sHistY = sLastY;
-+            sHistN = 1;
-+            sSpeed = sSince == 0 || sSince > 16 ? 1 : 16 / sSince;
-+            if (sSpeed > 4)
-+                sSpeed = 4;
++            if (sHistN == HIST_MAX)
++            {
++                // far behind: jump to the oldest waiting tile (a tile on the player's own path) and go on from there
++                sprite->data[0] = sHistX[0] * 16;
++                sprite->data[1] = sHistY[0] * 16;
++                for (i = 1; i < HIST_MAX; i++)
++                {
++                    sHistX[i - 1] = sHistX[i];
++                    sHistY[i - 1] = sHistY[i];
++                }
++                sHistN--;
++            }
++            sHistX[sHistN] = sLastX;
++            sHistY[sHistN] = sLastY;
++            sHistN++;
++            sSpeed = sSince == 0 || sSince > 16 ? 16 : (sSince < 2 ? 2 : sSince);
 +            sSince = 0;
 +        }
 +        sLastX = px;
@@ -25627,8 +25639,10 @@ index 0000000..6adc02b
 +    wy = sprite->data[1];
 +    if (sHistN)
 +    {
-+        tx = sHistX * 16;
-+        ty = sHistY * 16;
++        u8 step;
++
++        tx = sHistX[0] * 16;
++        ty = sHistY[0] * 16;
 +        dx = tx - wx;
 +        dy = ty - wy;
 +        adx = dx < 0 ? -dx : dx;
@@ -25638,26 +25652,51 @@ index 0000000..6adc02b
 +            wx = tx;
 +            wy = ty;
 +            dx = dy = 0;
++            adx = ady = 0;
 +        }
-+        if (dx != 0 || dy != 0)
++        if (adx != 0 || ady != 0)
 +        {
++            // one axis at a time along the player's path; faster the more tiles are waiting
++            // a tile in the player's own time, with the fraction carried over so the walk is smooth;
++            // faster when more than one tile is waiting
++            sAcc += (16 * 256 / sSpeed) * (sHistN > 1 ? sHistN : 1);
++            step = sAcc >> 8;
++            sAcc &= 255;
++            if (step > 8)
++                step = 8;
 +            sprite->invisible = FALSE;
-+            if (adx >= ady)
++            if (adx != 0)
++            {
 +                dir = dx > 0 ? DIR_EAST : DIR_WEST;
++                if (adx <= step)
++                    wx = tx;
++                else
++                    wx += dx > 0 ? step : -step;
++            }
 +            else
++            {
 +                dir = dy > 0 ? DIR_SOUTH : DIR_NORTH;
++                if (ady <= step)
++                    wy = ty;
++                else
++                    wy += dy > 0 ? step : -step;
++            }
 +            sFacing = dir;
 +            StartSpriteAnimIfDifferent(sprite, GetMoveDirectionAnimNum(dir));
-+            if (adx > 0)
-+                wx = dx > 0 ? (dx < sSpeed ? tx : wx + sSpeed) : (-dx < sSpeed ? tx : wx - sSpeed);
-+            if (ady > 0)
-+                wy = dy > 0 ? (dy < sSpeed ? ty : wy + sSpeed) : (-dy < sSpeed ? ty : wy - sSpeed);
 +        }
 +        else
 +        {
 +            StartSpriteAnimIfDifferent(sprite, GetFaceDirectionAnimNum(sFacing));
-+            // arrived. It is only kept if the player is still on the move: when the player has stopped one tile on,
-+            // it ends up next to the player, the tile the player left.
++        }
++        if (wx == tx && wy == ty)
++        {
++            // arrived: on to the next tile of the path. When the player has stopped, it ends beside the player.
++            for (i = 1; i < sHistN; i++)
++            {
++                sHistX[i - 1] = sHistX[i];
++                sHistY[i - 1] = sHistY[i];
++            }
++            sHistN--;
 +        }
 +    }
 +    else
@@ -27359,7 +27398,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..72d1edf 100644
+index 77dd3db..8c93682 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27410,7 +27449,7 @@ index 77dd3db..72d1edf 100644
          CreateMonSpritesGfxManager(1, 1);
          break;
      case 2:
-@@ -1284,10 +1302,151 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
+@@ -1284,10 +1302,153 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
      }
  }
  
@@ -27484,7 +27523,9 @@ index 77dd3db..72d1edf 100644
 +            AddTextPrinterParameterized3(r->hanWin, FONT_NORMAL, 88, i * 16 + 1, r->textColor, 0, buf);
 +        }
 +    }
-+    CopyWindowToVram(r->hanWin, COPYWIN_FULL);
++    while (IsTextPrinterActive(r->hanWin))
++        RunTextPrinters(); // all the letters at once, so no half-drawn frame is shown
++    CopyWindowToVram(r->hanWin, COPYWIN_GFX);
 +}
 +
 +static void Task_HanBoyGirl_Input(u8 taskId)
@@ -27562,7 +27603,7 @@ index 77dd3db..72d1edf 100644
          gTasks[taskId].tMenuWindowId = AddWindow(&sIntro_WindowTemplates[WIN_INTRO_BOYGIRL]);
          PutWindowTilemap(gTasks[taskId].tMenuWindowId);
          DrawStdFrameWithCustomTileAndPalette(gTasks[taskId].tMenuWindowId, TRUE, GetStdWindowBaseTileNum(), 14);
-@@ -1300,7 +1459,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1300,7 +1461,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
          sOakSpeechResources->textColor[1] = 2;
          sOakSpeechResources->textColor[2] = 3;
          AddTextPrinterParameterized3(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 8, 17, sOakSpeechResources->textColor, 0, gText_Girl);
@@ -27571,7 +27612,7 @@ index 77dd3db..72d1edf 100644
          CopyWindowToVram(gTasks[taskId].tMenuWindowId, COPYWIN_FULL);
          gTasks[taskId].func = Task_OakSpeech_HandleGenderInput;
      }
-@@ -1308,7 +1467,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1308,7 +1469,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
  
  static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  {
@@ -27582,7 +27623,7 @@ index 77dd3db..72d1edf 100644
      switch (input)
      {
      case 0: // BOY
-@@ -1328,6 +1489,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
+@@ -1328,6 +1491,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  static void Task_OakSpeech_ClearGenderWindows(u8 taskId)
  {
      s16 *data = gTasks[taskId].data;
@@ -27592,7 +27633,7 @@ index 77dd3db..72d1edf 100644
      ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
      RemoveWindow(tMenuWindowId);
      tMenuWindowId = WIN_INTRO_TEXTBOX;
-@@ -1967,6 +2131,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
+@@ -1967,6 +2133,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
  {
      u32 i;
  
