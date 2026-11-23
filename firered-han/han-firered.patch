@@ -42583,10 +42583,10 @@ index 0000000..13dbcf5
 +    out.save(sys.argv[1])
 diff --git a/tools/han/han_states.py b/tools/han/han_states.py
 new file mode 100644
-index 0000000..ab4d798
+index 0000000..7c8eebd
 --- /dev/null
 +++ b/tools/han/han_states.py
-@@ -0,0 +1,296 @@
+@@ -0,0 +1,326 @@
 +#!/usr/bin/env python3
 +"""The player's other overworld pictures (bike, surf, fishing, item-get and VS Seeker) for every chosen character.
 +
@@ -42730,39 +42730,69 @@ index 0000000..ab4d798
 +    return top
 +
 +
-+def make_frames(red_frames, dirs, char_stand, rmap, r, is_skin_idx, hc_char, hc_red=11):
-+    """char_stand: {'S','N','W'} -> 16 x 32 frame. Returns the new frames."""
++def biggest(pts):
++    """The largest group of touching pixels (a rod's tip is a pixel of the hat's colour but not part of the hat)."""
++    left = set(pts)
++    best = []
++    while left:
++        stack = [left.pop()]
++        cur = list(stack)
++        while stack:
++            x, y = stack.pop()
++            for dx in (-1, 0, 1):
++                for dy in (-1, 0, 1):
++                    q = (x + dx, y + dy)
++                    if q in left:
++                        left.remove(q)
++                        stack.append(q)
++                        cur.append(q)
++        if len(cur) > len(best):
++            best = cur
++    return best
++
++
++CAPS = {"M": ({8, 11, 12}, 0), "F": ({9, 10}, 1)}      # the colours of the hat on top, and the row of outline above it
++FLAGGED = []
++
++
++def make_frames(red_frames, dirs, char_stand, rmap, r, sex, hc_char, hc_red=11, label=""):
++    """char_stand: {'S','N','W'} -> 16 x 32 frame. Returns the new frames. The head is found by the hat colours (a
++    rod or a bike wheel is not the head)."""
++    capset, capoff = CAPS[sex]
 +    out = []
-+    for fr, d in zip(red_frames, dirs):
++    for fi, (fr, d) in enumerate(zip(red_frames, dirs)):
 +        h, w = len(fr), len(fr[0])
 +        new = [[rmap.get(v, v) for v in row] for row in fr]
-+        comp = comp_top(fr)
-+        if not comp:
++        pts = biggest([(x, y) for y in range(h) for x in range(w) if fr[y][x] in capset])
++        if not pts:
++            FLAGGED.append("%s frame %d: no hat found" % (label, fi))
 +            out.append(new)
 +            continue
-+        top_r = min(y for _, y in comp)
++        top_r = min(y for _, y in pts) - capoff
 +        chin_r = top_r + hc_red - 1
-+        head_px = [(x, y) for x, y in comp if y <= chin_r]
-+        cx_r = (min(x for x, _ in head_px) + max(x for x, _ in head_px)) / 2
++        capx = [x for x, y in pts if y < top_r + capoff + 6]
++        x0, x1 = min(capx) - 2, max(capx) + 2
++        cx_r = (min(capx) + max(capx)) / 2
 +        cs = char_stand[d]
 +        rows = [y for y in range(32) if any(cs[y])]
 +        top_c = rows[0]
 +        chunk = [(x, y - top_c) for y in range(top_c, min(top_c + hc_char, 32)) for x in range(16) if cs[y][x]]
 +        cx_c = (min(x for x, _ in chunk) + max(x for x, _ in chunk)) / 2
 +        dx = int(round(cx_r - cx_c))
-+        # clear Red's head: its colours on the head rows, a pixel either side of the head
-+        x0 = min(x for x, _ in head_px) - 1
-+        x1 = max(x for x, _ in head_px) + 1
-+        for y in range(max(0, top_r - 1), chin_r + 1):
++        for y in range(max(0, top_r), chin_r + 1):
 +            for x in range(max(0, x0), min(w, x1 + 1)):
-+                if fr[y][x] in HEAD_COLOURS or (fr[y][x] in (6, 7) and y <= chin_r):
++                if fr[y][x] in HEAD_COLOURS or fr[y][x] in (6, 7):
 +                    new[y][x] = 0
-+        # the chunk sits with its last row on Red's chin row
 +        base = chin_r - (hc_char - 1)
 +        for x, yy in chunk:
 +            X, Y = x + dx, base + yy
 +            if 0 <= X < w and 0 <= Y < h:
 +                new[Y][X] = cs[top_c + yy][x]
++        # audit: hat colours left above the chin line mean a second head
++        left = [(x, y) for x, y in pts if y <= chin_r and not (x0 <= x <= x1)]
++        left += [(x, y) for y in range(max(0, top_r - 3), top_r) for x in range(w) if fr[y][x] in capset and x0 <= x <= x1 and (x, y) not in pts]
++        if left:
++            FLAGGED.append("%s frame %d: %d hat pixels outside the head box" % (label, fi, len(left)))
 +        out.append(new)
 +    return out
 +
@@ -42865,7 +42895,7 @@ index 0000000..ab4d798
 +        hc = head_height(stand[0], set(r["skin"]))
 +        cs = {"S": stand[0], "N": stand[1], "W": stand[2]}
 +        for k, (sheet, w, nf, dirs) in STATES.items():
-+            blobs[k] += pack(make_frames(sheets[(sex, k)], dirs, cs, rmap, r, None, hc))
++            blobs[k] += pack(make_frames(sheets[(sex, k)], dirs, cs, rmap, r, sex, hc, label="%s/%s gfx %d" % (k, sex, gfx)))
 +        seen[key] = len(order)
 +        idx.append(len(order))
 +        order.append((gfx, base, sex))
