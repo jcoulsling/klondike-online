@@ -1021,3 +1021,43 @@ FireRed's gym leaders and Elite Four (Brock, Misty, Lt. Surge, Erika, Sabrina, B
 have three standing frames only, so a player who chose one of them slid without moving their legs. `han_people.py` now
 draws nine frames for them (the same drawing as Emerald's leaders: one foot lifts at a time and the body rises a pixel
 on each step) and adds them as new walking pictures (graphics ids from 154; 37 in all of 40 places).
+
+## 24 November 2026: cheat codes off, SYLLABICS in the OPTION menu, HMs, ROWAN
+
+- The three button-code cheats (boss menu, syllabics, quick start) are turned off (`CheatCodeEntered` in `src/main_menu.c` returns at once).
+- OPTION has an eighth row, SYLLABICS (ON/OFF). The window shows seven rows and scrolls. The choice is kept in the save
+  (`optionsHanSyllabics` in `SaveBlock2`) and read again when a saved game is continued (`CB2_ContinueSavedGame`).
+- A Pokémon on your team that could learn an HM counts as knowing it: `HanCanUseHM` (`src/party_menu.c`) is used by the script
+  command `checkpartymove` and by `PartyHasMonWithSurf`, and the party menu lists such HMs as field moves (up to four in all).
+- A player named ROWAN (or Rowan) starts a new game as a girl (the LASS picture, palette 3) in Pallet Town with eight badges, every fly point and six level 100
+  Pokémon (Snorlax, Ho-Oh, Starmie, Nidoking, Aerodactyl, Chansey) with competitive Generation 3 sets (`src/han_rowan.c`, called at the end of `NewGameInitData`). The TRAINER TOWER
+  is offered by every POKéMON CENTER nurse, so it needs no unlocking.
+- The follower comes out of a Poké Ball as in the pack its pictures come from (pokeemerald-expansion): the ball for 9 frames,
+  then the Pokémon white and squeezed thin, widening in 4 frames. It goes back in the same way when the player steps into a door,
+  or if it would stand on one (`PhaseFrame` in `src/han_follower.c`). After a door or stairs it comes out only once the player is two
+  tiles from the door, one tile behind her (`HanWarpDistance` in `src/field_control_avatar.c`). Crossing from route to route keeps
+  it where it is, with no ball.
+- Fix: ROWAN's team had wrong HP (full HP was kept in a one-byte variable; `GiveMon` in `src/han_rowan.c` now uses a `u32`).
+  Anyone with a ROWAN save made before 24 November 2026 (c) can heal at a POKéMON CENTER.
+- The TRAINER TOWER is offered by an attendant upstairs in every POKéMON CENTER (`Han_Tower_Attendant`, `data/scripts/han_tower.inc`),
+  at any number of badges. The nurse no longer offers it. ROWAN starts with both Sevii maps on the fly map, so Seven Island can be flown to.
+- HOENN, step 1: Dewford Town (outside, Pokémon Center 1F and 2F) is brought across from pokeemerald with `port_dewford.py` and
+  `port_dewford_maps.py` (in the `hoenn` folder; they show how, and need pokeemerald next to pokefirered). Emerald's primary tileset is
+  `gTileset_HoennGeneral`: tiles and metatiles are kept, secondary tile and metatile numbers move up by 128 (FireRed's primary has 640 tiles,
+  Emerald's 512), and the 16-bit tile attributes are rewritten as FireRed's 32-bit ones (behaviour by name; doors become plain warps). Water
+  does not animate yet. The ship uses the Seagallop scene: `SEAGALLOP_DEWFORD` (`src/seagallop.c`), a second sailor on the pier at Seven Island
+  (Cinnabar or Dewford) and a sailor on the Dewford pier (Seven Island or Cinnabar). Dewford's other buildings have no doors yet, and its
+  lines are placeholders ("Han text to come").
+- HOENN, whole region (patch 24f): `hoenn/port_hoenn.py` brings every Hoenn map across from pokeemerald (289 maps, 206 layouts, 47 tilesets; it needs
+  pokeemerald next to pokefirered and replaces `port_dewford*.py`). FireRed's primary tileset has 640 tiles and Emerald's 512, so Hoenn
+  tilesets carry an `isHoenn` flag and `HanPrimaryTiles()`/`HanPrimaryPals()` (`include/fieldmap.h`) give the right sizes; the 16-bit tile
+  attributes are rewritten as 32-bit ones by behaviour name (doors become plain warps). Water, flowers, flags, balloons and the Rustboro fountain
+  animate (`gen_anim.py`, written into `src/tileset_anims.c`). Warps, connections, buildings, Pokémon Centers (FireRed's nurse and the attendant
+  upstairs), signs, wild Pokémon (`wild_encounters.json`) and Poké Marts (item lists from Emerald) are all there.
+  Trainers: `port_trainers.py` brings 407 Hoenn trainers (numbers from 768, `src/data/han_hoenn_trainers.h`, classes and pictures mapped to
+  FireRed's own where Emerald's are missing). Kanto's flag space has no room, so their defeated flags and the eight Hoenn badges live in
+  `gSaveBlock1Ptr->hanHoenn` (64 bytes that were unused; `src/han_hoenn.c`, `battle_setup.c`). The eight gym leaders give a badge there
+  (`special HanHoennBadge`). All people, signs, trainer lines and place names (shown in English) are placeholders ("Han text to come") for the
+  Hän to be written.
+  Not done: Fly and the town map for Hoenn, the Hoenn badges on the trainer card, TMs and story events of the gyms, Hoenn story gates (Cut, Surf
+  and the rest work as in FireRed), special buildings (Contest Hall, Game Corner, Battle Frontier), items on the ground, berry trees.
