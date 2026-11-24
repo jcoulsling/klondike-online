@@ -16877,7 +16877,7 @@ index 64c9e59..87fb53b 100644
          {
              for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
 diff --git a/src/battle_message.c b/src/battle_message.c
-index a6392be..40bfbd2 100644
+index a6392be..a2f30d8 100644
 --- a/src/battle_message.c
 +++ b/src/battle_message.c
 @@ -45,65 +45,65 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
@@ -17207,7 +17207,7 @@ index a6392be..40bfbd2 100644
 -static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_BUFF1}!");
 +static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_OPPONENT_MON1_NAME}\nnënähchį!{PAUSE 60}");
 +static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_OPPONENT_MON1_NAME}\nchą̀ {B_OPPONENT_MON2_NAME} nënähchį!{PAUSE 60}");
-+static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\n{B_BUFF1}sent out!");
++static const u8 sText_Trainer1SentOutPkmn2[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} {B_BUFF1}\nnënähchį!");
  static const u8 sText_LinkTrainerSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME}!");
  static const u8 sText_LinkTrainerSentOutTwoPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out\n{B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!");
  static const u8 sText_TwoLinkTrainersSentOutPkmn[] = _("{B_LINK_OPPONENT1_NAME} sent out {B_LINK_OPPONENT_MON1_NAME}!\n{B_LINK_OPPONENT2_NAME} sent out {B_LINK_OPPONENT_MON2_NAME}!");
@@ -27672,7 +27672,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..f8d708f 100644
+index 77dd3db..9628048 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -27740,7 +27740,7 @@ index 77dd3db..f8d708f 100644
 +    .width = 16,
 +    .height = 5,
 +    .paletteNum = 15,
-+    .baseBlock = 421
++    .baseBlock = 545
 +};
 +
 +static const u8 sHanText_Arrow[] = _("{RIGHT_ARROW}");
@@ -28110,7 +28110,7 @@ index 01960d2..0acce5d 100644
              categoryStr[index] = categoryName[index];
              index++;
 diff --git a/src/pokemon.c b/src/pokemon.c
-index 66a5c3d..c299f13 100644
+index 66a5c3d..20029a3 100644
 --- a/src/pokemon.c
 +++ b/src/pokemon.c
 @@ -1,6 +1,8 @@
@@ -28329,16 +28329,18 @@ index 66a5c3d..c299f13 100644
      if (species < SPECIES_OLD_UNOWN_B - 1)
          return species;
  
-@@ -5857,6 +5923,8 @@ static u16 GetBattleBGM(void)
+@@ -5857,6 +5923,10 @@ static u16 GetBattleBGM(void)
          return MUS_RS_VS_TRAINER;
      if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
      {
 +        if (HAN_JANE_THEME && IsJaneBattle()) // Hän build: her own theme, when the build has it
 +            return MUS_HAN_JANE;
++        if (IS_HAN_TWINS(gTrainerBattleOpponent_A)) // Hän build: Rowan and Yuhke battle to the rival theme
++            return MUS_ENCOUNTER_RIVAL;
          switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
          {
          case TRAINER_CLASS_CHAMPION:
-@@ -6451,3 +6519,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
+@@ -6451,3 +6521,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
          return sMonSpritesGfxManager->spritePointers[spriteNum];
      }
  }
