@@ -86016,6 +86016,176 @@ AKL7v#
 literal 0
 HcmV?d00001
 
+diff --git a/graphics/han_hoenn_map/cursor.pal b/graphics/han_hoenn_map/cursor.pal
+new file mode 100644
+index 0000000..b35568a
+--- /dev/null
++++ b/graphics/han_hoenn_map/cursor.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++98 156 0
++255 255 255
++255 255 255
++230 230 246
++205 205 230
++180 180 222
++156 156 205
++131 131 197
++98 98 180
++74 74 164
++49 49 156
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/graphics/han_hoenn_map/cursor_small.png b/graphics/han_hoenn_map/cursor_small.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..031e7ed164f2bb055f65da7577a753e962be5989
+GIT binary patch
+literal 168
+zcmeAS@N?(olHy`uVBq!ia0y~yU=UznU{GLTW?*1=x%}yW1_lO$0G|-oq&W=#!Qk1m
+zZ)eXw+p^`}oH=Kkn~x?XZSnG2VrV#r0Tmp#D%i!qz+mj@;us<^H96q`OH&h5Pg9cy
+z51U5g$pedIw<q~bE@a+d6Cf+(%%IcP>&SCpvFv3%2?mA~0~W{Ai}@#j4D@vMb6Mw<
+G&;$Tewl{zP
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/han_hoenn_map/map.bin b/graphics/han_hoenn_map/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..889fd6d363f3c4700f0103305ffe09c141695393
+GIT binary patch
+literal 4096
+zcmZQzU|?WiWMT$UWC9jeHa2z+PA&!(PA<}oVBzNB<>MC+6k-?V5#eDI6(i9IaS2H&
+zX&G5Lc?Cr!VPzFIHdQr}Oi<U*)Y8_`)zddHG%_|ZH8Z!cv?9d-Ya3fTdtL`eCubK|
+zV>fpXPcLsDUoarf6hHrfz@Xre(6I1`$f)R;*tqzF#3Wze<djsR^fRUjq-SJiW#{A?
+z8|UR0uoV^+mz4VY`j&b75T(DoqOz)*w}z+I+o!I+p|PpCrL~Qry`!_smpJ!#_w@Gl
+zPl%Z~Y4Vh*)28Rlm^gFRY=$`^bGv+f=glX=1q&7~TD)ZGvgIpQu3F8pX6-t#mh~Gp
+zcKP~lN+Uu)!)B2!TY0ycZ{NYNbJuQ=hCK`ndl?wIe0}#->?gti-vb8^9WFU?H0{{&
+z6X0k&35h*l-&3d0oF#04FT=U>yc6RuR9u9ry@b$n`3i!K3-~e|h`)O6`fhk|-?({;
+zf#Ej89wIY>udnZ&S+f}!;QARZ-`&G-kKz7ZTsESD2M<p^f+g3-s8V}Tx!A#zr_Y|h
+mU|?XlG!?r%vEaaLVpWcUQ7{Td!6+C7qhJ(_f>AIE$OHh((28dO
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/han_hoenn_map/map.pal b/graphics/han_hoenn_map/map.pal
+new file mode 100644
+index 0000000..78ffc00
+--- /dev/null
++++ b/graphics/han_hoenn_map/map.pal
+@@ -0,0 +1,35 @@
++JASC-PAL
++0100
++32
++0 0 0
++156 213 255
++164 180 255
++123 180 213
++74 156 230
++41 131 230
++65 106 205
++0 115 172
++32 74 197
++0 57 139
++213 255 123
++172 238 49
++98 213 0
++57 172 8
++0 115 0
++205 205 148
++0 0 0
++255 255 255
++238 230 172
++238 230 115
++238 189 57
++246 213 82
++230 164 0
++255 172 16
++255 57 16
++246 0 0
++148 0 0
++205 205 205
++98 98 98
++0 0 0
++0 0 0
++0 0 0
+diff --git a/graphics/han_hoenn_map/map.png b/graphics/han_hoenn_map/map.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..08df6eb295f1c69f6976a0ba3bb4a8cf3248d481
+GIT binary patch
+literal 3959
+zcmeI#={uBv!^iROIWxv!j3L>}AWPZzEHP@5r8L=7F_w^sERigyttjh+A`#i@XO|*=
+zjH1ZC(;#F?mIxDB=02|Dxc`Lf;q`j>e)M_zi6fhx<75|N2LNyy8<ETb05AX`2!s4j
+z5o1pP013$FEzg4g`ESb_V&=bL-g`4-k~M!kYTm%33;2}~Oj?1~qao(Kl2v7=A)r-)
+z0e+yXD-{61WHMLhOIGLoR{zyv44Kd817-=HsfA|%kP1LoSC^BM(|>#8|NOtXJTprG
+zuqwtR155Xaf-4EWbY0x6Ed4^+h|#R3UdJs(#+e)vC4z;dHNvNwVN`WYj$a>TP@jd%
+zubH0nqj#)*Viu2Er7v7hTkyST-hIjLW4Op%539=ib<x8z!S;=zy9fL0=l?#TewIfH
+zVM}vxTU=U3sBy(_3QxShh3ire3f89lr#O*aXOd8ZR*A=BzlTEv?4;ov;jh`duYGCF
+zfA0t}*{610BSn+0v;BP@q5Mu!uY}v6>B-SA-FJ2xza(+eW(4@0rfBaU+%K1l`m6#k
+z%zZwQwD1Ab=t`jP0~#<uSLllVQyhk_IM$2|;+_fgo-6(#sTp!Td*Mdf($<|TV5(3B
+zvDUD+x3e_zeT>n#3WgUnu3dA;FGTNG8zFrB#BgBh_lEDz&eBG1;l!ohnm|xefI~fD
+zvJ*|eJ3yPPD)5C7k(BM*2z<>iXz%NJ3W&#Sq|9XlOSF>Cy4eR^6mTP>aFnzj6vgxj
+znsQ0BE#0~%%w>2i{>9(=L)75b8U)O$ubA_XzjXYuS~e<IZ1xRt-lf=FTbwvZD--RM
+zTXSsjMg!?y0tVncP()90ejNldIZ8?z|Mp(iij!GVqtttBB(%M~{qzpVt5&FVu}yT<
+z&0Z7%lS7cd7ZOw>@X{sQqd<<0c!b+$rfw2!+iD~4fq~B?pmBVN6A7@6uO5QRo{fE3
+zP_3lYHP7`^uo_W|1_SX$8=kpk(*fqiLFe^DVCX!Sl6gvxg;t{z`l`>73)=Qql=Eq=
+z9<M$mj@xV{j8UCgdkbb8xHobiNTeA*XK^FULmM9iFqyz-papaWU;705<9o0zBsEqb
+zDiW7SG{23aU~a9)d@?#Be(BY2KOS4Ks0GGD@{|82GWb-c0qtm{ke(}tQtA>i;IwnG
+zPvaz>z~2OD0<VAMaDGUPcq<zl`3Xh&D-RCL;%*fJWu8?mAUU+h9_WKy#_7n)kmigk
+zNz{!7zYNd$tT0xh*R4w&o495{0f=n#Opf&E$j|1jQ8r{64mR&v4uj?Ts%l=iX9~g&
+z;oSG9uXQyfAwtj6?mDp&suZP?g-Ej=zV&8o86)vhjvAKh?A7Jcgr2zzF)y8w*0w8$
+zrI(oPhLS`9qWzh8yysF}Y1Yc&xrMo%GHOOj-r(ky%Xg4hDiooq{&jq_b+>~^bCh5#
+z2)YJPXxfoZC}=UL2ZJ$26R~9fL7{Zl`xGupLgENmZ9hg2{;;Kr3}huArcueB<weHM
+z^J|v-4xskiZZP5}5_t{?L?M+>M&wmV9cfHZcG5-aXTKI=7vRgIxU#>2N8i|GwVbq7
+z0hcclvmYtH$dOP#Z03GwBw3Y^+!^{_1HQTo_(r1J60=+EViw8zD3Dr&<3@pK&@#pI
+zMNGby4eZb|l{?5yDJk3-_$DCqd{kdn7iFg)V0)Vp`UKd#T-}m62u8yL&!T<mS^S-Z
+zSd}skPJj~fXnNQLf3M3_FzwNzRz@#6PpVh9d2lVj?vN!O)`t3EDbti)xBiyL)#AkF
+z+t?RUpx40>SepF$wG^jPQD>lBF8wROCO=^7C~*zfQmIV5esbiYcYjCl$J76eKAp%a
+z`35=#i4VEXBPg)F;Fme;dM&S9tCH#Ke;WVg-Q<*)xcSf!?KeB&+kDqst>DA-=_1SK
+z#wMOcVf*ZCs(0#H9iZ-EyWL~lgfvR%Q9R!JcA`~!RT3f}>b6zD)OE-YTl#EQIP^A3
+zO@*?;^V}E6^J=QE2j^=FAaXW)a2R2_hSdd)fHGs{Zr2_R)9)g|%}ZZv+x11lUC<!i
+z1;N#m;MZ~W9MCA#ZkZ`e$}nj)_1NNirEUY<Wu;Ia{<E*rA%d$*W~MAeEPVL#-QWxF
+z`n`AWZYk<|;7D~z7Ri_|XD!t+$&twX*HX(hyn-pYR!F_n{-q7>Djw?CxbV?B-+}pC
+ztiCMZ+fg3I*D(GV0Xt~Qd6T+?i<s@R0UE;T?W1S4izkvo_9}Ow9$>%*?_huLP`UBc
+zNlA|8ssyrHBYnGzx-8Kp@IJ(3qDRV2RZbD_k8Y?Jf4Th8;?D>gbI9lS5Bz-vJBIJ~
+z`$rtLNQ7=%YPC4~s=Q}{5agD`#a-Gcs<ZzP1}&w7^+5(=lKWE!jhq!Do=d`erFD4`
+zG5H5Y`>5jK@JC`s&)RVW@W-q6U@s9k0}!MyhP`G{g>0*D=V5Doyht<5s&{tP+F#;m
+zPS7A+yituT+28;Os5A;tuFrgPz(6!$Tb@q4DYeNKfCc!-b7hTF5=T@k=oT~4tLaWa
+z2jdxW(=%BJ8QkbbW2A1fIG$c?mgh}fO5;c?`NriOH7u}ZngMmC3a~zrp5GFN>026x
+z_-+;05c~8t50ZL9kk|#@jwz)-+?$AWPaMzFK(y(oBBc@JjqR;IUsGN=fiU0Ly|wxT
+zhtg*<KIjnBq69#2s|>9hc^25wu$b|vtn%a~Uux3}3v%oG0Oxl)o@rYKm*3OD8%2<1
+zz$@dS-82)*V&yN=#Mu3%B5iw@_DDwls*KjEhfG4c6nLxi?(qqh2OcNB6hZ>4L8I1{
+zL&jErjO|MJ7*@O(yy&>u@Sh9S@=r~NBuxmEQ?$Tlvxl$-=azMy{l_Rq?u3E@05iyd
+zA)C@OdAB-Io~+vnqnGy|$QYTnx51&D7Zd|Tlk-QO6UW_GMPMl8r{OIgz30#s&6tFN
+zLs`dzXhb|xHIFF%%4U*N52lDq3?GdWM&4LyD~g{AA!s{Tu7h^2^9JkjG0_GMc26I)
+zO8O2w8#L4KE+~OqM~`1sO5w$_9@l)OiMqFMr`!ML?vn~mkva>X*sK)MhBJ{PRbi=I
+z6VfWMrUZfVD9rrki<YR_Xl&d85sf#|x&1`~k#Ap%0OeIKECt+R60Ap_nwFm7fr<~>
+zH%<u(y|h7-m{$6wssSv!LgtU%xvq2+Np}_wi?M;L`kA`(`FcSNc<C^2XZCC~q(5f=
+zv9IrXCvk4BfM8oo%3bF`fL@v3GR3jcsfHzmYUs(wZ2mXg0+wlz&kUcfWN?G0&+7?#
+z9jCyH$ViVm?cFse{rH!3{-Zb1gn_LOHV&Dp&JH$Z;U^V`&2HpUGn7B9Y&Do76}v$<
+z=?K__V^g!PJMPYJ!Q|-R7{T7|A3Tg#d;(QMz>!_!&vNc07|`_M;Xo|4k(1g4M**z|
+z2|rVYKQz7;-TQ7`ZpqBv8cvA)+9B?x+cj12qAF=C#D$Xkwq(J$FFK~&jro(MV(v`+
+zq{|+CvmEQW=uYmkcBS2m!~xmPRiJ%S`%OAWw3&e$?YIpZEt~1({rSu(bGRr)TpOl=
+znP{m93!NM_+0Ee&lPD|FuKIJBaWxP_Q31um{Xg>B0w$CzkH1t}Gr3?tE25sg@@@HV
+zvADO}*twGfq+$zW;R9Rfgeh%BJ{rJ*R)(RoE0`wHifN~nJd3Gp>?K<PoTh6a*4<oh
+zId5s?PiV;DX`e3}u<SoI$BY;?#}K_^Brm0L(&+mi?6hx14*oYRu@x#8tR<hF<v+z3
+zGOPPBk#+{X`3LD3|1^$_CXXdJ)h?fZDM|tg53oOeu`=R+hHu31LCc|jfX42#uSo$-
+zqHFwOOdBtbnD;cjwx%kr?-C4%hj-;3d%nYVV^XL@xw;c@dd$5Vd)3x?!KI9rur=&|
+zH7YK=XX)y-KDMI}IGmH^Wi=AwG4P8@ce!}<rGEE%yCOEnz4fKN1}oY<?U$}v&ewQo
+z!I&VnGWK1$SXViZ$Zo?4E4KNoiyT2{_8IanKPq_;nD6Q4W?puvIoLD;*(+4mkK-vN
+z4m}>X5n=}B>$x-HXPp>-Bi&L;2l?+@rmI;B-T0mzHzMX+>a_H#qs_P*L9`Dsady@D
+zB$jyJw`wpcz+mHFX%p=3noN-Qm;3AI0(n@(1Xng5gw|Q<=KmIolNZf7A;_yj$9br!
+zQ6noa9ayU9(Yf0{si1@)myOBAZHx8w>*&a#HvW)nEqzRWY;8_Q<qF%n({NaVk>>BH
+z@Mc)`X1`$aiQr%C*3&!t;S0zpJl*z(Y^JvV#In%-T8|)L`KoTCFqwGzkI_LEbRzm~
+i?Qf%lQ#%&>Or)JTCAd=Ut?+-2gz;H3QrT%r<o^M@PVB<~
+
+literal 0
+HcmV?d00001
+
 diff --git a/graphics/interface/menu_info.png b/graphics/interface/menu_info.png
 index a6a7efed395aa536cb328037e099b3d756bcc459..739981d53c30d027e8869f7959a5522f80b7215c 100644
 GIT binary patch
@@ -86656,6 +86826,210 @@ zi|#m_g+J$FK##soqwS#V=r{NbxB65Q0Yvko?TML29#a+paGHL!J)sb6aOF!_B5U#X
 z1ORFwhs^g#qV0)GvQp0j3mk~HCvcM`5A<*oCElJ8<>&(-pTPJe0-_xM0Xy+$Yrh|2
 QG5`Po07*qoM6N<$f;mYApa1{>
 
+diff --git a/graphics/trainers/front_pics/arena_tycoon_greta.png b/graphics/trainers/front_pics/arena_tycoon_greta.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a15872c611d348e8efe7a28673cd943860d0ed7a
+GIT binary patch
+literal 702
+zcmV;v0zv(WP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9rtkqhBz5nKF)xBEP-sVA4d%c`m|8tbpQgi?R{{R30jfWTn00001
+zbW%=J06^y0W&i*JJV``BR7i>K)G=$@KokJrqcJAda;TX@Kn|U2D-e$cmo!6+m!1bh
+z>&XZ5P!BH1Qz^-yo7%|+EsdeI!CLeuG8GS{Xsj?Tlyq`UE32uf`+71I+tHnWL2uFH
+z-goak2}ub3UxKyE*o&=s%d|T8w*brJODuMDzP)RjFP~fOwji(P?mj^1`1)(dEL?Yr
+z$@7|)+e161$(Wfntz?fonszYbK+o$e%Z{H3DrEVoo3?eX<<#uMP6A*}+vDKEY~TB=
+z=1YPhzE>)<B{=w`{`q-2OMnzKYW)<mE>u;0dMW@2ap5v{&Vg3Y1$l%*+PYySb^pU5
+zdnE*T=y;II?`s7n>JSTe46{`J2!lA!#~4S^q9V)2;N!#%u8MLHl;1^gb`^&yA;aZ~
+z3&A)JOELfeW#B^|9g2s52w>qkF8mM!UIZZU9p{ZM9Th|1@iMyPS@9J)UffKUPSYpT
+zuJkZM)aV(nzsSo|yJtjiJ!ySpP~#GOuO$_RZS%W4p&)BAvM*ubht!pUGzaBLvr#Wf
+zfMUB&a6(B<I;Eo!+8PidztJ?Q&XsLoKx$nyC-v<>*)l|fjJgPus;mcZ&jGI^eGsH>
+zb1;|o7<7Nd087EJI_mb8S8)%8x|t;in_@6*wlcl`612pC_A@jNFcku2wH;DXk2Ro3
+zK>uHeSK$U&9UF><Sl<i<0Q+lym(US_>HAgO^pjKmCX=;l<WT|y(^U)n*q?s84L061
+kAj$U*Z+uW7{k(3izs#fgaJ`J~s{jB107*qoM6N<$f-v4g0ssI2
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/arena_tycoon_greta_front_pic.png b/graphics/trainers/front_pics/arena_tycoon_greta_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a15872c611d348e8efe7a28673cd943860d0ed7a
+GIT binary patch
+literal 702
+zcmV;v0zv(WP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9rtkqhBz5nKF)xBEP-sVA4d%c`m|8tbpQgi?R{{R30jfWTn00001
+zbW%=J06^y0W&i*JJV``BR7i>K)G=$@KokJrqcJAda;TX@Kn|U2D-e$cmo!6+m!1bh
+z>&XZ5P!BH1Qz^-yo7%|+EsdeI!CLeuG8GS{Xsj?Tlyq`UE32uf`+71I+tHnWL2uFH
+z-goak2}ub3UxKyE*o&=s%d|T8w*brJODuMDzP)RjFP~fOwji(P?mj^1`1)(dEL?Yr
+z$@7|)+e161$(Wfntz?fonszYbK+o$e%Z{H3DrEVoo3?eX<<#uMP6A*}+vDKEY~TB=
+z=1YPhzE>)<B{=w`{`q-2OMnzKYW)<mE>u;0dMW@2ap5v{&Vg3Y1$l%*+PYySb^pU5
+zdnE*T=y;II?`s7n>JSTe46{`J2!lA!#~4S^q9V)2;N!#%u8MLHl;1^gb`^&yA;aZ~
+z3&A)JOELfeW#B^|9g2s52w>qkF8mM!UIZZU9p{ZM9Th|1@iMyPS@9J)UffKUPSYpT
+zuJkZM)aV(nzsSo|yJtjiJ!ySpP~#GOuO$_RZS%W4p&)BAvM*ubht!pUGzaBLvr#Wf
+zfMUB&a6(B<I;Eo!+8PidztJ?Q&XsLoKx$nyC-v<>*)l|fjJgPus;mcZ&jGI^eGsH>
+zb1;|o7<7Nd087EJI_mb8S8)%8x|t;in_@6*wlcl`612pC_A@jNFcku2wH;DXk2Ro3
+zK>uHeSK$U&9UF><Sl<i<0Q+lym(US_>HAgO^pjKmCX=;l<WT|y(^U)n*q?s84L061
+kAj$U*Z+uW7{k(3izs#fgaJ`J~s{jB107*qoM6N<$f-v4g0ssI2
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/brendan.png b/graphics/trainers/front_pics/brendan.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b0c65b4be4be81fbfa0e694675372415e8b5ccaf
+GIT binary patch
+literal 698
+zcmV;r0!96aP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^ml+A;4ds<Rrdz?yIgE2vB7%5WT=I)E$b7GuY|6*FjK|%lj{{R30^1GJQ00001
+zbW%=J06^y0W&i*JI7vi7R7i>K)IV$6KokJ*gDS>Qg0S2#5H~}%)_*A8>L?jZo8S&P
+zV|TE<NXSi1ze4)Q;t~~ZazJ!1L7~tg7`Ga{bm)+5!MKCzlp%|7TP27V=Xz(4(o?@c
+zAIQu5>D_yelM(tKp=d4PCvo}2VZ*zK5xCv(Ji7<xm%N_sUD`HWqHWt3W!J)R3-w<8
+zQn!aNXg)pu<h^sJ5YU>AGa$P#X#e?q^inBXAV>s*OjgO2L4bb#XsjqV#S#eA>`h8(
+z6k@>oN=nJBf_WtQsZ=_%2?LbOrq#Rf2|QRXJ}+y&{~`|DzJC3H#pI>m?~UR)yeA|(
+z&Zsk?3mgTmss|rVCq$Hx)Tm~!w3_pLT;o96`Vs*WRZ}}S>Nfct>h@U#$mz7Z<8+&^
+z?jyCaaVHGci>#wP8qj<Rz1iOhZ(LFyRwg6MrTIenZJ<`d1=9Y>_Q-Hsztpw<`DSPx
+zw^FOJJDV78U&^oT((po)W<dbm>Z6T3*$cP$4DZQqXX2hrkrZ_$68N};7}0gJ6_FKy
+zR7*%E8a9n+@c1heePFBu7h>y_&lPkrHX(3!Zw{!gM@+y&Rw|-}>NNzAKji?&08xct
+zgAWSdxxkzQ_+IlKjpV<8Y{EbcG39`QAkb>D05Qg<GJn7d2IV;xfCc1v@qn~oAYLX>
+zw`mcU{&5b#9;j=IIur!6;dlPKTp<wfhvH-L$KV{y7sY3^;zu7MjfpryX7wHbzV(`m
+gO3>d_%#!2cFYg}gqVLu}z5oCK07*qoM6N<$f|piEqyPW_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/brendan_front_pic.png b/graphics/trainers/front_pics/brendan_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b0c65b4be4be81fbfa0e694675372415e8b5ccaf
+GIT binary patch
+literal 698
+zcmV;r0!96aP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^ml+A;4ds<Rrdz?yIgE2vB7%5WT=I)E$b7GuY|6*FjK|%lj{{R30^1GJQ00001
+zbW%=J06^y0W&i*JI7vi7R7i>K)IV$6KokJ*gDS>Qg0S2#5H~}%)_*A8>L?jZo8S&P
+zV|TE<NXSi1ze4)Q;t~~ZazJ!1L7~tg7`Ga{bm)+5!MKCzlp%|7TP27V=Xz(4(o?@c
+zAIQu5>D_yelM(tKp=d4PCvo}2VZ*zK5xCv(Ji7<xm%N_sUD`HWqHWt3W!J)R3-w<8
+zQn!aNXg)pu<h^sJ5YU>AGa$P#X#e?q^inBXAV>s*OjgO2L4bb#XsjqV#S#eA>`h8(
+z6k@>oN=nJBf_WtQsZ=_%2?LbOrq#Rf2|QRXJ}+y&{~`|DzJC3H#pI>m?~UR)yeA|(
+z&Zsk?3mgTmss|rVCq$Hx)Tm~!w3_pLT;o96`Vs*WRZ}}S>Nfct>h@U#$mz7Z<8+&^
+z?jyCaaVHGci>#wP8qj<Rz1iOhZ(LFyRwg6MrTIenZJ<`d1=9Y>_Q-Hsztpw<`DSPx
+zw^FOJJDV78U&^oT((po)W<dbm>Z6T3*$cP$4DZQqXX2hrkrZ_$68N};7}0gJ6_FKy
+zR7*%E8a9n+@c1heePFBu7h>y_&lPkrHX(3!Zw{!gM@+y&Rw|-}>NNzAKji?&08xct
+zgAWSdxxkzQ_+IlKjpV<8Y{EbcG39`QAkb>D05Qg<GJn7d2IV;xfCc1v@qn~oAYLX>
+zw`mcU{&5b#9;j=IIur!6;dlPKTp<wfhvH-L$KV{y7sY3^;zu7MjfpryX7wHbzV(`m
+gO3>d_%#!2cFYg}gqVLu}z5oCK07*qoM6N<$f|piEqyPW_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/champion_wallace.png b/graphics/trainers/front_pics/champion_wallace.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..24c43eca869e7f1421769f292a268a4e88f5a789
+GIT binary patch
+literal 978
+zcmV;@11<cCP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^$l)Z~;VmU#*ga4FjtaF3^Qfjot#nm}VbBl|lIVm|}Ib#3+{{R30`wz|r00001
+zbW%=J06^y0W&i*KP)S5VR7i=<)jv!VQ5XR5m)L={7;?zqW;hm!iCDTA9psO@Q%M}u
+ziJMAvd!>WmbdM_3#GyV8uQixZE)i?u;Bm3t2m_5yEZQ`|0S>~mMiL4{>i4d_-nAZe
+z^-Y(4zkc6$@4k13(0{as+D6X}`Fh&MgFT~dfv-ClYzu}3K^UlC8(FUmBVzZJX?_(j
+zs8aS4zxr}}{6eRcro4)D-DD=@4loA7D+M}b>^VX?Mh!jg31%2GQ9v~f;UbQE#5*Ws
+zdr(1v`;lXwKxI29V7?CtkRt8TB!v{ybGyRjQQ?B@0niDgn3_vIxwJLhlX>LT<p~9V
+zUqcVw$6ml-M`}uri2!b-JW3dh{ZO|nZw7^+a4Uf@X^F!QGIq3mY>bFkzYk<^tfK|w
+z_!g&<Q~IJPie*1Z`=_T{5}2zRJ)C0sQE?!RG=!RK09efs?GRV;p*wV*_t=yGD(n$h
+z@9^nC=)|}`U;EYP20I)i@Z%SueyZHHZqxU(@l*pU`^W(~d~6Q(QB~n7jFE0Pu;Qc=
+zodFO(qG_b;_BvzS00|u35(!zR=>S^{3Zo9#X#lgIkQklMu|@HMaLop^4v0L*`d`X;
+zSz+wMU~lMeu!QIOWf{l#Y#xjVLv{__0nzI?fiY~nQTE+#bg8R^;HU+#j4Q{JF#ApC
+zC!i7;V*qgrkV9OpR$XCef?yk90Eue4=}Baf&OwxeBnO1dH$BQdq{|MN%(MfO6i-gI
+z0GOt%&TB&x2@X;%K!-!OZ3B}gDa#Ww<8&E-BgJg+l$lAD?QaxH4&cX@$#rnbr<-j`
+z;d^BlQ2zqs;c&?XsQMB+AjkG401uodmnoI&AOU}0seuWni6v{Ft$lC<=QZPxVjFyh
+zJ2u#>LO4A3kTg>G>v3q|o67RXrZNj)ox~er$xiSrLh0u?{Rlu>hkds}#=gnf2vtfo
+zFi~*<KdFz)T7)iCh`#zZJXRvE5=g60<Yt6^s*vUE`EdZQxGkPZ5n9M=E7{HQiHDjy
+z4uX?eDWVkfFo7JP)}?7$L6R0MuqI7NUhnI|rc?lc&IFysV)1L)0+Ed`9svC=maNmT
+zRxsXq#Zgzambeo}#PgfcSSM$Eb)4lsc>h{|01?VMZ7a`Lga7~l07*qoM6N<$f(2H+
+A8~^|S
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/champion_wallace_front_pic.png b/graphics/trainers/front_pics/champion_wallace_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..24c43eca869e7f1421769f292a268a4e88f5a789
+GIT binary patch
+literal 978
+zcmV;@11<cCP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^$l)Z~;VmU#*ga4FjtaF3^Qfjot#nm}VbBl|lIVm|}Ib#3+{{R30`wz|r00001
+zbW%=J06^y0W&i*KP)S5VR7i=<)jv!VQ5XR5m)L={7;?zqW;hm!iCDTA9psO@Q%M}u
+ziJMAvd!>WmbdM_3#GyV8uQixZE)i?u;Bm3t2m_5yEZQ`|0S>~mMiL4{>i4d_-nAZe
+z^-Y(4zkc6$@4k13(0{as+D6X}`Fh&MgFT~dfv-ClYzu}3K^UlC8(FUmBVzZJX?_(j
+zs8aS4zxr}}{6eRcro4)D-DD=@4loA7D+M}b>^VX?Mh!jg31%2GQ9v~f;UbQE#5*Ws
+zdr(1v`;lXwKxI29V7?CtkRt8TB!v{ybGyRjQQ?B@0niDgn3_vIxwJLhlX>LT<p~9V
+zUqcVw$6ml-M`}uri2!b-JW3dh{ZO|nZw7^+a4Uf@X^F!QGIq3mY>bFkzYk<^tfK|w
+z_!g&<Q~IJPie*1Z`=_T{5}2zRJ)C0sQE?!RG=!RK09efs?GRV;p*wV*_t=yGD(n$h
+z@9^nC=)|}`U;EYP20I)i@Z%SueyZHHZqxU(@l*pU`^W(~d~6Q(QB~n7jFE0Pu;Qc=
+zodFO(qG_b;_BvzS00|u35(!zR=>S^{3Zo9#X#lgIkQklMu|@HMaLop^4v0L*`d`X;
+zSz+wMU~lMeu!QIOWf{l#Y#xjVLv{__0nzI?fiY~nQTE+#bg8R^;HU+#j4Q{JF#ApC
+zC!i7;V*qgrkV9OpR$XCef?yk90Eue4=}Baf&OwxeBnO1dH$BQdq{|MN%(MfO6i-gI
+z0GOt%&TB&x2@X;%K!-!OZ3B}gDa#Ww<8&E-BgJg+l$lAD?QaxH4&cX@$#rnbr<-j`
+z;d^BlQ2zqs;c&?XsQMB+AjkG401uodmnoI&AOU}0seuWni6v{Ft$lC<=QZPxVjFyh
+zJ2u#>LO4A3kTg>G>v3q|o67RXrZNj)ox~er$xiSrLh0u?{Rlu>hkds}#=gnf2vtfo
+zFi~*<KdFz)T7)iCh`#zZJXRvE5=g60<Yt6^s*vUE`EdZQxGkPZ5n9M=E7{HQiHDjy
+z4uX?eDWVkfFo7JP)}?7$L6R0MuqI7NUhnI|rc?lc&IFysV)1L)0+Ed`9svC=maNmT
+zRxsXq#Zgzambeo}#PgfcSSM$Eb)4lsc>h{|01?VMZ7a`Lga7~l07*qoM6N<$f(2H+
+A8~^|S
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/dome_ace_tucker.png b/graphics/trainers/front_pics/dome_ace_tucker.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..78b92b0c96686d2b25fb362b59bc1ccc7bd1ef83
+GIT binary patch
+literal 906
+zcmV;519kj~P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A>l;-Ah)xBD*i%N6V&GzQiYMhkC?(U1#v||7N{{R30uvh?H00001
+zbW%=J06^y0W&i*K2uVaiR7i=flrd=AKomd^9I%Q9BWKB0B6slC#4a>L2q}07ZK)@_
+z-n!Iswl<LH)G2O<=#sW^#vBG^DI|C@G|-BJXf44>_dupD5uw7+Qac!;{*!DIOG0g-
+ze~|2ZPyhcreH)?w7(#9EfoLy7xl;8Efvi=-gble;t|hw!A*J{<Oi<*ay!@+JB5}D`
+z3aKH;m6BW~$}++5i3<~pV?ta30aw-bnWj`QUwJSyWIOz#;YtZ(W$WboL0RPs6RF%#
+zFg&5|5WMmJ<m902uEwP4p<(b8nuCnJ=9km+^D{SftSO1oph$w!9VGOSLAQ=i+s945
+z9Gh>~e@vp0U|IaWht<q{Gt2qx)YlH`jGEAOO5vVVwYwL&9_Qli5#^6smc<QW<&7v#
+zW;(#dn;Z<t0DZ()=B7n)uAY@d$9IkigBuzyr^VFLTS@YB2nGt#$gG^sUxsn6(A^`O
+zWbav*A)I%BD6{l$d0jUHnD3HOX4tl6f7sSrK75P1yQH-7alzK#%uydVsP1KGv`A{f
+zx|rGxG{+buXt0(bifMayYLA6%fUy>eWhE)MKo9HG--H*OJ3sHgdVD||VLS)CKtFHD
+zPxi0;ZRTcTId}(m9C$P?Kiuyd<27Qb^t<+JvCxN3VYr{;TEf>vR?IZ>4vY=&PLc6C
+z@@1G7GY%gsS5P$&#$#4W4>)u$Y}*<h9~P9I?0B3f0HHznsoX5l;pffY7JMPs)P}Iw
+z_;DsioLt+3XtaC+=K>)|L&3hhAsE#4ffHlMtueu?2%Pjog~W&x^9r_W_L&_RERWZj
+z={R_k8Z_|Ic>|=@ce+@SH(`GKqwDeH6~?k$RjC;meU}UML#$z}I!?#Wc>=ifO%MtJ
+z>L#ec1wAscS`WdT@klb(!;4{D@NRv^x=X8}8N39ryDp9v4hvdXi-YJH4HJd`H@MNo
+z#Ef_xB{B9-qd!4lp8qXDGWdfSj~<Cm00N1wu&TU>OpyGPFGLE7E?$o=(OoM(i>~p9
+gb3!O&5dS8A1NJhS_yw}W>i_@%07*qoM6N<$g1G~*A^-pY
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/dome_ace_tucker_front_pic.png b/graphics/trainers/front_pics/dome_ace_tucker_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..78b92b0c96686d2b25fb362b59bc1ccc7bd1ef83
+GIT binary patch
+literal 906
+zcmV;519kj~P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A>l;-Ah)xBD*i%N6V&GzQiYMhkC?(U1#v||7N{{R30uvh?H00001
+zbW%=J06^y0W&i*K2uVaiR7i=flrd=AKomd^9I%Q9BWKB0B6slC#4a>L2q}07ZK)@_
+z-n!Iswl<LH)G2O<=#sW^#vBG^DI|C@G|-BJXf44>_dupD5uw7+Qac!;{*!DIOG0g-
+ze~|2ZPyhcreH)?w7(#9EfoLy7xl;8Efvi=-gble;t|hw!A*J{<Oi<*ay!@+JB5}D`
+z3aKH;m6BW~$}++5i3<~pV?ta30aw-bnWj`QUwJSyWIOz#;YtZ(W$WboL0RPs6RF%#
+zFg&5|5WMmJ<m902uEwP4p<(b8nuCnJ=9km+^D{SftSO1oph$w!9VGOSLAQ=i+s945
+z9Gh>~e@vp0U|IaWht<q{Gt2qx)YlH`jGEAOO5vVVwYwL&9_Qli5#^6smc<QW<&7v#
+zW;(#dn;Z<t0DZ()=B7n)uAY@d$9IkigBuzyr^VFLTS@YB2nGt#$gG^sUxsn6(A^`O
+zWbav*A)I%BD6{l$d0jUHnD3HOX4tl6f7sSrK75P1yQH-7alzK#%uydVsP1KGv`A{f
+zx|rGxG{+buXt0(bifMayYLA6%fUy>eWhE)MKo9HG--H*OJ3sHgdVD||VLS)CKtFHD
+zPxi0;ZRTcTId}(m9C$P?Kiuyd<27Qb^t<+JvCxN3VYr{;TEf>vR?IZ>4vY=&PLc6C
+z@@1G7GY%gsS5P$&#$#4W4>)u$Y}*<h9~P9I?0B3f0HHznsoX5l;pffY7JMPs)P}Iw
+z_;DsioLt+3XtaC+=K>)|L&3hhAsE#4ffHlMtueu?2%Pjog~W&x^9r_W_L&_RERWZj
+z={R_k8Z_|Ic>|=@ce+@SH(`GKqwDeH6~?k$RjC;meU}UML#$z}I!?#Wc>=ifO%MtJ
+z>L#ec1wAscS`WdT@klb(!;4{D@NRv^x=X8}8N39ryDp9v4hvdXi-YJH4HJd`H@MNo
+z#Ef_xB{B9-qd!4lp8qXDGWdfSj~<Cm00N1wu&TU>OpyGPFGLE7E?$o=(OoM(i>~p9
+gb3!O&5dS8A1NJhS_yw}W>i_@%07*qoM6N<$g1G~*A^-pY
+
+literal 0
+HcmV?d00001
+
 diff --git a/graphics/trainers/front_pics/elite_four_lance_front_pic.png b/graphics/trainers/front_pics/elite_four_lance_front_pic.png
 index ff55baed98e75d4c52643d728c93ec9acd120b69..82b522eb2b71db5c49969a337e880142b88a91fb 100644
 GIT binary patch
@@ -86695,6 +87069,613 @@ zm*(URH;gG)Y{Y;GnmeO_t?Jg5tL{=Mz)JwS=X%QXwy%2R5$b_!Ve=4cny0b?(7Nva
 ztZDAP@vGOpDP5#{9E_1S9yPVgNCJ@#h}>IU)U4A47sel$Ep*z~^s-r|0nIWn^&)93
 kA|KDutUYOgcgJ(vUqK16ofXUgWdHyG07*qoM6N<$f=Eks6#xJL
 
+diff --git a/graphics/trainers/front_pics/factory_head_noland.png b/graphics/trainers/front_pics/factory_head_noland.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..df420adf3481fda887bf9ace9ebc70e471357c8a
+GIT binary patch
+literal 736
+zcmV<60w4W}P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A1ti6MSq+()wK|xyH)%NbyYW9PB)mmD#IYIyb{{R30{0Uk`00001
+zbW%=J06^y0W&i*JUP(kjR7i=H)v=4(P#g#Ffc82a;aNJDi$a%ztvcMMc<*Q(4xuzi
+zmUihyoGdO+m$SpQiBqQFy(Rr8x<$8cRp`*|e3Vw9-V%<xtH$A)zQj!B_fncAkne}@
+z`{nUMB<cSy#=a!xv(e{|m4tlPbw}sp1Tk}6ckF%@7mPV@XA@z??v&@FBrusxCez8M
+zgc+s`A2BS<Wn9Gvk6c%@6*8_@vp8G2Wx|H)Rer8u;f#`WRn6?7-;c#JTwf!El!S(!
+z^Btk$n<Vg~RCq|m;;yq$aw;7P!P=hVL)8{G1k|3FR8^Q4?o&D}sxL}{JcTkEbr$<{
+zSP_CAeYq%VLqSCfDLtw!_Xk3ta6p%)7!-0R)IQ^&cqwSeN5HTPFsLd|PcAqx>2ncS
+zdmarzr;-eMojeE%O3m{wI2gbntz@a=c^tg!<Up`@F9zmo@IBKgQ{!OC!KzpWKnkH6
+z-GadZ1f(Y%INtJ5JGDLtKsdy*W_PV72-4_*=6FBJ+UU0W5Rh~AfJT69Kp@><yzv^u
+zBxD7jYYu{cfwI>yd=8GmlU>5~jYABBkoPcXm&&R`EDrj50|NT5nr(LjG0-SKaWQBD
+z`3?<%)#h(u>N+q)2(&Xx_YGpKAaExFD=|1$V_*^!1TCtnl!LZuTHp*Vz65=xN1#bW
+zz#_!w0NltOoo|FCNg;r8ejs>s837ai_GE*EiJSoXVK)apyoPW1TVM%>;2`SuEel>E
+zFk^7a-h$wUJqsdu%f5kvKacN6xDMp$b9ejGm3<b|zW`&b5>FF=QwBi*JpBU~wOohQ
+S3Fg@V0000<MNUMnLSTY1rAk8p
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/factory_head_noland_front_pic.png b/graphics/trainers/front_pics/factory_head_noland_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..df420adf3481fda887bf9ace9ebc70e471357c8a
+GIT binary patch
+literal 736
+zcmV<60w4W}P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A1ti6MSq+()wK|xyH)%NbyYW9PB)mmD#IYIyb{{R30{0Uk`00001
+zbW%=J06^y0W&i*JUP(kjR7i=H)v=4(P#g#Ffc82a;aNJDi$a%ztvcMMc<*Q(4xuzi
+zmUihyoGdO+m$SpQiBqQFy(Rr8x<$8cRp`*|e3Vw9-V%<xtH$A)zQj!B_fncAkne}@
+z`{nUMB<cSy#=a!xv(e{|m4tlPbw}sp1Tk}6ckF%@7mPV@XA@z??v&@FBrusxCez8M
+zgc+s`A2BS<Wn9Gvk6c%@6*8_@vp8G2Wx|H)Rer8u;f#`WRn6?7-;c#JTwf!El!S(!
+z^Btk$n<Vg~RCq|m;;yq$aw;7P!P=hVL)8{G1k|3FR8^Q4?o&D}sxL}{JcTkEbr$<{
+zSP_CAeYq%VLqSCfDLtw!_Xk3ta6p%)7!-0R)IQ^&cqwSeN5HTPFsLd|PcAqx>2ncS
+zdmarzr;-eMojeE%O3m{wI2gbntz@a=c^tg!<Up`@F9zmo@IBKgQ{!OC!KzpWKnkH6
+z-GadZ1f(Y%INtJ5JGDLtKsdy*W_PV72-4_*=6FBJ+UU0W5Rh~AfJT69Kp@><yzv^u
+zBxD7jYYu{cfwI>yd=8GmlU>5~jYABBkoPcXm&&R`EDrj50|NT5nr(LjG0-SKaWQBD
+z`3?<%)#h(u>N+q)2(&Xx_YGpKAaExFD=|1$V_*^!1TCtnl!LZuTHp*Vz65=xN1#bW
+zz#_!w0NltOoo|FCNg;r8ejs>s837ai_GE*EiJSoXVK)apyoPW1TVM%>;2`SuEel>E
+zFk^7a-h$wUJqsdu%f5kvKacN6xDMp$b9ejGm3<b|zW`&b5>FF=QwBi*JpBU~wOohQ
+S3Fg@V0000<MNUMnLSTY1rAk8p
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/leader_juan.png b/graphics/trainers/front_pics/leader_juan.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ecd9f087b9b0c53a4fc7d3bbd19fa51c8146b188
+GIT binary patch
+literal 820
+zcmV-41Izr0P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^$l(d6lds<S}bKaCev}%<9Qfj?QN|dCuy<&5FVli6P)!zUA{{R30Wy9an00001
+zbW%=J06^y0W&i*JvPnciR7i=1)z3@YP#gg8hk6N9!gF4Bl149{#2<(4ByqiX5dVq!
+z7^9=d#DUu}&w@I(LmS){Pm*P5$8M!ecM4-<c-SbZk`{I>H0Cg@sSR&0wu9Nc*X5GZ
+zeER*7_kFJbB(6Kjul~7o-8lX@w$FcVm5!UAYg{0d%kP>;euEoe>_N#p@~`<B&QlPM
+zpAvqF=Q4!wo)K`t@N^79J{Xc<3eF6OFmwSI(@SJP3J7O^Ee$AggqAS=dYTVPsT7oq
+zSv~-|q<>oCmjHxU3-eP0N&tfPTuN65MZi1h`&Gh?5r%mCz+BOFP7F~~Ht_o6yDPfE
+z1}#ldHr5}>6CnrWRYg%NKc-S4d$~k~f*tSY99%nLhM*v?`nCG<+@u>aGblL!tm)Tf
+zIN_0(3{b#Z+D^mw$?~L^f02AXit(<dnn%9(d$rnPfUg(_Ev43IwChpW+D!BzHt{Z?
+z;G!70p@I9s!sr!t0}3`TNQ5cK-3G&O?XYkIlo$|#i+u^w(yCbp;7U>IBr-|c>dUYw
+zNpH>lxYNyICo%)EZ^4Hr((}`1K*u5H7f++J<Vwi$!<nlt=yam9-2@ns<uxN7C|o0i
+zFaQ`K@sJcS-lo9aN&-4=K^NGz<6_>}QeYw5<^oy*uKX8dvdF@$Y3OFiRWg_88)md|
+z15~;#DEQ6;c@1x)tc{*>fS{^>0rN%BovUd%bZVm~Cc6z9K|Mr)jWQgNrxDIjaEUT5
+zyUzlRP|1Kxgj{x&qORo*vY^8S@o!NUjPilwAoK-@2$@^#-Hnjr1VD70jKd5dIyOQ<
+z>^J~~ZyYCfj>7@h-NQ>PaZVtid~)l~1z?X0dM|jd!~;R^US`jvu-5}0N**(Y;dN68
+y)}iOImNW9IJ=wM_7HC`Vd!I!1c`q{m?fw9{P<eQ<WXR9}0000<MNUMnLSTXm>wgvi
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/leader_juan_front_pic.png b/graphics/trainers/front_pics/leader_juan_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ecd9f087b9b0c53a4fc7d3bbd19fa51c8146b188
+GIT binary patch
+literal 820
+zcmV-41Izr0P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^$l(d6lds<S}bKaCev}%<9Qfj?QN|dCuy<&5FVli6P)!zUA{{R30Wy9an00001
+zbW%=J06^y0W&i*JvPnciR7i=1)z3@YP#gg8hk6N9!gF4Bl149{#2<(4ByqiX5dVq!
+z7^9=d#DUu}&w@I(LmS){Pm*P5$8M!ecM4-<c-SbZk`{I>H0Cg@sSR&0wu9Nc*X5GZ
+zeER*7_kFJbB(6Kjul~7o-8lX@w$FcVm5!UAYg{0d%kP>;euEoe>_N#p@~`<B&QlPM
+zpAvqF=Q4!wo)K`t@N^79J{Xc<3eF6OFmwSI(@SJP3J7O^Ee$AggqAS=dYTVPsT7oq
+zSv~-|q<>oCmjHxU3-eP0N&tfPTuN65MZi1h`&Gh?5r%mCz+BOFP7F~~Ht_o6yDPfE
+z1}#ldHr5}>6CnrWRYg%NKc-S4d$~k~f*tSY99%nLhM*v?`nCG<+@u>aGblL!tm)Tf
+zIN_0(3{b#Z+D^mw$?~L^f02AXit(<dnn%9(d$rnPfUg(_Ev43IwChpW+D!BzHt{Z?
+z;G!70p@I9s!sr!t0}3`TNQ5cK-3G&O?XYkIlo$|#i+u^w(yCbp;7U>IBr-|c>dUYw
+zNpH>lxYNyICo%)EZ^4Hr((}`1K*u5H7f++J<Vwi$!<nlt=yam9-2@ns<uxN7C|o0i
+zFaQ`K@sJcS-lo9aN&-4=K^NGz<6_>}QeYw5<^oy*uKX8dvdF@$Y3OFiRWg_88)md|
+z15~;#DEQ6;c@1x)tc{*>fS{^>0rN%BovUd%bZVm~Cc6z9K|Mr)jWQgNrxDIjaEUT5
+zyUzlRP|1Kxgj{x&qORo*vY^8S@o!NUjPilwAoK-@2$@^#-Hnjr1VD70jKd5dIyOQ<
+z>^J~~ZyYCfj>7@h-NQ>PaZVtid~)l~1z?X0dM|jd!~;R^US`jvu-5}0N**(Y;dN68
+y)}iOImNW9IJ=wM_7HC`Vd!I!1c`q{m?fw9{P<eQ<WXR9}0000<MNUMnLSTXm>wgvi
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/magma_admin.png b/graphics/trainers/front_pics/magma_admin.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d7b5e4fb17fdb6ec57937d17939f94cfb96af813
+GIT binary patch
+literal 841
+zcmV-P1GfB$P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9bdwW`1T2f+^IXOW=N^^@bLA|}S-cn+{IZFTk{{R30AVv_O00001
+zbW%=J06^y0W&i*J$4Nv%R7i=fl|gG0K@`XLqJ)Jqw0;2TdJ!)H*MqmBc<RA|uqEiB
+zpzILz;8!R}!cwXE3cXm$u*;lM3M&+EvP_J}Fm%|1coHNUUBa@<_-30%ntjoWLjtq&
+z|1s~)oA=&W*8d*rlSTAj^hgZ2-&?NRLWr!jyBs)t4nQzozJW)Dm<G!?xbhfG@cr2i
+zH82a_4!ACrI;cJyeYODnqJmHEY$}zWZ_xU9a2X(b!-@Owb2$TOOC$?h6xwy0w`V}(
+z(0}t~@etZwUv-*_n|U$xTm2fawZ7&wr8z}07#w=Li|61!)|~rI27s+Zl(lPs{r%cE
+zXTtzYgb_y~nmW#nEdX36l=7giTl+tq2OB)i9Osslh;FUuEq9Yg@{w~>Vpm4AWNxk^
+z`P9*vt_!#;t<I9sGc>7k5s7LfBQzs&A&r{yG)Xa?DHe(Wq=VKWc0kZs&cZO!S{Ddl
+zbT$e0%0!=~`4HES+`GC=bCKv8U>lviayNLH>X6rg$mr~zlQYOj7>mhhOQv&nw7QnF
+zeWgbAx*!nOoE7h{GsXiLc$j!NoaRg$0IkhHhhn(Gi8}lGu6{~0ibM>_xB@<4I$^@3
+z+SHh!XevaZfc1>hE~UHJ7D_@n5Ly8*5xvne1qC8)!w&;IQw6X42JmCViH_GDTUX<_
+zPuqSRBTjU8vN2Fze4^uH%!$sJSk{ZU@0~V|{U;}g59S|(i7^2am=l$wo{{2s8x0ls
+z;d$OESffiqRRKE??j@nJ8We!)KK=oapiA4B6I}pWmH~oniUWS9eGUW|(13gF&VU}4
+zcHn#4uZ}mx0S$mR1JJ~^bw=j^)?jQk>YcBXl0^s*GIr58=1;<9K+IQj!RoaE@7cWb
+zK@A`P)b|`vs@_KJi<idCrLOnE61vO9oOHJ9x23mxf4ZMWdcgG38e)PVYi9fgB7wbL
+T&K%aa00000NkvXXu0mjfUEGKO
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/magma_admin_front_pic.png b/graphics/trainers/front_pics/magma_admin_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d7b5e4fb17fdb6ec57937d17939f94cfb96af813
+GIT binary patch
+literal 841
+zcmV-P1GfB$P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9bdwW`1T2f+^IXOW=N^^@bLA|}S-cn+{IZFTk{{R30AVv_O00001
+zbW%=J06^y0W&i*J$4Nv%R7i=fl|gG0K@`XLqJ)Jqw0;2TdJ!)H*MqmBc<RA|uqEiB
+zpzILz;8!R}!cwXE3cXm$u*;lM3M&+EvP_J}Fm%|1coHNUUBa@<_-30%ntjoWLjtq&
+z|1s~)oA=&W*8d*rlSTAj^hgZ2-&?NRLWr!jyBs)t4nQzozJW)Dm<G!?xbhfG@cr2i
+zH82a_4!ACrI;cJyeYODnqJmHEY$}zWZ_xU9a2X(b!-@Owb2$TOOC$?h6xwy0w`V}(
+z(0}t~@etZwUv-*_n|U$xTm2fawZ7&wr8z}07#w=Li|61!)|~rI27s+Zl(lPs{r%cE
+zXTtzYgb_y~nmW#nEdX36l=7giTl+tq2OB)i9Osslh;FUuEq9Yg@{w~>Vpm4AWNxk^
+z`P9*vt_!#;t<I9sGc>7k5s7LfBQzs&A&r{yG)Xa?DHe(Wq=VKWc0kZs&cZO!S{Ddl
+zbT$e0%0!=~`4HES+`GC=bCKv8U>lviayNLH>X6rg$mr~zlQYOj7>mhhOQv&nw7QnF
+zeWgbAx*!nOoE7h{GsXiLc$j!NoaRg$0IkhHhhn(Gi8}lGu6{~0ibM>_xB@<4I$^@3
+z+SHh!XevaZfc1>hE~UHJ7D_@n5Ly8*5xvne1qC8)!w&;IQw6X42JmCViH_GDTUX<_
+zPuqSRBTjU8vN2Fze4^uH%!$sJSk{ZU@0~V|{U;}g59S|(i7^2am=l$wo{{2s8x0ls
+z;d$OESffiqRRKE??j@nJ8We!)KK=oapiA4B6I}pWmH~oniUWS9eGUW|(13gF&VU}4
+zcHn#4uZ}mx0S$mR1JJ~^bw=j^)?jQk>YcBXl0^s*GIr58=1;<9K+IQj!RoaE@7cWb
+zK@A`P)b|`vs@_KJi<idCrLOnE61vO9oOHJ9x23mxf4ZMWdcgG38e)PVYi9fgB7wbL
+T&K%aa00000NkvXXu0mjfUEGKO
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/may.png b/graphics/trainers/front_pics/may.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..47ebca40fb9ed02618aa32754fa395ebea95ae88
+GIT binary patch
+literal 689
+zcmV;i0#5yjP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^ml+A;4ds<RrVsj}uL8NL@N-;Uj&EAXNb7GuY|6*FjK|%lj{{R30^#U*j00001
+zbW%=J06^y0W&i*JFG)l}R7i>K)IW&RP#g#FhZjq?@Y(~Xf|s1&;GrfFx*Sc<hYkLr
+zf;Lc)i$e?kL0k&SD0hW~>)_HG<f!fyI-Lm3>fn$f+#re<MYqD8<Y-bjIE^noaPj@(
+z;OcL98NQ$X^2^I>5c*$#RLy;ons@qxtrX#8hlB6qEjV{O{qZyH8q^}|x>pBX$FwwX
+zfLFt=S!|gEY~j4DSfXvWRj5VwwPjtlowfynN^4yxN{vMbaHe+V8$Q%bXo$)w=loZ^
+zdKLt>spK&hiYD}+c57{cf|d<TNoVAw!j2f&gnf@J(Ga&R2B@6^(9_`f%B;2)RGm_c
+z93ZDZ=L&C~l>p2UDi=mOYXBfKaL)Vuo(;l1mF~5q?2h)|v2y;7_kpf*Y1iw0VRo2C
+zFA$o@vG211Zy2#8<Vxs<zZ3%C@Bm{K9eGO=l_lc1POzxnJ9?u`6sF)~MAS^*?YrAD
+zc%;ySheNVlm4s>pfKKDO*V`mg^wVH(SEs(`^*#pG==tVjCfHc@ynX*B;&sDdf~J=M
+zx>J0>z6D>`8*vna4}mguJ&0=T?!Q4Z4b0{B;A9#&f%7O+n}@+gJdfruz5s$UUQB@c
+zFMxJmNC7K3nw4{>p_~(B3M3Kiz=;Z7LzzI}KrGRfCs!a4-MTab?6W|tsoza5QxHUY
+zkPfCg`U^OIkI`))=SQDV>X7{OelkPoZUf(tN8aq?@xvzo2*=$d;bZ3idzPe}=al*d
+XF6qp(ho0W700000NkvXXu0mjf_zOqw
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/may_front_pic.png b/graphics/trainers/front_pics/may_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..47ebca40fb9ed02618aa32754fa395ebea95ae88
+GIT binary patch
+literal 689
+zcmV;i0#5yjP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^ml+A;4ds<RrVsj}uL8NL@N-;Uj&EAXNb7GuY|6*FjK|%lj{{R30^#U*j00001
+zbW%=J06^y0W&i*JFG)l}R7i>K)IW&RP#g#FhZjq?@Y(~Xf|s1&;GrfFx*Sc<hYkLr
+zf;Lc)i$e?kL0k&SD0hW~>)_HG<f!fyI-Lm3>fn$f+#re<MYqD8<Y-bjIE^noaPj@(
+z;OcL98NQ$X^2^I>5c*$#RLy;ons@qxtrX#8hlB6qEjV{O{qZyH8q^}|x>pBX$FwwX
+zfLFt=S!|gEY~j4DSfXvWRj5VwwPjtlowfynN^4yxN{vMbaHe+V8$Q%bXo$)w=loZ^
+zdKLt>spK&hiYD}+c57{cf|d<TNoVAw!j2f&gnf@J(Ga&R2B@6^(9_`f%B;2)RGm_c
+z93ZDZ=L&C~l>p2UDi=mOYXBfKaL)Vuo(;l1mF~5q?2h)|v2y;7_kpf*Y1iw0VRo2C
+zFA$o@vG211Zy2#8<Vxs<zZ3%C@Bm{K9eGO=l_lc1POzxnJ9?u`6sF)~MAS^*?YrAD
+zc%;ySheNVlm4s>pfKKDO*V`mg^wVH(SEs(`^*#pG==tVjCfHc@ynX*B;&sDdf~J=M
+zx>J0>z6D>`8*vna4}mguJ&0=T?!Q4Z4b0{B;A9#&f%7O+n}@+gJdfruz5s$UUQB@c
+zFMxJmNC7K3nw4{>p_~(B3M3Kiz=;Z7LzzI}KrGRfCs!a4-MTab?6W|tsoza5QxHUY
+zkPfCg`U^OIkI`))=SQDV>X7{OelkPoZUf(tN8aq?@xvzo2*=$d;bZ3idzPe}=al*d
+XF6qp(ho0W700000NkvXXu0mjf_zOqw
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/palace_maven_spenser.png b/graphics/trainers/front_pics/palace_maven_spenser.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..0b33649a22f7c9aa44c77d255603640c07d10514
+GIT binary patch
+literal 802
+zcmV+-1Ks?IP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|Q
+z&78fYbEJb(YD!A1tkrviy;@?FIYC<9)%NbyYWC)|=5tEkv||7N{{R309#IsD00001
+zbW%=J06^y0W&i*Jph-kQR7i=<)X$3&Q5*p9$uY;9j4pNPu)WbBS=e<|SPGVvb?Dcn
+zla(Eepj>ZTi8|57iUu=>79o;tF8%?6hl)=90Uf)<62cG>yW3nI6SnLSh|PPWF7$ol
+zxp&a-_&)Q#@0VYW`~R9GouAo{L@}J0(eFF=Rum&{Tw{S#1cYfA%+=W$oJMm9dyl+8
+zI77mn=bH?$_#Gkqih`G048X@RS~R7Y3qCV|B%_Et0ox3)Oy&@!An=K`3JPKr1h*^(
+zxGsjn((7yV-7Eu~?x3)=ZeCTK*#9mI!3CVm%28aZIYank3*b<EAMg)Jx`f{-1js1>
+z77AF8$94Quu^pg&1mKwibiIQQ%1<oL{~`^h@VJ2Uy57bI%@t>x*WUwxDg@|wqnRpO
+zp)4HXOa<@jdciEU2IcfGEdv%&T`8Cj*e!9PE0Wj(1NiP|j&Qzh7M(7?Bq|Vy*1&W?
+zl^kO>wgEuk0oRD<+iisae+B|H&owH#ep{{6M<%eJn)+_dJ;o9M(Ts5KsMArmZTbkV
+zBrjRQ9nCcDmNy9GMi|>IHwQ@JfJ#omcy#Onun&BUtK_P9UmXMR$4V}7RR<iZ#|pU!
+zLLCDBt4cs?=Nkdw&L$Ilx2qjGz#t$103x8fy6Odd;yeM}o;MJO1awtx$OK44e_UV>
+zzpy5W(DG#pG!NiIQ5P8Y(6Cs`<P$FF83qOQe*wo$L7%+M0R0K*5de!E-G-A9U?DvL
+zy_ujp9syQC;qC<VJV3GdkQigH#s>VYB5k!=l>k^K`Tlg4Y`~3fP|!DSa%_-Y`z_OE
+zd4SZ~_}c>rWz7vVm3+biBA=~~Q>B?8SZuf{LKn3<3k>EW?r)*y+!71eTFaV7ED#z^
+gFBy%3V3O?i7jRKdMk+6@4*&oF07*qoM6N<$f|JT*5&!@I
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/palace_maven_spenser_front_pic.png b/graphics/trainers/front_pics/palace_maven_spenser_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..0b33649a22f7c9aa44c77d255603640c07d10514
+GIT binary patch
+literal 802
+zcmV+-1Ks?IP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|Q
+z&78fYbEJb(YD!A1tkrviy;@?FIYC<9)%NbyYWC)|=5tEkv||7N{{R309#IsD00001
+zbW%=J06^y0W&i*Jph-kQR7i=<)X$3&Q5*p9$uY;9j4pNPu)WbBS=e<|SPGVvb?Dcn
+zla(Eepj>ZTi8|57iUu=>79o;tF8%?6hl)=90Uf)<62cG>yW3nI6SnLSh|PPWF7$ol
+zxp&a-_&)Q#@0VYW`~R9GouAo{L@}J0(eFF=Rum&{Tw{S#1cYfA%+=W$oJMm9dyl+8
+zI77mn=bH?$_#Gkqih`G048X@RS~R7Y3qCV|B%_Et0ox3)Oy&@!An=K`3JPKr1h*^(
+zxGsjn((7yV-7Eu~?x3)=ZeCTK*#9mI!3CVm%28aZIYank3*b<EAMg)Jx`f{-1js1>
+z77AF8$94Quu^pg&1mKwibiIQQ%1<oL{~`^h@VJ2Uy57bI%@t>x*WUwxDg@|wqnRpO
+zp)4HXOa<@jdciEU2IcfGEdv%&T`8Cj*e!9PE0Wj(1NiP|j&Qzh7M(7?Bq|Vy*1&W?
+zl^kO>wgEuk0oRD<+iisae+B|H&owH#ep{{6M<%eJn)+_dJ;o9M(Ts5KsMArmZTbkV
+zBrjRQ9nCcDmNy9GMi|>IHwQ@JfJ#omcy#Onun&BUtK_P9UmXMR$4V}7RR<iZ#|pU!
+zLLCDBt4cs?=Nkdw&L$Ilx2qjGz#t$103x8fy6Odd;yeM}o;MJO1awtx$OK44e_UV>
+zzpy5W(DG#pG!NiIQ5P8Y(6Cs`<P$FF83qOQe*wo$L7%+M0R0K*5de!E-G-A9U?DvL
+zy_ujp9syQC;qC<VJV3GdkQigH#s>VYB5k!=l>k^K`Tlg4Y`~3fP|!DSa%_-Y`z_OE
+zd4SZ~_}c>rWz7vVm3+biBA=~~Q>B?8SZuf{LKn3<3k>EW?r)*y+!71eTFaV7ED#z^
+gFBy%3V3O?i7jRKdMk+6@4*&oF07*qoM6N<$f|JT*5&!@I
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pike_queen_lucy.png b/graphics/trainers/front_pics/pike_queen_lucy.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..e57260e28fa49bddf08b8e2ba10df9eb85ca1fd2
+GIT binary patch
+literal 678
+zcmV;X0$KfuP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!AYd)1U$lyf<1IXOAi-sY@9LI1^Cb836lQgi?R{{R307D(OB00001
+zbW%=J06^y0W&i*JBuPX;R7i=HmCtJvK@`Ua_K>|jChbA=5Rw%1BADbNc!*YzTzcH-
+zEeG4J2ogb>JtkU^0hKxT>dBjwTnhdJ6$W}K=%w~wSWHNUnDU(ckyJDLwmPt|v+uLt
+z_kBA%Zy5XE;mYue_*~@?FrO=Rk^^XoN`1|dz_}6!IXOV7<9#h82^a&fxfVzQ@0H;E
+z8q$C|e#3c_2HX?<fIlor8qhyK7JqC=q{;wSS2({eNPw|%mGj#z8gOTuXT_~gv`d(M
+z-fUicr(MGA9QzSKx*VVP{EHTnfTO?d_09xRCY*9<Yo~oGk&>wKTOW2_v__Ofov%;v
+z`6)Jxgw9y<dSxRl_&$y*Q4V{}ol0O5iy)BP#8Hb?8_vy+c~rkE!WhU%g6)p+S*$XC
+zKPD^*n0PN)nU`4k4ueQSuS&q~V}~1{wjNCo?Lq?YRh2hbZ7oTOgH>SS?H>-mgtcyJ
+z%KDts?!Crv81_2J)ZWJMGzRvbq*HrAe!aVKblB|erc)cxVkkyf@Io5ULdb%jL|hv%
+z(FpJcIe^*Q<LzgONh@wrgdoJYod5$02p?_Rp(PMqZ!_Ng1JHDPhyjpv2QpO{AV&e>
+z_C@cje+59(K>Q~I-6yXGk_zcE^a7wvqyUm<O4`OX*~C%+$R@S`NE4R|`2bl)^fSdb
+zR2fTvDg*j@p^yzs{eE&obV2a?=}vHiZl=Q0yFoL7%Q4A6;Qt!G0hlL3u+<%;TL1t6
+M07*qoM6N<$f>UEM`2YX_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pike_queen_lucy_front_pic.png b/graphics/trainers/front_pics/pike_queen_lucy_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..e57260e28fa49bddf08b8e2ba10df9eb85ca1fd2
+GIT binary patch
+literal 678
+zcmV;X0$KfuP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!AYd)1U$lyf<1IXOAi-sY@9LI1^Cb836lQgi?R{{R307D(OB00001
+zbW%=J06^y0W&i*JBuPX;R7i=HmCtJvK@`Ua_K>|jChbA=5Rw%1BADbNc!*YzTzcH-
+zEeG4J2ogb>JtkU^0hKxT>dBjwTnhdJ6$W}K=%w~wSWHNUnDU(ckyJDLwmPt|v+uLt
+z_kBA%Zy5XE;mYue_*~@?FrO=Rk^^XoN`1|dz_}6!IXOV7<9#h82^a&fxfVzQ@0H;E
+z8q$C|e#3c_2HX?<fIlor8qhyK7JqC=q{;wSS2({eNPw|%mGj#z8gOTuXT_~gv`d(M
+z-fUicr(MGA9QzSKx*VVP{EHTnfTO?d_09xRCY*9<Yo~oGk&>wKTOW2_v__Ofov%;v
+z`6)Jxgw9y<dSxRl_&$y*Q4V{}ol0O5iy)BP#8Hb?8_vy+c~rkE!WhU%g6)p+S*$XC
+zKPD^*n0PN)nU`4k4ueQSuS&q~V}~1{wjNCo?Lq?YRh2hbZ7oTOgH>SS?H>-mgtcyJ
+z%KDts?!Crv81_2J)ZWJMGzRvbq*HrAe!aVKblB|erc)cxVkkyf@Io5ULdb%jL|hv%
+z(FpJcIe^*Q<LzgONh@wrgdoJYod5$02p?_Rp(PMqZ!_Ng1JHDPhyjpv2QpO{AV&e>
+z_C@cje+59(K>Q~I-6yXGk_zcE^a7wvqyUm<O4`OX*~C%+$R@S`NE4R|`2bl)^fSdb
+zR2fTvDg*j@p^yzs{eE&obV2a?=}vHiZl=Q0yFoL7%Q4A6;Qt!G0hlL3u+<%;TL1t6
+M07*qoM6N<$f>UEM`2YX_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pokemon_breeder_f.png b/graphics/trainers/front_pics/pokemon_breeder_f.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d20122a7bc03660cf995275a617bf1fc0eb34aae
+GIT binary patch
+literal 742
+zcmV<C0vY{@P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A~Vp^mzLI0G4F)>Qj-sa6pN^_LOF-m(mbEN<O{{R30`gnZx00001
+zbW%=J06^y0W&i*JWJyFpR7i=%l}%_9K@`Uax<Zl4uxTZTCE}zf56xFEf}oX6m3UZ$
+z4#6OJi=-aJ!!jUJa`4~>#fu2RgCGgQq9{}Z85itDgr@Z3A%_f$XsLKuVogiZ7{}cj
+zG19!zo9{5N^Z)IC-n@A`i_rfF!!S-LWNn60+EC~hef@$$f5a>$aEh@kr6z2^m}OZx
+zILAGVF`6qk3<Gk=S7^>IH*Fg*=`Mxxb9QFiehN5r6S^MC&uo>ULg19Hj~>rUuuzyJ
+z^knP}sE^3WFZ%e$sDyy!#mOc8&<9clEJixdr~M>Jbkzki;C$NGr;e?-fJMi7M=}r1
+zst~US16?7$9+~=96?MP?*IX=3yy5~mAT(TTT|X^bPzp%<zI7?}qR=Ytmg2!MbkzG?
+z;P(opXS?*Fv0z9X@HWqt=Gvvj`0uxRfNr4FVg2Bz3e8&W`(!lGw6Q*mjcAe(VoFNc
+z)lP@#p=ex7^aD*_o{&hhZNFD=llZ5eBK>>WND?!6&e%K6Bv1OtL_dIIKaV(V+dI?P
+zN0NV3qt^myn(Iwt85>lo3Z=8ZOb3-y%QF3%;>$(pE8hIL5{S_7`l<q`tVPzD0?;V+
+z!r}8p1+W&G->(4n(g=G`AHzVJp7j`g0t1`=VOnRLw;*6{S7r^)VF2CcuezMqRDjdr
+z4%qYv?c+QE;9?I4fN&qEfSM!jC;|6I?dD}TiDmAhTZRHya73e>ftNrFLNstm(J}#m
+zz&k9+QV3N;`K>JKiaP!afVy?)lI(@7zElJ4l4_Fya2NX7^a5vWwF55vWeFrzbsQ8w
+Y09dj7r^Sidc>n+a07*qoM6N<$g0e7N3IG5A
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pokemon_breeder_f_front_pic.png b/graphics/trainers/front_pics/pokemon_breeder_f_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d20122a7bc03660cf995275a617bf1fc0eb34aae
+GIT binary patch
+literal 742
+zcmV<C0vY{@P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!A~Vp^mzLI0G4F)>Qj-sa6pN^_LOF-m(mbEN<O{{R30`gnZx00001
+zbW%=J06^y0W&i*JWJyFpR7i=%l}%_9K@`Uax<Zl4uxTZTCE}zf56xFEf}oX6m3UZ$
+z4#6OJi=-aJ!!jUJa`4~>#fu2RgCGgQq9{}Z85itDgr@Z3A%_f$XsLKuVogiZ7{}cj
+zG19!zo9{5N^Z)IC-n@A`i_rfF!!S-LWNn60+EC~hef@$$f5a>$aEh@kr6z2^m}OZx
+zILAGVF`6qk3<Gk=S7^>IH*Fg*=`Mxxb9QFiehN5r6S^MC&uo>ULg19Hj~>rUuuzyJ
+z^knP}sE^3WFZ%e$sDyy!#mOc8&<9clEJixdr~M>Jbkzki;C$NGr;e?-fJMi7M=}r1
+zst~US16?7$9+~=96?MP?*IX=3yy5~mAT(TTT|X^bPzp%<zI7?}qR=Ytmg2!MbkzG?
+z;P(opXS?*Fv0z9X@HWqt=Gvvj`0uxRfNr4FVg2Bz3e8&W`(!lGw6Q*mjcAe(VoFNc
+z)lP@#p=ex7^aD*_o{&hhZNFD=llZ5eBK>>WND?!6&e%K6Bv1OtL_dIIKaV(V+dI?P
+zN0NV3qt^myn(Iwt85>lo3Z=8ZOb3-y%QF3%;>$(pE8hIL5{S_7`l<q`tVPzD0?;V+
+z!r}8p1+W&G->(4n(g=G`AHzVJp7j`g0t1`=VOnRLw;*6{S7r^)VF2CcuezMqRDjdr
+z4%qYv?c+QE;9?I4fN&qEfSM!jC;|6I?dD}TiDmAhTZRHya73e>ftNrFLNstm(J}#m
+zz&k9+QV3N;`K>JKiaP!afVy?)lI(@7zElJ4l4_Fya2NX7^a5vWwF55vWeFrzbsQ8w
+Y09dj7r^Sidc>n+a07*qoM6N<$g0e7N3IG5A
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pokemon_breeder_m.png b/graphics/trainers/front_pics/pokemon_breeder_m.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..da37f87dd5f3577f58fd714640aced24767192cc
+GIT binary patch
+literal 709
+zcmV;$0y_PPP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`gIY@eVp^O*O8=CDF)>Qj-sa6pN^_LOF-m(mbEN<O{{R30og)jo00001
+zbW%=J06^y0W&i*JLrFwIR7i=%)IVqwQ5*;GHyjd3;qjtD=pf`SbSi|JRj7%NsG*R>
+zr<ld1o=}I9AsjeJ2L}<m>2L~WQ6#@1SuzMG9R<Ny2Zus(WO7K9Yo#5Ulr()Wi5;5z
+zJ;%Nw%kPu#@BKYO&S6|w<-DM&^M^u+2Y5Z_I1=pP`Hpk1tOJjna=9$-pg;u(0jrt-
+zIRVgsn|2WZ-q%r(ORxo7189daX4?66j)Dwh{90}uatLT!?2@_oWdMLIbY+*Z?~B$!
+z9*}9Q{9)|aG&{x!Nidk2rPaY!K}donVpah^3X)w|GgF%yU|a?3km7Z@(tX`+lEdc9
+zng+yMD?aw@5n7MF>xug=RMCuRw=0S^R4W+R3fvDu6ss;05e<T_1mdoXOw`y4e!o`W
+zZ8}_Jla>A(^=$Uj>E*DxY3<Q5pf~u%*$9J~DKZ9ib*iZukYOqLuYtPuqrWUR0}K{Z
+zsq(e~$a?Zj3xh9BLi1xVQzx02oZ%^`C$FDvz_Zq*=?j3MR}VSz?9wFk0BX(^m|cQl
+zo`PRbOY<R{FzrB|K|F{TL%?+B=uZ$qJS2fkZxL+(D>*&<{YM&5yIjH^o*YLF05<<0
+zpms_FxUAp8Z~l?zy*zyGqkwvzw=w5yK+F3?A}#L+1|kZ`7!(X!pLg`YmtffP&^ZkK
+z=7v%z*qnf-2KZV)+y0K~gYLsW(B9U9xo=;w4@BQ>ZmVAx2ddO}Ut!;J%5O_R2l?7=
+rI2e3<QW!g|N8hcCvnlqm4=bDi=$jaOoyFGq00000NkvXXu0mjft2{v_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pokemon_breeder_m_front_pic.png b/graphics/trainers/front_pics/pokemon_breeder_m_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..da37f87dd5f3577f58fd714640aced24767192cc
+GIT binary patch
+literal 709
+zcmV;$0y_PPP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`gIY@eVp^O*O8=CDF)>Qj-sa6pN^_LOF-m(mbEN<O{{R30og)jo00001
+zbW%=J06^y0W&i*JLrFwIR7i=%)IVqwQ5*;GHyjd3;qjtD=pf`SbSi|JRj7%NsG*R>
+zr<ld1o=}I9AsjeJ2L}<m>2L~WQ6#@1SuzMG9R<Ny2Zus(WO7K9Yo#5Ulr()Wi5;5z
+zJ;%Nw%kPu#@BKYO&S6|w<-DM&^M^u+2Y5Z_I1=pP`Hpk1tOJjna=9$-pg;u(0jrt-
+zIRVgsn|2WZ-q%r(ORxo7189daX4?66j)Dwh{90}uatLT!?2@_oWdMLIbY+*Z?~B$!
+z9*}9Q{9)|aG&{x!Nidk2rPaY!K}donVpah^3X)w|GgF%yU|a?3km7Z@(tX`+lEdc9
+zng+yMD?aw@5n7MF>xug=RMCuRw=0S^R4W+R3fvDu6ss;05e<T_1mdoXOw`y4e!o`W
+zZ8}_Jla>A(^=$Uj>E*DxY3<Q5pf~u%*$9J~DKZ9ib*iZukYOqLuYtPuqrWUR0}K{Z
+zsq(e~$a?Zj3xh9BLi1xVQzx02oZ%^`C$FDvz_Zq*=?j3MR}VSz?9wFk0BX(^m|cQl
+zo`PRbOY<R{FzrB|K|F{TL%?+B=uZ$qJS2fkZxL+(D>*&<{YM&5yIjH^o*YLF05<<0
+zpms_FxUAp8Z~l?zy*zyGqkwvzw=w5yK+F3?A}#L+1|kZ`7!(X!pLg`YmtffP&^ZkK
+z=7v%z*qnf-2KZV)+y0K~gYLsW(B9U9xo=;w4@BQ>ZmVAx2ddO}Ut!;J%5O_R2l?7=
+rI2e3<QW!g|N8hcCvnlqm4=bDi=$jaOoyFGq00000NkvXXu0mjft2{v_
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pyramid_king_brandon.png b/graphics/trainers/front_pics/pyramid_king_brandon.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2f936092ad4fcae2104a382b2a5f4926847e5b0d
+GIT binary patch
+literal 721
+zcmV;?0xtcDP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9^)mnS3K~i%mIZ`Rr&DE@XT8oQ&gJMC|YD)kA{{R30mggU_00001
+zbW%=J06^y0W&i*JPf0{UR7i=v)xV1qK@<n@EdrN9SaR_%*aWT=oq$asXEHX!fz|Hj
+zAK16)&L%U{C7@*2;@C!zU~%B38Uor|2;Noq7hDr8`~wUcl8D9l^5eQUv2&XZybs^E
+zZ)PX!dH?%*VA%9v{faTh4}fc|v+GlL06RnQ;Q*MjfHi}L8{A%<HJi<e6L528ro!Ah
+zdx)tqU+ZpA62jcn+uRK}=QYlof(8u5uOC6{yPy+Fl~b?uvr;(@#0{MvaIe&^96JH)
+zu-xMqP^0&vRIN6iTkmnF(Xb@wRBO*3rgrh9#=p^^-f7oC&+d3@HYZzj80Vlaa@Lv^
+zwBURR@*;b+zSEi%D<whpq|UOQB86`ug*41mzpFA**i0elj{9A$)PT$Yxdl<Klsu;%
+zV<{o&$`}fz6wnbM!+tD>b_CJ|u#FnxkJJg?yi;~1Y2Yn)U?o%NQFV++Aye8uP043O
+zP*^)2+sO&gd%gvi*4h(t74Xt|u}LtNZs2+SupcUw@`a;*6e5smY92X36h%0q_~-yK
+zjFUtH2v>p*<LzQQ6UsWz5$M<MAz~bKJ#wuAf=Cr>02jb1qqI;50q!zxH4NS0+&chd
+zlE47ZhZ{sOmNwue-2oE7_oR#`tZ)EO_@eoEC|n@bIH0eU9*|%JYV;2Pqxq&qrf5(e
+z?cU`TMv%Ze%JU7dHh1jipU?CC{Sys-kLUaQkgWUfzuYG|0KeQPy`}$b7v{wdPQ-*d
+zdH#g&K32XlA|U4Q+rd8BE`*_gG54Q4-;#&hl1KJ0G2|AOTn9aQ00000NkvXXu0mjf
+Du6|FG
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/pyramid_king_brandon_front_pic.png b/graphics/trainers/front_pics/pyramid_king_brandon_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2f936092ad4fcae2104a382b2a5f4926847e5b0d
+GIT binary patch
+literal 721
+zcmV;?0xtcDP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!9^)mnS3K~i%mIZ`Rr&DE@XT8oQ&gJMC|YD)kA{{R30mggU_00001
+zbW%=J06^y0W&i*JPf0{UR7i=v)xV1qK@<n@EdrN9SaR_%*aWT=oq$asXEHX!fz|Hj
+zAK16)&L%U{C7@*2;@C!zU~%B38Uor|2;Noq7hDr8`~wUcl8D9l^5eQUv2&XZybs^E
+zZ)PX!dH?%*VA%9v{faTh4}fc|v+GlL06RnQ;Q*MjfHi}L8{A%<HJi<e6L528ro!Ah
+zdx)tqU+ZpA62jcn+uRK}=QYlof(8u5uOC6{yPy+Fl~b?uvr;(@#0{MvaIe&^96JH)
+zu-xMqP^0&vRIN6iTkmnF(Xb@wRBO*3rgrh9#=p^^-f7oC&+d3@HYZzj80Vlaa@Lv^
+zwBURR@*;b+zSEi%D<whpq|UOQB86`ug*41mzpFA**i0elj{9A$)PT$Yxdl<Klsu;%
+zV<{o&$`}fz6wnbM!+tD>b_CJ|u#FnxkJJg?yi;~1Y2Yn)U?o%NQFV++Aye8uP043O
+zP*^)2+sO&gd%gvi*4h(t74Xt|u}LtNZs2+SupcUw@`a;*6e5smY92X36h%0q_~-yK
+zjFUtH2v>p*<LzQQ6UsWz5$M<MAz~bKJ#wuAf=Cr>02jb1qqI;50q!zxH4NS0+&chd
+zlE47ZhZ{sOmNwue-2oE7_oR#`tZ)EO_@eoEC|n@bIH0eU9*|%JYV;2Pqxq&qrf5(e
+z?cU`TMv%Ze%JU7dHh1jipU?CC{Sys-kLUaQkgWUfzuYG|0KeQPy`}$b7v{wdPQ-*d
+zdH#g&K32XlA|U4Q+rd8BE`*_gG54Q4-;#&hl1KJ0G2|AOTn9aQ00000NkvXXu0mjf
+Du6|FG
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/salon_maiden_anabel.png b/graphics/trainers/front_pics/salon_maiden_anabel.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..28fedca384ff86e7ecb409558402742003422a84
+GIT binary patch
+literal 667
+zcmV;M0%ZM(P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!Axi~qfI)s$MSdrFJd&G!GrTAY-{|K4-eYD)kA{{R30D8Rk*00001
+zbW%=J06^y0W&i*J8A(JzR7i=vl`(4+K@`Ua5^pD55%v_pN^%!CECkt$g-sGq0)By+
+zy-o|~?MB4JBD2@IT-e!-2x)9q;Zg)ril5+GAw@og2%ceG8xbtx>>W0_d2^|J#j^1K
+z&3kX&%>I{<{~y<O=K)XV01kU?*CPp~4cKED*iz6GK<!uxq!365@fv%H&v*a<3iMbc
+ze8q6U=MwsDk)Xqpst<!UNED!H2>YGTGKqnwyrxnX;HTSeWE-eXy06^Z?qC%M7F^eD
+zcrgwvx+`w$@gWY7?%n3bq2)O9FW%Z8i@sD8?;ho!EETe1?Lqzl*B$=STmOcqa72$c
+zzCwuWtjBK&V6j<`1mlX|WFdQM)FopqQv5!TMbD(y1k*R^-~_hI#8jiRE;#Ix(dqlV
+ztTBFBUT_<CK=_1=&c;WCve_;=t>%`mFWT@_14PZHAP-j^t=GrJ_&XtqnC)V5vwGIY
+z=jTO9YMdE2q7UoyusADq6Tl4{(J?v+qL2C{61Hsy-pT-;>n^Dpw(gmLH$e(7G(c##
+zdBX%Kh!h-GZ_C#=&A>AUrr(uOuK)@*3%UYO5(%*#P+;*WxC%gRKxLv-qPO}VVA)1A
+z4@fH@vI6mx!a~WN3h3JbC2_l-3`xldt)cX{qbG#}d8JT=_CSlt()te!$POk3xKtn|
+zmLZ$~^$Y{DsYCt(%t<e%D}QG;tF1C!SpS@t;xC+Y$$G9*0?GgY002ovPDHLkV1kvG
+BFZ}=j
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/salon_maiden_anabel_front_pic.png b/graphics/trainers/front_pics/salon_maiden_anabel_front_pic.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..28fedca384ff86e7ecb409558402742003422a84
+GIT binary patch
+literal 667
+zcmV;M0%ZM(P)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p%f`l*Nl`YD!Axi~qfI)s$MSdrFJd&G!GrTAY-{|K4-eYD)kA{{R30D8Rk*00001
+zbW%=J06^y0W&i*J8A(JzR7i=vl`(4+K@`Ua5^pD55%v_pN^%!CECkt$g-sGq0)By+
+zy-o|~?MB4JBD2@IT-e!-2x)9q;Zg)ril5+GAw@og2%ceG8xbtx>>W0_d2^|J#j^1K
+z&3kX&%>I{<{~y<O=K)XV01kU?*CPp~4cKED*iz6GK<!uxq!365@fv%H&v*a<3iMbc
+ze8q6U=MwsDk)Xqpst<!UNED!H2>YGTGKqnwyrxnX;HTSeWE-eXy06^Z?qC%M7F^eD
+zcrgwvx+`w$@gWY7?%n3bq2)O9FW%Z8i@sD8?;ho!EETe1?Lqzl*B$=STmOcqa72$c
+zzCwuWtjBK&V6j<`1mlX|WFdQM)FopqQv5!TMbD(y1k*R^-~_hI#8jiRE;#Ix(dqlV
+ztTBFBUT_<CK=_1=&c;WCve_;=t>%`mFWT@_14PZHAP-j^t=GrJ_&XtqnC)V5vwGIY
+z=jTO9YMdE2q7UoyusADq6Tl4{(J?v+qL2C{61Hsy-pT-;>n^Dpw(gmLH$e(7G(c##
+zdBX%Kh!h-GZ_C#=&A>AUrr(uOuK)@*3%UYO5(%*#P+;*WxC%gRKxLv-qPO}VVA)1A
+z4@fH@vI6mx!a~WN3h3JbC2_l-3`xldt)cX{qbG#}d8JT=_CSlt()te!$POk3xKtn|
+zmLZ$~^$Y{DsYCt(%t<e%D}QG;tF1C!SpS@t;xC+Y$$G9*0?GgY002ovPDHLkV1kvG
+BFZ}=j
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/steven.png b/graphics/trainers/front_pics/steven.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a322cbe5a5b1d73c86d23b760648f6a1abc13da4
+GIT binary patch
+literal 703
+zcmV;w0zmzVP)<h;3K|Lk000e1NJLTq002M$002M)0{{R3SVwH_0000mP)t-sbH$|p
+z-p$^$l)aR5ds<SxbIqhutWr{1F)=yS-tMfu)q9kr|6*FjK|%lj{{R30#>&jj00001
+zbW%=J06^y0W&i*JJxN4CR7i=f)G==pF%$q`4~Rs{VEOtFk_>F9T^T@RC}Lqs>Bdwi
+zTcbve-J<9!r1mTjx{)e>0LeEL%5Y6iY8S@t2%!qGAr?*))j<r#z9xcleij3kawpyU
+z?!B}99E7fnTE>unjAiNv73mk1iJZuu2TWul6Hkhol-n}R;1rWYj*|uqYNM@}qu0S>
+zu*NtYr3oRoKu}4OjY9*n91`1UpDgsV3`~)2d?mL(9V+lM(>H{WU`c@+((99e)R%vH
+z)^ahZH}VP`N3CY7=?No*mzoc}pr%{*!Bw#1`0V{C^u+bn*@qV#PJyH0>BoJs4vGu<
+z{B(Jb@))ep9lm9p3INnj;%NAe?RFtB*^j$JCRQQ{{P-NNhJ1IG0RTUh2Q(IIo$%S{
+zl?zOT>?y(9ER<hdKntOf;+yS`l1Gk(s1}tKXYG~zNH{>m><T~RZ1a&RRt8nZ%pT#D
+zh^?(7%*xZa$C!BwccMW%HlVbj*KQQgF4!zX3EU;o&I}A_UM+(xsGADaK__Cgo2xQ7
+zKC!Ke_slm?;R4^j-?V@WJ6u4cJC}2fn3>LbLzkvm48^!IAY3Fs&zWd!!2$$K{?PpR
+zdEf@vzHMu$19t)o@~OEz0Zw-Tii<n`8$f5z#7s{_Fqjr01=lb@6w3*n-f7X6n8QF6
+zAchW(1v~aOg@E1ZOW<mIlY0i{cNd7!zX0SZ@gIS6o<i&Vs{AVf<Fm|IYZtgqsh-o=
+l+4g$=6jSQ`KmUW8@e7luH+@2BalHTl002ovPDHLkV1m!eL&5+6
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/trainers/front_pics/tuber_m_front_pic.png b/graphics/trainers/front_pics/tuber_m.png
+similarity index 100%
+rename from graphics/trainers/front_pics/tuber_m_front_pic.png
+rename to graphics/trainers/front_pics/tuber_m.png
+diff --git a/graphics/trainers/palettes/arena_tycoon_greta.pal b/graphics/trainers/palettes/arena_tycoon_greta.pal
+new file mode 100644
+index 0000000..60c45e8
+--- /dev/null
++++ b/graphics/trainers/palettes/arena_tycoon_greta.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++139 172 213
++90 131 189
++255 230 106
++213 189 90
++213 222 230
++65 82 123
++189 156 90
++255 115 148
++213 82 115
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/brendan.pal b/graphics/trainers/palettes/brendan.pal
+new file mode 100644
+index 0000000..7274e30
+--- /dev/null
++++ b/graphics/trainers/palettes/brendan.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++222 164 148
++205 131 115
++123 90 82
++98 123 156
++74 90 131
++49 65 106
++24 41 82
++222 230 238
++139 222 115
++98 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/champion_wallace.pal b/graphics/trainers/palettes/champion_wallace.pal
+new file mode 100644
+index 0000000..eaaed07
+--- /dev/null
++++ b/graphics/trainers/palettes/champion_wallace.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++222 180 148
++189 139 106
++98 57 65
++189 131 255
++148 106 172
++115 131 255
++82 106 180
++197 197 213
++57 74 115
++139 139 164
++57 41 57
++98 57 98
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/dome_ace_tucker.pal b/graphics/trainers/palettes/dome_ace_tucker.pal
+new file mode 100644
+index 0000000..33bb1aa
+--- /dev/null
++++ b/graphics/trainers/palettes/dome_ace_tucker.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++246 148 230
++230 115 213
++189 90 172
++139 74 115
++213 205 246
++230 213 106
++156 148 197
++238 238 139
++213 180 98
++255 255 255
++0 0 0
 diff --git a/graphics/trainers/palettes/elite_four_lance.pal b/graphics/trainers/palettes/elite_four_lance.pal
 index 7240c86..7994391 100644
 --- a/graphics/trainers/palettes/elite_four_lance.pal
@@ -86734,6 +87715,256 @@ index 7240c86..7994391 100644
 +106 65 16
 +48 48 64
  0 0 0
+diff --git a/graphics/trainers/palettes/factory_head_noland.pal b/graphics/trainers/palettes/factory_head_noland.pal
+new file mode 100644
+index 0000000..03bce8c
+--- /dev/null
++++ b/graphics/trainers/palettes/factory_head_noland.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++172 172 189
++131 131 164
++98 98 123
++65 65 90
++222 213 246
++238 213 106
++246 131 123
++213 90 90
++180 57 65
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/leader_juan.pal b/graphics/trainers/palettes/leader_juan.pal
+new file mode 100644
+index 0000000..96467bd
+--- /dev/null
++++ b/graphics/trainers/palettes/leader_juan.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++222 180 148
++180 131 98
++123 90 82
++213 115 222
++148 65 180
++106 148 255
++82 106 189
++74 74 148
++164 180 189
++98 115 123
++98 49 90
++213 213 222
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/magma_admin.pal b/graphics/trainers/palettes/magma_admin.pal
+new file mode 100644
+index 0000000..a987cdb
+--- /dev/null
++++ b/graphics/trainers/palettes/magma_admin.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++123 123 123
++90 90 90
++82 98 148
++57 57 65
++65 74 115
++139 49 65
++189 189 180
++222 82 98
++189 57 74
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/may.pal b/graphics/trainers/palettes/may.pal
+new file mode 100644
+index 0000000..fd706c0
+--- /dev/null
++++ b/graphics/trainers/palettes/may.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++222 164 148
++205 131 115
++123 90 82
++98 98 115
++41 57 65
++164 106 82
++74 49 57
++205 205 222
++139 222 115
++98 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/palace_maven_spenser.pal b/graphics/trainers/palettes/palace_maven_spenser.pal
+new file mode 100644
+index 0000000..40a6349
+--- /dev/null
++++ b/graphics/trainers/palettes/palace_maven_spenser.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++230 205 156
++189 164 115
++164 131 82
++106 74 74
++172 172 213
++123 131 189
++90 98 148
++57 65 90
++222 213 246
++238 213 106
++246 230 180
++230 115 74
++222 180 98
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/pike_queen_lucy.pal b/graphics/trainers/palettes/pike_queen_lucy.pal
+new file mode 100644
+index 0000000..fd3b46b
+--- /dev/null
++++ b/graphics/trainers/palettes/pike_queen_lucy.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++205 123 213
++148 90 148
++115 57 106
++57 57 57
++213 222 230
++172 65 65
++255 197 90
++115 106 123
++213 82 115
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/pokemon_breeder_f.pal b/graphics/trainers/palettes/pokemon_breeder_f.pal
+new file mode 100644
+index 0000000..b15f5db
+--- /dev/null
++++ b/graphics/trainers/palettes/pokemon_breeder_f.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++255 98 90
++164 49 65
++255 148 131
++49 49 74
++213 222 230
++205 74 74
++115 148 197
++49 74 123
++57 115 164
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/pokemon_breeder_m.pal b/graphics/trainers/palettes/pokemon_breeder_m.pal
+new file mode 100644
+index 0000000..6551f84
+--- /dev/null
++++ b/graphics/trainers/palettes/pokemon_breeder_m.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++131 90 74
++255 98 90
++156 65 74
++255 148 131
++49 49 74
++213 222 230
++205 74 74
++115 148 197
++49 74 123
++57 115 164
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/pyramid_king_brandon.pal b/graphics/trainers/palettes/pyramid_king_brandon.pal
+new file mode 100644
+index 0000000..77b5483
+--- /dev/null
++++ b/graphics/trainers/palettes/pyramid_king_brandon.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++164 213 90
++123 172 65
++82 115 41
++57 82 41
++213 205 213
++172 123 90
++139 139 123
++131 98 65
++213 106 74
++255 255 255
++0 0 0
+diff --git a/graphics/trainers/palettes/salon_maiden_anabel.pal b/graphics/trainers/palettes/salon_maiden_anabel.pal
+new file mode 100644
+index 0000000..9177656
+--- /dev/null
++++ b/graphics/trainers/palettes/salon_maiden_anabel.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 222 205
++238 180 148
++197 139 106
++106 74 74
++230 139 255
++189 115 213
++148 90 172
++123 74 139
++213 205 246
++255 197 90
++156 148 197
++255 222 115
++213 106 74
++255 255 255
++0 0 0
 diff --git a/graphics_file_rules.mk b/graphics_file_rules.mk
 index 39b952c..f92f31c 100644
 --- a/graphics_file_rules.mk
@@ -87646,6 +88877,33 @@ index 7446cc1..15d334b 100644
  #define SPECIES_OLD_UNOWN_C 253
  #define SPECIES_OLD_UNOWN_D 254
  #define SPECIES_OLD_UNOWN_E 255
+diff --git a/include/constants/trainers.h b/include/constants/trainers.h
+index 70e8b4b..b22440c 100644
+--- a/include/constants/trainers.h
++++ b/include/constants/trainers.h
+@@ -166,6 +166,22 @@
+ #define TRAINER_PIC_RUIN_MANIAC           145
+ #define TRAINER_PIC_LADY                  146
+ #define TRAINER_PIC_PAINTER               147
++// ---- HAN HOENN PICS ----
++#define TRAINER_PIC_ARENA_TYCOON_GRETA             148
++#define TRAINER_PIC_BRENDAN                        149
++#define TRAINER_PIC_MAY                            150
++#define TRAINER_PIC_CHAMPION_WALLACE               151
++#define TRAINER_PIC_DOME_ACE_TUCKER                152
++#define TRAINER_PIC_FACTORY_HEAD_NOLAND            153
++#define TRAINER_PIC_LEADER_JUAN                    154
++#define TRAINER_PIC_MAGMA_ADMIN                    155
++#define TRAINER_PIC_PALACE_MAVEN_SPENSER           156
++#define TRAINER_PIC_PIKE_QUEEN_LUCY                157
++#define TRAINER_PIC_POKEMON_BREEDER_F              158
++#define TRAINER_PIC_POKEMON_BREEDER_M              159
++#define TRAINER_PIC_PYRAMID_KING_BRANDON           160
++#define TRAINER_PIC_SALON_MAIDEN_ANABEL            161
++// ---- END HAN HOENN PICS ----
+ 
+ // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
+ #define TRAINER_BACK_PIC_RED                    0
 diff --git a/include/data.h b/include/data.h
 index 88854ae..2c72b80 100644
 --- a/include/data.h
@@ -87747,7 +89005,7 @@ index 77155b0..bb0519a 100644
      /*0x3BA8*/ struct TrainerNameRecord trainerNameRecords[20];
      /*0x3C98*/ struct DaycareMon route5DayCareMon;
 diff --git a/include/graphics.h b/include/graphics.h
-index 069924f..1c6f2a2 100644
+index 069924f..1fc1430 100644
 --- a/include/graphics.h
 +++ b/include/graphics.h
 @@ -175,6 +175,12 @@ extern const u32 gMonShinyPalette_Arbok[];
@@ -87781,6 +89039,71 @@ index 069924f..1c6f2a2 100644
  
  // battle anim task
  extern const u32 gUnusedLevelupAnimationGfx[];
+@@ -4549,4 +4559,64 @@ extern const u16 gPokeStorageInterface_NoDisplayMon_Pal[];
+ extern const u16 gDexScreen_TopMenuIconPals_AtoZ[];
+ extern const u32 gDexScreen_TopMenuIconTiles_AtoZ[];
+ 
++extern const u32 gTrainerFrontPic_ArenaTycoonGreta[];
++
++extern const u32 gTrainerPalette_ArenaTycoonGreta[];
++
++extern const u32 gTrainerFrontPic_Brendan[];
++
++extern const u32 gTrainerPalette_Brendan[];
++
++extern const u32 gTrainerFrontPic_May[];
++
++extern const u32 gTrainerPalette_May[];
++
++extern const u32 gTrainerFrontPic_ChampionWallace[];
++
++extern const u32 gTrainerPalette_ChampionWallace[];
++
++extern const u32 gTrainerFrontPic_DomeAceTucker[];
++
++extern const u32 gTrainerPalette_DomeAceTucker[];
++
++extern const u32 gTrainerFrontPic_FactoryHeadNoland[];
++
++extern const u32 gTrainerPalette_FactoryHeadNoland[];
++
++extern const u32 gTrainerFrontPic_LeaderJuan[];
++
++extern const u32 gTrainerPalette_LeaderJuan[];
++
++extern const u32 gTrainerFrontPic_MagmaAdmin[];
++
++extern const u32 gTrainerPalette_MagmaAdmin[];
++
++extern const u32 gTrainerFrontPic_PalaceMavenSpenser[];
++
++extern const u32 gTrainerPalette_PalaceMavenSpenser[];
++
++extern const u32 gTrainerFrontPic_PikeQueenLucy[];
++
++extern const u32 gTrainerPalette_PikeQueenLucy[];
++
++extern const u32 gTrainerFrontPic_PokemonBreederF[];
++
++extern const u32 gTrainerPalette_PokemonBreederF[];
++
++extern const u32 gTrainerFrontPic_PokemonBreederM[];
++
++extern const u32 gTrainerPalette_PokemonBreederM[];
++
++extern const u32 gTrainerFrontPic_PyramidKingBrandon[];
++
++extern const u32 gTrainerPalette_PyramidKingBrandon[];
++
++extern const u32 gTrainerFrontPic_SalonMaidenAnabel[];
++
++extern const u32 gTrainerPalette_SalonMaidenAnabel[];
++
++extern const u32 gTrainerFrontPic_Steven[];
++
++extern const u32 gTrainerPalette_Steven[];
++
+ #endif //GUARD_GRAPHICS_H
 diff --git a/include/han_custom.h b/include/han_custom.h
 new file mode 100644
 index 0000000..7440cbe
@@ -88104,10 +89427,10 @@ index 9bd3434..0a5cbbe 100644
      u8 itemIconBuffer[0x200];
      u8 unusedBuffer3[0x600];
 diff --git a/include/region_map.h b/include/region_map.h
-index fec528e..c04eebf 100644
+index fec528e..1351b7e 100644
 --- a/include/region_map.h
 +++ b/include/region_map.h
-@@ -12,6 +12,7 @@ enum {
+@@ -12,9 +12,13 @@ enum {
  };
  
  u8 *GetMapName(u8 *dest, u16 mapsec, u16 fill);
@@ -88115,6 +89438,12 @@ index fec528e..c04eebf 100644
  u8 *GetMapNameGeneric(u8 *dest, u16 mapsec);
  u8 *GetMapNameGeneric_(u8 *dest, u16 mapsec);
  void InitRegionMapWithExitCB(u8 type, void (*callback)(void));
+ void CB2_OpenFlyMap(void);
++void CB2_OpenHanHoennFly(void);
++extern bool8 gHanFlyForceKanto;
++bool8 HanInHoenn(void);
+ 
+ #endif // GUARD_REGION_MAP_H
 diff --git a/include/script_pokemon_util.h b/include/script_pokemon_util.h
 index 5f7dc43..3daa8fd 100644
 --- a/include/script_pokemon_util.h
@@ -92599,7 +93928,7 @@ index e744f80..538c6ed 100644
  const u32 gMonBackPic_UnownQuestionMark[] = INCBIN_U32("graphics/pokemon/unown/question_mark/back.4bpp.lz");
  const u8 gMonIcon_UnownQuestionMark[] = INCBIN_U8("graphics/pokemon/unown/question_mark/icon.4bpp");
 diff --git a/src/data/graphics/trainers.h b/src/data/graphics/trainers.h
-index 0b4a21e..fde5635 100644
+index 0b4a21e..40f2db7 100644
 --- a/src/data/graphics/trainers.h
 +++ b/src/data/graphics/trainers.h
 @@ -358,8 +358,10 @@ const u32 gTrainerPalette_LeaderLtSurge[] = INCBIN_U32("graphics/trainers/palett
@@ -92615,6 +93944,39 @@ index 0b4a21e..fde5635 100644
  
  const u32 gTrainerFrontPic_LeaderBlaine[] = INCBIN_U32("graphics/trainers/front_pics/leader_blaine_front_pic.4bpp.lz");
  const u32 gTrainerPalette_LeaderBlaine[] = INCBIN_U32("graphics/trainers/palettes/leader_blaine.gbapal.lz");
+@@ -454,3 +456,32 @@ const u32 gTrainerPalette_RedBackPic[] = INCBIN_U32("graphics/trainers/palettes/
+ const u32 gTrainerPalette_LeafBackPic[] = INCBIN_U32("graphics/trainers/palettes/leaf_back_pic.gbapal.lz");
+ const u32 gTrainerPalette_PokedudeBackPic[] = INCBIN_U32("graphics/trainers/palettes/pokedude_back_pic.gbapal.lz");
+ const u32 gTrainerPalette_OldManBackPic[] = INCBIN_U32("graphics/trainers/palettes/old_man_back_pic.gbapal.lz");
++// ---- HAN HOENN PICS ----
++const u32 gTrainerFrontPic_ArenaTycoonGreta[] = INCBIN_U32("graphics/trainers/front_pics/arena_tycoon_greta_front_pic.4bpp.lz");
++const u32 gTrainerPalette_ArenaTycoonGreta[] = INCBIN_U32("graphics/trainers/palettes/arena_tycoon_greta.gbapal.lz");
++const u32 gTrainerFrontPic_Brendan[] = INCBIN_U32("graphics/trainers/front_pics/brendan_front_pic.4bpp.lz");
++const u32 gTrainerPalette_Brendan[] = INCBIN_U32("graphics/trainers/palettes/brendan.gbapal.lz");
++const u32 gTrainerFrontPic_May[] = INCBIN_U32("graphics/trainers/front_pics/may_front_pic.4bpp.lz");
++const u32 gTrainerPalette_May[] = INCBIN_U32("graphics/trainers/palettes/may.gbapal.lz");
++const u32 gTrainerFrontPic_ChampionWallace[] = INCBIN_U32("graphics/trainers/front_pics/champion_wallace_front_pic.4bpp.lz");
++const u32 gTrainerPalette_ChampionWallace[] = INCBIN_U32("graphics/trainers/palettes/champion_wallace.gbapal.lz");
++const u32 gTrainerFrontPic_DomeAceTucker[] = INCBIN_U32("graphics/trainers/front_pics/dome_ace_tucker_front_pic.4bpp.lz");
++const u32 gTrainerPalette_DomeAceTucker[] = INCBIN_U32("graphics/trainers/palettes/dome_ace_tucker.gbapal.lz");
++const u32 gTrainerFrontPic_FactoryHeadNoland[] = INCBIN_U32("graphics/trainers/front_pics/factory_head_noland_front_pic.4bpp.lz");
++const u32 gTrainerPalette_FactoryHeadNoland[] = INCBIN_U32("graphics/trainers/palettes/factory_head_noland.gbapal.lz");
++const u32 gTrainerFrontPic_LeaderJuan[] = INCBIN_U32("graphics/trainers/front_pics/leader_juan_front_pic.4bpp.lz");
++const u32 gTrainerPalette_LeaderJuan[] = INCBIN_U32("graphics/trainers/palettes/leader_juan.gbapal.lz");
++const u32 gTrainerFrontPic_MagmaAdmin[] = INCBIN_U32("graphics/trainers/front_pics/magma_admin_front_pic.4bpp.lz");
++const u32 gTrainerPalette_MagmaAdmin[] = INCBIN_U32("graphics/trainers/palettes/magma_admin.gbapal.lz");
++const u32 gTrainerFrontPic_PalaceMavenSpenser[] = INCBIN_U32("graphics/trainers/front_pics/palace_maven_spenser_front_pic.4bpp.lz");
++const u32 gTrainerPalette_PalaceMavenSpenser[] = INCBIN_U32("graphics/trainers/palettes/palace_maven_spenser.gbapal.lz");
++const u32 gTrainerFrontPic_PikeQueenLucy[] = INCBIN_U32("graphics/trainers/front_pics/pike_queen_lucy_front_pic.4bpp.lz");
++const u32 gTrainerPalette_PikeQueenLucy[] = INCBIN_U32("graphics/trainers/palettes/pike_queen_lucy.gbapal.lz");
++const u32 gTrainerFrontPic_PokemonBreederF[] = INCBIN_U32("graphics/trainers/front_pics/pokemon_breeder_f_front_pic.4bpp.lz");
++const u32 gTrainerPalette_PokemonBreederF[] = INCBIN_U32("graphics/trainers/palettes/pokemon_breeder_f.gbapal.lz");
++const u32 gTrainerFrontPic_PokemonBreederM[] = INCBIN_U32("graphics/trainers/front_pics/pokemon_breeder_m_front_pic.4bpp.lz");
++const u32 gTrainerPalette_PokemonBreederM[] = INCBIN_U32("graphics/trainers/palettes/pokemon_breeder_m.gbapal.lz");
++const u32 gTrainerFrontPic_PyramidKingBrandon[] = INCBIN_U32("graphics/trainers/front_pics/pyramid_king_brandon_front_pic.4bpp.lz");
++const u32 gTrainerPalette_PyramidKingBrandon[] = INCBIN_U32("graphics/trainers/palettes/pyramid_king_brandon.gbapal.lz");
++const u32 gTrainerFrontPic_SalonMaidenAnabel[] = INCBIN_U32("graphics/trainers/front_pics/salon_maiden_anabel_front_pic.4bpp.lz");
++const u32 gTrainerPalette_SalonMaidenAnabel[] = INCBIN_U32("graphics/trainers/palettes/salon_maiden_anabel.gbapal.lz");
 diff --git a/src/data/han_follow_ball.h b/src/data/han_follow_ball.h
 new file mode 100644
 index 0000000..0e618b1
@@ -92637,6 +93999,44 @@ index 0000000..b64be29
 +static const u16 sHanFollowPal[12384] = INCBIN_U16("graphics/han_follow/pal.bin"); // normal, shiny: 16 colours each
 +#define FI(i, f) {(const u8 *)sHanFollowSheets + ((i) * 6 + (f)) * 0x200, 0x200}
 +static const struct SpriteFrameImage sHanFollowImg[387][9] = {{FI(0, 0), FI(0, 2), FI(0, 4), FI(0, 1), FI(0, 1), FI(0, 3), FI(0, 3), FI(0, 5), FI(0, 5)}, {FI(1, 0), FI(1, 2), FI(1, 4), FI(1, 1), FI(1, 1), FI(1, 3), FI(1, 3), FI(1, 5), FI(1, 5)}, {FI(2, 0), FI(2, 2), FI(2, 4), FI(2, 1), FI(2, 1), FI(2, 3), FI(2, 3), FI(2, 5), FI(2, 5)}, {FI(3, 0), FI(3, 2), FI(3, 4), FI(3, 1), FI(3, 1), FI(3, 3), FI(3, 3), FI(3, 5), FI(3, 5)}, {FI(4, 0), FI(4, 2), FI(4, 4), FI(4, 1), FI(4, 1), FI(4, 3), FI(4, 3), FI(4, 5), FI(4, 5)}, {FI(5, 0), FI(5, 2), FI(5, 4), FI(5, 1), FI(5, 1), FI(5, 3), FI(5, 3), FI(5, 5), FI(5, 5)}, {FI(6, 0), FI(6, 2), FI(6, 4), FI(6, 1), FI(6, 1), FI(6, 3), FI(6, 3), FI(6, 5), FI(6, 5)}, {FI(7, 0), FI(7, 2), FI(7, 4), FI(7, 1), FI(7, 1), FI(7, 3), FI(7, 3), FI(7, 5), FI(7, 5)}, {FI(8, 0), FI(8, 2), FI(8, 4), FI(8, 1), FI(8, 1), FI(8, 3), FI(8, 3), FI(8, 5), FI(8, 5)}, {FI(9, 0), FI(9, 2), FI(9, 4), FI(9, 1), FI(9, 1), FI(9, 3), FI(9, 3), FI(9, 5), FI(9, 5)}, {FI(10, 0), FI(10, 2), FI(10, 4), FI(10, 1), FI(10, 1), FI(10, 3), FI(10, 3), FI(10, 5), FI(10, 5)}, {FI(11, 0), FI(11, 2), FI(11, 4), FI(11, 1), FI(11, 1), FI(11, 3), FI(11, 3), FI(11, 5), FI(11, 5)}, {FI(12, 0), FI(12, 2), FI(12, 4), FI(12, 1), FI(12, 1), FI(12, 3), FI(12, 3), FI(12, 5), FI(12, 5)}, {FI(13, 0), FI(13, 2), FI(13, 4), FI(13, 1), FI(13, 1), FI(13, 3), FI(13, 3), FI(13, 5), FI(13, 5)}, {FI(14, 0), FI(14, 2), FI(14, 4), FI(14, 1), FI(14, 1), FI(14, 3), FI(14, 3), FI(14, 5), FI(14, 5)}, {FI(15, 0), FI(15, 2), FI(15, 4), FI(15, 1), FI(15, 1), FI(15, 3), FI(15, 3), FI(15, 5), FI(15, 5)}, {FI(16, 0), FI(16, 2), FI(16, 4), FI(16, 1), FI(16, 1), FI(16, 3), FI(16, 3), FI(16, 5), FI(16, 5)}, {FI(17, 0), FI(17, 2), FI(17, 4), FI(17, 1), FI(17, 1), FI(17, 3), FI(17, 3), FI(17, 5), FI(17, 5)}, {FI(18, 0), FI(18, 2), FI(18, 4), FI(18, 1), FI(18, 1), FI(18, 3), FI(18, 3), FI(18, 5), FI(18, 5)}, {FI(19, 0), FI(19, 2), FI(19, 4), FI(19, 1), FI(19, 1), FI(19, 3), FI(19, 3), FI(19, 5), FI(19, 5)}, {FI(20, 0), FI(20, 2), FI(20, 4), FI(20, 1), FI(20, 1), FI(20, 3), FI(20, 3), FI(20, 5), FI(20, 5)}, {FI(21, 0), FI(21, 2), FI(21, 4), FI(21, 1), FI(21, 1), FI(21, 3), FI(21, 3), FI(21, 5), FI(21, 5)}, {FI(22, 0), FI(22, 2), FI(22, 4), FI(22, 1), FI(22, 1), FI(22, 3), FI(22, 3), FI(22, 5), FI(22, 5)}, {FI(23, 0), FI(23, 2), FI(23, 4), FI(23, 1), FI(23, 1), FI(23, 3), FI(23, 3), FI(23, 5), FI(23, 5)}, {FI(24, 0), FI(24, 2), FI(24, 4), FI(24, 1), FI(24, 1), FI(24, 3), FI(24, 3), FI(24, 5), FI(24, 5)}, {FI(25, 0), FI(25, 2), FI(25, 4), FI(25, 1), FI(25, 1), FI(25, 3), FI(25, 3), FI(25, 5), FI(25, 5)}, {FI(26, 0), FI(26, 2), FI(26, 4), FI(26, 1), FI(26, 1), FI(26, 3), FI(26, 3), FI(26, 5), FI(26, 5)}, {FI(27, 0), FI(27, 2), FI(27, 4), FI(27, 1), FI(27, 1), FI(27, 3), FI(27, 3), FI(27, 5), FI(27, 5)}, {FI(28, 0), FI(28, 2), FI(28, 4), FI(28, 1), FI(28, 1), FI(28, 3), FI(28, 3), FI(28, 5), FI(28, 5)}, {FI(29, 0), FI(29, 2), FI(29, 4), FI(29, 1), FI(29, 1), FI(29, 3), FI(29, 3), FI(29, 5), FI(29, 5)}, {FI(30, 0), FI(30, 2), FI(30, 4), FI(30, 1), FI(30, 1), FI(30, 3), FI(30, 3), FI(30, 5), FI(30, 5)}, {FI(31, 0), FI(31, 2), FI(31, 4), FI(31, 1), FI(31, 1), FI(31, 3), FI(31, 3), FI(31, 5), FI(31, 5)}, {FI(32, 0), FI(32, 2), FI(32, 4), FI(32, 1), FI(32, 1), FI(32, 3), FI(32, 3), FI(32, 5), FI(32, 5)}, {FI(33, 0), FI(33, 2), FI(33, 4), FI(33, 1), FI(33, 1), FI(33, 3), FI(33, 3), FI(33, 5), FI(33, 5)}, {FI(34, 0), FI(34, 2), FI(34, 4), FI(34, 1), FI(34, 1), FI(34, 3), FI(34, 3), FI(34, 5), FI(34, 5)}, {FI(35, 0), FI(35, 2), FI(35, 4), FI(35, 1), FI(35, 1), FI(35, 3), FI(35, 3), FI(35, 5), FI(35, 5)}, {FI(36, 0), FI(36, 2), FI(36, 4), FI(36, 1), FI(36, 1), FI(36, 3), FI(36, 3), FI(36, 5), FI(36, 5)}, {FI(37, 0), FI(37, 2), FI(37, 4), FI(37, 1), FI(37, 1), FI(37, 3), FI(37, 3), FI(37, 5), FI(37, 5)}, {FI(38, 0), FI(38, 2), FI(38, 4), FI(38, 1), FI(38, 1), FI(38, 3), FI(38, 3), FI(38, 5), FI(38, 5)}, {FI(39, 0), FI(39, 2), FI(39, 4), FI(39, 1), FI(39, 1), FI(39, 3), FI(39, 3), FI(39, 5), FI(39, 5)}, {FI(40, 0), FI(40, 2), FI(40, 4), FI(40, 1), FI(40, 1), FI(40, 3), FI(40, 3), FI(40, 5), FI(40, 5)}, {FI(41, 0), FI(41, 2), FI(41, 4), FI(41, 1), FI(41, 1), FI(41, 3), FI(41, 3), FI(41, 5), FI(41, 5)}, {FI(42, 0), FI(42, 2), FI(42, 4), FI(42, 1), FI(42, 1), FI(42, 3), FI(42, 3), FI(42, 5), FI(42, 5)}, {FI(43, 0), FI(43, 2), FI(43, 4), FI(43, 1), FI(43, 1), FI(43, 3), FI(43, 3), FI(43, 5), FI(43, 5)}, {FI(44, 0), FI(44, 2), FI(44, 4), FI(44, 1), FI(44, 1), FI(44, 3), FI(44, 3), FI(44, 5), FI(44, 5)}, {FI(45, 0), FI(45, 2), FI(45, 4), FI(45, 1), FI(45, 1), FI(45, 3), FI(45, 3), FI(45, 5), FI(45, 5)}, {FI(46, 0), FI(46, 2), FI(46, 4), FI(46, 1), FI(46, 1), FI(46, 3), FI(46, 3), FI(46, 5), FI(46, 5)}, {FI(47, 0), FI(47, 2), FI(47, 4), FI(47, 1), FI(47, 1), FI(47, 3), FI(47, 3), FI(47, 5), FI(47, 5)}, {FI(48, 0), FI(48, 2), FI(48, 4), FI(48, 1), FI(48, 1), FI(48, 3), FI(48, 3), FI(48, 5), FI(48, 5)}, {FI(49, 0), FI(49, 2), FI(49, 4), FI(49, 1), FI(49, 1), FI(49, 3), FI(49, 3), FI(49, 5), FI(49, 5)}, {FI(50, 0), FI(50, 2), FI(50, 4), FI(50, 1), FI(50, 1), FI(50, 3), FI(50, 3), FI(50, 5), FI(50, 5)}, {FI(51, 0), FI(51, 2), FI(51, 4), FI(51, 1), FI(51, 1), FI(51, 3), FI(51, 3), FI(51, 5), FI(51, 5)}, {FI(52, 0), FI(52, 2), FI(52, 4), FI(52, 1), FI(52, 1), FI(52, 3), FI(52, 3), FI(52, 5), FI(52, 5)}, {FI(53, 0), FI(53, 2), FI(53, 4), FI(53, 1), FI(53, 1), FI(53, 3), FI(53, 3), FI(53, 5), FI(53, 5)}, {FI(54, 0), FI(54, 2), FI(54, 4), FI(54, 1), FI(54, 1), FI(54, 3), FI(54, 3), FI(54, 5), FI(54, 5)}, {FI(55, 0), FI(55, 2), FI(55, 4), FI(55, 1), FI(55, 1), FI(55, 3), FI(55, 3), FI(55, 5), FI(55, 5)}, {FI(56, 0), FI(56, 2), FI(56, 4), FI(56, 1), FI(56, 1), FI(56, 3), FI(56, 3), FI(56, 5), FI(56, 5)}, {FI(57, 0), FI(57, 2), FI(57, 4), FI(57, 1), FI(57, 1), FI(57, 3), FI(57, 3), FI(57, 5), FI(57, 5)}, {FI(58, 0), FI(58, 2), FI(58, 4), FI(58, 1), FI(58, 1), FI(58, 3), FI(58, 3), FI(58, 5), FI(58, 5)}, {FI(59, 0), FI(59, 2), FI(59, 4), FI(59, 1), FI(59, 1), FI(59, 3), FI(59, 3), FI(59, 5), FI(59, 5)}, {FI(60, 0), FI(60, 2), FI(60, 4), FI(60, 1), FI(60, 1), FI(60, 3), FI(60, 3), FI(60, 5), FI(60, 5)}, {FI(61, 0), FI(61, 2), FI(61, 4), FI(61, 1), FI(61, 1), FI(61, 3), FI(61, 3), FI(61, 5), FI(61, 5)}, {FI(62, 0), FI(62, 2), FI(62, 4), FI(62, 1), FI(62, 1), FI(62, 3), FI(62, 3), FI(62, 5), FI(62, 5)}, {FI(63, 0), FI(63, 2), FI(63, 4), FI(63, 1), FI(63, 1), FI(63, 3), FI(63, 3), FI(63, 5), FI(63, 5)}, {FI(64, 0), FI(64, 2), FI(64, 4), FI(64, 1), FI(64, 1), FI(64, 3), FI(64, 3), FI(64, 5), FI(64, 5)}, {FI(65, 0), FI(65, 2), FI(65, 4), FI(65, 1), FI(65, 1), FI(65, 3), FI(65, 3), FI(65, 5), FI(65, 5)}, {FI(66, 0), FI(66, 2), FI(66, 4), FI(66, 1), FI(66, 1), FI(66, 3), FI(66, 3), FI(66, 5), FI(66, 5)}, {FI(67, 0), FI(67, 2), FI(67, 4), FI(67, 1), FI(67, 1), FI(67, 3), FI(67, 3), FI(67, 5), FI(67, 5)}, {FI(68, 0), FI(68, 2), FI(68, 4), FI(68, 1), FI(68, 1), FI(68, 3), FI(68, 3), FI(68, 5), FI(68, 5)}, {FI(69, 0), FI(69, 2), FI(69, 4), FI(69, 1), FI(69, 1), FI(69, 3), FI(69, 3), FI(69, 5), FI(69, 5)}, {FI(70, 0), FI(70, 2), FI(70, 4), FI(70, 1), FI(70, 1), FI(70, 3), FI(70, 3), FI(70, 5), FI(70, 5)}, {FI(71, 0), FI(71, 2), FI(71, 4), FI(71, 1), FI(71, 1), FI(71, 3), FI(71, 3), FI(71, 5), FI(71, 5)}, {FI(72, 0), FI(72, 2), FI(72, 4), FI(72, 1), FI(72, 1), FI(72, 3), FI(72, 3), FI(72, 5), FI(72, 5)}, {FI(73, 0), FI(73, 2), FI(73, 4), FI(73, 1), FI(73, 1), FI(73, 3), FI(73, 3), FI(73, 5), FI(73, 5)}, {FI(74, 0), FI(74, 2), FI(74, 4), FI(74, 1), FI(74, 1), FI(74, 3), FI(74, 3), FI(74, 5), FI(74, 5)}, {FI(75, 0), FI(75, 2), FI(75, 4), FI(75, 1), FI(75, 1), FI(75, 3), FI(75, 3), FI(75, 5), FI(75, 5)}, {FI(76, 0), FI(76, 2), FI(76, 4), FI(76, 1), FI(76, 1), FI(76, 3), FI(76, 3), FI(76, 5), FI(76, 5)}, {FI(77, 0), FI(77, 2), FI(77, 4), FI(77, 1), FI(77, 1), FI(77, 3), FI(77, 3), FI(77, 5), FI(77, 5)}, {FI(78, 0), FI(78, 2), FI(78, 4), FI(78, 1), FI(78, 1), FI(78, 3), FI(78, 3), FI(78, 5), FI(78, 5)}, {FI(79, 0), FI(79, 2), FI(79, 4), FI(79, 1), FI(79, 1), FI(79, 3), FI(79, 3), FI(79, 5), FI(79, 5)}, {FI(80, 0), FI(80, 2), FI(80, 4), FI(80, 1), FI(80, 1), FI(80, 3), FI(80, 3), FI(80, 5), FI(80, 5)}, {FI(81, 0), FI(81, 2), FI(81, 4), FI(81, 1), FI(81, 1), FI(81, 3), FI(81, 3), FI(81, 5), FI(81, 5)}, {FI(82, 0), FI(82, 2), FI(82, 4), FI(82, 1), FI(82, 1), FI(82, 3), FI(82, 3), FI(82, 5), FI(82, 5)}, {FI(83, 0), FI(83, 2), FI(83, 4), FI(83, 1), FI(83, 1), FI(83, 3), FI(83, 3), FI(83, 5), FI(83, 5)}, {FI(84, 0), FI(84, 2), FI(84, 4), FI(84, 1), FI(84, 1), FI(84, 3), FI(84, 3), FI(84, 5), FI(84, 5)}, {FI(85, 0), FI(85, 2), FI(85, 4), FI(85, 1), FI(85, 1), FI(85, 3), FI(85, 3), FI(85, 5), FI(85, 5)}, {FI(86, 0), FI(86, 2), FI(86, 4), FI(86, 1), FI(86, 1), FI(86, 3), FI(86, 3), FI(86, 5), FI(86, 5)}, {FI(87, 0), FI(87, 2), FI(87, 4), FI(87, 1), FI(87, 1), FI(87, 3), FI(87, 3), FI(87, 5), FI(87, 5)}, {FI(88, 0), FI(88, 2), FI(88, 4), FI(88, 1), FI(88, 1), FI(88, 3), FI(88, 3), FI(88, 5), FI(88, 5)}, {FI(89, 0), FI(89, 2), FI(89, 4), FI(89, 1), FI(89, 1), FI(89, 3), FI(89, 3), FI(89, 5), FI(89, 5)}, {FI(90, 0), FI(90, 2), FI(90, 4), FI(90, 1), FI(90, 1), FI(90, 3), FI(90, 3), FI(90, 5), FI(90, 5)}, {FI(91, 0), FI(91, 2), FI(91, 4), FI(91, 1), FI(91, 1), FI(91, 3), FI(91, 3), FI(91, 5), FI(91, 5)}, {FI(92, 0), FI(92, 2), FI(92, 4), FI(92, 1), FI(92, 1), FI(92, 3), FI(92, 3), FI(92, 5), FI(92, 5)}, {FI(93, 0), FI(93, 2), FI(93, 4), FI(93, 1), FI(93, 1), FI(93, 3), FI(93, 3), FI(93, 5), FI(93, 5)}, {FI(94, 0), FI(94, 2), FI(94, 4), FI(94, 1), FI(94, 1), FI(94, 3), FI(94, 3), FI(94, 5), FI(94, 5)}, {FI(95, 0), FI(95, 2), FI(95, 4), FI(95, 1), FI(95, 1), FI(95, 3), FI(95, 3), FI(95, 5), FI(95, 5)}, {FI(96, 0), FI(96, 2), FI(96, 4), FI(96, 1), FI(96, 1), FI(96, 3), FI(96, 3), FI(96, 5), FI(96, 5)}, {FI(97, 0), FI(97, 2), FI(97, 4), FI(97, 1), FI(97, 1), FI(97, 3), FI(97, 3), FI(97, 5), FI(97, 5)}, {FI(98, 0), FI(98, 2), FI(98, 4), FI(98, 1), FI(98, 1), FI(98, 3), FI(98, 3), FI(98, 5), FI(98, 5)}, {FI(99, 0), FI(99, 2), FI(99, 4), FI(99, 1), FI(99, 1), FI(99, 3), FI(99, 3), FI(99, 5), FI(99, 5)}, {FI(100, 0), FI(100, 2), FI(100, 4), FI(100, 1), FI(100, 1), FI(100, 3), FI(100, 3), FI(100, 5), FI(100, 5)}, {FI(101, 0), FI(101, 2), FI(101, 4), FI(101, 1), FI(101, 1), FI(101, 3), FI(101, 3), FI(101, 5), FI(101, 5)}, {FI(102, 0), FI(102, 2), FI(102, 4), FI(102, 1), FI(102, 1), FI(102, 3), FI(102, 3), FI(102, 5), FI(102, 5)}, {FI(103, 0), FI(103, 2), FI(103, 4), FI(103, 1), FI(103, 1), FI(103, 3), FI(103, 3), FI(103, 5), FI(103, 5)}, {FI(104, 0), FI(104, 2), FI(104, 4), FI(104, 1), FI(104, 1), FI(104, 3), FI(104, 3), FI(104, 5), FI(104, 5)}, {FI(105, 0), FI(105, 2), FI(105, 4), FI(105, 1), FI(105, 1), FI(105, 3), FI(105, 3), FI(105, 5), FI(105, 5)}, {FI(106, 0), FI(106, 2), FI(106, 4), FI(106, 1), FI(106, 1), FI(106, 3), FI(106, 3), FI(106, 5), FI(106, 5)}, {FI(107, 0), FI(107, 2), FI(107, 4), FI(107, 1), FI(107, 1), FI(107, 3), FI(107, 3), FI(107, 5), FI(107, 5)}, {FI(108, 0), FI(108, 2), FI(108, 4), FI(108, 1), FI(108, 1), FI(108, 3), FI(108, 3), FI(108, 5), FI(108, 5)}, {FI(109, 0), FI(109, 2), FI(109, 4), FI(109, 1), FI(109, 1), FI(109, 3), FI(109, 3), FI(109, 5), FI(109, 5)}, {FI(110, 0), FI(110, 2), FI(110, 4), FI(110, 1), FI(110, 1), FI(110, 3), FI(110, 3), FI(110, 5), FI(110, 5)}, {FI(111, 0), FI(111, 2), FI(111, 4), FI(111, 1), FI(111, 1), FI(111, 3), FI(111, 3), FI(111, 5), FI(111, 5)}, {FI(112, 0), FI(112, 2), FI(112, 4), FI(112, 1), FI(112, 1), FI(112, 3), FI(112, 3), FI(112, 5), FI(112, 5)}, {FI(113, 0), FI(113, 2), FI(113, 4), FI(113, 1), FI(113, 1), FI(113, 3), FI(113, 3), FI(113, 5), FI(113, 5)}, {FI(114, 0), FI(114, 2), FI(114, 4), FI(114, 1), FI(114, 1), FI(114, 3), FI(114, 3), FI(114, 5), FI(114, 5)}, {FI(115, 0), FI(115, 2), FI(115, 4), FI(115, 1), FI(115, 1), FI(115, 3), FI(115, 3), FI(115, 5), FI(115, 5)}, {FI(116, 0), FI(116, 2), FI(116, 4), FI(116, 1), FI(116, 1), FI(116, 3), FI(116, 3), FI(116, 5), FI(116, 5)}, {FI(117, 0), FI(117, 2), FI(117, 4), FI(117, 1), FI(117, 1), FI(117, 3), FI(117, 3), FI(117, 5), FI(117, 5)}, {FI(118, 0), FI(118, 2), FI(118, 4), FI(118, 1), FI(118, 1), FI(118, 3), FI(118, 3), FI(118, 5), FI(118, 5)}, {FI(119, 0), FI(119, 2), FI(119, 4), FI(119, 1), FI(119, 1), FI(119, 3), FI(119, 3), FI(119, 5), FI(119, 5)}, {FI(120, 0), FI(120, 2), FI(120, 4), FI(120, 1), FI(120, 1), FI(120, 3), FI(120, 3), FI(120, 5), FI(120, 5)}, {FI(121, 0), FI(121, 2), FI(121, 4), FI(121, 1), FI(121, 1), FI(121, 3), FI(121, 3), FI(121, 5), FI(121, 5)}, {FI(122, 0), FI(122, 2), FI(122, 4), FI(122, 1), FI(122, 1), FI(122, 3), FI(122, 3), FI(122, 5), FI(122, 5)}, {FI(123, 0), FI(123, 2), FI(123, 4), FI(123, 1), FI(123, 1), FI(123, 3), FI(123, 3), FI(123, 5), FI(123, 5)}, {FI(124, 0), FI(124, 2), FI(124, 4), FI(124, 1), FI(124, 1), FI(124, 3), FI(124, 3), FI(124, 5), FI(124, 5)}, {FI(125, 0), FI(125, 2), FI(125, 4), FI(125, 1), FI(125, 1), FI(125, 3), FI(125, 3), FI(125, 5), FI(125, 5)}, {FI(126, 0), FI(126, 2), FI(126, 4), FI(126, 1), FI(126, 1), FI(126, 3), FI(126, 3), FI(126, 5), FI(126, 5)}, {FI(127, 0), FI(127, 2), FI(127, 4), FI(127, 1), FI(127, 1), FI(127, 3), FI(127, 3), FI(127, 5), FI(127, 5)}, {FI(128, 0), FI(128, 2), FI(128, 4), FI(128, 1), FI(128, 1), FI(128, 3), FI(128, 3), FI(128, 5), FI(128, 5)}, {FI(129, 0), FI(129, 2), FI(129, 4), FI(129, 1), FI(129, 1), FI(129, 3), FI(129, 3), FI(129, 5), FI(129, 5)}, {FI(130, 0), FI(130, 2), FI(130, 4), FI(130, 1), FI(130, 1), FI(130, 3), FI(130, 3), FI(130, 5), FI(130, 5)}, {FI(131, 0), FI(131, 2), FI(131, 4), FI(131, 1), FI(131, 1), FI(131, 3), FI(131, 3), FI(131, 5), FI(131, 5)}, {FI(132, 0), FI(132, 2), FI(132, 4), FI(132, 1), FI(132, 1), FI(132, 3), FI(132, 3), FI(132, 5), FI(132, 5)}, {FI(133, 0), FI(133, 2), FI(133, 4), FI(133, 1), FI(133, 1), FI(133, 3), FI(133, 3), FI(133, 5), FI(133, 5)}, {FI(134, 0), FI(134, 2), FI(134, 4), FI(134, 1), FI(134, 1), FI(134, 3), FI(134, 3), FI(134, 5), FI(134, 5)}, {FI(135, 0), FI(135, 2), FI(135, 4), FI(135, 1), FI(135, 1), FI(135, 3), FI(135, 3), FI(135, 5), FI(135, 5)}, {FI(136, 0), FI(136, 2), FI(136, 4), FI(136, 1), FI(136, 1), FI(136, 3), FI(136, 3), FI(136, 5), FI(136, 5)}, {FI(137, 0), FI(137, 2), FI(137, 4), FI(137, 1), FI(137, 1), FI(137, 3), FI(137, 3), FI(137, 5), FI(137, 5)}, {FI(138, 0), FI(138, 2), FI(138, 4), FI(138, 1), FI(138, 1), FI(138, 3), FI(138, 3), FI(138, 5), FI(138, 5)}, {FI(139, 0), FI(139, 2), FI(139, 4), FI(139, 1), FI(139, 1), FI(139, 3), FI(139, 3), FI(139, 5), FI(139, 5)}, {FI(140, 0), FI(140, 2), FI(140, 4), FI(140, 1), FI(140, 1), FI(140, 3), FI(140, 3), FI(140, 5), FI(140, 5)}, {FI(141, 0), FI(141, 2), FI(141, 4), FI(141, 1), FI(141, 1), FI(141, 3), FI(141, 3), FI(141, 5), FI(141, 5)}, {FI(142, 0), FI(142, 2), FI(142, 4), FI(142, 1), FI(142, 1), FI(142, 3), FI(142, 3), FI(142, 5), FI(142, 5)}, {FI(143, 0), FI(143, 2), FI(143, 4), FI(143, 1), FI(143, 1), FI(143, 3), FI(143, 3), FI(143, 5), FI(143, 5)}, {FI(144, 0), FI(144, 2), FI(144, 4), FI(144, 1), FI(144, 1), FI(144, 3), FI(144, 3), FI(144, 5), FI(144, 5)}, {FI(145, 0), FI(145, 2), FI(145, 4), FI(145, 1), FI(145, 1), FI(145, 3), FI(145, 3), FI(145, 5), FI(145, 5)}, {FI(146, 0), FI(146, 2), FI(146, 4), FI(146, 1), FI(146, 1), FI(146, 3), FI(146, 3), FI(146, 5), FI(146, 5)}, {FI(147, 0), FI(147, 2), FI(147, 4), FI(147, 1), FI(147, 1), FI(147, 3), FI(147, 3), FI(147, 5), FI(147, 5)}, {FI(148, 0), FI(148, 2), FI(148, 4), FI(148, 1), FI(148, 1), FI(148, 3), FI(148, 3), FI(148, 5), FI(148, 5)}, {FI(149, 0), FI(149, 2), FI(149, 4), FI(149, 1), FI(149, 1), FI(149, 3), FI(149, 3), FI(149, 5), FI(149, 5)}, {FI(150, 0), FI(150, 2), FI(150, 4), FI(150, 1), FI(150, 1), FI(150, 3), FI(150, 3), FI(150, 5), FI(150, 5)}, {FI(151, 0), FI(151, 2), FI(151, 4), FI(151, 1), FI(151, 1), FI(151, 3), FI(151, 3), FI(151, 5), FI(151, 5)}, {FI(152, 0), FI(152, 2), FI(152, 4), FI(152, 1), FI(152, 1), FI(152, 3), FI(152, 3), FI(152, 5), FI(152, 5)}, {FI(153, 0), FI(153, 2), FI(153, 4), FI(153, 1), FI(153, 1), FI(153, 3), FI(153, 3), FI(153, 5), FI(153, 5)}, {FI(154, 0), FI(154, 2), FI(154, 4), FI(154, 1), FI(154, 1), FI(154, 3), FI(154, 3), FI(154, 5), FI(154, 5)}, {FI(155, 0), FI(155, 2), FI(155, 4), FI(155, 1), FI(155, 1), FI(155, 3), FI(155, 3), FI(155, 5), FI(155, 5)}, {FI(156, 0), FI(156, 2), FI(156, 4), FI(156, 1), FI(156, 1), FI(156, 3), FI(156, 3), FI(156, 5), FI(156, 5)}, {FI(157, 0), FI(157, 2), FI(157, 4), FI(157, 1), FI(157, 1), FI(157, 3), FI(157, 3), FI(157, 5), FI(157, 5)}, {FI(158, 0), FI(158, 2), FI(158, 4), FI(158, 1), FI(158, 1), FI(158, 3), FI(158, 3), FI(158, 5), FI(158, 5)}, {FI(159, 0), FI(159, 2), FI(159, 4), FI(159, 1), FI(159, 1), FI(159, 3), FI(159, 3), FI(159, 5), FI(159, 5)}, {FI(160, 0), FI(160, 2), FI(160, 4), FI(160, 1), FI(160, 1), FI(160, 3), FI(160, 3), FI(160, 5), FI(160, 5)}, {FI(161, 0), FI(161, 2), FI(161, 4), FI(161, 1), FI(161, 1), FI(161, 3), FI(161, 3), FI(161, 5), FI(161, 5)}, {FI(162, 0), FI(162, 2), FI(162, 4), FI(162, 1), FI(162, 1), FI(162, 3), FI(162, 3), FI(162, 5), FI(162, 5)}, {FI(163, 0), FI(163, 2), FI(163, 4), FI(163, 1), FI(163, 1), FI(163, 3), FI(163, 3), FI(163, 5), FI(163, 5)}, {FI(164, 0), FI(164, 2), FI(164, 4), FI(164, 1), FI(164, 1), FI(164, 3), FI(164, 3), FI(164, 5), FI(164, 5)}, {FI(165, 0), FI(165, 2), FI(165, 4), FI(165, 1), FI(165, 1), FI(165, 3), FI(165, 3), FI(165, 5), FI(165, 5)}, {FI(166, 0), FI(166, 2), FI(166, 4), FI(166, 1), FI(166, 1), FI(166, 3), FI(166, 3), FI(166, 5), FI(166, 5)}, {FI(167, 0), FI(167, 2), FI(167, 4), FI(167, 1), FI(167, 1), FI(167, 3), FI(167, 3), FI(167, 5), FI(167, 5)}, {FI(168, 0), FI(168, 2), FI(168, 4), FI(168, 1), FI(168, 1), FI(168, 3), FI(168, 3), FI(168, 5), FI(168, 5)}, {FI(169, 0), FI(169, 2), FI(169, 4), FI(169, 1), FI(169, 1), FI(169, 3), FI(169, 3), FI(169, 5), FI(169, 5)}, {FI(170, 0), FI(170, 2), FI(170, 4), FI(170, 1), FI(170, 1), FI(170, 3), FI(170, 3), FI(170, 5), FI(170, 5)}, {FI(171, 0), FI(171, 2), FI(171, 4), FI(171, 1), FI(171, 1), FI(171, 3), FI(171, 3), FI(171, 5), FI(171, 5)}, {FI(172, 0), FI(172, 2), FI(172, 4), FI(172, 1), FI(172, 1), FI(172, 3), FI(172, 3), FI(172, 5), FI(172, 5)}, {FI(173, 0), FI(173, 2), FI(173, 4), FI(173, 1), FI(173, 1), FI(173, 3), FI(173, 3), FI(173, 5), FI(173, 5)}, {FI(174, 0), FI(174, 2), FI(174, 4), FI(174, 1), FI(174, 1), FI(174, 3), FI(174, 3), FI(174, 5), FI(174, 5)}, {FI(175, 0), FI(175, 2), FI(175, 4), FI(175, 1), FI(175, 1), FI(175, 3), FI(175, 3), FI(175, 5), FI(175, 5)}, {FI(176, 0), FI(176, 2), FI(176, 4), FI(176, 1), FI(176, 1), FI(176, 3), FI(176, 3), FI(176, 5), FI(176, 5)}, {FI(177, 0), FI(177, 2), FI(177, 4), FI(177, 1), FI(177, 1), FI(177, 3), FI(177, 3), FI(177, 5), FI(177, 5)}, {FI(178, 0), FI(178, 2), FI(178, 4), FI(178, 1), FI(178, 1), FI(178, 3), FI(178, 3), FI(178, 5), FI(178, 5)}, {FI(179, 0), FI(179, 2), FI(179, 4), FI(179, 1), FI(179, 1), FI(179, 3), FI(179, 3), FI(179, 5), FI(179, 5)}, {FI(180, 0), FI(180, 2), FI(180, 4), FI(180, 1), FI(180, 1), FI(180, 3), FI(180, 3), FI(180, 5), FI(180, 5)}, {FI(181, 0), FI(181, 2), FI(181, 4), FI(181, 1), FI(181, 1), FI(181, 3), FI(181, 3), FI(181, 5), FI(181, 5)}, {FI(182, 0), FI(182, 2), FI(182, 4), FI(182, 1), FI(182, 1), FI(182, 3), FI(182, 3), FI(182, 5), FI(182, 5)}, {FI(183, 0), FI(183, 2), FI(183, 4), FI(183, 1), FI(183, 1), FI(183, 3), FI(183, 3), FI(183, 5), FI(183, 5)}, {FI(184, 0), FI(184, 2), FI(184, 4), FI(184, 1), FI(184, 1), FI(184, 3), FI(184, 3), FI(184, 5), FI(184, 5)}, {FI(185, 0), FI(185, 2), FI(185, 4), FI(185, 1), FI(185, 1), FI(185, 3), FI(185, 3), FI(185, 5), FI(185, 5)}, {FI(186, 0), FI(186, 2), FI(186, 4), FI(186, 1), FI(186, 1), FI(186, 3), FI(186, 3), FI(186, 5), FI(186, 5)}, {FI(187, 0), FI(187, 2), FI(187, 4), FI(187, 1), FI(187, 1), FI(187, 3), FI(187, 3), FI(187, 5), FI(187, 5)}, {FI(188, 0), FI(188, 2), FI(188, 4), FI(188, 1), FI(188, 1), FI(188, 3), FI(188, 3), FI(188, 5), FI(188, 5)}, {FI(189, 0), FI(189, 2), FI(189, 4), FI(189, 1), FI(189, 1), FI(189, 3), FI(189, 3), FI(189, 5), FI(189, 5)}, {FI(190, 0), FI(190, 2), FI(190, 4), FI(190, 1), FI(190, 1), FI(190, 3), FI(190, 3), FI(190, 5), FI(190, 5)}, {FI(191, 0), FI(191, 2), FI(191, 4), FI(191, 1), FI(191, 1), FI(191, 3), FI(191, 3), FI(191, 5), FI(191, 5)}, {FI(192, 0), FI(192, 2), FI(192, 4), FI(192, 1), FI(192, 1), FI(192, 3), FI(192, 3), FI(192, 5), FI(192, 5)}, {FI(193, 0), FI(193, 2), FI(193, 4), FI(193, 1), FI(193, 1), FI(193, 3), FI(193, 3), FI(193, 5), FI(193, 5)}, {FI(194, 0), FI(194, 2), FI(194, 4), FI(194, 1), FI(194, 1), FI(194, 3), FI(194, 3), FI(194, 5), FI(194, 5)}, {FI(195, 0), FI(195, 2), FI(195, 4), FI(195, 1), FI(195, 1), FI(195, 3), FI(195, 3), FI(195, 5), FI(195, 5)}, {FI(196, 0), FI(196, 2), FI(196, 4), FI(196, 1), FI(196, 1), FI(196, 3), FI(196, 3), FI(196, 5), FI(196, 5)}, {FI(197, 0), FI(197, 2), FI(197, 4), FI(197, 1), FI(197, 1), FI(197, 3), FI(197, 3), FI(197, 5), FI(197, 5)}, {FI(198, 0), FI(198, 2), FI(198, 4), FI(198, 1), FI(198, 1), FI(198, 3), FI(198, 3), FI(198, 5), FI(198, 5)}, {FI(199, 0), FI(199, 2), FI(199, 4), FI(199, 1), FI(199, 1), FI(199, 3), FI(199, 3), FI(199, 5), FI(199, 5)}, {FI(200, 0), FI(200, 2), FI(200, 4), FI(200, 1), FI(200, 1), FI(200, 3), FI(200, 3), FI(200, 5), FI(200, 5)}, {FI(201, 0), FI(201, 2), FI(201, 4), FI(201, 1), FI(201, 1), FI(201, 3), FI(201, 3), FI(201, 5), FI(201, 5)}, {FI(202, 0), FI(202, 2), FI(202, 4), FI(202, 1), FI(202, 1), FI(202, 3), FI(202, 3), FI(202, 5), FI(202, 5)}, {FI(203, 0), FI(203, 2), FI(203, 4), FI(203, 1), FI(203, 1), FI(203, 3), FI(203, 3), FI(203, 5), FI(203, 5)}, {FI(204, 0), FI(204, 2), FI(204, 4), FI(204, 1), FI(204, 1), FI(204, 3), FI(204, 3), FI(204, 5), FI(204, 5)}, {FI(205, 0), FI(205, 2), FI(205, 4), FI(205, 1), FI(205, 1), FI(205, 3), FI(205, 3), FI(205, 5), FI(205, 5)}, {FI(206, 0), FI(206, 2), FI(206, 4), FI(206, 1), FI(206, 1), FI(206, 3), FI(206, 3), FI(206, 5), FI(206, 5)}, {FI(207, 0), FI(207, 2), FI(207, 4), FI(207, 1), FI(207, 1), FI(207, 3), FI(207, 3), FI(207, 5), FI(207, 5)}, {FI(208, 0), FI(208, 2), FI(208, 4), FI(208, 1), FI(208, 1), FI(208, 3), FI(208, 3), FI(208, 5), FI(208, 5)}, {FI(209, 0), FI(209, 2), FI(209, 4), FI(209, 1), FI(209, 1), FI(209, 3), FI(209, 3), FI(209, 5), FI(209, 5)}, {FI(210, 0), FI(210, 2), FI(210, 4), FI(210, 1), FI(210, 1), FI(210, 3), FI(210, 3), FI(210, 5), FI(210, 5)}, {FI(211, 0), FI(211, 2), FI(211, 4), FI(211, 1), FI(211, 1), FI(211, 3), FI(211, 3), FI(211, 5), FI(211, 5)}, {FI(212, 0), FI(212, 2), FI(212, 4), FI(212, 1), FI(212, 1), FI(212, 3), FI(212, 3), FI(212, 5), FI(212, 5)}, {FI(213, 0), FI(213, 2), FI(213, 4), FI(213, 1), FI(213, 1), FI(213, 3), FI(213, 3), FI(213, 5), FI(213, 5)}, {FI(214, 0), FI(214, 2), FI(214, 4), FI(214, 1), FI(214, 1), FI(214, 3), FI(214, 3), FI(214, 5), FI(214, 5)}, {FI(215, 0), FI(215, 2), FI(215, 4), FI(215, 1), FI(215, 1), FI(215, 3), FI(215, 3), FI(215, 5), FI(215, 5)}, {FI(216, 0), FI(216, 2), FI(216, 4), FI(216, 1), FI(216, 1), FI(216, 3), FI(216, 3), FI(216, 5), FI(216, 5)}, {FI(217, 0), FI(217, 2), FI(217, 4), FI(217, 1), FI(217, 1), FI(217, 3), FI(217, 3), FI(217, 5), FI(217, 5)}, {FI(218, 0), FI(218, 2), FI(218, 4), FI(218, 1), FI(218, 1), FI(218, 3), FI(218, 3), FI(218, 5), FI(218, 5)}, {FI(219, 0), FI(219, 2), FI(219, 4), FI(219, 1), FI(219, 1), FI(219, 3), FI(219, 3), FI(219, 5), FI(219, 5)}, {FI(220, 0), FI(220, 2), FI(220, 4), FI(220, 1), FI(220, 1), FI(220, 3), FI(220, 3), FI(220, 5), FI(220, 5)}, {FI(221, 0), FI(221, 2), FI(221, 4), FI(221, 1), FI(221, 1), FI(221, 3), FI(221, 3), FI(221, 5), FI(221, 5)}, {FI(222, 0), FI(222, 2), FI(222, 4), FI(222, 1), FI(222, 1), FI(222, 3), FI(222, 3), FI(222, 5), FI(222, 5)}, {FI(223, 0), FI(223, 2), FI(223, 4), FI(223, 1), FI(223, 1), FI(223, 3), FI(223, 3), FI(223, 5), FI(223, 5)}, {FI(224, 0), FI(224, 2), FI(224, 4), FI(224, 1), FI(224, 1), FI(224, 3), FI(224, 3), FI(224, 5), FI(224, 5)}, {FI(225, 0), FI(225, 2), FI(225, 4), FI(225, 1), FI(225, 1), FI(225, 3), FI(225, 3), FI(225, 5), FI(225, 5)}, {FI(226, 0), FI(226, 2), FI(226, 4), FI(226, 1), FI(226, 1), FI(226, 3), FI(226, 3), FI(226, 5), FI(226, 5)}, {FI(227, 0), FI(227, 2), FI(227, 4), FI(227, 1), FI(227, 1), FI(227, 3), FI(227, 3), FI(227, 5), FI(227, 5)}, {FI(228, 0), FI(228, 2), FI(228, 4), FI(228, 1), FI(228, 1), FI(228, 3), FI(228, 3), FI(228, 5), FI(228, 5)}, {FI(229, 0), FI(229, 2), FI(229, 4), FI(229, 1), FI(229, 1), FI(229, 3), FI(229, 3), FI(229, 5), FI(229, 5)}, {FI(230, 0), FI(230, 2), FI(230, 4), FI(230, 1), FI(230, 1), FI(230, 3), FI(230, 3), FI(230, 5), FI(230, 5)}, {FI(231, 0), FI(231, 2), FI(231, 4), FI(231, 1), FI(231, 1), FI(231, 3), FI(231, 3), FI(231, 5), FI(231, 5)}, {FI(232, 0), FI(232, 2), FI(232, 4), FI(232, 1), FI(232, 1), FI(232, 3), FI(232, 3), FI(232, 5), FI(232, 5)}, {FI(233, 0), FI(233, 2), FI(233, 4), FI(233, 1), FI(233, 1), FI(233, 3), FI(233, 3), FI(233, 5), FI(233, 5)}, {FI(234, 0), FI(234, 2), FI(234, 4), FI(234, 1), FI(234, 1), FI(234, 3), FI(234, 3), FI(234, 5), FI(234, 5)}, {FI(235, 0), FI(235, 2), FI(235, 4), FI(235, 1), FI(235, 1), FI(235, 3), FI(235, 3), FI(235, 5), FI(235, 5)}, {FI(236, 0), FI(236, 2), FI(236, 4), FI(236, 1), FI(236, 1), FI(236, 3), FI(236, 3), FI(236, 5), FI(236, 5)}, {FI(237, 0), FI(237, 2), FI(237, 4), FI(237, 1), FI(237, 1), FI(237, 3), FI(237, 3), FI(237, 5), FI(237, 5)}, {FI(238, 0), FI(238, 2), FI(238, 4), FI(238, 1), FI(238, 1), FI(238, 3), FI(238, 3), FI(238, 5), FI(238, 5)}, {FI(239, 0), FI(239, 2), FI(239, 4), FI(239, 1), FI(239, 1), FI(239, 3), FI(239, 3), FI(239, 5), FI(239, 5)}, {FI(240, 0), FI(240, 2), FI(240, 4), FI(240, 1), FI(240, 1), FI(240, 3), FI(240, 3), FI(240, 5), FI(240, 5)}, {FI(241, 0), FI(241, 2), FI(241, 4), FI(241, 1), FI(241, 1), FI(241, 3), FI(241, 3), FI(241, 5), FI(241, 5)}, {FI(242, 0), FI(242, 2), FI(242, 4), FI(242, 1), FI(242, 1), FI(242, 3), FI(242, 3), FI(242, 5), FI(242, 5)}, {FI(243, 0), FI(243, 2), FI(243, 4), FI(243, 1), FI(243, 1), FI(243, 3), FI(243, 3), FI(243, 5), FI(243, 5)}, {FI(244, 0), FI(244, 2), FI(244, 4), FI(244, 1), FI(244, 1), FI(244, 3), FI(244, 3), FI(244, 5), FI(244, 5)}, {FI(245, 0), FI(245, 2), FI(245, 4), FI(245, 1), FI(245, 1), FI(245, 3), FI(245, 3), FI(245, 5), FI(245, 5)}, {FI(246, 0), FI(246, 2), FI(246, 4), FI(246, 1), FI(246, 1), FI(246, 3), FI(246, 3), FI(246, 5), FI(246, 5)}, {FI(247, 0), FI(247, 2), FI(247, 4), FI(247, 1), FI(247, 1), FI(247, 3), FI(247, 3), FI(247, 5), FI(247, 5)}, {FI(248, 0), FI(248, 2), FI(248, 4), FI(248, 1), FI(248, 1), FI(248, 3), FI(248, 3), FI(248, 5), FI(248, 5)}, {FI(249, 0), FI(249, 2), FI(249, 4), FI(249, 1), FI(249, 1), FI(249, 3), FI(249, 3), FI(249, 5), FI(249, 5)}, {FI(250, 0), FI(250, 2), FI(250, 4), FI(250, 1), FI(250, 1), FI(250, 3), FI(250, 3), FI(250, 5), FI(250, 5)}, {FI(251, 0), FI(251, 2), FI(251, 4), FI(251, 1), FI(251, 1), FI(251, 3), FI(251, 3), FI(251, 5), FI(251, 5)}, {FI(252, 0), FI(252, 2), FI(252, 4), FI(252, 1), FI(252, 1), FI(252, 3), FI(252, 3), FI(252, 5), FI(252, 5)}, {FI(253, 0), FI(253, 2), FI(253, 4), FI(253, 1), FI(253, 1), FI(253, 3), FI(253, 3), FI(253, 5), FI(253, 5)}, {FI(254, 0), FI(254, 2), FI(254, 4), FI(254, 1), FI(254, 1), FI(254, 3), FI(254, 3), FI(254, 5), FI(254, 5)}, {FI(255, 0), FI(255, 2), FI(255, 4), FI(255, 1), FI(255, 1), FI(255, 3), FI(255, 3), FI(255, 5), FI(255, 5)}, {FI(256, 0), FI(256, 2), FI(256, 4), FI(256, 1), FI(256, 1), FI(256, 3), FI(256, 3), FI(256, 5), FI(256, 5)}, {FI(257, 0), FI(257, 2), FI(257, 4), FI(257, 1), FI(257, 1), FI(257, 3), FI(257, 3), FI(257, 5), FI(257, 5)}, {FI(258, 0), FI(258, 2), FI(258, 4), FI(258, 1), FI(258, 1), FI(258, 3), FI(258, 3), FI(258, 5), FI(258, 5)}, {FI(259, 0), FI(259, 2), FI(259, 4), FI(259, 1), FI(259, 1), FI(259, 3), FI(259, 3), FI(259, 5), FI(259, 5)}, {FI(260, 0), FI(260, 2), FI(260, 4), FI(260, 1), FI(260, 1), FI(260, 3), FI(260, 3), FI(260, 5), FI(260, 5)}, {FI(261, 0), FI(261, 2), FI(261, 4), FI(261, 1), FI(261, 1), FI(261, 3), FI(261, 3), FI(261, 5), FI(261, 5)}, {FI(262, 0), FI(262, 2), FI(262, 4), FI(262, 1), FI(262, 1), FI(262, 3), FI(262, 3), FI(262, 5), FI(262, 5)}, {FI(263, 0), FI(263, 2), FI(263, 4), FI(263, 1), FI(263, 1), FI(263, 3), FI(263, 3), FI(263, 5), FI(263, 5)}, {FI(264, 0), FI(264, 2), FI(264, 4), FI(264, 1), FI(264, 1), FI(264, 3), FI(264, 3), FI(264, 5), FI(264, 5)}, {FI(265, 0), FI(265, 2), FI(265, 4), FI(265, 1), FI(265, 1), FI(265, 3), FI(265, 3), FI(265, 5), FI(265, 5)}, {FI(266, 0), FI(266, 2), FI(266, 4), FI(266, 1), FI(266, 1), FI(266, 3), FI(266, 3), FI(266, 5), FI(266, 5)}, {FI(267, 0), FI(267, 2), FI(267, 4), FI(267, 1), FI(267, 1), FI(267, 3), FI(267, 3), FI(267, 5), FI(267, 5)}, {FI(268, 0), FI(268, 2), FI(268, 4), FI(268, 1), FI(268, 1), FI(268, 3), FI(268, 3), FI(268, 5), FI(268, 5)}, {FI(269, 0), FI(269, 2), FI(269, 4), FI(269, 1), FI(269, 1), FI(269, 3), FI(269, 3), FI(269, 5), FI(269, 5)}, {FI(270, 0), FI(270, 2), FI(270, 4), FI(270, 1), FI(270, 1), FI(270, 3), FI(270, 3), FI(270, 5), FI(270, 5)}, {FI(271, 0), FI(271, 2), FI(271, 4), FI(271, 1), FI(271, 1), FI(271, 3), FI(271, 3), FI(271, 5), FI(271, 5)}, {FI(272, 0), FI(272, 2), FI(272, 4), FI(272, 1), FI(272, 1), FI(272, 3), FI(272, 3), FI(272, 5), FI(272, 5)}, {FI(273, 0), FI(273, 2), FI(273, 4), FI(273, 1), FI(273, 1), FI(273, 3), FI(273, 3), FI(273, 5), FI(273, 5)}, {FI(274, 0), FI(274, 2), FI(274, 4), FI(274, 1), FI(274, 1), FI(274, 3), FI(274, 3), FI(274, 5), FI(274, 5)}, {FI(275, 0), FI(275, 2), FI(275, 4), FI(275, 1), FI(275, 1), FI(275, 3), FI(275, 3), FI(275, 5), FI(275, 5)}, {FI(276, 0), FI(276, 2), FI(276, 4), FI(276, 1), FI(276, 1), FI(276, 3), FI(276, 3), FI(276, 5), FI(276, 5)}, {FI(277, 0), FI(277, 2), FI(277, 4), FI(277, 1), FI(277, 1), FI(277, 3), FI(277, 3), FI(277, 5), FI(277, 5)}, {FI(278, 0), FI(278, 2), FI(278, 4), FI(278, 1), FI(278, 1), FI(278, 3), FI(278, 3), FI(278, 5), FI(278, 5)}, {FI(279, 0), FI(279, 2), FI(279, 4), FI(279, 1), FI(279, 1), FI(279, 3), FI(279, 3), FI(279, 5), FI(279, 5)}, {FI(280, 0), FI(280, 2), FI(280, 4), FI(280, 1), FI(280, 1), FI(280, 3), FI(280, 3), FI(280, 5), FI(280, 5)}, {FI(281, 0), FI(281, 2), FI(281, 4), FI(281, 1), FI(281, 1), FI(281, 3), FI(281, 3), FI(281, 5), FI(281, 5)}, {FI(282, 0), FI(282, 2), FI(282, 4), FI(282, 1), FI(282, 1), FI(282, 3), FI(282, 3), FI(282, 5), FI(282, 5)}, {FI(283, 0), FI(283, 2), FI(283, 4), FI(283, 1), FI(283, 1), FI(283, 3), FI(283, 3), FI(283, 5), FI(283, 5)}, {FI(284, 0), FI(284, 2), FI(284, 4), FI(284, 1), FI(284, 1), FI(284, 3), FI(284, 3), FI(284, 5), FI(284, 5)}, {FI(285, 0), FI(285, 2), FI(285, 4), FI(285, 1), FI(285, 1), FI(285, 3), FI(285, 3), FI(285, 5), FI(285, 5)}, {FI(286, 0), FI(286, 2), FI(286, 4), FI(286, 1), FI(286, 1), FI(286, 3), FI(286, 3), FI(286, 5), FI(286, 5)}, {FI(287, 0), FI(287, 2), FI(287, 4), FI(287, 1), FI(287, 1), FI(287, 3), FI(287, 3), FI(287, 5), FI(287, 5)}, {FI(288, 0), FI(288, 2), FI(288, 4), FI(288, 1), FI(288, 1), FI(288, 3), FI(288, 3), FI(288, 5), FI(288, 5)}, {FI(289, 0), FI(289, 2), FI(289, 4), FI(289, 1), FI(289, 1), FI(289, 3), FI(289, 3), FI(289, 5), FI(289, 5)}, {FI(290, 0), FI(290, 2), FI(290, 4), FI(290, 1), FI(290, 1), FI(290, 3), FI(290, 3), FI(290, 5), FI(290, 5)}, {FI(291, 0), FI(291, 2), FI(291, 4), FI(291, 1), FI(291, 1), FI(291, 3), FI(291, 3), FI(291, 5), FI(291, 5)}, {FI(292, 0), FI(292, 2), FI(292, 4), FI(292, 1), FI(292, 1), FI(292, 3), FI(292, 3), FI(292, 5), FI(292, 5)}, {FI(293, 0), FI(293, 2), FI(293, 4), FI(293, 1), FI(293, 1), FI(293, 3), FI(293, 3), FI(293, 5), FI(293, 5)}, {FI(294, 0), FI(294, 2), FI(294, 4), FI(294, 1), FI(294, 1), FI(294, 3), FI(294, 3), FI(294, 5), FI(294, 5)}, {FI(295, 0), FI(295, 2), FI(295, 4), FI(295, 1), FI(295, 1), FI(295, 3), FI(295, 3), FI(295, 5), FI(295, 5)}, {FI(296, 0), FI(296, 2), FI(296, 4), FI(296, 1), FI(296, 1), FI(296, 3), FI(296, 3), FI(296, 5), FI(296, 5)}, {FI(297, 0), FI(297, 2), FI(297, 4), FI(297, 1), FI(297, 1), FI(297, 3), FI(297, 3), FI(297, 5), FI(297, 5)}, {FI(298, 0), FI(298, 2), FI(298, 4), FI(298, 1), FI(298, 1), FI(298, 3), FI(298, 3), FI(298, 5), FI(298, 5)}, {FI(299, 0), FI(299, 2), FI(299, 4), FI(299, 1), FI(299, 1), FI(299, 3), FI(299, 3), FI(299, 5), FI(299, 5)}, {FI(300, 0), FI(300, 2), FI(300, 4), FI(300, 1), FI(300, 1), FI(300, 3), FI(300, 3), FI(300, 5), FI(300, 5)}, {FI(301, 0), FI(301, 2), FI(301, 4), FI(301, 1), FI(301, 1), FI(301, 3), FI(301, 3), FI(301, 5), FI(301, 5)}, {FI(302, 0), FI(302, 2), FI(302, 4), FI(302, 1), FI(302, 1), FI(302, 3), FI(302, 3), FI(302, 5), FI(302, 5)}, {FI(303, 0), FI(303, 2), FI(303, 4), FI(303, 1), FI(303, 1), FI(303, 3), FI(303, 3), FI(303, 5), FI(303, 5)}, {FI(304, 0), FI(304, 2), FI(304, 4), FI(304, 1), FI(304, 1), FI(304, 3), FI(304, 3), FI(304, 5), FI(304, 5)}, {FI(305, 0), FI(305, 2), FI(305, 4), FI(305, 1), FI(305, 1), FI(305, 3), FI(305, 3), FI(305, 5), FI(305, 5)}, {FI(306, 0), FI(306, 2), FI(306, 4), FI(306, 1), FI(306, 1), FI(306, 3), FI(306, 3), FI(306, 5), FI(306, 5)}, {FI(307, 0), FI(307, 2), FI(307, 4), FI(307, 1), FI(307, 1), FI(307, 3), FI(307, 3), FI(307, 5), FI(307, 5)}, {FI(308, 0), FI(308, 2), FI(308, 4), FI(308, 1), FI(308, 1), FI(308, 3), FI(308, 3), FI(308, 5), FI(308, 5)}, {FI(309, 0), FI(309, 2), FI(309, 4), FI(309, 1), FI(309, 1), FI(309, 3), FI(309, 3), FI(309, 5), FI(309, 5)}, {FI(310, 0), FI(310, 2), FI(310, 4), FI(310, 1), FI(310, 1), FI(310, 3), FI(310, 3), FI(310, 5), FI(310, 5)}, {FI(311, 0), FI(311, 2), FI(311, 4), FI(311, 1), FI(311, 1), FI(311, 3), FI(311, 3), FI(311, 5), FI(311, 5)}, {FI(312, 0), FI(312, 2), FI(312, 4), FI(312, 1), FI(312, 1), FI(312, 3), FI(312, 3), FI(312, 5), FI(312, 5)}, {FI(313, 0), FI(313, 2), FI(313, 4), FI(313, 1), FI(313, 1), FI(313, 3), FI(313, 3), FI(313, 5), FI(313, 5)}, {FI(314, 0), FI(314, 2), FI(314, 4), FI(314, 1), FI(314, 1), FI(314, 3), FI(314, 3), FI(314, 5), FI(314, 5)}, {FI(315, 0), FI(315, 2), FI(315, 4), FI(315, 1), FI(315, 1), FI(315, 3), FI(315, 3), FI(315, 5), FI(315, 5)}, {FI(316, 0), FI(316, 2), FI(316, 4), FI(316, 1), FI(316, 1), FI(316, 3), FI(316, 3), FI(316, 5), FI(316, 5)}, {FI(317, 0), FI(317, 2), FI(317, 4), FI(317, 1), FI(317, 1), FI(317, 3), FI(317, 3), FI(317, 5), FI(317, 5)}, {FI(318, 0), FI(318, 2), FI(318, 4), FI(318, 1), FI(318, 1), FI(318, 3), FI(318, 3), FI(318, 5), FI(318, 5)}, {FI(319, 0), FI(319, 2), FI(319, 4), FI(319, 1), FI(319, 1), FI(319, 3), FI(319, 3), FI(319, 5), FI(319, 5)}, {FI(320, 0), FI(320, 2), FI(320, 4), FI(320, 1), FI(320, 1), FI(320, 3), FI(320, 3), FI(320, 5), FI(320, 5)}, {FI(321, 0), FI(321, 2), FI(321, 4), FI(321, 1), FI(321, 1), FI(321, 3), FI(321, 3), FI(321, 5), FI(321, 5)}, {FI(322, 0), FI(322, 2), FI(322, 4), FI(322, 1), FI(322, 1), FI(322, 3), FI(322, 3), FI(322, 5), FI(322, 5)}, {FI(323, 0), FI(323, 2), FI(323, 4), FI(323, 1), FI(323, 1), FI(323, 3), FI(323, 3), FI(323, 5), FI(323, 5)}, {FI(324, 0), FI(324, 2), FI(324, 4), FI(324, 1), FI(324, 1), FI(324, 3), FI(324, 3), FI(324, 5), FI(324, 5)}, {FI(325, 0), FI(325, 2), FI(325, 4), FI(325, 1), FI(325, 1), FI(325, 3), FI(325, 3), FI(325, 5), FI(325, 5)}, {FI(326, 0), FI(326, 2), FI(326, 4), FI(326, 1), FI(326, 1), FI(326, 3), FI(326, 3), FI(326, 5), FI(326, 5)}, {FI(327, 0), FI(327, 2), FI(327, 4), FI(327, 1), FI(327, 1), FI(327, 3), FI(327, 3), FI(327, 5), FI(327, 5)}, {FI(328, 0), FI(328, 2), FI(328, 4), FI(328, 1), FI(328, 1), FI(328, 3), FI(328, 3), FI(328, 5), FI(328, 5)}, {FI(329, 0), FI(329, 2), FI(329, 4), FI(329, 1), FI(329, 1), FI(329, 3), FI(329, 3), FI(329, 5), FI(329, 5)}, {FI(330, 0), FI(330, 2), FI(330, 4), FI(330, 1), FI(330, 1), FI(330, 3), FI(330, 3), FI(330, 5), FI(330, 5)}, {FI(331, 0), FI(331, 2), FI(331, 4), FI(331, 1), FI(331, 1), FI(331, 3), FI(331, 3), FI(331, 5), FI(331, 5)}, {FI(332, 0), FI(332, 2), FI(332, 4), FI(332, 1), FI(332, 1), FI(332, 3), FI(332, 3), FI(332, 5), FI(332, 5)}, {FI(333, 0), FI(333, 2), FI(333, 4), FI(333, 1), FI(333, 1), FI(333, 3), FI(333, 3), FI(333, 5), FI(333, 5)}, {FI(334, 0), FI(334, 2), FI(334, 4), FI(334, 1), FI(334, 1), FI(334, 3), FI(334, 3), FI(334, 5), FI(334, 5)}, {FI(335, 0), FI(335, 2), FI(335, 4), FI(335, 1), FI(335, 1), FI(335, 3), FI(335, 3), FI(335, 5), FI(335, 5)}, {FI(336, 0), FI(336, 2), FI(336, 4), FI(336, 1), FI(336, 1), FI(336, 3), FI(336, 3), FI(336, 5), FI(336, 5)}, {FI(337, 0), FI(337, 2), FI(337, 4), FI(337, 1), FI(337, 1), FI(337, 3), FI(337, 3), FI(337, 5), FI(337, 5)}, {FI(338, 0), FI(338, 2), FI(338, 4), FI(338, 1), FI(338, 1), FI(338, 3), FI(338, 3), FI(338, 5), FI(338, 5)}, {FI(339, 0), FI(339, 2), FI(339, 4), FI(339, 1), FI(339, 1), FI(339, 3), FI(339, 3), FI(339, 5), FI(339, 5)}, {FI(340, 0), FI(340, 2), FI(340, 4), FI(340, 1), FI(340, 1), FI(340, 3), FI(340, 3), FI(340, 5), FI(340, 5)}, {FI(341, 0), FI(341, 2), FI(341, 4), FI(341, 1), FI(341, 1), FI(341, 3), FI(341, 3), FI(341, 5), FI(341, 5)}, {FI(342, 0), FI(342, 2), FI(342, 4), FI(342, 1), FI(342, 1), FI(342, 3), FI(342, 3), FI(342, 5), FI(342, 5)}, {FI(343, 0), FI(343, 2), FI(343, 4), FI(343, 1), FI(343, 1), FI(343, 3), FI(343, 3), FI(343, 5), FI(343, 5)}, {FI(344, 0), FI(344, 2), FI(344, 4), FI(344, 1), FI(344, 1), FI(344, 3), FI(344, 3), FI(344, 5), FI(344, 5)}, {FI(345, 0), FI(345, 2), FI(345, 4), FI(345, 1), FI(345, 1), FI(345, 3), FI(345, 3), FI(345, 5), FI(345, 5)}, {FI(346, 0), FI(346, 2), FI(346, 4), FI(346, 1), FI(346, 1), FI(346, 3), FI(346, 3), FI(346, 5), FI(346, 5)}, {FI(347, 0), FI(347, 2), FI(347, 4), FI(347, 1), FI(347, 1), FI(347, 3), FI(347, 3), FI(347, 5), FI(347, 5)}, {FI(348, 0), FI(348, 2), FI(348, 4), FI(348, 1), FI(348, 1), FI(348, 3), FI(348, 3), FI(348, 5), FI(348, 5)}, {FI(349, 0), FI(349, 2), FI(349, 4), FI(349, 1), FI(349, 1), FI(349, 3), FI(349, 3), FI(349, 5), FI(349, 5)}, {FI(350, 0), FI(350, 2), FI(350, 4), FI(350, 1), FI(350, 1), FI(350, 3), FI(350, 3), FI(350, 5), FI(350, 5)}, {FI(351, 0), FI(351, 2), FI(351, 4), FI(351, 1), FI(351, 1), FI(351, 3), FI(351, 3), FI(351, 5), FI(351, 5)}, {FI(352, 0), FI(352, 2), FI(352, 4), FI(352, 1), FI(352, 1), FI(352, 3), FI(352, 3), FI(352, 5), FI(352, 5)}, {FI(353, 0), FI(353, 2), FI(353, 4), FI(353, 1), FI(353, 1), FI(353, 3), FI(353, 3), FI(353, 5), FI(353, 5)}, {FI(354, 0), FI(354, 2), FI(354, 4), FI(354, 1), FI(354, 1), FI(354, 3), FI(354, 3), FI(354, 5), FI(354, 5)}, {FI(355, 0), FI(355, 2), FI(355, 4), FI(355, 1), FI(355, 1), FI(355, 3), FI(355, 3), FI(355, 5), FI(355, 5)}, {FI(356, 0), FI(356, 2), FI(356, 4), FI(356, 1), FI(356, 1), FI(356, 3), FI(356, 3), FI(356, 5), FI(356, 5)}, {FI(357, 0), FI(357, 2), FI(357, 4), FI(357, 1), FI(357, 1), FI(357, 3), FI(357, 3), FI(357, 5), FI(357, 5)}, {FI(358, 0), FI(358, 2), FI(358, 4), FI(358, 1), FI(358, 1), FI(358, 3), FI(358, 3), FI(358, 5), FI(358, 5)}, {FI(359, 0), FI(359, 2), FI(359, 4), FI(359, 1), FI(359, 1), FI(359, 3), FI(359, 3), FI(359, 5), FI(359, 5)}, {FI(360, 0), FI(360, 2), FI(360, 4), FI(360, 1), FI(360, 1), FI(360, 3), FI(360, 3), FI(360, 5), FI(360, 5)}, {FI(361, 0), FI(361, 2), FI(361, 4), FI(361, 1), FI(361, 1), FI(361, 3), FI(361, 3), FI(361, 5), FI(361, 5)}, {FI(362, 0), FI(362, 2), FI(362, 4), FI(362, 1), FI(362, 1), FI(362, 3), FI(362, 3), FI(362, 5), FI(362, 5)}, {FI(363, 0), FI(363, 2), FI(363, 4), FI(363, 1), FI(363, 1), FI(363, 3), FI(363, 3), FI(363, 5), FI(363, 5)}, {FI(364, 0), FI(364, 2), FI(364, 4), FI(364, 1), FI(364, 1), FI(364, 3), FI(364, 3), FI(364, 5), FI(364, 5)}, {FI(365, 0), FI(365, 2), FI(365, 4), FI(365, 1), FI(365, 1), FI(365, 3), FI(365, 3), FI(365, 5), FI(365, 5)}, {FI(366, 0), FI(366, 2), FI(366, 4), FI(366, 1), FI(366, 1), FI(366, 3), FI(366, 3), FI(366, 5), FI(366, 5)}, {FI(367, 0), FI(367, 2), FI(367, 4), FI(367, 1), FI(367, 1), FI(367, 3), FI(367, 3), FI(367, 5), FI(367, 5)}, {FI(368, 0), FI(368, 2), FI(368, 4), FI(368, 1), FI(368, 1), FI(368, 3), FI(368, 3), FI(368, 5), FI(368, 5)}, {FI(369, 0), FI(369, 2), FI(369, 4), FI(369, 1), FI(369, 1), FI(369, 3), FI(369, 3), FI(369, 5), FI(369, 5)}, {FI(370, 0), FI(370, 2), FI(370, 4), FI(370, 1), FI(370, 1), FI(370, 3), FI(370, 3), FI(370, 5), FI(370, 5)}, {FI(371, 0), FI(371, 2), FI(371, 4), FI(371, 1), FI(371, 1), FI(371, 3), FI(371, 3), FI(371, 5), FI(371, 5)}, {FI(372, 0), FI(372, 2), FI(372, 4), FI(372, 1), FI(372, 1), FI(372, 3), FI(372, 3), FI(372, 5), FI(372, 5)}, {FI(373, 0), FI(373, 2), FI(373, 4), FI(373, 1), FI(373, 1), FI(373, 3), FI(373, 3), FI(373, 5), FI(373, 5)}, {FI(374, 0), FI(374, 2), FI(374, 4), FI(374, 1), FI(374, 1), FI(374, 3), FI(374, 3), FI(374, 5), FI(374, 5)}, {FI(375, 0), FI(375, 2), FI(375, 4), FI(375, 1), FI(375, 1), FI(375, 3), FI(375, 3), FI(375, 5), FI(375, 5)}, {FI(376, 0), FI(376, 2), FI(376, 4), FI(376, 1), FI(376, 1), FI(376, 3), FI(376, 3), FI(376, 5), FI(376, 5)}, {FI(377, 0), FI(377, 2), FI(377, 4), FI(377, 1), FI(377, 1), FI(377, 3), FI(377, 3), FI(377, 5), FI(377, 5)}, {FI(378, 0), FI(378, 2), FI(378, 4), FI(378, 1), FI(378, 1), FI(378, 3), FI(378, 3), FI(378, 5), FI(378, 5)}, {FI(379, 0), FI(379, 2), FI(379, 4), FI(379, 1), FI(379, 1), FI(379, 3), FI(379, 3), FI(379, 5), FI(379, 5)}, {FI(380, 0), FI(380, 2), FI(380, 4), FI(380, 1), FI(380, 1), FI(380, 3), FI(380, 3), FI(380, 5), FI(380, 5)}, {FI(381, 0), FI(381, 2), FI(381, 4), FI(381, 1), FI(381, 1), FI(381, 3), FI(381, 3), FI(381, 5), FI(381, 5)}, {FI(382, 0), FI(382, 2), FI(382, 4), FI(382, 1), FI(382, 1), FI(382, 3), FI(382, 3), FI(382, 5), FI(382, 5)}, {FI(383, 0), FI(383, 2), FI(383, 4), FI(383, 1), FI(383, 1), FI(383, 3), FI(383, 3), FI(383, 5), FI(383, 5)}, {FI(384, 0), FI(384, 2), FI(384, 4), FI(384, 1), FI(384, 1), FI(384, 3), FI(384, 3), FI(384, 5), FI(384, 5)}, {FI(385, 0), FI(385, 2), FI(385, 4), FI(385, 1), FI(385, 1), FI(385, 3), FI(385, 3), FI(385, 5), FI(385, 5)}, {FI(386, 0), FI(386, 2), FI(386, 4), FI(386, 1), FI(386, 1), FI(386, 3), FI(386, 3), FI(386, 5), FI(386, 5)}};
+diff --git a/src/data/han_hoenn_fly.h b/src/data/han_hoenn_fly.h
+new file mode 100644
+index 0000000..f75799a
+--- /dev/null
++++ b/src/data/han_hoenn_fly.h
+@@ -0,0 +1,32 @@
++// Generated by hoenn/gen_fly.py: the places Fly can go in Hoenn, and where they are on Emerald's map picture.
++struct HanHoennFlyTown
++{
++    u16 mapsec;
++    u8 x;
++    u8 y;
++    u8 heal;
++    s8 mapGroup;
++    s8 mapNum;
++    s8 wx;
++    s8 wy;
++};
++
++static const struct HanHoennFlyTown sHanHoennFlyTowns[] =
++{
++    {MAPSEC_LITTLEROOT_TOWN, 44, 108, 0, MAP_GROUP(MAP_LITTLEROOT_TOWN), MAP_NUM(MAP_LITTLEROOT_TOWN), 10, 10},
++    {MAPSEC_OLDALE_TOWN, 44, 92, HEAL_LOCATION_OLDALE_TOWN, MAP_GROUP(MAP_OLDALE_TOWN), MAP_NUM(MAP_OLDALE_TOWN), 0, 0},
++    {MAPSEC_PETALBURG_CITY, 20, 92, HEAL_LOCATION_PETALBURG_CITY, MAP_GROUP(MAP_PETALBURG_CITY), MAP_NUM(MAP_PETALBURG_CITY), 0, 0},
++    {MAPSEC_RUSTBORO_CITY, 12, 64, HEAL_LOCATION_RUSTBORO_CITY, MAP_GROUP(MAP_RUSTBORO_CITY), MAP_NUM(MAP_RUSTBORO_CITY), 0, 0},
++    {MAPSEC_DEWFORD_TOWN, 28, 132, HEAL_LOCATION_DEWFORD_TOWN, MAP_GROUP(MAP_DEWFORD_TOWN), MAP_NUM(MAP_DEWFORD_TOWN), 0, 0},
++    {MAPSEC_SLATEPORT_CITY, 76, 104, HEAL_LOCATION_SLATEPORT_CITY, MAP_GROUP(MAP_SLATEPORT_CITY), MAP_NUM(MAP_SLATEPORT_CITY), 0, 0},
++    {MAPSEC_MAUVILLE_CITY, 80, 68, HEAL_LOCATION_MAUVILLE_CITY, MAP_GROUP(MAP_MAUVILLE_CITY), MAP_NUM(MAP_MAUVILLE_CITY), 0, 0},
++    {MAPSEC_VERDANTURF_TOWN, 44, 68, HEAL_LOCATION_VERDANTURF_TOWN, MAP_GROUP(MAP_VERDANTURF_TOWN), MAP_NUM(MAP_VERDANTURF_TOWN), 0, 0},
++    {MAPSEC_FALLARBOR_TOWN, 36, 20, HEAL_LOCATION_FALLARBOR_TOWN, MAP_GROUP(MAP_FALLARBOR_TOWN), MAP_NUM(MAP_FALLARBOR_TOWN), 0, 0},
++    {MAPSEC_LAVARIDGE_TOWN, 52, 44, HEAL_LOCATION_LAVARIDGE_TOWN, MAP_GROUP(MAP_LAVARIDGE_TOWN), MAP_NUM(MAP_LAVARIDGE_TOWN), 0, 0},
++    {MAPSEC_FORTREE_CITY, 108, 20, HEAL_LOCATION_FORTREE_CITY, MAP_GROUP(MAP_FORTREE_CITY), MAP_NUM(MAP_FORTREE_CITY), 0, 0},
++    {MAPSEC_LILYCOVE_CITY, 160, 44, HEAL_LOCATION_LILYCOVE_CITY, MAP_GROUP(MAP_LILYCOVE_CITY), MAP_NUM(MAP_LILYCOVE_CITY), 0, 0},
++    {MAPSEC_MOSSDEEP_CITY, 208, 60, HEAL_LOCATION_MOSSDEEP_CITY, MAP_GROUP(MAP_MOSSDEEP_CITY), MAP_NUM(MAP_MOSSDEEP_CITY), 0, 0},
++    {MAPSEC_SOOTOPOLIS_CITY, 180, 76, HEAL_LOCATION_SOOTOPOLIS_CITY, MAP_GROUP(MAP_SOOTOPOLIS_CITY), MAP_NUM(MAP_SOOTOPOLIS_CITY), 0, 0},
++    {MAPSEC_PACIFIDLOG_TOWN, 148, 100, HEAL_LOCATION_PACIFIDLOG_TOWN, MAP_GROUP(MAP_PACIFIDLOG_TOWN), MAP_NUM(MAP_PACIFIDLOG_TOWN), 0, 0},
++    {MAPSEC_EVER_GRANDE_CITY, 228, 88, HEAL_LOCATION_EVER_GRANDE_CITY, MAP_GROUP(MAP_EVER_GRANDE_CITY), MAP_NUM(MAP_EVER_GRANDE_CITY), 0, 0},
++};
 diff --git a/src/data/han_hoenn_trainer_parties.h b/src/data/han_hoenn_trainer_parties.h
 new file mode 100644
 index 0000000..c01520c
@@ -97470,7 +98870,7 @@ index 0000000..c01520c
 +};
 diff --git a/src/data/han_hoenn_trainers.h b/src/data/han_hoenn_trainers.h
 new file mode 100644
-index 0000000..d11c039
+index 0000000..f8ad6f3
 --- /dev/null
 +++ b/src/data/han_hoenn_trainers.h
 @@ -0,0 +1,4478 @@
@@ -98964,7 +100364,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
 +        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER,
++        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_F,
 +        .trainerName = _("LYDIA"),
 +        .items = {},
 +        .doubleBattle = FALSE,
@@ -98975,7 +100375,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
 +        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER,
++        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_M,
 +        .trainerName = _("ISAAC"),
 +        .items = {},
 +        .doubleBattle = FALSE,
@@ -99525,7 +100925,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
 +        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER,
++        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_M,
 +        .trainerName = _("MYLES"),
 +        .items = {},
 +        .doubleBattle = FALSE,
@@ -99536,7 +100936,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
 +        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER,
++        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_F,
 +        .trainerName = _("PAT"),
 +        .items = {},
 +        .doubleBattle = FALSE,
@@ -101076,7 +102476,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_LEADER,
 +        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-+        .trainerPic = TRAINER_PIC_LEADER_WALLACE,
++        .trainerPic = TRAINER_PIC_LEADER_JUAN,
 +        .trainerName = _("JUAN"),
 +        .items = {ITEM_HYPER_POTION, ITEM_HYPER_POTION, ITEM_NONE, ITEM_NONE},
 +        .doubleBattle = FALSE,
@@ -101417,7 +102817,7 @@ index 0000000..d11c039
 +    {
 +        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
 +        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_FEMALE,
-+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER,
++        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_F,
 +        .trainerName = _("GABRIELLE"),
 +        .items = {},
 +        .doubleBattle = FALSE,
@@ -106437,6 +107837,94 @@ index a9f2671..addd11f 100644
 +const u16 gMetatiles_HoennTrickHousePuzzle[] = INCBIN_U16("data/tilesets/secondary/hoenn_trick_house_puzzle/metatiles.bin");
 +const u32 gMetatileAttributes_HoennTrickHousePuzzle[] = INCBIN_U32("data/tilesets/secondary/hoenn_trick_house_puzzle/metatile_attributes.bin");
 +// # --- end Hoenn ---
+diff --git a/src/data/trainer_graphics/front_pic_anims.h b/src/data/trainer_graphics/front_pic_anims.h
+index 2013ebb..d3f161a 100644
+--- a/src/data/trainer_graphics/front_pic_anims.h
++++ b/src/data/trainer_graphics/front_pic_anims.h
+@@ -888,4 +888,18 @@ const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
+     [TRAINER_PIC_RUIN_MANIAC]           = sAnims_RuinManiac,
+     [TRAINER_PIC_LADY]                  = sAnims_Lady,
+     [TRAINER_PIC_PAINTER]               = sAnims_Painter,
++    [TRAINER_PIC_ARENA_TYCOON_GRETA] = sAnims_Painter,
++    [TRAINER_PIC_BRENDAN] = sAnims_Painter,
++    [TRAINER_PIC_MAY] = sAnims_Painter,
++    [TRAINER_PIC_CHAMPION_WALLACE] = sAnims_Painter,
++    [TRAINER_PIC_DOME_ACE_TUCKER] = sAnims_Painter,
++    [TRAINER_PIC_FACTORY_HEAD_NOLAND] = sAnims_Painter,
++    [TRAINER_PIC_LEADER_JUAN] = sAnims_Painter,
++    [TRAINER_PIC_MAGMA_ADMIN] = sAnims_Painter,
++    [TRAINER_PIC_PALACE_MAVEN_SPENSER] = sAnims_Painter,
++    [TRAINER_PIC_PIKE_QUEEN_LUCY] = sAnims_Painter,
++    [TRAINER_PIC_POKEMON_BREEDER_F] = sAnims_Painter,
++    [TRAINER_PIC_POKEMON_BREEDER_M] = sAnims_Painter,
++    [TRAINER_PIC_PYRAMID_KING_BRANDON] = sAnims_Painter,
++    [TRAINER_PIC_SALON_MAIDEN_ANABEL] = sAnims_Painter,
+ };
+diff --git a/src/data/trainer_graphics/front_pic_tables.h b/src/data/trainer_graphics/front_pic_tables.h
+index c2ad6ac..2d14e1b 100644
+--- a/src/data/trainer_graphics/front_pic_tables.h
++++ b/src/data/trainer_graphics/front_pic_tables.h
+@@ -148,6 +148,20 @@ const struct MonCoords gTrainerFrontPicCoords[] =
+     {.size = 8, .y_offset = 1},
+     {.size = 8, .y_offset = 1},
+     {.size = 8, .y_offset = 1},
++    [TRAINER_PIC_ARENA_TYCOON_GRETA] = {.size = 8, .y_offset = 2}, // HANPIC
++    [TRAINER_PIC_BRENDAN] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_MAY] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_CHAMPION_WALLACE] = {.size = 8, .y_offset = 2}, // HANPIC
++    [TRAINER_PIC_DOME_ACE_TUCKER] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_FACTORY_HEAD_NOLAND] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_LEADER_JUAN] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_MAGMA_ADMIN] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_PALACE_MAVEN_SPENSER] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_PIKE_QUEEN_LUCY] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_POKEMON_BREEDER_F] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_POKEMON_BREEDER_M] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_PYRAMID_KING_BRANDON] = {.size = 8, .y_offset = 1}, // HANPIC
++    [TRAINER_PIC_SALON_MAIDEN_ANABEL] = {.size = 8, .y_offset = 1}, // HANPIC
+ };
+ 
+ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
+@@ -300,6 +314,20 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
+     TRAINER_SPRITE(RUIN_MANIAC, gTrainerFrontPic_RuinManiac, 0x800),
+     TRAINER_SPRITE(LADY, gTrainerFrontPic_Lady, 0x800),
+     TRAINER_SPRITE(PAINTER, gTrainerFrontPic_Painter, 0x800),
++    TRAINER_SPRITE(ARENA_TYCOON_GRETA, gTrainerFrontPic_ArenaTycoonGreta, 0x800), // HANPIC
++    TRAINER_SPRITE(BRENDAN, gTrainerFrontPic_Brendan, 0x800), // HANPIC
++    TRAINER_SPRITE(MAY, gTrainerFrontPic_May, 0x800), // HANPIC
++    TRAINER_SPRITE(CHAMPION_WALLACE, gTrainerFrontPic_ChampionWallace, 0x800), // HANPIC
++    TRAINER_SPRITE(DOME_ACE_TUCKER, gTrainerFrontPic_DomeAceTucker, 0x800), // HANPIC
++    TRAINER_SPRITE(FACTORY_HEAD_NOLAND, gTrainerFrontPic_FactoryHeadNoland, 0x800), // HANPIC
++    TRAINER_SPRITE(LEADER_JUAN, gTrainerFrontPic_LeaderJuan, 0x800), // HANPIC
++    TRAINER_SPRITE(MAGMA_ADMIN, gTrainerFrontPic_MagmaAdmin, 0x800), // HANPIC
++    TRAINER_SPRITE(PALACE_MAVEN_SPENSER, gTrainerFrontPic_PalaceMavenSpenser, 0x800), // HANPIC
++    TRAINER_SPRITE(PIKE_QUEEN_LUCY, gTrainerFrontPic_PikeQueenLucy, 0x800), // HANPIC
++    TRAINER_SPRITE(POKEMON_BREEDER_F, gTrainerFrontPic_PokemonBreederF, 0x800), // HANPIC
++    TRAINER_SPRITE(POKEMON_BREEDER_M, gTrainerFrontPic_PokemonBreederM, 0x800), // HANPIC
++    TRAINER_SPRITE(PYRAMID_KING_BRANDON, gTrainerFrontPic_PyramidKingBrandon, 0x800), // HANPIC
++    TRAINER_SPRITE(SALON_MAIDEN_ANABEL, gTrainerFrontPic_SalonMaidenAnabel, 0x800), // HANPIC
+ };
+ 
+ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
+@@ -452,4 +480,18 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
+     TRAINER_PAL(RUIN_MANIAC, gTrainerPalette_RuinManiac),
+     TRAINER_PAL(LADY, gTrainerPalette_Lady),
+     TRAINER_PAL(PAINTER, gTrainerPalette_Painter),
++    TRAINER_PAL(ARENA_TYCOON_GRETA, gTrainerPalette_ArenaTycoonGreta), // HANPIC
++    TRAINER_PAL(BRENDAN, gTrainerPalette_Brendan), // HANPIC
++    TRAINER_PAL(MAY, gTrainerPalette_May), // HANPIC
++    TRAINER_PAL(CHAMPION_WALLACE, gTrainerPalette_ChampionWallace), // HANPIC
++    TRAINER_PAL(DOME_ACE_TUCKER, gTrainerPalette_DomeAceTucker), // HANPIC
++    TRAINER_PAL(FACTORY_HEAD_NOLAND, gTrainerPalette_FactoryHeadNoland), // HANPIC
++    TRAINER_PAL(LEADER_JUAN, gTrainerPalette_LeaderJuan), // HANPIC
++    TRAINER_PAL(MAGMA_ADMIN, gTrainerPalette_MagmaAdmin), // HANPIC
++    TRAINER_PAL(PALACE_MAVEN_SPENSER, gTrainerPalette_PalaceMavenSpenser), // HANPIC
++    TRAINER_PAL(PIKE_QUEEN_LUCY, gTrainerPalette_PikeQueenLucy), // HANPIC
++    TRAINER_PAL(POKEMON_BREEDER_F, gTrainerPalette_PokemonBreederF), // HANPIC
++    TRAINER_PAL(POKEMON_BREEDER_M, gTrainerPalette_PokemonBreederM), // HANPIC
++    TRAINER_PAL(PYRAMID_KING_BRANDON, gTrainerPalette_PyramidKingBrandon), // HANPIC
++    TRAINER_PAL(SALON_MAIDEN_ANABEL, gTrainerPalette_SalonMaidenAnabel), // HANPIC
+ };
 diff --git a/src/data/trainer_parties.h b/src/data/trainer_parties.h
 index 2e57800..1c24685 100644
 --- a/src/data/trainer_parties.h
@@ -119753,6 +121241,270 @@ index 0000000..2be09a4
 +            n++;
 +    return n;
 +}
+diff --git a/src/han_hoenn_fly.c b/src/han_hoenn_fly.c
+new file mode 100644
+index 0000000..247427e
+--- /dev/null
++++ b/src/han_hoenn_fly.c
+@@ -0,0 +1,258 @@
++#include "global.h"
++#include "gflib.h"
++#include "task.h"
++#include "m4a.h"
++#include "overworld.h"
++#include "event_data.h"
++#include "region_map.h"
++#include "party_menu.h"
++#include "field_effect.h"
++#include "new_menu_helpers.h"
++#include "menu.h"
++#include "strings.h"
++#include "scanline_effect.h"
++#include "graphics.h"
++#include "decompress.h"
++#include "constants/songs.h"
++#include "constants/region_map_sections.h"
++#include "constants/heal_locations.h"
++#include "constants/maps.h"
++#include "data/region_map/han_hoenn_names.h"
++
++// Hän build: the fly map of Hoenn. SELECT on the Kanto fly map opens it, and SELECT here goes back.
++// The picture is Emerald's own. D-Pad jumps to the next place in that direction, A flies, B goes back to the party.
++
++extern bool8 gHanFlyForceKanto;
++
++#include "data/han_hoenn_fly.h"
++
++#define HOENN_FLY_COUNT ARRAY_COUNT(sHanHoennFlyTowns)
++
++static const u32 sMapTiles[] = INCBIN_U32("graphics/han_hoenn_map/map.8bpp.lz");
++static const u32 sMapTilemap[] = INCBIN_U32("graphics/han_hoenn_map/map.bin.lz");
++static const u16 sMapPal[] = INCBIN_U16("graphics/han_hoenn_map/map.gbapal");
++static const u8 sCursorGfx[] = INCBIN_U8("graphics/han_hoenn_map/cursor_small.4bpp");
++static const u16 sCursorPal[] = INCBIN_U16("graphics/han_hoenn_map/cursor.gbapal");
++
++static const struct BgTemplate sBgTemplates[] = {
++    { .bg = 1, .charBaseIndex = 1, .mapBaseIndex = 27, .screenSize = 0, .paletteMode = 0, .priority = 0, .baseTile = 0 },
++    { .bg = 2, .charBaseIndex = 0, .mapBaseIndex = 28, .screenSize = 3, .paletteMode = 1, .priority = 1, .baseTile = 0 },
++};
++
++static const struct WindowTemplate sWindowTemplates[] = {
++    { .bg = 1, .tilemapLeft = 1, .tilemapTop = 17, .width = 20, .height = 2, .paletteNum = 15, .baseBlock = 1 },
++    DUMMY_WIN_TEMPLATE
++};
++
++static const struct SpriteSheet sCursorSheet = { sCursorGfx, 0x80, 0x7A01 };
++static const struct SpritePalette sCursorSpritePal = { sCursorPal, 0x7A01 };
++static const struct OamData sCursorOam = { .shape = SPRITE_SHAPE(16x16), .size = SPRITE_SIZE(16x16), .priority = 0 };
++static const union AnimCmd sCursorAnim[] = { ANIMCMD_FRAME(0, 8), ANIMCMD_FRAME(4, 8), ANIMCMD_JUMP(0) };
++static const union AnimCmd *const sCursorAnims[] = { sCursorAnim };
++static const struct SpriteTemplate sCursorTemplate = {
++    .tileTag = 0x7A01, .paletteTag = 0x7A01, .oam = &sCursorOam, .anims = sCursorAnims,
++    .images = NULL, .affineAnims = gDummySpriteAffineAnimTable, .callback = SpriteCallbackDummy,
++};
++
++#define sTilemapBuffer ((u16 *)gDecompressionBuffer) // borrowed: this screen runs alone
++static EWRAM_DATA u8 sState = 0;
++static EWRAM_DATA u8 sSel = 0;
++static EWRAM_DATA u8 sCursorId = 0;
++static EWRAM_DATA u8 sExit = 0; // 0 flies, 1 back to the party, 2 to the Kanto map
++
++static void CB2_HanHoennFly(void);
++static void CB2_HanHoennFlyInit(void);
++
++static void VBlankCB(void)
++{
++    SetGpuReg(REG_OFFSET_BG2PA, 0x100);
++    SetGpuReg(REG_OFFSET_BG2PB, 0);
++    SetGpuReg(REG_OFFSET_BG2PC, 0);
++    SetGpuReg(REG_OFFSET_BG2PD, 0x100);
++    SetGpuReg(REG_OFFSET_BG2X_L, 0);
++    SetGpuReg(REG_OFFSET_BG2X_H, 0);
++    SetGpuReg(REG_OFFSET_BG2Y_L, 0);
++    SetGpuReg(REG_OFFSET_BG2Y_H, 0);
++    LoadOam();
++    ProcessSpriteCopyRequests();
++    TransferPlttBuffer();
++}
++
++static void ShowName(void)
++{
++    FillWindowPixelBuffer(0, PIXEL_FILL(1));
++    AddTextPrinterParameterized3(0, FONT_NORMAL, 4, 1, (const u8[]){1, 2, 3}, 0, sHanHoennNames[sHanHoennFlyTowns[sSel].mapsec]);
++    CopyWindowToVram(0, COPYWIN_FULL);
++    gSprites[sCursorId].x = sHanHoennFlyTowns[sSel].x;
++    gSprites[sCursorId].y = sHanHoennFlyTowns[sSel].y;
++}
++
++static void Move(s8 dx, s8 dy)
++{
++    u8 i, best = sSel;
++    s32 bestScore = 0x7FFFFFFF;
++    s32 ddx, ddy, score;
++
++    for (i = 0; i < HOENN_FLY_COUNT; i++)
++    {
++        if (i == sSel)
++            continue;
++        ddx = (s32)sHanHoennFlyTowns[i].x - sHanHoennFlyTowns[sSel].x;
++        ddy = (s32)sHanHoennFlyTowns[i].y - sHanHoennFlyTowns[sSel].y;
++        if (dx != 0 && ddx * dx <= 0)
++            continue;
++        if (dy != 0 && ddy * dy <= 0)
++            continue;
++        if (dx != 0)
++            score = abs(ddx) + 2 * abs(ddy);
++        else
++            score = abs(ddy) + 2 * abs(ddx);
++        if (score < bestScore)
++        {
++            bestScore = score;
++            best = i;
++        }
++    }
++    if (best != sSel)
++    {
++        sSel = best;
++        PlaySE(SE_DEX_SCROLL);
++        ShowName();
++    }
++}
++
++void CB2_OpenHanHoennFly(void)
++{
++    sState = 0;
++    SetMainCallback2(CB2_HanHoennFlyInit);
++}
++
++static void CB2_HanHoennFlyInit(void)
++{
++    switch (sState)
++    {
++    case 0:
++        SetVBlankCallback(NULL);
++        DmaClearLarge16(3, (void *)VRAM, VRAM_SIZE, 0x1000);
++        DmaClear32(3, (void *)OAM, OAM_SIZE);
++        DmaClear16(3, (void *)PLTT, PLTT_SIZE);
++        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0);
++        ResetBgsAndClearDma3BusyFlags(FALSE);
++        InitBgsFromTemplates(1, sBgTemplates, ARRAY_COUNT(sBgTemplates));
++        ResetPaletteFade();
++        ResetSpriteData();
++        ResetTasks();
++        FreeAllSpritePalettes();
++        ScanlineEffect_Stop();
++        sState++;
++        break;
++    case 1:
++        LZ77UnCompVram(sMapTiles, BG_CHAR_ADDR(0));
++        LZ77UnCompVram(sMapTilemap, BG_SCREEN_ADDR(28));
++        LoadPalette(sMapPal, BG_PLTT_ID(7), 2 * PLTT_SIZE_4BPP);
++        SetBgTilemapBuffer(1, sTilemapBuffer);
++        FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 0x20, 0x20);
++        InitWindows(sWindowTemplates);
++        DeactivateAllTextPrinters();
++        LoadPalette(gStandardMenuPalette, BG_PLTT_ID(15), PLTT_SIZE_4BPP);
++        PutWindowTilemap(0);
++        LoadSpriteSheet(&sCursorSheet);
++        LoadSpritePalette(&sCursorSpritePal);
++        sCursorId = CreateSprite(&sCursorTemplate, 0, 0, 0);
++        sSel = 0;
++        sExit = 0;
++        ShowName();
++        sState++;
++        break;
++    case 2:
++        SetVBlankCallback(VBlankCB);
++        // Emerald's map is an affine background: a 64 by 64 map of one-byte tile numbers
++        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_WRAP | BGCNT_AFF512x512);
++        SetGpuReg(REG_OFFSET_BG2PA, 0x100);
++        SetGpuReg(REG_OFFSET_BG2PB, 0);
++        SetGpuReg(REG_OFFSET_BG2PC, 0);
++        SetGpuReg(REG_OFFSET_BG2PD, 0x100);
++        SetGpuReg(REG_OFFSET_BG2X_L, 0);
++        SetGpuReg(REG_OFFSET_BG2X_H, 0);
++        SetGpuReg(REG_OFFSET_BG2Y_L, 0);
++        SetGpuReg(REG_OFFSET_BG2Y_H, 0);
++        ShowBg(1);
++        ShowBg(2);
++        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_WRAP | BGCNT_AFF512x512);
++        SetGpuReg(REG_OFFSET_DISPCNT, GetGpuReg(REG_OFFSET_DISPCNT) | DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
++        CopyBgTilemapBufferToVram(1);
++        BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
++        sState = 0;
++        SetMainCallback2(CB2_HanHoennFly);
++        break;
++    }
++}
++
++static void CB2_HanHoennFly(void)
++{
++    RunTasks();
++    AnimateSprites();
++    BuildOamBuffer();
++    UpdatePaletteFade();
++    RunTextPrinters();
++    if (sState == 0)
++    {
++        if (gPaletteFade.active)
++            return;
++        if (JOY_NEW(A_BUTTON))
++        {
++            sExit = 0;
++            PlaySE(SE_USE_ITEM);
++            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
++            sState = 1;
++        }
++        else if (JOY_NEW(B_BUTTON))
++        {
++            sExit = 1;
++            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
++            sState = 1;
++        }
++        else if (JOY_NEW(SELECT_BUTTON))
++        {
++            sExit = 2;
++            PlaySE(SE_SELECT);
++            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
++            sState = 1;
++        }
++        else if (JOY_NEW(DPAD_LEFT))
++            Move(-1, 0);
++        else if (JOY_NEW(DPAD_RIGHT))
++            Move(1, 0);
++        else if (JOY_NEW(DPAD_UP))
++            Move(0, -1);
++        else if (JOY_NEW(DPAD_DOWN))
++            Move(0, 1);
++    }
++    else if (!gPaletteFade.active)
++    {
++        const struct HanHoennFlyTown *t = &sHanHoennFlyTowns[sSel];
++
++        FreeAllWindowBuffers();
++        if (sExit == 0)
++        {
++            if (t->heal)
++                SetWarpDestinationToHealLocation(t->heal);
++            else
++                SetWarpDestination(t->mapGroup, t->mapNum, -1, t->wx, t->wy);
++            ReturnToFieldFromFlyMapSelect();
++        }
++        else if (sExit == 1)
++            SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
++        else
++        {
++            gHanFlyForceKanto = TRUE;
++            SetMainCallback2(CB2_OpenFlyMap);
++        }
++    }
++}
++
++// true if the player stands in Hoenn
++bool8 HanInHoenn(void)
++{
++    return GetCurrentRegionMapSectionId() < KANTO_MAPSEC_START;
++}
 diff --git a/src/han_link.c b/src/han_link.c
 new file mode 100644
 index 0000000..0e5d2b3
@@ -122749,7 +124501,7 @@ index b3e3c77..c4e7d7f 100644
  }
  
 diff --git a/src/region_map.c b/src/region_map.c
-index d65f99f..eee3f59 100644
+index d65f99f..6b1a82e 100644
 --- a/src/region_map.c
 +++ b/src/region_map.c
 @@ -819,6 +819,16 @@ static const u8 sWinRegs[][2] = {
@@ -122783,6 +124535,50 @@ index d65f99f..eee3f59 100644
      {
          if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
              dst = StringCopy(dst0, sMapsecName_CELADON_DEPT_);
+@@ -3870,8 +3885,19 @@ static void ClearOrDrawTopBar(bool8 clear)
+     }
+ }
+ 
++// Hän build: SELECT on the fly map goes to the fly map of Hoenn (src/han_hoenn_fly.c), and SELECT there comes back
++bool8 gHanFlyForceKanto;
++static bool8 sHanGoHoenn;
++
+ void CB2_OpenFlyMap(void)
+ {
++    if (HanInHoenn() && !gHanFlyForceKanto)
++    {
++        CB2_OpenHanHoennFly();
++        return;
++    }
++    gHanFlyForceKanto = FALSE;
++    sHanGoHoenn = FALSE;
+     InitFlyMap();
+     InitRegionMap(REGIONMAP_TYPE_FLY);
+ }
+@@ -3921,6 +3947,14 @@ static void Task_FlyMap(u8 taskId)
+         }
+         break;
+     case 4:
++        if (JOY_NEW(SELECT_BUTTON))
++        {
++            sHanGoHoenn = TRUE;
++            PlaySE(SE_SELECT);
++            sFlyMap->selectedDestination = FALSE;
++            sFlyMap->state = 6;
++            break;
++        }
+         switch (GetRegionMapInput())
+         {
+         case MAP_INPUT_MOVE_START:
+@@ -4015,6 +4049,8 @@ static void FreeFlyMap(u8 taskId)
+     FreeAllWindowBuffers();
+     if (sFlyMap->selectedDestination == TRUE)
+         SetMainCallback2(CB2_ReturnToField);
++    else if (sHanGoHoenn)
++        SetMainCallback2(CB2_OpenHanHoennFly);
+     else
+         SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
+     FREE_IF_NOT_NULL(sFlyMap);
 diff --git a/src/reshow_battle_screen.c b/src/reshow_battle_screen.c
 index 124b646..9ab384e 100644
 --- a/src/reshow_battle_screen.c

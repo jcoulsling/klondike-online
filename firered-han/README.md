@@ -1061,3 +1061,8 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
   Hän to be written.
   Not done: Fly and the town map for Hoenn, the Hoenn badges on the trainer card, TMs and story events of the gyms, Hoenn story gates (Cut, Surf
   and the rest work as in FireRed), special buildings (Contest Hall, Game Corner, Battle Frontier), items on the ground, berry trees.
+
+## 2026-11-24g
+- Real Emerald trainer pictures for 14 Hoenn trainers (Juan, Wallace, Steven and others) instead of the nearest FireRed ones.
+- Fly map for Hoenn: open Fly, press SELECT to switch between the Kanto map and the Hoenn map (16 towns, Emerald map picture). SELECT again goes back. All towns are unlocked for now.
+- Not done yet: Hoenn badges on the trainer card, gym TMs and story events, Contest Hall / Game Corner / Battle Frontier, items on the ground, berry trees.
