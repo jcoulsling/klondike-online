@@ -333,7 +333,7 @@ index 8aa0a10..6dffa50 100644
  	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
  	healthbarupdate BS_ATTACKER
 diff --git a/data/event_scripts.s b/data/event_scripts.s
-index 88d7594..091060d 100644
+index 88d7594..513b30a 100644
 --- a/data/event_scripts.s
 +++ b/data/event_scripts.s
 @@ -87,6 +87,8 @@ gStdScripts::
@@ -353,7 +353,27 @@ index 88d7594..091060d 100644
  	.include "data/maps/SafariZone_North/scripts.inc"
  	.include "data/maps/SafariZone_West/scripts.inc"
  	.include "data/maps/SafariZone_Center_RestHouse/scripts.inc"
-@@ -814,7 +817,7 @@ Text_WouldYouLikeToMixRecords::
+@@ -350,6 +353,9 @@ gStdScriptsEnd::
+ 	.include "data/maps/ViridianCity_School/scripts.inc"
+ 	.include "data/maps/ViridianCity_Mart/scripts.inc"
+ 	.include "data/maps/ViridianCity_PokemonCenter_1F/scripts.inc"
++	.include "data/maps/DewfordTown/scripts.inc"
++	.include "data/maps/DewfordTown_PokemonCenter_1F/scripts.inc"
++	.include "data/maps/DewfordTown_PokemonCenter_2F/scripts.inc"
+ 	.include "data/maps/ViridianCity_PokemonCenter_2F/scripts.inc"
+ 	.include "data/maps/PewterCity_Museum_1F/scripts.inc"
+ 	.include "data/maps/PewterCity_Museum_2F/scripts.inc"
+@@ -676,6 +682,9 @@ gStdScriptsEnd::
+ 	.include "data/maps/ViridianCity_School/text.inc"
+ 	.include "data/maps/ViridianCity_Mart/text.inc"
+ 	.include "data/maps/ViridianCity_PokemonCenter_1F/text.inc"
++	.include "data/maps/DewfordTown/text.inc"
++	.include "data/maps/DewfordTown_PokemonCenter_1F/text.inc"
++	.include "data/maps/DewfordTown_PokemonCenter_2F/text.inc"
+ 	.include "data/maps/PewterCity_Museum_1F/text.inc"
+ 	.include "data/maps/PewterCity_Museum_2F/text.inc"
+ 	.include "data/maps/PewterCity_Gym/text.inc"
+@@ -814,7 +823,7 @@ Text_WouldYouLikeToMixRecords::
  
  @ Unused
  Text_WeHopeToSeeYouAgain2::
@@ -362,7 +382,7 @@ index 88d7594..091060d 100644
  
  	.include "data/text/pc.inc"
  
-@@ -834,7 +837,7 @@ Text_WelcomeTimeCapsule::
+@@ -834,7 +843,7 @@ Text_WelcomeTimeCapsule::
  	.string "TIME CAPSULE.$"
  
  Text_PleaseComeAgain::
@@ -371,7 +391,7 @@ index 88d7594..091060d 100644
  
  @ Unused
  Text_HavingDiscountSaleToday::
-@@ -843,8 +846,7 @@ Text_HavingDiscountSaleToday::
+@@ -843,8 +852,7 @@ Text_HavingDiscountSaleToday::
  
  @ Unused
  Text_PlayerWhatCanIDoForYou::
@@ -381,7 +401,7 @@ index 88d7594..091060d 100644
  
  	.include "data/text/obtain_item.inc"
  
-@@ -852,7 +854,7 @@ Text_MakingPreparations::
+@@ -852,7 +860,7 @@ Text_MakingPreparations::
  	.string "じゅんびちゅうです！$"
  
  Text_WantWhichFloor::
@@ -390,7 +410,7 @@ index 88d7594..091060d 100644
  
  Text_BagItemCanBeRegistered::
  	.string "An item in the BAG can be\n"
-@@ -870,7 +872,7 @@ Text_TrainerSchoolEmail::
+@@ -870,7 +878,7 @@ Text_TrainerSchoolEmail::
  	.string "‥‥　‥‥　‥‥$"
  
  Text_PlayerBootedUpPC::
@@ -399,7 +419,7 @@ index 88d7594..091060d 100644
  
  @ Unused
  Text_LinkWasCanceled::
-@@ -878,29 +880,24 @@ Text_LinkWasCanceled::
+@@ -878,29 +886,24 @@ Text_LinkWasCanceled::
  
  @ Unused
  Text_GiveNicknameToReceivedMon::
@@ -437,7 +457,7 @@ index 88d7594..091060d 100644
  
  	.include "data/text/surf.inc"
  
-@@ -928,8 +925,8 @@ Text_HandedOverItem::
+@@ -928,8 +931,8 @@ Text_HandedOverItem::
  	.string "{STR_VAR_1}.$"
  
  Text_GiveNicknameToThisMon::
@@ -448,7 +468,7 @@ index 88d7594..091060d 100644
  
  	.include "data/text/itemfinder.inc"
  	.include "data/text/route23.inc"
-@@ -941,7 +938,7 @@ Text_CardKeyOpenedDoor::
+@@ -941,7 +944,7 @@ Text_CardKeyOpenedDoor::
  	.string "The CARD KEY opened the door!$"
  
  Text_ItNeedsCardKey::
@@ -457,7 +477,7 @@ index 88d7594..091060d 100644
  	.string "It needs a CARD KEY!$"
  
  Text_AccessedProfOaksPC::
-@@ -997,8 +994,8 @@ Text_TheresBedLetsRest::
+@@ -997,8 +1000,8 @@ Text_TheresBedLetsRest::
  	.string "やすんでいこう$"
  
  Text_FoundTMHMContainsMove::
@@ -468,6 +488,55 @@ index 88d7594..091060d 100644
  
  	.include "data/text/seagallop.inc"
  
+diff --git a/data/layouts/DewfordTown/border.bin b/data/layouts/DewfordTown/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..ec20994dc7f71b646169ca005f7e826a142b5980
+GIT binary patch
+literal 8
+LcmX@ibQlZ)4`c%s
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/DewfordTown/map.bin b/data/layouts/DewfordTown/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..0bf1268759d0738e9a41ec40d436b56d8a221479
+GIT binary patch
+literal 800
+zcmZvaIZgvH6o!j<{yx&Ag3=toPf)@cSQ?fJPCy$<HW3&C1QHOd#1<mfC@h*`D<VoR
+zk&~cjkH=1ge$9Afe}3EiZS0_eh$7k~sjLR_^ZA8B8?2bjvx_~gDl8>4F3}{@3CcLb
+z2~M%~567{X;fOWVafNH__i{syVN$A`a2chFDJETCV5{S3i5Eqx4T`9O0~js=i)oJL
+z%k)&$++v{^7Q<3#XsMQHnO103Po<o8#PN&_T@0lf6=PytOz0YGX-AH;yi}87N=%EH
+zu3m1aK@GADuTqsTE9S(yS7}Z>p@}B?^8L!n@4|hL==0%p0^R@AQT~^mfZIEyqg2P9
+zBkTm?Z0{TwsV=?Sb^>nFx46SSTEPPzv6kKDd>z4lu$fzU#tVLeSG-|6+cl@`8Jqc?
+nKIjv_!56;0XzU7hfpM#i>93tZL$C`v!nncQ>V5N>acWF|iU8R<
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/layouts.json b/data/layouts/layouts.json
+index 41d0eb1..0119a29 100644
+--- a/data/layouts/layouts.json
++++ b/data/layouts/layouts.json
+@@ -4398,6 +4398,18 @@
+       "secondary_tileset": "gTileset_MtEmber",
+       "border_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/border.bin",
+       "blockdata_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/map.bin"
++    },
++    {
++      "id": "LAYOUT_DEWFORD_TOWN",
++      "name": "DewfordTown_Layout",
++      "width": 20,
++      "height": 20,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennGeneral",
++      "secondary_tileset": "gTileset_Dewford",
++      "border_filepath": "data/layouts/DewfordTown/border.bin",
++      "blockdata_filepath": "data/layouts/DewfordTown/map.bin"
+     }
+   ]
+ }
 diff --git a/data/maps/CeladonCity_Condominiums_1F/text.inc b/data/maps/CeladonCity_Condominiums_1F/text.inc
 index 7689db1..498fc38 100644
 --- a/data/maps/CeladonCity_Condominiums_1F/text.inc
@@ -1167,6 +1236,357 @@ index ae0524e..8c24f16 100644
      .string "Is too bad!$"
  
  @ Unused
+diff --git a/data/maps/DewfordTown/map.json b/data/maps/DewfordTown/map.json
+new file mode 100644
+index 0000000..be46319
+--- /dev/null
++++ b/data/maps/DewfordTown/map.json
+@@ -0,0 +1,56 @@
++{
++  "id": "MAP_DEWFORD_TOWN",
++  "name": "DewfordTown",
++  "layout": "LAYOUT_DEWFORD_TOWN",
++  "music": "MUS_SEVII_67",
++  "region_map_section": "MAPSEC_DEWFORD_TOWN",
++  "requires_flash": false,
++  "weather": "WEATHER_SUNNY",
++  "map_type": "MAP_TYPE_TOWN",
++  "allow_cycling": true,
++  "allow_escaping": false,
++  "allow_running": true,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
++      "x": 7,
++      "y": 12,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "DewfordTown_EventScript_Woman",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
++      "x": 12,
++      "y": 9,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "DewfordTown_EventScript_FerrySailor",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 2,
++      "y": 10,
++      "elevation": 0,
++      "dest_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/DewfordTown/scripts.inc b/data/maps/DewfordTown/scripts.inc
+new file mode 100644
+index 0000000..e7569da
+--- /dev/null
++++ b/data/maps/DewfordTown/scripts.inc
+@@ -0,0 +1,31 @@
++DewfordTown_MapScripts::
++	.byte 0
++
++@ The ferry back: the same ship and scene as the Seagallop.
++DewfordTown_EventScript_FerrySailor::
++	lock
++	faceplayer
++	message Text_WhereDoYouWantToSail
++	waitmessage
++	setvar VAR_0x8004, SEAGALLOP_DEWFORD
++	multichoice 19, 6, MULTICHOICE_HAN_FERRY_DEWFORD, FALSE
++	switch VAR_RESULT
++	case 0, DewfordTown_EventScript_SailToSevenIsland
++	case 1, DewfordTown_EventScript_SailToCinnabar
++	case 2, EventScript_CancelSail
++	case SCR_MENU_CANCEL, EventScript_CancelSail
++	end
++
++DewfordTown_EventScript_SailToSevenIsland::
++	setvar VAR_0x8006, SEAGALLOP_SEVEN_ISLAND
++	goto EventScript_SailToDest
++	end
++
++DewfordTown_EventScript_SailToCinnabar::
++	setvar VAR_0x8006, SEAGALLOP_CINNABAR_ISLAND
++	goto EventScript_SailToDest
++	end
++
++DewfordTown_EventScript_Woman::
++	msgbox DewfordTown_Text_Woman, MSGBOX_NPC
++	end
+diff --git a/data/maps/DewfordTown/text.inc b/data/maps/DewfordTown/text.inc
+new file mode 100644
+index 0000000..5356909
+--- /dev/null
++++ b/data/maps/DewfordTown/text.inc
+@@ -0,0 +1,2 @@
++DewfordTown_Text_Woman:
++	.string "Han text to come: a woman of Dewford.$"
+diff --git a/data/maps/DewfordTown_PokemonCenter_1F/map.json b/data/maps/DewfordTown_PokemonCenter_1F/map.json
+new file mode 100644
+index 0000000..fefa0c0
+--- /dev/null
++++ b/data/maps/DewfordTown_PokemonCenter_1F/map.json
+@@ -0,0 +1,66 @@
++{
++  "id": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
++  "name": "DewfordTown_PokemonCenter_1F",
++  "layout": "LAYOUT_POKEMON_CENTER_1F",
++  "music": "MUS_POKE_CENTER",
++  "region_map_section": "MAPSEC_DEWFORD_TOWN",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "local_id": "LOCALID_DEWFORD_NURSE",
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_NURSE",
++      "x": 7,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "DewfordTown_PokemonCenter_1F_EventScript_Nurse",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 6,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_DEWFORD_TOWN",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 7,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_DEWFORD_TOWN",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 8,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_DEWFORD_TOWN",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 1,
++      "y": 6,
++      "elevation": 4,
++      "dest_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_2F",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/DewfordTown_PokemonCenter_1F/scripts.inc b/data/maps/DewfordTown_PokemonCenter_1F/scripts.inc
+new file mode 100644
+index 0000000..c6ca707
+--- /dev/null
++++ b/data/maps/DewfordTown_PokemonCenter_1F/scripts.inc
+@@ -0,0 +1,15 @@
++DewfordTown_PokemonCenter_1F_MapScripts::
++	map_script MAP_SCRIPT_ON_TRANSITION, DewfordTown_PokemonCenter_1F_OnTransition
++	map_script MAP_SCRIPT_ON_RESUME, CableClub_OnResume
++	.byte 0
++
++DewfordTown_PokemonCenter_1F_OnTransition::
++	setrespawn HEAL_LOCATION_DEWFORD_TOWN
++	end
++
++DewfordTown_PokemonCenter_1F_EventScript_Nurse::
++	lock
++	faceplayer
++	call EventScript_PkmnCenterNurse
++	release
++	end
+diff --git a/data/maps/DewfordTown_PokemonCenter_1F/text.inc b/data/maps/DewfordTown_PokemonCenter_1F/text.inc
+new file mode 100644
+index 0000000..e69de29
+diff --git a/data/maps/DewfordTown_PokemonCenter_2F/map.json b/data/maps/DewfordTown_PokemonCenter_2F/map.json
+new file mode 100644
+index 0000000..6eaa8b6
+--- /dev/null
++++ b/data/maps/DewfordTown_PokemonCenter_2F/map.json
+@@ -0,0 +1,114 @@
++{
++  "id": "MAP_DEWFORD_TOWN_POKEMON_CENTER_2F",
++  "name": "DewfordTown_PokemonCenter_2F",
++  "layout": "LAYOUT_POKEMON_CENTER_2F",
++  "music": "MUS_POKE_CENTER",
++  "region_map_section": "MAPSEC_DEWFORD_TOWN",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 6,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_UnionRoomAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 2,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_WirelessClubAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 10,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_DirectCornerAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_MG_DELIVERYMAN",
++      "x": 1,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "CableClub_EventScript_MysteryGiftMan",
++      "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 1,
++      "y": 6,
++      "elevation": 4,
++      "dest_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
++      "dest_warp_id": "3"
++    },
++    {
++      "x": 5,
++      "y": 1,
++      "elevation": 0,
++      "dest_map": "MAP_UNION_ROOM",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 9,
++      "y": 1,
++      "elevation": 0,
++      "dest_map": "MAP_TRADE_CENTER",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/DewfordTown_PokemonCenter_2F/scripts.inc b/data/maps/DewfordTown_PokemonCenter_2F/scripts.inc
+new file mode 100644
+index 0000000..9bcb383
+--- /dev/null
++++ b/data/maps/DewfordTown_PokemonCenter_2F/scripts.inc
+@@ -0,0 +1,19 @@
++DewfordTown_PokemonCenter_2F_MapScripts::
++	map_script MAP_SCRIPT_ON_FRAME_TABLE, CableClub_OnFrame
++	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, CableClub_OnWarp
++	map_script MAP_SCRIPT_ON_LOAD, CableClub_OnLoad
++	map_script MAP_SCRIPT_ON_TRANSITION, CableClub_OnTransition
++	.byte 0
++
++@ The below 3 are unused and leftover from RS
++DewfordTown_PokemonCenter_2F_EventScript_Colosseum::
++	call CableClub_EventScript_Colosseum
++	end
++
++DewfordTown_PokemonCenter_2F_EventScript_TradeCenter::
++	call CableClub_EventScript_TradeCenter
++	end
++
++DewfordTown_PokemonCenter_2F_EventScript_RecordCorner::
++	call CableClub_EventScript_RecordCorner
++	end
+diff --git a/data/maps/DewfordTown_PokemonCenter_2F/text.inc b/data/maps/DewfordTown_PokemonCenter_2F/text.inc
+new file mode 100644
+index 0000000..e69de29
 diff --git a/data/maps/FiveIsland_Meadow/text.inc b/data/maps/FiveIsland_Meadow/text.inc
 index e366fd3..c931381 100644
 --- a/data/maps/FiveIsland_Meadow/text.inc
@@ -4048,6 +4468,67 @@ index 1b7780b..9e9be06 100644
      .string "Just the way you battle.\n"
      .string "That's cool.$"
  
+diff --git a/data/maps/SevenIsland_Harbor/map.json b/data/maps/SevenIsland_Harbor/map.json
+index 22f5f68..01baf83 100644
+--- a/data/maps/SevenIsland_Harbor/map.json
++++ b/data/maps/SevenIsland_Harbor/map.json
+@@ -42,6 +42,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "SevenIsland_Harbor_EventScript_Sailor",
+       "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
++      "x": 9,
++      "y": 4,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "SevenIsland_Harbor_EventScript_HoennSailor",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
+diff --git a/data/maps/SevenIsland_Harbor/scripts.inc b/data/maps/SevenIsland_Harbor/scripts.inc
+index 131826c..4461189 100644
+--- a/data/maps/SevenIsland_Harbor/scripts.inc
++++ b/data/maps/SevenIsland_Harbor/scripts.inc
+@@ -1,6 +1,31 @@
+ SevenIsland_Harbor_MapScripts::
+ 	.byte 0
+ 
++@ Hän build: the ship to Cinnabar and to Hoenn (Dewford)
++SevenIsland_Harbor_EventScript_HoennSailor::
++	lock
++	faceplayer
++	message Text_WhereDoYouWantToSail
++	waitmessage
++	setvar VAR_0x8004, SEAGALLOP_SEVEN_ISLAND
++	multichoice 19, 6, MULTICHOICE_HAN_FERRY_SEVEN, FALSE
++	switch VAR_RESULT
++	case 0, SevenIsland_Harbor_EventScript_SailToCinnabar
++	case 1, SevenIsland_Harbor_EventScript_SailToDewford
++	case 2, EventScript_CancelSail
++	case SCR_MENU_CANCEL, EventScript_CancelSail
++	end
++
++SevenIsland_Harbor_EventScript_SailToCinnabar::
++	setvar VAR_0x8006, SEAGALLOP_CINNABAR_ISLAND
++	goto EventScript_SailToDest
++	end
++
++SevenIsland_Harbor_EventScript_SailToDewford::
++	setvar VAR_0x8006, SEAGALLOP_DEWFORD
++	goto EventScript_SailToDest
++	end
++
+ SevenIsland_Harbor_EventScript_Sailor::
+ 	lock
+ 	faceplayer
 diff --git a/data/maps/SevenIsland_House_Room1/text.inc b/data/maps/SevenIsland_House_Room1/text.inc
 index 9fde68d..c69a95c 100644
 --- a/data/maps/SevenIsland_House_Room1/text.inc
@@ -5319,10 +5800,20 @@ index fb11547..7b2f664 100644
  ViridianForest_Text_CharliePostBattle::
      .string "BUG POKéMON evolve quickly.\n"
 diff --git a/data/maps/map_groups.json b/data/maps/map_groups.json
-index 8c382f5..e8708d1 100644
+index 8c382f5..b518bcf 100644
 --- a/data/maps/map_groups.json
 +++ b/data/maps/map_groups.json
-@@ -174,7 +174,8 @@
+@@ -42,7 +42,8 @@
+     "gMapGroup_IndoorFiveIslandRoute",
+     "gMapGroup_IndoorTwoIslandRoute",
+     "gMapGroup_IndoorSixIslandRoute",
+-    "gMapGroup_IndoorSevenIslandRoute"
++    "gMapGroup_IndoorSevenIslandRoute",
++    "gMapGroup_Hoenn"
+   ],
+   "gMapGroup_Link": [
+     "BattleColosseum_2P",
+@@ -174,7 +175,8 @@
      "SixIsland_DottedHole_B4F",
      "SixIsland_DottedHole_SapphireRoom",
      "SixIsland_PatternBush",
@@ -5332,6 +5823,18 @@ index 8c382f5..e8708d1 100644
    ],
    "gMapGroup_SpecialArea": [
      "NavelRock_Exterior",
+@@ -555,6 +557,11 @@
+   "gMapGroup_IndoorSevenIslandRoute": [
+     "SevenIsland_SevaultCanyon_House"
+   ],
++  "gMapGroup_Hoenn": [
++    "DewfordTown",
++    "DewfordTown_PokemonCenter_1F",
++    "DewfordTown_PokemonCenter_2F"
++  ],
+   "connections_include_order": [
+     "PalletTown",
+     "ViridianCity",
 diff --git a/data/mystery_event_msg.s b/data/mystery_event_msg.s
 index 535c530..e8b3530 100644
 --- a/data/mystery_event_msg.s
@@ -7380,6 +7883,1209 @@ index 08d0762..91f6694 100644
  	.string "always brings me here!$"
  
  SixIsland_WaterPath_Text_RoseRematchIntro::
+diff --git a/data/tilesets/primary/hoenn_general/metatile_attributes.bin b/data/tilesets/primary/hoenn_general/metatile_attributes.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..1b4528117f5915afc4cf1c00c2c1f6a4079f44b5
+GIT binary patch
+literal 2048
+zcmcgt%T5C^3>;QbPd!vrORu3{0piBLp#J|Kpz(UV-Xtx{0Y<XC@x+ff*#ziNJ4=IU
+z!c$|~i&5-)TfB|?0v^Vn3$CYv&wB~U&p+_3?+uol`A79_a6W8?9p-|mGd>2_uiT^j
+z^|<mluCc<$ZLM$c?jkJ&pW_qnKz#%1N6PEH2_KFJeCN--k_=*4+*1MfB<fTCd@csQ
+zHlMzd^TB#$P@l+g&s<l|ITcJ?Glh0PQxS)@B?|BYR0-{p5icA2LSYT^rRJED`O&(>
+zD_#TIGpBK@iPjcl^|*;0_zRwWeg!J^DE=Ovb0|^hf>>A6n++}nR|;#OY)Bw@<#=At
+zWfzy+fY-cA?y}qkVaxlWTCy#F@8wl1?;W1!=Kir>d%x`b<sAH$KfnFl=iItaEyg{b
+zXWHY~Kd#!T6`wlW*&B}Y9%yc!mwCZsP1LeExF+MXZq^)m+<((|&E*^C?_Ai#`F;Is
+V_<i;-;2Y@gpw;dDj<-p7@;3wTH<tha
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/primary/hoenn_general/metatiles.bin b/data/tilesets/primary/hoenn_general/metatiles.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..af899bcc5efa4bdd3ab1f418b371a866441207c9
+GIT binary patch
+literal 8192
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/primary/hoenn_general/palettes/00.pal b/data/tilesets/primary/hoenn_general/palettes/00.pal
+new file mode 100644
+index 0000000..0fd7460
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/00.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++189 189 131
++115 189 246
++98 172 238
++115 189 246
++98 164 222
++82 139 197
++74 115 172
++115 197 164
+diff --git a/data/tilesets/primary/hoenn_general/palettes/01.pal b/data/tilesets/primary/hoenn_general/palettes/01.pal
+new file mode 100644
+index 0000000..3c6e40c
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/01.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++255 189 131
++238 148 115
++222 106 98
++205 65 82
++115 197 164
+diff --git a/data/tilesets/primary/hoenn_general/palettes/02.pal b/data/tilesets/primary/hoenn_general/palettes/02.pal
+new file mode 100644
+index 0000000..4c41030
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/02.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++115 197 164
++65 180 131
++24 164 106
+diff --git a/data/tilesets/primary/hoenn_general/palettes/03.pal b/data/tilesets/primary/hoenn_general/palettes/03.pal
+new file mode 100644
+index 0000000..32d6914
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/03.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++255 255 255
++213 213 213
++189 189 189
++164 164 164
++131 131 139
++65 180 131
++164 213 197
++65 49 65
++238 213 205
++222 180 164
++189 148 139
++156 115 115
++131 90 90
++98 65 82
++115 197 164
+diff --git a/data/tilesets/primary/hoenn_general/palettes/04.pal b/data/tilesets/primary/hoenn_general/palettes/04.pal
+new file mode 100644
+index 0000000..d8051b7
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/04.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++255 0 255
++255 0 255
++255 0 255
++156 164 189
++82 106 213
++65 90 189
++57 82 156
++41 65 139
++172 197 230
++139 164 222
++106 131 213
++82 106 213
++115 197 164
+diff --git a/data/tilesets/primary/hoenn_general/palettes/05.pal b/data/tilesets/primary/hoenn_general/palettes/05.pal
+new file mode 100644
+index 0000000..90adedf
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/05.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++238 230 164
++222 205 131
++213 180 106
++205 156 82
++115 197 164
+diff --git a/data/tilesets/primary/hoenn_general/palettes/06.pal b/data/tilesets/primary/hoenn_general/palettes/06.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/06.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/07.pal b/data/tilesets/primary/hoenn_general/palettes/07.pal
+new file mode 100644
+index 0000000..6c4ea8b
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/07.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++24 41 82
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/08.pal b/data/tilesets/primary/hoenn_general/palettes/08.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/08.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/09.pal b/data/tilesets/primary/hoenn_general/palettes/09.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/09.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/10.pal b/data/tilesets/primary/hoenn_general/palettes/10.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/10.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/11.pal b/data/tilesets/primary/hoenn_general/palettes/11.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/11.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/12.pal b/data/tilesets/primary/hoenn_general/palettes/12.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/12.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/13.pal b/data/tilesets/primary/hoenn_general/palettes/13.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/13.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/14.pal b/data/tilesets/primary/hoenn_general/palettes/14.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/14.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/palettes/15.pal b/data/tilesets/primary/hoenn_general/palettes/15.pal
+new file mode 100644
+index 0000000..e7717d7
+--- /dev/null
++++ b/data/tilesets/primary/hoenn_general/palettes/15.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 213 180
++255 197 148
++222 148 115
++123 65 65
++57 74 123
++41 57 98
++24 41 82
++16 32 57
++222 230 238
++255 197 90
++189 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/data/tilesets/primary/hoenn_general/tiles.png b/data/tilesets/primary/hoenn_general/tiles.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..f081b934d2c9a78ca2e1fe6926b3003834147755
+GIT binary patch
+literal 8275
+zcmV-ZAgtesP)<h;3K|Lk000e1NJLTq004jh009650{{R3iPvM40000mP)t-s|NsB)
+z?(W{+-p$R;y}iAxtgM`zoQsQ#b8~ZIVq#KKQb9pMF)=Y9ARrJB5C8xGL-gVL001A}
+zNkl<ZcwU8ke{dYto#*GhY0H)+Prn|+5x|yaM%umGg}})2{isT?g)R1vWj81x=B`36
+z2&%Bjrq&4VHik>xM&xQMcBl<nw(1tVRfpgzn_ZjWF-vkqEU>IiU1~3uk%6##hdt90
+zCIpD5Uyo(WvNZj!zTek9KV*@73%RFXcfbC=@B9Azyw?cCbXFK6gu#PVrB5b}0L~h5
+zX<I(XlufR5^El9BuQ}VQs&*WJtlwLKfPp{&7eGJIUr6->5CD8tQ(gqXB)1PBK#ET4
+z9ngJrN42|l8t4yz=-f7++lI5K0^N|8vhiI&?dfjAz12G~p6&lRnW`Zb1n5uIW(vf@
+zr9gI{ztH_gH5&{l`<k7D8h*$fI8DPP{ylLv^nzQ<NL4})rLdsYeSz*qcL*J6q2t?w
+zaBn=Eh79824u=H+r3Au)P$?HmD<ynUDP<!iguT6A7(6XhwRH$kFz|%Cr5s3KsM?lt
+z5L9|*u=dSd*30=u_Q*`vUhY5zK9CDYs*NECFndN+v<gYYbTp*_>`lwSGub)q>U>F(
+z5S%g$?h~2?;+*9^^QB9F^xx58hA&FJal?DcghFrJPy$dAUKFTMoj(sqkA<+Di%j5|
+z-~P-g<{&@xUF4_x-gyUK>BObk6T@y~v?r?>mswOnwE}mJbOV*HSvsV&2($34JSA#>
+zIwGf2{;(OwI~ODD)q$v~(7jCuJn6sC$fjlx*qhBTfbDvN5yIKF#<u;l`u<)u3Uq4}
+zgziRHScT_?qAQfxat#E!FBI@;7SOF#C=3qzVx|XJ28|F>W*_a4pF%c*7QU}h^^L&^
+z&ztfMzqLJIj)MLR%&xBF$6$hd)L&7+RF*r~{C~f9v3T!){V5qz8lFf?6TpOOn>4}J
+z-W^*Pe1r&0!Hzf@fpAMGVeUCBPjLq+_3_Zf@8W<60c1U(E9^$?jew3NAiWnbp#ifH
+z0RMyuna=~!`T)z^!OxKevZ*n^6F#7;$dIi}Pa%UrU@KG>U0U-jKngg6L7=lTi$ehq
+z(dl^b*s-DFpS)^R1TPXd92^g;|7o&+?K@$%b{N3hd#m{f9t$yVW`C!6pQlx%^um3f
+z9*nAyycTy{#2t{&hr%Zo%xp=&UOo+Dti89x1TuC6fyNj-V*+Ue9U+a79qq^Ny?E@|
+z&#^rVc?pXum^H{wx#ie<Xo0-T94G^{KMQz)J(5R|KOgl`jPUJYg{VuoK2lz;kXI7E
+zXFGU0s{$SJlnMDezycKLKROBzvcrAwrH{XG-8T?vr4b3_gwqFwZLz)Uc0o>#O*c?u
+z_+UhU)R>R8Q%YWZ2y@ZJq2jpkg-|*xy}Lhu?XEsd31!*VV_Ilp9x&~aj6O6$sOX59
+z3}kz;<H3buNA!q@JdN3Q%*|O(n6tJ3g{)imK4f3oXdt8``m>?Lhu<ChM*DaDh;CPE
+zVQn@`;~iO^)QO)Ji7Qnas{JYE#k4;qJea^ZJwWAaFXg-^l~8j9l%icIyBU;l>$RV;
+z@!@_2&)7cNpdq|K(11jGx=*lIPM^`9DOCcayJi4$X5#FriPv>1ws&=j9MA369gF**
+z+O=@82CBWPX0V1_TKQCND=|IxT7EN7@&!%!sXk{Ldr(aSa%A2blb~}2q;Jz%^h8MC
+zCV?oJr)y&)+sh$P7Otxx+{E5NB4x9QiO#)&_xUIW-j^g$ny*oeIi3PMmB`H6yIxOM
+z?QfWIXgmivev}*~pmRf`!06}#2gQWmi0xhJ=QQHq<_hUWXMp87sdT4)V|h+WAg3@&
+zEVRR)YjjYH?Hy|UbAh&lxH3*t9UThvvJVxFdsz0#(8?r2{_AXFVcOa|fc1x-v%kk}
+z2v&!l3qA&Leg1gxaXs7;out`_>6p>^z(`jcokztU<MT}4S!od1^CUKQo}9qR>7Nx(
+zPR1Q*k%uRg@MIp-9)z;zMhj2r48<6G9(T}rynOa#fYY6CB%?3_rb6R8ivXwbhOp<p
+zf#*R$ktKT`NCrg5bsEzO8_uVLgoVHaWH<G8m(D97|H95k$t+YQ4z8VE#rH6i4S{GW
+z9)r;#L{qzF3nVR~L<kUBKxDM#K%AvEm)gB17L3>2?i#}up{z%W$#!tkXOBbuYtfku
+zLWxby?J_Iq!Hslh2t{u*f$d<!q%f?j)Um5sjtU4ft?g1l3z3B|%C#&65S$~uUbY>Q
+zwd-6)_%uAg?6hp21bz?H_R%C@&Kr@TM?G@NmV<QQ6>R(lT+DeUZNnIK-U)P8DtZ#s
+z=ET<ltyBQ5QQ!{V2=maKFnB`IMefYQtw85-bRM78!7_sLpd5~`!ziJJHWUTPBZ&+d
+zcSzT|eaco9*?M@5ApO7_qDvu|RAL6IV6Q_2fa_`jpFI*K2SB6&^0zSD7b0T7t8AF9
+zNw=C_CPyB!rzeM~G{Q)bv!@{lkQ-wPS^V)V3(^nN{8?=_dI}q$;_E=@!lk@aKq4(n
+zWS>!>!ATO14>-b*ew^|}I^_nQHk1f%=j$L-2sO=GmN~GIggN(AR@FHm{h)remxl@i
+zKe^7n!=-5y(!o&4%la9&Y;-PA5>*bwYlggyC9gD-QMG&^YJQInnE#Zw6_v7b!*2$a
+zYTx;O4-%0extC)5HxZ>ez#1Bw7Rnb{xR6?fltd97*9Ed=mFY8?pbWWY465oyG(>Cf
+zWfI3a;+)!38>Od7Bet{X1(pg*3k6Sra(6@iz$*vz4BLMNsF0gyyX1Bwws;$>E~`1o
+zi$kbzGZ~M4xRMk@$YYWHbA&Ktu5>H6>qlI%r5oV~H2pM&mmzvGnT<eZW2OhDL|$1a
+zlmxM0?R_R5EVtwPLPIFG1JDt%;n`fnQbC6jLJQP1iC(e26LIv_Vzj0=EnPP%05LKN
+zEFw_IQd*eMg<yjOB|0;pmxpBUWN?bhA#Sf?>4iO>dZ3sVE|k!iPO2VDfkWc1*mB1v
+z$2p~4D<85O_dotm955U4{v{XsQ!aFm3;bALlNN4C--E(&;y{;I_ydHbwnD?}Gw@4B
+zSJFB>9fI1a@=IOQoy&?|MO;#FH6ca+CVyb1sLjLqXkL^8n4qk-yXrb>rx64NvKNyF
+zX2}*@tn>#q1iFy${e{g68X@Vvr1nyk-o?W9$OB2}P-p3lP5ywd>yVN=RV2<dmbfTW
+zK&}GhAbNT@D7zKOvlnM{i9ax!iom%2QF?AI5E^c$yj_zn6m(oSj<SBx<ktOxFqad(
+z*}SyiLF7h?MuW36nkmu-(g9LJxddO4T{rs!J49|5IK0R6_8f+vV^_sVqp=Po0J56n
+zf`RAe0-ej9ubPZ@ZS3QAV`d76A9D|5!v*p)!cacL7{Va#;5s$&2ZG|gPC*(&4q+WR
+zYXb<id~5<ZHZhwZ2eGmb2Eh<<>Bjzm6_<v=zL71LJ(~w)a!M#r4M%1b2OuYaXag{(
+z8vcOdJ<YJi71$rZQ&40jUdGk7wiZ4eoV!57p^TLM0hL)C@2yQ(MHDXn8=a8UL{>nX
+z1!|{UQWE#+GF7p2)*sZvJxQ7hYz`pSx+z5m;&7}vm+aLVQd4^5l1I|Qgo!H;0qGjD
+zdusnaX<_XD1iTSyr(DuN$~5FPWG~hqa7d#It`e@cOh9-`dpyq*?w&p5-f|x-QG0F!
+zJJ@ak&cC%oBPa<fu(Yd%Fq9|=N_LD;Cxtdji)YFKg{*adE?mL>_eA%W=#5Nv3GjRl
+z`7nlhAic3iPN!CHCo|X{LaG$zNlzTQnMT2N5FG`CAxW*?&Q^0`OW+BZWguI2@XfKr
+z3&)^@(n2pR5z|&9n%j+G6Lb-%D#@vulS`ND>2f1?BS0dlxteo21vcBW5UzIB>(qlp
+z@!|MMLHUbed;0)I6$H)gBvjI4J6$JSi11hZQ)21z!;kR0*Y0^lv2)({!RQiYD*<OJ
+zaO0yPWP%@xmZ+aeHfrL37uv@F>_PpwRKzhLPZ5vJJ~<i<TM^`)&rULgLP?C#QdRQT
+zk$ziRD&qVMjg{<vcid=ikL?5y&*(@h9c3KCH%tWo>krgBSYNCJ1<QVeYBT(MYjQM^
+zP!%nNqor5L8R4O<koAGAFV}B?((4b{hvPS2MZ{fxWDE|n2Q8yqK|lyE4hx6DKvPmU
+zQKotojg5@SJUx$t6dA*kLV7mPm`R)>y(OlV4|Aah;vga62@`sOqI6C{UD*ZDD1OT#
+zNVOjjxJf`-d>kDe#pvk1cIS$1A1ACO%9gTok!)venXsK-VGfbn5WlE4gZ|nKw#F>9
+zZ~!mxs@<9$QC+`n%!iYXtNC9wu8oWVBaI=L0B%6Jzii)t3_gh8c$y#^V7Y_<J@M4O
+zZpt*g>+fj+WrauoktmP}N_m2@{*fMySs(_MCt^huF(A>>!D2k|SogSwnZdLLqU!V5
+zOpWK8WbnWKY=+bbsZY_Zbv=yTWh>ddpQ#QDH{rvhR2d~VRDy)OSd7-yCzJ?r_^DU|
+zwkKV^p&xjaVnDCGb-HB;lJQoS0Yx~b#s8B05-@>U*k=`KRSN6RC!DuwR*aZb0BM3c
+ze$YbK3=S$vCF>lRVS*(L%rEz2l%bHzPf&6Cpe9daledHDJpR`J_8YN>Fve!k!LcX9
+zEkML-#Aa=42}^AhTXE2-FF9C`XH2lz@_g(MSRFZDBy=zFg5j700aBz<tv-Bw)N)8#
+zNn|^i&vBbxSYK!0@5#c&j~tK)F#Z*++kbi8w@03NZ2#pas3n<nx@{ULvlXj->w*5-
+zTZL)h7QZ)p#xFQ_EU{64^}u7v8`cu811$b!0XPhJkq?R&<Ikr`nOjSR8L6Etdi|<%
+z<=^ii=(PY7EME7_{%<}W%OJL)xMu`wc47I0(e+3bqS>@e75-Td)+Toj{BP%v`9%vq
+z{g;aeFfxkA^;kShixex?{*mRVlSeeVejJ5>s<D7H_8)dmZiDmnK<6nxJi3ncVBItO
+zFF!#z;!(0^{6jJ#o~*-o9`9xl=#t2PM%D&!o3wZk<%i94Cp?-1GNO8G-H^C$pgLmt
+zIAA6q>-nJx0#aWSXhJ$0kJ@Rhp9ii|CLb9%w*z7j4pg<9(TDZ})_M*=cqUE_8q_dl
+z7gE9x5v3*v-ns=2#E*ftyC6trG1=FV0k2J(2(V)!r%!bRBHZ@c&SmlkYlh$o{T(~+
+zM3GQhVeLNpolIkc0}7g4UrY|{#AF+-`y4)u5Q`)LCjBnSVDT>mQ7cnq51P}A46y9u
+zOx-6oTZvWUkAKc>2?u>YK4|r$aKY7FM|4gO{1Tm4VwV;gtl7QzH;<zI>myIH47kE-
+zM5ek7u8nzGr#`2OL&e{Z=bzv?N~5h6Qas)G@0#WSxV`0!UC_%HFTyvDhS-gWn6^fc
+zXu!JItm1Q8x@l3i#cS`t5FXs@0ADFlIs|x^6Ao6Py5FHdTcdw}&^Dsgccuwf&RLHi
+z*wwlfIv6`wVFG&{z%Bf5+i-LWyGajdS%F$s=U|P^6HI)hNDwciayP>c<%bsXZ^(e-
+zL2FPDja+GY%WHIfeE33-#<=5Q4;CIFJ#KKYT4GhKr-6>Wd}Vyt#X%~+zOAJy<r^HR
+z4-cXD=I`C2HWvY%79sWn*;&zrLk;QHbkztFeLYVEJf24O##`07?H<mNNFz><<(AjH
+zH!s}A9neZ=t$Gdp?3+8^$P?jR79Qx2DhaBzG$Nn1Qiwks_w@yK={lN4U#(h4;T>eJ
+z9Ezh%Q({C&8C+12XoT_7<G@gH;5`@wk*o2hw7FYv?_rrI$ev;Q1{K0E3`H0c>PY=y
+z02mtAMW9lu=)j;mUOnU#ho4Q1&JqEQ+PGoF!B9ht1H~clIUopWXf?Zj$<)Xbn@IT<
+zED^@8v9VniDR1CvOvolEsFCKKIe?E2AiDlQ`okjw_6|YVDY+<00jLzKSWI+gOA`li
+zhBEx<-^Gn>!~Y^#Vowq*X;TP|jP00eZNi>1z=$;5!*HFc-4FiRuDjy=qY^u+&8&q4
+z;lyQiLT6rw#Fv1!w!cZ5cJCerW<%?ZGJzfbdyKXl7;0}VMAkauQrnd;VNL8k+aBV5
+z4g@h1o1SJruwkG$P~>_?fso5O_4dMnJ47pgww`E<D<mBUmXPXtvOHa6@nvTXrMWSP
+z%OvqU<>qnXF>H+-$__r`3eHTbLtI0|?XBrlBR?Pp9wXUu!pkgFV#p+2G=gVDTh^Ko
+z#RKw>IU+6ml>VhugQys<@@8W9R^<{O!_Y0hk;yp>r2hi}I$2<}IgKNs#W}GV9;f$@
+zBTqXHEOCw&7aV72Qni$2-V#r{(yX~OcsVYN8Yse$FKSA(iD-F%OUkH8w7e1+3IcLy
+zz$zj&oTN0*ws$q&wN?UWtyr5`;H1)3#DUV#k|u|yA!pm`sWxk3I?=7>*|m5giHxm>
+z{0aS{(4fNxvcN-#8MulC<=Ubh0WTI8hwcaR1S&Nmd4KPY2`4?%7muhR1*)OR?rH9Y
+z$+%oRkv||zLPNY2KT*mfE$a+4u|Rsyn1zKjbTo`%2trP5dty(tKf(EnIA9R4z=hJ%
+zH}G%cH}EvlILE27g--N<<dP^|%Vr*;gX{KVD4y$z^=R1qhvZRc9U|+~Y;bgrX=Mk`
+z><2I#0~KD`&hR_qm)5g(6Bep~L~3>xTIdQr&vVTe3I7Dpk-fnVRAd=ks@rql#uXi0
+z{#(9phID`*2pLU;(nZ^qstQj^s=!wt!Wc8a3p;%DV!6MUou%y!Kq`mmLKcO|0lM6u
+z@1+Hb1}(<VZ_u%_32&oE${$_G78I>fL#a$wA+>E1rz(^Nq+5iTl#b7y?Ya4Tx8T!c
+z&_>Ov3L;%K-SPC(L3C9-RQ8Y_&{>RXP#(Z^5BhO`e`BtnogX-f`OhDtIXPbz9sjC=
+z{P}6oLHAMzEspx~It*^Nv9|55WOUnW1GreRGf|Q^r>8SM9S`rqlaypNivjyb2X(yL
+zAkJlg`N_VY;PVyUWl-xEAC)yCIwl-6)8)~5k~R%$x{f{k0XE&5spNS<*(qhRVp@Kd
+zj&v>|9&hOZL*gV-rBbO>!1f9q%k%TEyn@L%F(;HL8r<R2aUZbHff^a(O4HK*QN8JH
+z-15s8@Xoi8ve2D;_p@sAo%zV7HEI7QSrS<~Qi3Z5*0vPO7xB_C%nNti@w*z&dra#m
+z=U;i{l_T~ICQNHyR1eeo0I*24^GH&zJ_f8?f9w*Bx>)QO5_&22-T!0L9{{*`(;33T
+z`{rK%E#8PW_cA4;&Sj<Rg%OePE_&9nJ6Jyz{TsZPeY*?M<c`;O{M}I=(BuPlTj1ng
+z+9&6TCmv=6BE)MyFnV!_kdtFRy6%LW?*y`M4|h%u?7)tBp2luHz~FRQ57-@1(Yn@1
+z(Sa|F9pTlBIzGc$T0)VpH&BK{M`py#Hq8M@3>R+_f@G(Zw|ULx(;kcRw0Eir25KT1
+zRo1oU97WuLRDXYee*u^u0A@Z*nfL(Wg?L)+WLYWj6gj4xd7=rxSw}#O_3)COr!ErW
+zpU>ZU19y-d9j8+1Zkk2_KmNV?BPR#&3OcvekE@Vlw!dYSI)Ob7V35`}0ki$Zt+D))
+zBY=Cyfd>J6Bi?G^;3u^p30BQT${<jodSC(@W^lpg#)K;oRL2}o<HoUFxY5D#z+3f{
+zB|)J{Ekv$j9pmxWXf5cI$N_%Bc>__~L~>il@VRU$!@^9TcM(zkautyVuXTXsok?B$
+z<)6h-5tqLuP2SJ`pOXVPdn8^|T|sB&^7KdQc7o=o1@5DnoXw?uY?IIwOKntbU;quG
+z4(dZ_c5ku^)$B)8TLBe%R9de@M|*oG`ty{jwos$OjYKKqU$d1~xP{4BWnBSpr)Tmw
+zu%d$|2kYl6ka?6ucY3zI?WBdaQswrE9MlK)@ED|6;3pHaZ>AM9%&<oj@<E7{$b{b4
+zR#Sr~$zgpW2eEGCQ5_lUt0vQXHOZ(^!Eu$8aM0PwTXKBhg-qR8Rv`!PHMcfqVRB%y
+zX@{1jW?R`;!akHJE<}YSYirSidHCp`Y0b|2(Ucz1oZ7h1%z}vt7?}Serfanp8z7J=
+z;g@0p#|0=|XrLYqJ-BL3WF=YL4bC|M|L(diG-U8>{6G(R264=ur9N#7hF!QZf!>^G
+z;CQue#YY?d)#EyC;d;=bNL`$%I+C7{Q~W}M?GDD@n4bR6cKP_B)uyf)=95cNvKgJ%
+zyAv9*I<fNcTBFSG+X$N{7SFMR=hrsw?;?=9zJ{GpZRSr`cIjX#8nDY~z+yx6rOh$G
+z-SPlqU9nyF_Lh+EJuHFZdlZNGLR7YpVub?BDjXy<2FfYYWG@b|6xDGfLwg*kPO7F?
+zCSR6pDjYB9us@JzOJ~o#zW<s1m7qd9_beD}H`ZP)1N^^lC73yYCjtD46vj;5>;=4Q
+zrDeQFNwn9u%1lNrLOcX~$1x(m6$(N8^+BCtop?F{HkjJ7=dPLsk(&>2yE)Pf3lPNu
+zZ(zMl4=u0sO-_jI0mK;sYg^oY?CV;r(F2m*i|h{`10Hh}lnTXs2iNtyHJ>Prn$?L!
+zMG|WG(8M38i*M#KU0>#J7toaevvZJtT`rX>hgvw8o}Qku%LZ)8R9>ue@VT_imgMb6
+zsHzfWMl4K4A-d})1L66Leq)Vu#RBdD;Hmw9ql6dDd15jU#$Yx{fYO*jcNw^)MiDX2
+zH*t9FSI54nDQ93hHJb$-9aJkJeV0(7AqYhm2fa7DjQ!%JfjF$7jv~&VKjv+9&S{x_
+z3x?eX4S{4sL%{Nh>qZt+S9OpqAN{=z2ficF9o`xu%>j5e_DF(IAvJ=(qCLKcITfY_
+z6X5MZ8V3L5amcOCm3+z5LEaWQ-9qvHEN?Ciu@;M8{mVMzv}9grnbhr~N<~B);||gA
+z^L#7q-HgHM)Xft>fi@|uPL5tPB_lX{X}_exKN*5--UA~~QE-bdIAsZVlgz5LL;zcg
+z)>zU$s<eMs11~+wzCresmTW$=T2d2J>TdHEN)T`Fttyz=-#t3t`L7iM+Q;IVi2<Bw
+zyp~HEn*W4Iey85$Qh3n0(ZcaXt>zW*`C|6{Wr%^vWFPV;6YGg2m!>^h@#eizj@*JQ
+z6*dD`2``!dga$0=^MHew?-GzV8Phr6v_E}v1*%kszJOQ{su`SdvVinEXpOh11Kp`<
+zf4bZRn8}vq>eeOD2HDa{%^cOH16q~zagF7vO_MOoypjAj(Joq{f>Z^@K@<w<<>LXC
+zClM?kFY_k|zn<10MVl-f-hi#)X&>sN3DWqV1!d5d)Zai$*hdadoSCy`Rf&&FCyd^C
+z){1y%NuT>%$z~<oCe*nvO|@Q^UYE7l<oG-^PV`u3a3Y_%;b@-sSlc#(8)%bH({);J
+z?4H5FgAhl%>$bLhqMK!~e4<;`PS<~PTbqWLT;FiIyC5Ml(TkbPi!W}Nit395%Tspq
+z!t$FAYRT{TXaH|{iaxOLP@AI958&F=4DJmLxg}*39h-jx_t9#Ka%lrSBJE0C`9W-Q
+z%U<<Z!ozahR`XE*9k;bbWpF!C@$dH}o^Jq*CR~pgny%A|^EP02J(bh61Lv17yYrju
+ztT~%z-S=+_S&bcT6Y9M$pD<0=)wx0eIOt*irdb5L33L3~oi-EycIbY%cI*kR3D?|N
+zT>Av?tz+NG$1P{<Bz-Z~5%S)=F1hr>7^wU6e;hlo_)QMSOFtYU14`B@_;|F}CX0y<
+z5ap1`OMLBzL-ds4o)$;hXD7Wj(b7@7w3Fxnk;p4Zj4c6Uw3C-3x3LMq632p;`CEF~
+z7AJ{5#6)`VL;9`laWS@{mzv)mQ%ipg_S?_3xPm1nh!Q}C^MDp1V5zPz%qlH{1)6SL
+zT%rMt*z99*ogITsxMEN?J|;;RAGNVd`~0S4DRGE6_|(2{?_0aif*R!H8^>Z?UQLo!
+zB~FieJL}CA@T(YFznwl_wW}O0lw`rYni%g_qk>ifrJxj*O3B&;<LUMzg9h<$(%|H;
+zlXp$gnM9hlnwKiHnX4fjfi3k7z$7fXMr%y*5%ctAjH0yGL5aX-!$}?um~Y|z>TV3}
+z##{5^xvrB?%%$AGNPdVd+WJ0ra5~Tzx*HW5o!fc0f5~Siv?eW?aixq=cA9y(^t-32
+zUQr$|tti?trh$P;YX>9;=Tx#XNb3p7ejVDBTg~v^Xbv%S&cfxd5f~eyC10UJ#UHN5
+zGG<2+>#G6sUOu<cy5y$Mj1wX?COL>hV#iFEkBnP}?Amxz_bc2z^=d{%8QeYfw<7N;
+zd|~QUWD@LoB}wemh0w~rFB9}46vEjdlpmfBodK_p>MmzTyxOuF$rOnt-jl3hxD1ZG
+zC>^*8G9S^#OhmsX)seiPH{O%XNs*?AYlRVkK3vt1HV0pwgDib*lI%%_nX{s#PYN_7
+z?Kjb8dGe|Pv_Z52tdc#+tWm5gCElk_`%M%UXeZ+*lB0ozJ&4$@+n=KENC-gJ`GE9P
+zBl8d`-a@jbb2ZU$hbJbcB$g*876M56PGNEe)k01!PeO=E`X+9o<?Fr{qK|DDvFTAp
+zvk6x;uOWTX?oj)EG_dJ~u6NhuOFyc^Kr~$>KLUh*Gg;d|yzB6*+yT9jF^UyCKvt(q
+zyTA1N0>60a&Lc-D$!gyB)RfKs8ruE9Z~q9G|M*B}A*c*62ZWc<_*d>hS&j6bYXNc3
+z`oF5+=)Lph8|!r-jelnKlD&o6D(}AZ?vdaZS#e`W@hE-IMEXkzMi2xwCHTYAV=V>q
+zN^(Cwa*q-p=ZYo2BUfxi^InVp#|4>VG469Ut-tPmb5DNHP0_IuqS7(_{{c)2fM1{M
+R7I^>w002ovPDHLkV1mgppJV_4
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/dewford/metatile_attributes.bin b/data/tilesets/secondary/dewford/metatile_attributes.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca327e17d32d8ae248bd782a4a1cce076d3d4ba2
+GIT binary patch
+literal 1516
+zcmdUuOAf*?3`9pLOBQUphn|GXpx*xmXiBD?xF$tN2zZi}xZ_WfCcwh^0>BM;eB)Rx
+zgIY$D6Y4rm9GP5Qd#8Pdf{_;DRCCT@@17pGhP`^NSLRL{Kec;GV>;_~jmQ`BITH7q
+zxu2WQnN$5Ge<(Q2o>9+r5AXRg>Y2Wa*7%H`-qU^ou8-*6Z8#N-w2iQ$8vj82AM&*a
+V`5Dp_8`;xwiy2>r@Az2X^Bor}6FdL_
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/dewford/metatiles.bin b/data/tilesets/secondary/dewford/metatiles.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..7689f5e7e4a272528017debf581ed1c4011e3883
+GIT binary patch
+literal 6064
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/dewford/palettes/00.pal b/data/tilesets/secondary/dewford/palettes/00.pal
+new file mode 100644
+index 0000000..b330eaf
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/00.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++255 0 255
++115 189 246
++98 172 238
++115 189 246
++98 164 222
++82 139 197
++74 115 172
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/01.pal b/data/tilesets/secondary/dewford/palettes/01.pal
+new file mode 100644
+index 0000000..3c6e40c
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/01.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++255 189 131
++238 148 115
++222 106 98
++205 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/02.pal b/data/tilesets/secondary/dewford/palettes/02.pal
+new file mode 100644
+index 0000000..4c41030
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/02.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++115 197 164
++65 180 131
++24 164 106
+diff --git a/data/tilesets/secondary/dewford/palettes/03.pal b/data/tilesets/secondary/dewford/palettes/03.pal
+new file mode 100644
+index 0000000..3760ac9
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/03.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++213 213 213
++189 189 189
++164 164 164
++131 131 139
++255 0 255
++255 0 255
++65 49 65
++238 213 205
++222 180 164
++189 148 139
++156 115 115
++131 90 90
++98 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/04.pal b/data/tilesets/secondary/dewford/palettes/04.pal
+new file mode 100644
+index 0000000..2eeaba6
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/04.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++255 0 255
++255 0 255
++255 0 255
++255 0 255
++82 106 213
++65 90 189
++57 82 164
++49 74 148
++172 197 230
++139 164 222
++106 131 213
++82 106 213
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/05.pal b/data/tilesets/secondary/dewford/palettes/05.pal
+new file mode 100644
+index 0000000..90adedf
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/05.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++238 230 164
++222 205 131
++213 180 106
++205 156 82
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/06.pal b/data/tilesets/secondary/dewford/palettes/06.pal
+new file mode 100644
+index 0000000..4173d16
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/06.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++197 139 205
++172 115 180
++148 90 156
++106 57 115
++115 197 164
+diff --git a/data/tilesets/secondary/dewford/palettes/07.pal b/data/tilesets/secondary/dewford/palettes/07.pal
+new file mode 100644
+index 0000000..0aa4da9
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/07.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 205 115
++189 172 82
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++164 189 98
++131 156 65
++98 123 32
++65 90 0
++156 139 49
+diff --git a/data/tilesets/secondary/dewford/palettes/08.pal b/data/tilesets/secondary/dewford/palettes/08.pal
+new file mode 100644
+index 0000000..6a21cef
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/08.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++222 205 131
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++222 205 115
++189 172 82
++156 139 49
+diff --git a/data/tilesets/secondary/dewford/palettes/09.pal b/data/tilesets/secondary/dewford/palettes/09.pal
+new file mode 100644
+index 0000000..ab7b248
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/09.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++255 255 148
++197 197 115
++213 238 255
++139 139 148
++98 98 123
++65 74 106
++213 205 222
++180 213 255
++148 164 238
++131 148 197
++238 148 16
++205 115 82
++172 82 65
++131 74 65
+diff --git a/data/tilesets/secondary/dewford/palettes/10.pal b/data/tilesets/secondary/dewford/palettes/10.pal
+new file mode 100644
+index 0000000..451da6c
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/10.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++255 255 255
++205 205 197
++180 180 164
++123 213 164
++139 139 148
++0 0 0
++0 0 0
++0 0 0
++180 213 255
++148 164 238
++255 213 49
++0 0 0
++205 115 82
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/dewford/palettes/11.pal b/data/tilesets/secondary/dewford/palettes/11.pal
+new file mode 100644
+index 0000000..70a091b
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/11.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++98 197 0
++164 98 90
++255 255 255
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++255 213 49
++156 139 49
++238 148 115
++205 65 82
++197 139 205
++172 115 180
++98 197 0
+diff --git a/data/tilesets/secondary/dewford/palettes/12.pal b/data/tilesets/secondary/dewford/palettes/12.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/12.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/dewford/palettes/13.pal b/data/tilesets/secondary/dewford/palettes/13.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/13.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/dewford/palettes/14.pal b/data/tilesets/secondary/dewford/palettes/14.pal
+new file mode 100644
+index 0000000..d7bd13f
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/14.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++255 0 255
+diff --git a/data/tilesets/secondary/dewford/palettes/15.pal b/data/tilesets/secondary/dewford/palettes/15.pal
+new file mode 100644
+index 0000000..e7717d7
+--- /dev/null
++++ b/data/tilesets/secondary/dewford/palettes/15.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 213 180
++255 197 148
++222 148 115
++123 65 65
++57 74 123
++41 57 98
++24 41 82
++16 32 57
++222 230 238
++255 197 90
++189 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/data/tilesets/secondary/dewford/tiles.png b/data/tilesets/secondary/dewford/tiles.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..09a6339f8405ffff28aa7cca9989a815e0b22aec
+GIT binary patch
+literal 3668
+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
+
+literal 0
+HcmV?d00001
+
 diff --git a/graphics/battle_anims/sprites/unown_glyph.png b/graphics/battle_anims/sprites/unown_glyph.png
 new file mode 100644
 index 0000000000000000000000000000000000000000..812e86123e0d8ed0181c0bd2e8cee65fb783576c
@@ -14392,15 +16098,17 @@ index cfc4225..4edf23f 100644
  #define ITEM_037 55
  #define ITEM_038 56
 diff --git a/include/constants/menu.h b/include/constants/menu.h
-index 7c36f36..c026e73 100644
+index 7c36f36..c16c28a 100644
 --- a/include/constants/menu.h
 +++ b/include/constants/menu.h
-@@ -69,6 +69,8 @@
+@@ -69,6 +69,10 @@
  #define MULTICHOICE_62                                         62
  #define MULTICHOICE_JOIN_OR_LEAD                               63
  #define MULTICHOICE_TRAINER_TOWER_MODE                         64
 +#define MULTICHOICE_HAN_TOWER_TEAM                             65
 +#define MULTICHOICE_HAN_TOWER_TEAM_BRANDON                     66
++#define MULTICHOICE_HAN_FERRY_SEVEN                            67
++#define MULTICHOICE_HAN_FERRY_DEWFORD                          68
  
  #define MULTICHOICE_NONE                                      255
  
@@ -14432,6 +16140,19 @@ index 14738f1..ec0d384 100644
  
  // Used for checks for moves affected by Disable, Mimic, etc.
  #define MOVE_UNAVAILABLE 0xFFFF
+diff --git a/include/constants/seagallop.h b/include/constants/seagallop.h
+index 68e8474..c7618ff 100644
+--- a/include/constants/seagallop.h
++++ b/include/constants/seagallop.h
+@@ -13,6 +13,8 @@
+ #define SEAGALLOP_NAVEL_ROCK       9
+ #define SEAGALLOP_BIRTH_ISLAND    10
+ 
++#define SEAGALLOP_DEWFORD         11 // Hän build: Hoenn
++
+ #define SEAGALLOP_MORE           254
+ 
+ #endif //GUARD_CONSTANTS_SEAGALLOP_H
 diff --git a/include/constants/songs.h b/include/constants/songs.h
 index 4f5fc3c..2291c80 100644
 --- a/include/constants/songs.h
@@ -19522,6 +21243,25 @@ index 0000000..e483bc9
 +    0xC6, 0xBF, 0xBB, 0xC0, 0xFF, // LEAF
 +    0xFF
 +};
+diff --git a/src/data/heal_locations.json b/src/data/heal_locations.json
+index 9802525..b8237d2 100644
+--- a/src/data/heal_locations.json
++++ b/src/data/heal_locations.json
+@@ -159,6 +159,14 @@
+       "y": 12,
+       "respawn_map": "MAP_SIX_ISLAND_POKEMON_CENTER_1F",
+       "respawn_npc": "LOCALID_SIX_ISLAND_NURSE"
++    },
++    {
++      "id": "HEAL_LOCATION_DEWFORD_TOWN",
++      "map": "MAP_DEWFORD_TOWN",
++      "x": 2,
++      "y": 11,
++      "respawn_map": "MAP_DEWFORD_TOWN_POKEMON_CENTER_1F",
++      "respawn_npc": "LOCALID_DEWFORD_NURSE"
+     }
+   ]
+ }
 diff --git a/src/data/item_icon_table.h b/src/data/item_icon_table.h
 index a9dd7f0..a22ce9e 100644
 --- a/src/data/item_icon_table.h
@@ -21700,6 +23440,101 @@ index cedb48b..3a3c791 100644
      [TRAINER_CLASS_TUBER]               = _("TUBER"),
      [TRAINER_CLASS_PKMN_BREEDER]        = _("{PKMN} BREEDER"),
      [TRAINER_CLASS_PKMN_RANGER]         = _("{PKMN} RANGER"),
+diff --git a/src/data/tilesets/graphics.h b/src/data/tilesets/graphics.h
+index 5e6791a..3aea32a 100644
+--- a/src/data/tilesets/graphics.h
++++ b/src/data/tilesets/graphics.h
+@@ -1407,3 +1407,47 @@ const u16 gTilesetPalettes_HallOfFame[][16] =
+ 	INCBIN_U16("data/tilesets/secondary/hall_of_fame/palettes/14.gbapal"),
+ 	INCBIN_U16("data/tilesets/secondary/hall_of_fame/palettes/15.gbapal"),
+ };
++
++const u32 gTilesetTiles_HoennGeneral[] = INCBIN_U32("data/tilesets/primary/hoenn_general/tiles.4bpp.lz");
++
++const u16 gTilesetPalettes_HoennGeneral[][16] =
++{
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/00.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/01.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/02.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/03.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/04.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/05.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/06.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/07.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/08.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/09.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/10.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/11.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/12.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/13.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/14.gbapal"),
++	INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/15.gbapal"),
++};
++
++const u32 gTilesetTiles_Dewford[] = INCBIN_U32("data/tilesets/secondary/dewford/tiles.4bpp.lz");
++
++const u16 gTilesetPalettes_Dewford[][16] =
++{
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/00.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/01.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/02.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/03.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/04.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/05.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/06.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/07.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/08.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/09.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/10.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/11.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/12.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/13.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/14.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/dewford/palettes/15.gbapal"),
++};
+diff --git a/src/data/tilesets/headers.h b/src/data/tilesets/headers.h
+index 676bd21..823bc1d 100644
+--- a/src/data/tilesets/headers.h
++++ b/src/data/tilesets/headers.h
+@@ -746,3 +746,24 @@ const struct Tileset gTileset_HallOfFame =
+     .callback = NULL,
+ };
+ 
++const struct Tileset gTileset_HoennGeneral =
++{
++    .isCompressed = TRUE,
++    .isSecondary = FALSE,
++    .tiles = gTilesetTiles_HoennGeneral,
++    .palettes = gTilesetPalettes_HoennGeneral,
++    .metatiles = gMetatiles_HoennGeneral,
++    .metatileAttributes = gMetatileAttributes_HoennGeneral,
++    .callback = NULL,
++};
++
++const struct Tileset gTileset_Dewford =
++{
++    .isCompressed = TRUE,
++    .isSecondary = TRUE,
++    .tiles = gTilesetTiles_Dewford,
++    .palettes = gTilesetPalettes_Dewford,
++    .metatiles = gMetatiles_Dewford,
++    .metatileAttributes = gMetatileAttributes_Dewford,
++    .callback = NULL,
++};
+diff --git a/src/data/tilesets/metatiles.h b/src/data/tilesets/metatiles.h
+index a9f2671..684aa06 100644
+--- a/src/data/tilesets/metatiles.h
++++ b/src/data/tilesets/metatiles.h
+@@ -201,3 +201,9 @@ const u32 gMetatileAttributes_PokemonLeague[] = INCBIN_U32("data/tilesets/second
+ 
+ const u16 gMetatiles_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_fame/metatiles.bin");
+ const u32 gMetatileAttributes_HallOfFame[] = INCBIN_U32("data/tilesets/secondary/hall_of_fame/metatile_attributes.bin");
++
++const u16 gMetatiles_HoennGeneral[] = INCBIN_U16("data/tilesets/primary/hoenn_general/metatiles.bin");
++const u32 gMetatileAttributes_HoennGeneral[] = INCBIN_U32("data/tilesets/primary/hoenn_general/metatile_attributes.bin");
++
++const u16 gMetatiles_Dewford[] = INCBIN_U16("data/tilesets/secondary/dewford/metatiles.bin");
++const u32 gMetatileAttributes_Dewford[] = INCBIN_U32("data/tilesets/secondary/dewford/metatile_attributes.bin");
 diff --git a/src/data/trainer_parties.h b/src/data/trainer_parties.h
 index 2e57800..3c1e28d 100644
 --- a/src/data/trainer_parties.h
@@ -30157,10 +31992,10 @@ index 97b695e..3b5b896 100644
              gSpecialVar_Result = i;
              gSpecialVar_0x8004 = species;
 diff --git a/src/script_menu.c b/src/script_menu.c
-index 41eebd8..c2bb4af 100644
+index 41eebd8..3b93108 100644
 --- a/src/script_menu.c
 +++ b/src/script_menu.c
-@@ -498,6 +498,28 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
+@@ -498,6 +498,44 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
      { gOtherText_Exit }
  };
  
@@ -30186,15 +32021,33 @@ index 41eebd8..c2bb4af 100644
 +    { gOtherText_Exit }
 +};
 +
++static const u8 sText_HanFerryCinnabar[] = _("CINNABAR");
++static const u8 sText_HanFerryDewford[] = _("DEWFORD");
++
++// Hän build: the ship from Seven Island to Cinnabar or Hoenn, and the ship home
++static const struct MenuAction sMultichoiceList_HanFerrySeven[] = {
++    { sText_HanFerryCinnabar },
++    { sText_HanFerryDewford },
++    { gOtherText_Exit }
++};
++
++static const struct MenuAction sMultichoiceList_HanFerryDewford[] = {
++    { gText_SevenIsland },
++    { sText_HanFerryCinnabar },
++    { gOtherText_Exit }
++};
++
  static const struct MenuAction sMultichoiceList_Exit[] = {
      { gOtherText_Exit }
  };
-@@ -568,6 +590,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
+@@ -568,6 +606,10 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
      [MULTICHOICE_62]                                         = MULTICHOICE(sMultichoiceList_62),
      [MULTICHOICE_JOIN_OR_LEAD]                               = MULTICHOICE(sMultichoiceList_JoinOrLead),
      [MULTICHOICE_TRAINER_TOWER_MODE]                         = MULTICHOICE(sMultichoiceList_TrainerTowerMode),
 +    [MULTICHOICE_HAN_TOWER_TEAM]                             = MULTICHOICE(sMultichoiceList_HanTowerTeam),
 +    [MULTICHOICE_HAN_TOWER_TEAM_BRANDON]                     = MULTICHOICE(sMultichoiceList_HanTowerTeamBrandon),
++    [MULTICHOICE_HAN_FERRY_SEVEN]                            = MULTICHOICE(sMultichoiceList_HanFerrySeven),
++    [MULTICHOICE_HAN_FERRY_DEWFORD]                          = MULTICHOICE(sMultichoiceList_HanFerryDewford),
  };
  
  // From Cool to Berries goes unused
@@ -30689,6 +32542,40 @@ index bc11dc0..1605eeb 100644
 +    }
 +    CalculatePlayerPartyCount();
 +}
+diff --git a/src/seagallop.c b/src/seagallop.c
+index 8d00ead..52f14bf 100644
+--- a/src/seagallop.c
++++ b/src/seagallop.c
+@@ -71,7 +71,8 @@ static const s8 sSeag[][4] = {
+     [SEAGALLOP_SEVEN_ISLAND]    = {MAP(MAP_SEVEN_ISLAND_HARBOR), 0x08, 0x05},
+     [SEAGALLOP_CINNABAR_ISLAND] = {MAP(MAP_CINNABAR_ISLAND),     0x15, 0x07},
+     [SEAGALLOP_NAVEL_ROCK]      = {MAP(MAP_NAVEL_ROCK_HARBOR),   0x08, 0x05},
+-    [SEAGALLOP_BIRTH_ISLAND]    = {MAP(MAP_BIRTH_ISLAND_HARBOR), 0x08, 0x05}
++    [SEAGALLOP_BIRTH_ISLAND]    = {MAP(MAP_BIRTH_ISLAND_HARBOR), 0x08, 0x05},
++    [SEAGALLOP_DEWFORD]         = {MAP(MAP_DEWFORD_TOWN),        0x0B, 0x09}
+ };
+ 
+ // Bitpacked array.  In the commented section, right-most bit is the
+@@ -95,7 +96,8 @@ static const u16 sTravelDirectionMatrix[] = {
+     [SEAGALLOP_SEVEN_ISLAND]    = 0x440, // 10001000000
+     [SEAGALLOP_CINNABAR_ISLAND] = 0x7ff, // 11111111111
+     [SEAGALLOP_NAVEL_ROCK]      = 0x6e0, // 11011100000
+-    [SEAGALLOP_BIRTH_ISLAND]    = 0x000  // 00000000000
++    [SEAGALLOP_BIRTH_ISLAND]    = 0x000, // 00000000000
++    [SEAGALLOP_DEWFORD]         = 0x7ff  // Hän build: from Dewford always eastbound
+ };
+ 
+ static const union AnimCmd sSpriteAnims_Ferry_WB[] = {
+@@ -458,6 +460,9 @@ u8 GetSeagallopNumber(void)
+     originId = gSpecialVar_0x8004;
+     destId = gSpecialVar_0x8006;
+ 
++    if (originId == SEAGALLOP_DEWFORD || destId == SEAGALLOP_DEWFORD)
++        return 13;
++
+     if (originId == SEAGALLOP_CINNABAR_ISLAND || destId == SEAGALLOP_CINNABAR_ISLAND)
+         return 1;
+ 
 diff --git a/src/sound.c b/src/sound.c
 index 9060aa5..d204072 100644
 --- a/src/sound.c
