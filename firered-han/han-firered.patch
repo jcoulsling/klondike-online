@@ -1758,7 +1758,7 @@ index 8e8a4ee..4ae1bec 100644
  
  OneIsland_PokemonCenter_1F_Text_EnormousVolcanoOnIsland::
 diff --git a/data/maps/PalletTown/text.inc b/data/maps/PalletTown/text.inc
-index 726aea8..00392b2 100644
+index 726aea8..43700f8 100644
 --- a/data/maps/PalletTown/text.inc
 +++ b/data/maps/PalletTown/text.inc
 @@ -1,14 +1,11 @@
@@ -1775,7 +1775,7 @@ index 726aea8..00392b2 100644
 -    .string "I know!\n"
 -    .string "Here, come with me!$"
 +    .string "Jëkänäncha! POKéMON tl’o njew cha\n"
-+    .string "huhuchin!\p"
++    .string "huhuch’in!\p"
 +    .string "POKéMON nts’än dädą̈̀hch’e.\p"
 +    .string "Shch’aw onzha!$"
  
@@ -4982,10 +4982,10 @@ index 0000000..b9ae260
 +	.string "loan today!$"
 diff --git a/data/scripts/han_trade.inc b/data/scripts/han_trade.inc
 new file mode 100644
-index 0000000..73fb6c4
+index 0000000..d285f77
 --- /dev/null
 +++ b/data/scripts/han_trade.inc
-@@ -0,0 +1,192 @@
+@@ -0,0 +1,190 @@
 +@ Hän build: trading with another player (src/han_trade.c). Jane, 22 November 2026.
 +
 +Han_Trade_Initiate::
@@ -5073,9 +5073,7 @@ index 0000000..73fb6c4
 +Han_Battle_Initiate::
 +	msgbox Han_Battle_Text_Ask, MSGBOX_YESNO
 +	goto_if_eq VAR_RESULT, NO, Han_Trade_End
-+	msgbox Han_Battle_Text_Double, MSGBOX_YESNO
 +	setvar VAR_0x8004, 0
-+	goto_if_eq VAR_RESULT, YES, Han_Battle_SetDouble
 +Han_Battle_Ask2::
 +	specialvar VAR_RESULT, HanBattleChallenge
 +	goto_if_eq VAR_RESULT, FALSE, Han_Battle_CannotFight
@@ -5140,7 +5138,7 @@ index 0000000..73fb6c4
 +	.string "Yä̀ä łëtr’ubàa nindhän?$" @ Jane's line, Hän build
 +
 +Han_Battle_Text_Offered:
-+	.string "Another player wants a {STR_VAR_1} battle.\n"
++	.string "Another player wants a battle.\n"
 +	.string "Yä̀ä łëtr’ubàa nindhän?$"
 +
 +Han_Battle_Text_CannotFight:
@@ -6485,7 +6483,7 @@ index 0b800ba..15fb4c7 100644
  
  Trade_Text_ThanksYoureAPal::
 diff --git a/data/text/new_game_intro.inc b/data/text/new_game_intro.inc
-index e667b68..f187862 100644
+index e667b68..5ac9fd5 100644
 --- a/data/text/new_game_intro.inc
 +++ b/data/text/new_game_intro.inc
 @@ -155,75 +155,64 @@ gControlsGuide_Text_LRButtons::
@@ -6562,7 +6560,7 @@ index e667b68..f187862 100644
  gOakSpeech_Text_IsInhabitedFarAndWide::
 -    .string "…is inhabited far and wide by\n"
 -    .string "creatures called POKéMON.\p$"
-+    .string "POKéMON huhuchin.\p$"
++    .string "POKéMON huhuch’in.\p$"
  
  gOakSpeech_Text_IStudyPokemon::
 -    .string "For some people, POKéMON are pets.\n"
