@@ -1066,3 +1066,13 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - Real Emerald trainer pictures for 14 Hoenn trainers (Juan, Wallace, Steven and others) instead of the nearest FireRed ones.
 - Fly map for Hoenn: open Fly, press SELECT to switch between the Kanto map and the Hoenn map (16 towns, Emerald map picture). SELECT again goes back. All towns are unlocked for now.
 - Not done yet: Hoenn badges on the trainer card, gym TMs and story events, Contest Hall / Game Corner / Battle Frontier, items on the ground, berry trees.
+
+## 2026-11-24h
+- Level caps. A gym leader (Kanto or Hoenn) will not battle you if a Pokémon in your party is over the cap for the badges you hold from that region. Kanto caps by badges 0 to 8: 14, 21, 24, 29, 43, 43, 47, 50, 100. Hoenn: 15, 19, 24, 29, 31, 33, 42, 46, 100.
+- Dewford story: on your first arrival Professor Birch gives you a Treecko, Torchic or Mudkip at level 14, 10 Great Balls, and points you to the Wild Area. Placeholder English text.
+- Wild Area: a field on Dewford's west shore. Common Pokémon walk about in the open; bump into one for a normal wild battle. Roaming Pokémon are drawn again every time you enter or come back from a battle.
+- Gym leaders Wattson and Norman can now be battled. Every Hoenn leader gives a badge and their TM.
+- Trainer card shows the Hoenn badges while you are in Hoenn.
+- Items on the ground (133) and berry trees (88, as bushes that give 3 berries once; FireRed has no berry planting).
+- Mauville Game Corner: the clerk gives the Coin Case, coins and slot machines work as in Celadon. Roulette and the prize counter are not done.
+- Not done: Contest Hall (the building is there, contests are not), Battle Frontier, Hoenn hidden items.
