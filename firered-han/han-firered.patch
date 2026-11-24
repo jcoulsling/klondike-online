@@ -671,6 +671,31 @@ index ac9af2b..2645728 100644
  
  @ Text for the replaced altars in the rocket chiefs house / celadon mansion
  @ In English RB, this is westernized as "It's a sculpture of DIGLETT.", and is removed altogether in FRLG
+diff --git a/data/maps/CeladonCity_PokemonCenter_2F/map.json b/data/maps/CeladonCity_PokemonCenter_2F/map.json
+index 9131342..229aa27 100644
+--- a/data/maps/CeladonCity_PokemonCenter_2F/map.json
++++ b/data/maps/CeladonCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/CeladonCity_Restaurant/text.inc b/data/maps/CeladonCity_Restaurant/text.inc
 index 2941ff0..6c09496 100644
 --- a/data/maps/CeladonCity_Restaurant/text.inc
@@ -876,6 +901,31 @@ index b8b981b..f7b6f95 100644
      .string "Young one, it's important to take an\n"
      .string "interest in all sorts of things.$"
  
+diff --git a/data/maps/CeruleanCity_PokemonCenter_2F/map.json b/data/maps/CeruleanCity_PokemonCenter_2F/map.json
+index a8a5701..fd5b5ad 100644
+--- a/data/maps/CeruleanCity_PokemonCenter_2F/map.json
++++ b/data/maps/CeruleanCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/CinnabarIsland/text.inc b/data/maps/CinnabarIsland/text.inc
 index 379c7d0..9c8da4b 100644
 --- a/data/maps/CinnabarIsland/text.inc
@@ -988,6 +1038,31 @@ index 27f1405..f5c49b2 100644
      .string "WINNING TRAINERS:\n"
      .string "{RIVAL}, {PLAYER}$"
  
+diff --git a/data/maps/CinnabarIsland_PokemonCenter_2F/map.json b/data/maps/CinnabarIsland_PokemonCenter_2F/map.json
+index 637d748..e458203 100644
+--- a/data/maps/CinnabarIsland_PokemonCenter_2F/map.json
++++ b/data/maps/CinnabarIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/CinnabarIsland_PokemonLab_Entrance/text.inc b/data/maps/CinnabarIsland_PokemonLab_Entrance/text.inc
 index f146180..d88693c 100644
 --- a/data/maps/CinnabarIsland_PokemonLab_Entrance/text.inc
@@ -1107,6 +1182,31 @@ index e366fd3..c931381 100644
      .string "The WAREHOUSE's door opened!$"
  
  FiveIsland_Meadow_Text_WarehouseDoorAlreadyOpen::
+diff --git a/data/maps/FiveIsland_PokemonCenter_2F/map.json b/data/maps/FiveIsland_PokemonCenter_2F/map.json
+index 2122e04..edcc2a6 100644
+--- a/data/maps/FiveIsland_PokemonCenter_2F/map.json
++++ b/data/maps/FiveIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/FiveIsland_ResortGorgeous/text.inc b/data/maps/FiveIsland_ResortGorgeous/text.inc
 index 93eeb68..2245f71 100644
 --- a/data/maps/FiveIsland_ResortGorgeous/text.inc
@@ -1249,6 +1349,31 @@ index 1673b08..a6ab043 100644
      .string "They said that they'd found EGGS\n"
      .string "before on their property.$"
  
+diff --git a/data/maps/FourIsland_PokemonCenter_2F/map.json b/data/maps/FourIsland_PokemonCenter_2F/map.json
+index d606536..6c46130 100644
+--- a/data/maps/FourIsland_PokemonCenter_2F/map.json
++++ b/data/maps/FourIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/FuchsiaCity/text.inc b/data/maps/FuchsiaCity/text.inc
 index f3a2c00..62b1765 100644
 --- a/data/maps/FuchsiaCity/text.inc
@@ -1451,6 +1576,31 @@ index 59b1f35..2826f19 100644
  
  FuchsiaCity_PokemonCenter_1F_Text_PokemonLeagueWestOfViridian::
      .string "There's a narrow trail west of\n"
+diff --git a/data/maps/FuchsiaCity_PokemonCenter_2F/map.json b/data/maps/FuchsiaCity_PokemonCenter_2F/map.json
+index 60eb84e..478edb4 100644
+--- a/data/maps/FuchsiaCity_PokemonCenter_2F/map.json
++++ b/data/maps/FuchsiaCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/FuchsiaCity_WardensHouse/text.inc b/data/maps/FuchsiaCity_WardensHouse/text.inc
 index 2cdccb1..2b7a79c 100644
 --- a/data/maps/FuchsiaCity_WardensHouse/text.inc
@@ -1497,6 +1647,31 @@ index 857fc13..4079e88 100644
      .string "a cousin who's a GYM LEADER\l"
      .string "somewhere far away.$"
  
+diff --git a/data/maps/IndigoPlateau_PokemonCenter_2F/map.json b/data/maps/IndigoPlateau_PokemonCenter_2F/map.json
+index 7706453..dac75e3 100644
+--- a/data/maps/IndigoPlateau_PokemonCenter_2F/map.json
++++ b/data/maps/IndigoPlateau_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/LavenderTown/text.inc b/data/maps/LavenderTown/text.inc
 index b7e6035..aaa36d1 100644
 --- a/data/maps/LavenderTown/text.inc
@@ -1572,6 +1747,31 @@ index 8c39e13..5a03f94 100644
  
  LavenderTown_PokemonCenter_1F_Text_CubonesMotherKilledByRockets::
      .string "I saw CUBONE's mother trying to\n"
+diff --git a/data/maps/LavenderTown_PokemonCenter_2F/map.json b/data/maps/LavenderTown_PokemonCenter_2F/map.json
+index 6fc2a43..7e6085d 100644
+--- a/data/maps/LavenderTown_PokemonCenter_2F/map.json
++++ b/data/maps/LavenderTown_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/LavenderTown_VolunteerPokemonHouse/text.inc b/data/maps/LavenderTown_VolunteerPokemonHouse/text.inc
 index 7ce87cd..2478c04 100644
 --- a/data/maps/LavenderTown_VolunteerPokemonHouse/text.inc
@@ -1757,6 +1957,31 @@ index 8e8a4ee..4ae1bec 100644
      .string "I don't know it!$"
  
  OneIsland_PokemonCenter_1F_Text_EnormousVolcanoOnIsland::
+diff --git a/data/maps/OneIsland_PokemonCenter_2F/map.json b/data/maps/OneIsland_PokemonCenter_2F/map.json
+index 62c92bf..e288efc 100644
+--- a/data/maps/OneIsland_PokemonCenter_2F/map.json
++++ b/data/maps/OneIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/PalletTown/text.inc b/data/maps/PalletTown/text.inc
 index 726aea8..43700f8 100644
 --- a/data/maps/PalletTown/text.inc
@@ -2200,6 +2425,31 @@ index 0140603..6999588 100644
      .string "Oh, whatever!\n"
      .string "Do you know what AMBER is?$"
  
+diff --git a/data/maps/PewterCity_PokemonCenter_2F/map.json b/data/maps/PewterCity_PokemonCenter_2F/map.json
+index 7568920..7ff0765 100644
+--- a/data/maps/PewterCity_PokemonCenter_2F/map.json
++++ b/data/maps/PewterCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/PokemonLeague_ChampionsRoom/text.inc b/data/maps/PokemonLeague_ChampionsRoom/text.inc
 index b00d117..294485a 100644
 --- a/data/maps/PokemonLeague_ChampionsRoom/text.inc
@@ -2502,6 +2752,31 @@ index c47c5ad..4b735f0 100644
  
  Route10_PokemonCenter_1F_Text_GiveEverstoneIfCaught20Mons::
      .string "Oh… {PLAYER}!\n"
+diff --git a/data/maps/Route10_PokemonCenter_2F/map.json b/data/maps/Route10_PokemonCenter_2F/map.json
+index 314ea1b..1182e59 100644
+--- a/data/maps/Route10_PokemonCenter_2F/map.json
++++ b/data/maps/Route10_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/Route11/text.inc b/data/maps/Route11/text.inc
 index 27e256c..7753ae9 100644
 --- a/data/maps/Route11/text.inc
@@ -3096,6 +3371,31 @@ index b539683..38bc135 100644
      .string "POKéMON, it looks like.$"
  
  Route4_PokemonCenter_1F_Text_YoullNeedMoreMoney::
+diff --git a/data/maps/Route4_PokemonCenter_2F/map.json b/data/maps/Route4_PokemonCenter_2F/map.json
+index cdadbfc..c8a52b2 100644
+--- a/data/maps/Route4_PokemonCenter_2F/map.json
++++ b/data/maps/Route4_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/Route5_PokemonDayCare/text.inc b/data/maps/Route5_PokemonDayCare/text.inc
 index 00dc2fe..65a481e 100644
 --- a/data/maps/Route5_PokemonDayCare/text.inc
@@ -3688,6 +3988,31 @@ index 4270846..0f29909 100644
 -    .string "You've no room.$"
 +    .string "You've ënä room.$"
  
+diff --git a/data/maps/SaffronCity_PokemonCenter_2F/map.json b/data/maps/SaffronCity_PokemonCenter_2F/map.json
+index 53db3c4..c5e2bba 100644
+--- a/data/maps/SaffronCity_PokemonCenter_2F/map.json
++++ b/data/maps/SaffronCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/SaffronCity_PokemonTrainerFanClub/text.inc b/data/maps/SaffronCity_PokemonTrainerFanClub/text.inc
 index 1b7780b..9e9be06 100644
 --- a/data/maps/SaffronCity_PokemonTrainerFanClub/text.inc
@@ -3736,6 +4061,31 @@ index 9fde68d..c69a95c 100644
      .string "It was sheer magnificence!$"
  
  @ Unused
+diff --git a/data/maps/SevenIsland_PokemonCenter_2F/map.json b/data/maps/SevenIsland_PokemonCenter_2F/map.json
+index 95ff5a7..4d59171 100644
+--- a/data/maps/SevenIsland_PokemonCenter_2F/map.json
++++ b/data/maps/SevenIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/SevenIsland_SevaultCanyon/text.inc b/data/maps/SevenIsland_SevaultCanyon/text.inc
 index 5810ebb..636424a 100644
 --- a/data/maps/SevenIsland_SevaultCanyon/text.inc
@@ -4092,6 +4442,31 @@ index d758073..558c719 100644
      .string "I may as well leave for home.\p"
      .string "That's that, then!\n"
      .string "Smell ya later!$"
+diff --git a/data/maps/SixIsland_PokemonCenter_2F/map.json b/data/maps/SixIsland_PokemonCenter_2F/map.json
+index fd46d24..333bc9b 100644
+--- a/data/maps/SixIsland_PokemonCenter_2F/map.json
++++ b/data/maps/SixIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/SixIsland_WaterPath/text.inc b/data/maps/SixIsland_WaterPath/text.inc
 index 57ed276..35387f5 100644
 --- a/data/maps/SixIsland_WaterPath/text.inc
@@ -4244,6 +4619,31 @@ index 50b441f..416f5ff 100644
      .string "wanted to live somewhere quiet.\p"
      .string "Today, I think I'll go out fishing.$"
  
+diff --git a/data/maps/ThreeIsland_PokemonCenter_2F/map.json b/data/maps/ThreeIsland_PokemonCenter_2F/map.json
+index fc9dc06..3b5bbe9 100644
+--- a/data/maps/ThreeIsland_PokemonCenter_2F/map.json
++++ b/data/maps/ThreeIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/TrainerTower_Lobby/map.json b/data/maps/TrainerTower_Lobby/map.json
 index bc3221e..b6eb472 100644
 --- a/data/maps/TrainerTower_Lobby/map.json
@@ -4369,6 +4769,31 @@ index a0520aa..ab1225e 100644
      .string "You have to take a friend along.$"
  
  TwoIsland_PokemonCenter_1F_Text_OldLadyLivesOutOnCape::
+diff --git a/data/maps/TwoIsland_PokemonCenter_2F/map.json b/data/maps/TwoIsland_PokemonCenter_2F/map.json
+index adb9a6b..3ebaead 100644
+--- a/data/maps/TwoIsland_PokemonCenter_2F/map.json
++++ b/data/maps/TwoIsland_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/VermilionCity/text.inc b/data/maps/VermilionCity/text.inc
 index befc4a3..cf1984e 100644
 --- a/data/maps/VermilionCity/text.inc
@@ -4554,6 +4979,31 @@ index 00ec595..b97f9a4 100644
      .string "universally strong POKéMON.$"
  
  VermilionCity_PokemonCenter_1F_Text_UrgeToBattleSomeoneAgain::
+diff --git a/data/maps/VermilionCity_PokemonCenter_2F/map.json b/data/maps/VermilionCity_PokemonCenter_2F/map.json
+index d9e4b18..0044d21 100644
+--- a/data/maps/VermilionCity_PokemonCenter_2F/map.json
++++ b/data/maps/VermilionCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/VermilionCity_PokemonFanClub/text.inc b/data/maps/VermilionCity_PokemonFanClub/text.inc
 index c2bf711..1cdb0b5 100644
 --- a/data/maps/VermilionCity_PokemonFanClub/text.inc
@@ -4807,6 +5257,31 @@ index c4726b3..fc77d0b 100644
      .string "be shy about healing POKéMON.$"
  
  ViridianCity_PokemonCenter_1F_Text_PokeCentersHealMons::
+diff --git a/data/maps/ViridianCity_PokemonCenter_2F/map.json b/data/maps/ViridianCity_PokemonCenter_2F/map.json
+index 6458e0f..5deea4d 100644
+--- a/data/maps/ViridianCity_PokemonCenter_2F/map.json
++++ b/data/maps/ViridianCity_PokemonCenter_2F/map.json
+@@ -70,6 +70,20 @@
+       "trainer_sight_or_berry_tree_id": "0",
+       "script": "CableClub_EventScript_MysteryGiftMan",
+       "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
+     }
+   ],
+   "warp_events": [
 diff --git a/data/maps/ViridianCity_School/text.inc b/data/maps/ViridianCity_School/text.inc
 index 65437fa..a609661 100644
 --- a/data/maps/ViridianCity_School/text.inc
@@ -4925,10 +5400,10 @@ index fc2998f..2cf58b9 100644
  	.string "Light is filtering down from above.\n"
 diff --git a/data/scripts/han_tower.inc b/data/scripts/han_tower.inc
 new file mode 100644
-index 0000000..b9ae260
+index 0000000..3373d4e
 --- /dev/null
 +++ b/data/scripts/han_tower.inc
-@@ -0,0 +1,51 @@
+@@ -0,0 +1,64 @@
 +@ Hän build: the TRAINER TOWER from the POKéMON CENTER, and the choice of team at the lobby counter.
 +
 +Han_Tower_NurseOffer::
@@ -4942,6 +5417,15 @@ index 0000000..b9ae260
 +	waitstate
 +Han_Tower_NurseOfferEnd::
 +	return
++
++@ the TRAINER TOWER from upstairs in every POKéMON CENTER, with any number of badges
++Han_Tower_Attendant::
++	lock
++	faceplayer
++	msgbox Han_Tower_Text_Hello
++	call Han_Tower_NurseOffer
++	release
++	end
 +
 +@ VAR_RESULT: TRUE a team is ready, FALSE the player backed out
 +Han_Tower_ChooseTeam::
@@ -4969,6 +5453,10 @@ index 0000000..b9ae260
 +	copyvar VAR_0x8004, VAR_RESULT
 +	specialvar VAR_RESULT, HanTowerBuildTeam
 +	return
++
++Han_Tower_Text_Hello:
++	.string "Welcome! I look after the\n"
++	.string "TRAINER TOWER.$"
 +
 +Han_Tower_Text_Offer:
 +	.string "Would you like to go to the\n"
@@ -5175,18 +5663,6 @@ index 0000000..4b152dc
 +
 +Han_Trade_Text_TimedOut:
 +	.string "There was ënä answer.$"
-diff --git a/data/scripts/pkmn_center_nurse.inc b/data/scripts/pkmn_center_nurse.inc
-index 507c8a4..e0af42f 100644
---- a/data/scripts/pkmn_center_nurse.inc
-+++ b/data/scripts/pkmn_center_nurse.inc
-@@ -43,6 +43,7 @@ EventScript_PkmnCenterNurse_ReturnPkmn::
- 	applymovement VAR_LAST_TALKED, Movement_Bow
- 	waitmovement 0
- 	msgbox Text_WeHopeToSeeYouAgain
-+	call Han_Tower_NurseOffer
- 	return
- 
- EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom::
 diff --git a/data/specials.inc b/data/specials.inc
 index d880bf6..1dfd272 100644
 --- a/data/specials.inc
@@ -27081,10 +27557,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..915cb51
+index 0000000..43aa465
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,141 @@
+@@ -0,0 +1,143 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "event_data.h"
@@ -27102,8 +27578,8 @@ index 0000000..915cb51
 +#include "constants/vars.h"
 +
 +// Hän build: a player called ROWAN starts in Pallet Town with all eight badges and a team of six at level 100,
-+// each with a competitive Gen 3 set (Jane, 24 November 2026). The TRAINER TOWER needs nothing more: the nurse offers it
-+// in every POKéMON CENTER. The web page also keeps a save for each name, so this happens once, for a new game.
++// each with a competitive Gen 3 set (Jane, 24 November 2026). The TRAINER TOWER needs nothing more: the attendant
++// upstairs in every POKéMON CENTER offers it. The web page also keeps a save for each name, so this happens once, for a new game.
 +
 +static const u8 sName1[] = _("ROWAN");
 +static const u8 sName2[] = _("Rowan");
@@ -27204,6 +27680,8 @@ index 0000000..915cb51
 +        FlagSet(FLAG_BADGE01_GET + i);
 +    FlagSet(FLAG_SYS_POKEMON_GET);
 +    FlagSet(FLAG_SYS_POKEDEX_GET);
++    FlagSet(FLAG_SYS_SEVII_MAP_123); // the Sevii maps on the fly map (Seven Island is on the last one)
++    FlagSet(FLAG_SYS_SEVII_MAP_4567);
 +    FlagSet(FLAG_OPENED_START_MENU);
 +    FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
 +    VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
