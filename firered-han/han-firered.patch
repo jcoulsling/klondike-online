@@ -14004,6 +14004,20 @@ index 88854ae..2c72b80 100644
  extern const union AffineAnimCmd *const gAffineAnims_BattleSpritePlayerSide[];
  extern const union AffineAnimCmd *const gAffineAnims_BattleSpriteOpponentSide[];
  extern const struct SpriteFrameImage gBattlerPicTable_PlayerLeft[];
+diff --git a/include/field_control_avatar.h b/include/field_control_avatar.h
+index a663149..2f12ec6 100644
+--- a/include/field_control_avatar.h
++++ b/include/field_control_avatar.h
+@@ -3,6 +3,9 @@
+ 
+ #include "global.h"
+ 
++bool8 HanIsWarpTile(s16 x, s16 y); // Hän build
++u8 HanWarpDistance(s16 x, s16 y); // tiles (up and down plus across) to the nearest warp, 255 if none
++
+ struct FieldInput
+ {
+     bool8 pressedAButton:1;
 diff --git a/include/global.h b/include/global.h
 index 77155b0..0ba7bbd 100644
 --- a/include/global.h
@@ -14123,10 +14137,10 @@ index 0000000..7440cbe
 +#endif // GUARD_HAN_CUSTOM_H
 diff --git a/include/han_follower.h b/include/han_follower.h
 new file mode 100644
-index 0000000..fe1dfe4
+index 0000000..b40404e
 --- /dev/null
 +++ b/include/han_follower.h
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,17 @@
 +#ifndef GUARD_HAN_FOLLOWER_H
 +#define GUARD_HAN_FOLLOWER_H
 +
@@ -14138,6 +14152,8 @@ index 0000000..fe1dfe4
 +u16 HanFollowSpecies(void); // species (bit 15 shiny) of the follower now drawn, 0 for none
 +u8 HanGhostFollowerCreate(u16 what, u16 palTag); // another player's follower; MAX_SPRITES if it cannot be made
 +void HanGhostFollowerDestroy(u8 id, u16 palTag);
++void HanFollowerWarped(void); // a warp is starting: the next map shows the follower leaving its ball
++void HanFollowerRecall(void); // the player steps into a warp: the follower goes back into its ball
 +void HanFollowerFrame(void); // every frame of the overworld, after the camera has moved
 +void HanPlayerLookEnsure(void); // src/event_object_movement.c: the player's pictures and palette follow the look
 +
@@ -18785,6 +18801,15 @@ index 0b4a21e..fde5635 100644
  
  const u32 gTrainerFrontPic_LeaderBlaine[] = INCBIN_U32("graphics/trainers/front_pics/leader_blaine_front_pic.4bpp.lz");
  const u32 gTrainerPalette_LeaderBlaine[] = INCBIN_U32("graphics/trainers/palettes/leader_blaine.gbapal.lz");
+diff --git a/src/data/han_follow_ball.h b/src/data/han_follow_ball.h
+new file mode 100644
+index 0000000..0e618b1
+--- /dev/null
++++ b/src/data/han_follow_ball.h
+@@ -0,0 +1,3 @@
++// A small Poké Ball in a 32x32 sprite cell and its palette (tools: generated once; see han_follower.c).
++static const u8 sHanBallFrame[0x200] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 17, 0, 16, 33, 34, 0, 16, 50, 35, 0, 33, 51, 35, 0, 33, 34, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 1, 0, 0, 34, 18, 1, 0, 34, 34, 1, 0, 34, 34, 18, 0, 17, 34, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 17, 65, 0, 17, 17, 65, 0, 65, 68, 17, 0, 65, 68, 68, 0, 16, 68, 68, 0, 16, 65, 68, 0, 0, 16, 17, 0, 0, 0, 0, 20, 17, 17, 0, 20, 17, 17, 0, 17, 68, 20, 0, 68, 68, 20, 0, 68, 68, 1, 0, 68, 20, 1, 0, 17, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
++static const u16 sHanBallPal[16] = {0x0000, 0x18A5, 0x14BB, 0x465F, 0x7FFF, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000};
 diff --git a/src/data/han_follow_data.h b/src/data/han_follow_data.h
 new file mode 100644
 index 0000000..b64be29
@@ -24938,6 +24963,78 @@ index b39771a..cab768e 100644
                  sListMenuItems[nitems].index = nitems;
              }
              else
+diff --git a/src/field_control_avatar.c b/src/field_control_avatar.c
+index b1b6465..b7a5372 100644
+--- a/src/field_control_avatar.c
++++ b/src/field_control_avatar.c
+@@ -1005,6 +1005,39 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, u8
+     return FALSE;
+ }
+ 
++// Hän build: is there a warp (a door, a staircase, the edge mat of a building) on this tile? x and y are as the player's
++// coordinates are (with MAP_OFFSET). The follower must not stand on one.
++u8 HanWarpDistance(s16 x, s16 y)
++{
++    s32 i, d, best = 255;
++    const struct WarpEvent *warpEvent = gMapHeader.events->warps;
++
++    for (i = 0; i < gMapHeader.events->warpCount; i++, warpEvent++)
++    {
++        d = warpEvent->x - (x - MAP_OFFSET);
++        if (d < 0) d = -d;
++        {
++            s32 e = warpEvent->y - (y - MAP_OFFSET);
++            if (e < 0) e = -e;
++            d += e;
++        }
++        if (d < best)
++            best = d;
++    }
++    return best;
++}
++
++bool8 HanIsWarpTile(s16 x, s16 y)
++{
++    s32 i;
++    const struct WarpEvent *warpEvent = gMapHeader.events->warps;
++
++    for (i = 0; i < gMapHeader.events->warpCount; i++, warpEvent++)
++        if (warpEvent->x == x - MAP_OFFSET && warpEvent->y == y - MAP_OFFSET)
++            return TRUE;
++    return FALSE;
++}
++
+ static s8 GetWarpEventAtPosition(struct MapHeader *mapHeader, u16 x, u16 y, u8 elevation)
+ {
+     s32 i;
+diff --git a/src/field_fadetransition.c b/src/field_fadetransition.c
+index f392a06..3ce2964 100644
+--- a/src/field_fadetransition.c
++++ b/src/field_fadetransition.c
+@@ -1,6 +1,7 @@
+ #include "global.h"
+ #include "gflib.h"
+ #include "field_fadetransition.h"
++#include "han_follower.h"
+ #include "overworld.h"
+ #include "fldeff.h"
+ #include "field_weather.h"
+@@ -534,6 +535,7 @@ bool32 FieldFadeTransitionBackgroundEffectIsFinished(void)
+ 
+ void DoWarp(void)
+ {
++    HanFollowerRecall(); // Hän build
+     LockPlayerFieldControls();
+     TryFadeOutOldMapMusic();
+     WarpFadeOutScreen();
+@@ -563,6 +565,7 @@ void DoStairWarp(u16 metatileBehavior, u16 delay)
+ 
+ void DoDoorWarp(void)
+ {
++    HanFollowerRecall(); // Hän build
+     LockPlayerFieldControls();
+     gFieldCallback = FieldCB_DefaultWarpExit;
+     CreateTask(Task_DoorWarp, 10);
 diff --git a/src/field_player_avatar.c b/src/field_player_avatar.c
 index ef086dd..4b77cdc 100644
 --- a/src/field_player_avatar.c
@@ -25956,10 +26053,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..d62d355
+index 0000000..1683653
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,305 @@
+@@ -0,0 +1,564 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -25971,6 +26068,12 @@ index 0000000..d62d355
 +#include "constants/event_objects.h"
 +#include "constants/species.h"
 +#include "data/han_follow_data.h"
++#include "data/han_follow_ball.h"
++#include "palette.h"
++#include "sound.h"
++#include "util.h"
++#include "constants/songs.h"
++#include "field_control_avatar.h"
 +
 +// Hän build: a follower Pokémon (Jane, 22 November 2026).
 +//
@@ -25994,6 +26097,35 @@ index 0000000..d62d355
 +static EWRAM_DATA u8 sTrailHead = 0;
 +static EWRAM_DATA u8 sTrailLen = 0;
 +static EWRAM_DATA u8 sFacing = 0;
++
++// The Poké Ball (as in HeartGold and SoulSilver): after a door, stairs or any warp the follower is let out of a ball
++// beside the player (never on a door), and it goes back into its ball when the player steps into a warp, or when it would be
++// standing on a door. Crossing from one route to the next keeps it where it is, with no ball.
++enum { PH_NORMAL, PH_WAIT, PH_BALL, PH_FADEOUT, PH_DEAD };
++static EWRAM_DATA u8 sPhase = 0;
++static EWRAM_DATA u8 sTimer = 0;
++static EWRAM_DATA bool8 sWarped = FALSE;     // a warp happened since the follower was last made
++static EWRAM_DATA bool8 sRecallForWarp = FALSE;
++static EWRAM_DATA s16 sBallX = 0;
++static EWRAM_DATA s16 sBallY = 0;
++static EWRAM_DATA bool8 sPlaceFail = FALSE;
++
++void HanFollowerWarped(void)
++{
++    sWarped = TRUE;
++}
++
++// the player steps into a warp: the follower goes back into its ball while the screen fades
++void HanFollowerRecall(void)
++{
++    sWarped = TRUE;
++    if (sPhase == PH_NORMAL)
++    {
++        sPhase = PH_FADEOUT;
++        sTimer = 0;
++        sRecallForWarp = TRUE;
++    }
++}
 +
 +static void SpriteCB_Follower(struct Sprite *sprite)
 +{
@@ -26046,6 +26178,67 @@ index 0000000..d62d355
 +    if (sSpriteId != 0 && sprite->inUse && sprite->data[7] == FOLLOW_TAG)
 +        DestroySprite(sprite);
 +    sSpriteId = 0;
++}
++
++static void PaletteIdx(u8 *idx)
++{
++    *idx = IndexOfSpritePaletteTag(OBJ_EVENT_PAL_TAG_HAN_FOLLOWER);
++}
++
++// the ball: its picture and colours instead of the Pokémon's
++static void ShowBall(struct Sprite *sprite)
++{
++    u8 idx;
++
++    gHanFollowImages[0].data = sHanBallFrame;
++    PaletteIdx(&idx);
++    if (idx != 0xFF)
++        LoadPalette(sHanBallPal, OBJ_PLTT_ID(idx), PLTT_SIZE_4BPP);
++    StartSpriteAnim(sprite, GetFaceDirectionAnimNum(DIR_SOUTH));
++}
++
++// the Pokémon's own picture and colours again, the colours washed to white by coeff (16 is all white)
++static void ShowMon(struct Sprite *sprite, u8 coeff)
++{
++    u8 idx;
++
++    if (sSpecies != 0)
++    {
++        const u8 *sheet = (const u8 *)sHanFollowSheets + sHanFollowIndex[sSpecies & 0x7FFF] * 6 * 0x200;
++
++        gHanFollowImages[0].data = sheet;
++    }
++    PaletteIdx(&idx);
++    if (idx != 0xFF)
++    {
++        LoadPalette(gHanFollowPal, OBJ_PLTT_ID(idx), PLTT_SIZE_4BPP);
++        if (coeff != 0)
++            BlendPalette(OBJ_PLTT_ID(idx), 16, coeff, RGB_WHITE);
++    }
++    StartSpriteAnim(sprite, GetFaceDirectionAnimNum(sFacing));
++}
++
++// Where the follower may be let out: one tile behind the player, and only when the player is at least two tiles from a
++// door (so the ball never lies on a door, nor next to one)
++static bool8 FindSpot(struct Sprite *player, s16 *ox, s16 *oy)
++{
++    s16 px, py, bx, by, ddx = 0, ddy = 0;
++
++    switch (GetPlayerFacingDirection())
++    {
++    case DIR_SOUTH: ddy = -1; break;
++    case DIR_NORTH: ddy = 1; break;
++    case DIR_WEST: ddx = 1; break;
++    default: ddx = -1; break;
++    }
++    PlayerGetDestCoords(&px, &py);
++    bx = px + ddx;
++    by = py + ddy;
++    if (HanWarpDistance(px, py) < 2 || HanWarpDistance(bx, by) < 1 || MapGridGetCollisionAt(bx, by) != 0)
++        return FALSE;
++    *ox = (player->x + player->x2) + ddx * 16;
++    *oy = (player->y + player->y2) + ddy * 16;
++    return TRUE;
 +}
 +
 +// Called every frame with the follower's sprite and the player's.
@@ -26154,6 +26347,162 @@ index 0000000..d62d355
 +    sprite->subpriority = player->subpriority > 0 ? player->subpriority - 1 : 0;
 +}
 +
++// The ball's effect is the one of the pack the pictures come from (pokeemerald-expansion, MovementAction_ExitPokeball and
++// EnterPokeball): 16 frames. Out: the ball for 9 frames, then the Pokémon, all white and squeezed thin, widening in 4 frames,
++// then its own colours. In: the Pokémon, then white and squeezed thin in 4 frames, then the ball. A sprite at 0x100 is as wide as it is.
++static const union AffineAnimCmd sAffineOut[] =
++{
++    AFFINEANIMCMD_FRAME(0x40, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0x80, 0x100, 0, 0),
++    AFFINEANIMCMD_FRAME(0xC0, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0x100, 0x100, 0, 0), AFFINEANIMCMD_END,
++};
++static const union AffineAnimCmd sAffineOutEast[] =
++{
++    AFFINEANIMCMD_FRAME(0xFFC0, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0xFF80, 0x100, 0, 0),
++    AFFINEANIMCMD_FRAME(0xFF40, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0xFF00, 0x100, 0, 0), AFFINEANIMCMD_END,
++};
++static const union AffineAnimCmd sAffineIn[] =
++{
++    AFFINEANIMCMD_FRAME(0x100, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0xC0, 0x100, 0, 0),
++    AFFINEANIMCMD_FRAME(0x80, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0x40, 0x100, 0, 0), AFFINEANIMCMD_END,
++};
++static const union AffineAnimCmd sAffineInEast[] =
++{
++    AFFINEANIMCMD_FRAME(0xFF00, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0xFF40, 0x100, 0, 0),
++    AFFINEANIMCMD_FRAME(0xFF80, 0x100, 0, 0), AFFINEANIMCMD_FRAME(0xFFC0, 0x100, 0, 0), AFFINEANIMCMD_END,
++};
++static const union AffineAnimCmd *const sAffineAnimsFollower[] = { sAffineOut, sAffineOutEast, sAffineIn, sAffineInEast };
++
++static void AffineOn(struct Sprite *sprite, u8 anim)
++{
++    sprite->affineAnims = sAffineAnimsFollower;
++    sprite->oam.affineMode = ST_OAM_AFFINE_NORMAL;
++    InitSpriteAffineAnim(sprite);
++    StartSpriteAffineAnim(sprite, anim + (sFacing == DIR_EAST ? 1 : 0));
++}
++
++static void AffineOff(struct Sprite *sprite)
++{
++    sprite->affineAnimEnded = TRUE;
++    FreeSpriteOamMatrix(sprite);
++    sprite->oam.affineMode = ST_OAM_AFFINE_OFF;
++}
++
++static void WhitePalette(void)
++{
++    u8 idx;
++
++    PaletteIdx(&idx);
++    if (idx != 0xFF)
++        BlendPalette(OBJ_PLTT_ID(idx), 16, 16, RGB_WHITE);
++}
++
++// The ball's part of each frame. TRUE when it has dealt with the sprite for this frame (the Pokémon is not walking).
++static bool8 PhaseFrame(struct Sprite *sprite, struct Sprite *player)
++{
++    switch (sPhase)
++    {
++    case PH_WAIT:
++        sprite->invisible = TRUE;
++        if (sTimer < 24)
++            sTimer++;
++        if (sTimer >= 24 && !gPaletteFade.active && gPlayerAvatar.tileTransitionState == T_NOT_MOVING)
++        {
++            s16 x, y;
++
++            if (!FindSpot(player, &x, &y))
++                return TRUE; // not yet two tiles from the door: it stays in its ball
++            sBallX = x;
++            sBallY = y;
++            sPhase = PH_BALL;
++            sTimer = 0;
++            sFacing = GetPlayerFacingDirection();
++            sprite->x = x;
++            sprite->y = y;
++            sprite->x2 = 0;
++            sprite->y2 = 0;
++            ShowBall(sprite);
++            sprite->invisible = FALSE;
++            PlaySE(SE_BALL_OPEN);
++        }
++        return TRUE;
++    case PH_BALL: // out of the ball
++        sprite->x = sBallX;
++        sprite->y = sBallY;
++        sprite->invisible = FALSE;
++        sprite->oam.priority = player->oam.priority;
++        sprite->subpriority = player->subpriority > 0 ? player->subpriority - 1 : 0;
++        sTimer++;
++        if (sTimer == 9)
++        {
++            ShowMon(sprite, 0);
++            WhitePalette();
++            AffineOn(sprite, 0);
++        }
++        else if (sTimer >= 13)
++        {
++            s16 px = player->x + player->x2, py = player->y + player->y2;
++
++            AffineOff(sprite);
++            ShowMon(sprite, 0);
++            // from here it follows the player from where the ball was
++            sTrailX[0] = sBallX;
++            sTrailY[0] = sBallY;
++            sTrailX[1] = px;
++            sTrailY[1] = py;
++            sTrailHead = 1;
++            sTrailLen = 2;
++            sPhase = PH_NORMAL;
++        }
++        return TRUE;
++    case PH_FADEOUT: // into the ball: the Pokémon goes on walking for 5 frames
++        sTimer++;
++        if (sTimer == 6)
++        {
++            sBallX = sprite->x;
++            sBallY = sprite->y;
++            WhitePalette();
++            AffineOn(sprite, 2);
++        }
++        else if (sTimer > 6)
++        {
++            sprite->x = sBallX;
++            sprite->y = sBallY;
++            if (sTimer == 10)
++            {
++                AffineOff(sprite);
++                ShowBall(sprite);
++                PlaySE(SE_BALL_OPEN);
++            }
++            else if (sTimer >= 17)
++            {
++                sprite->invisible = TRUE;
++                sPhase = sRecallForWarp ? PH_DEAD : PH_WAIT;
++                sTimer = 24;
++            }
++            return TRUE;
++        }
++        return FALSE;
++    case PH_DEAD:
++        sprite->invisible = TRUE;
++        return TRUE;
++    default:
++        // standing on a door (or any warp): back into the ball until the player has moved on
++        if (gPlayerAvatar.tileTransitionState == T_NOT_MOVING && !sprite->invisible)
++        {
++            s16 px, py;
++
++            PlayerGetDestCoords(&px, &py);
++            if (HanWarpDistance(px + ((sprite->x - (player->x + player->x2) + 8) >> 4), py + ((sprite->y - (player->y + player->y2) + 8) >> 4)) == 0)
++            {
++                sPhase = PH_FADEOUT;
++                sTimer = 0;
++                sRecallForWarp = FALSE;
++            }
++        }
++        return FALSE;
++    }
++}
++
 +void HanFollowerFrame(void)
 +{
 +    struct Sprite *sprite, *player;
@@ -26201,9 +26550,16 @@ index 0000000..d62d355
 +        sTrailHead = 0;
 +        sTrailLen = 0;
 +        sFacing = DIR_SOUTH;
++        // after a warp (a door, stairs) it is let out of its ball a moment later; after a route crossing it is simply there
++        sPhase = sWarped ? PH_WAIT : PH_NORMAL;
++        sTimer = 0;
++        sWarped = FALSE;
++        sRecallForWarp = FALSE;
 +        StartSpriteAnim(sprite, GetFaceDirectionAnimNum(DIR_SOUTH));
 +    }
 +    player = &gSprites[gPlayerAvatar.spriteId];
++    if (PhaseFrame(sprite, player))
++        return;
 +    HanFollowTrail(sprite, player);
 +}
 +
@@ -26725,13 +27081,14 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..3a62eb6
+index 0000000..915cb51
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,132 @@
+@@ -0,0 +1,140 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "event_data.h"
++#include "han_custom.h"
 +#include "overworld.h"
 +#include "constants/heal_locations.h"
 +#include "pokemon.h"
@@ -26769,9 +27126,9 @@ index 0000000..3a62eb6
 +    // Snorlax: physical tank and sweeper (Curse)
 +    { SPECIES_SNORLAX, NATURE_ADAMANT, 0, ITEM_LEFTOVERS,
 +      {MOVE_CURSE, MOVE_BODY_SLAM, MOVE_EARTHQUAKE, MOVE_REST}, {252, 252, 0, 0, 0, 6}, IV_ALL },
-+    // Zapdos: special attacker and pivot (Hidden Power is Ice with these IVs)
-+    { SPECIES_ZAPDOS, NATURE_TIMID, 0, ITEM_MAGNET,
-+      {MOVE_THUNDERBOLT, MOVE_HIDDEN_POWER, MOVE_TOXIC, MOVE_REST}, {6, 0, 0, 252, 252, 0}, {31, 31, 31, 30, 31, 31} },
++    // Ho-Oh: special attacker and flyer (it can use FLY in the field), Sacred Fire and Recover
++    { SPECIES_HO_OH, NATURE_MODEST, 0, ITEM_CHARCOAL,
++      {MOVE_SACRED_FIRE, MOVE_EARTHQUAKE, MOVE_RECOVER, MOVE_TOXIC}, {252, 0, 0, 6, 252, 0}, IV_ALL },
 +    // Starmie: fast special attacker and utility (Rapid Spin)
 +    { SPECIES_STARMIE, NATURE_TIMID, 0, ITEM_MYSTIC_WATER,
 +      {MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_RAPID_SPIN}, {6, 0, 0, 252, 252, 0}, IV_ALL },
@@ -26834,6 +27191,13 @@ index 0000000..3a62eb6
 +
 +    if (StringCompare(gSaveBlock2Ptr->playerName, sName1) != 0 && StringCompare(gSaveBlock2Ptr->playerName, sName2) != 0)
 +        return;
++
++    // Rowan is a girl, drawn as the LASS (picture 85 is the trainer picture number plus one) in palette 3
++    gSaveBlock2Ptr->playerGender = FEMALE;
++    HanLookDefault();
++    gSaveBlock2Ptr->hanLook[HAN_LOOK_SET] = 2;
++    gSaveBlock2Ptr->hanLook[HAN_LOOK_PIC] = 85;
++    gSaveBlock2Ptr->hanLook[HAN_LOOK_PAL] = 3;
 +
 +    for (i = 0; i < 8; i++)
 +        FlagSet(FLAG_BADGE01_GET + i);
@@ -28744,7 +29108,7 @@ index 0b55a34..1dd4ba5 100644
      SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0x10, 0xE0));
  }
 diff --git a/src/overworld.c b/src/overworld.c
-index 339014d..572d99c 100644
+index 339014d..ff59aa5 100644
 --- a/src/overworld.c
 +++ b/src/overworld.c
 @@ -31,6 +31,8 @@
@@ -28756,7 +29120,15 @@ index 339014d..572d99c 100644
  #include "play_time.h"
  #include "quest_log.h"
  #include "quest_log_objects.h"
-@@ -1465,6 +1467,8 @@ static void OverworldBasic(void)
+@@ -582,6 +584,7 @@ static void SetPlayerCoordsFromWarp(void)
+ 
+ void WarpIntoMap(void)
+ {
++    HanFollowerWarped(); // Hän build
+     ApplyCurrentWarp();
+     LoadCurrentMapData();
+     SetPlayerCoordsFromWarp();
+@@ -1465,6 +1468,8 @@ static void OverworldBasic(void)
      CameraUpdate();
      SetQuestLogEvent_Arrived();
      UpdateCameraPanning();
@@ -28765,7 +29137,7 @@ index 339014d..572d99c 100644
      BuildOamBuffer();
      UpdatePaletteFade();
      UpdateTilesetAnimations();
-@@ -1691,6 +1695,7 @@ static void FieldCB_ShowMapNameOnContinue(void)
+@@ -1691,6 +1696,7 @@ static void FieldCB_ShowMapNameOnContinue(void)
  void CB2_ContinueSavedGame(void)
  {
      FieldClearVBlankHBlankCallbacks();
