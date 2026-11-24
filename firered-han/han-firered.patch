@@ -17086,7 +17086,7 @@ index 64c9e59..c61cccc 100644
          {
              for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
 diff --git a/src/battle_message.c b/src/battle_message.c
-index a6392be..9058563 100644
+index a6392be..d56552f 100644
 --- a/src/battle_message.c
 +++ b/src/battle_message.c
 @@ -45,65 +45,65 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
@@ -17209,7 +17209,7 @@ index a6392be..9058563 100644
  static const u8 sText_PkmnChangedType[] = _("{B_ATK_NAME_WITH_PREFIX} transformed\ninto the {B_BUFF1} type!");
 -static const u8 sText_PkmnFlinched[] = _("{B_ATK_NAME_WITH_PREFIX} flinched!");
 -static const u8 sText_PkmnRegainedHealth[] = _("{B_DEF_NAME_WITH_PREFIX} regained\nhealth!");
-+static const u8 sText_PkmnFlinched[] = _("{B_ATK_NAME_WITH_PREFIX}\nJënoträ̀t!"); // Hän build: the name of the one that flinched comes first
++static const u8 sText_PkmnFlinched[] = _("{B_ATK_NAME_WITH_PREFIX}\njënoträ̀t!"); // Hän build: the name of the one that flinched comes first
 +static const u8 sText_PkmnRegainedHealth[] = _("{B_DEF_NAME_WITH_PREFIX} nädhëzhi!");
  static const u8 sText_PkmnHPFull[] = _("{B_DEF_NAME_WITH_PREFIX}'s\nHP is full!");
  static const u8 sText_PkmnRaisedSpDef[] = _("{B_ATK_PREFIX2}'s {B_CURRENT_MOVE}\nraised SP. DEF!");
