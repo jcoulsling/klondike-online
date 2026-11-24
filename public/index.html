@@ -64,6 +64,37 @@
     body.playing #menu { display:none; position:absolute; top:60px; right:10px; z-index:6; flex-direction:column; align-items:stretch; gap:8px; margin:0 !important; padding:10px; background:rgba(14,14,16,.96); border-radius:12px; box-shadow:0 8px 30px #000a; }
     body.playing.menuopen #menu { display:flex; }
   }
+  .discm { display:none; }
+  @media (pointer:coarse) {
+    body.playing > main > small { display:none; }
+    body.playing #menu .discm { display:block; margin:6px 2px 0; font-size:.72rem; line-height:1.35; max-width:260px; color:#c9c9cd; }
+  }
+  @media (pointer:coarse) and (orientation:landscape) {
+    body.playing main { padding:0; }
+    body.playing #game { height:100vh; height:100dvh; }
+    body.playing #screenwrap { height:100vh; height:100dvh; width:100%; display:flex; justify-content:center; background:#000; }
+    body.playing canvas#screen { height:100%; width:auto; max-width:100%; aspect-ratio:3/2; }
+    body.playing #pad { position:fixed; left:0; top:0; width:100vw; height:100vh; height:100dvh; aspect-ratio:auto; pointer-events:none; z-index:5; }
+    body.playing #pad button.k, body.playing #pad .dpc { pointer-events:auto; background:rgba(40,40,44,.55); box-shadow:none; }
+    body.playing #pad .dpc { pointer-events:none; }
+    body.playing #pad button.k.dn { background:rgba(255,216,74,.85); }
+    body.playing #pad button[data-k=up], body.playing #pad button[data-k=down], body.playing #pad button[data-k=left], body.playing #pad button[data-k=right], body.playing #pad .dpc { width:14vh; height:14vh; }
+    body.playing #pad button[data-k=up] { left:16vh; top:36vh; } body.playing #pad .dpc { left:16vh; top:50vh; }
+    body.playing #pad button[data-k=left] { left:2vh; top:50vh; }
+    body.playing #pad button[data-k=right] { left:30vh; top:50vh; }
+    body.playing #pad button[data-k=down] { left:16vh; top:64vh; }
+    body.playing #pad button[data-k=a], body.playing #pad button[data-k=b] { width:19vh; height:19vh; }
+    body.playing #pad button[data-k=a] { left:auto; right:4vh; top:46vh; } body.playing #pad button[data-k=b] { left:auto; right:25vh; top:62vh; }
+    body.playing #pad button[data-k=l], body.playing #pad button[data-k=r] { top:3vh; width:22vh; height:10vh; }
+    body.playing #pad button[data-k=l] { left:3vh; } body.playing #pad button[data-k=r] { right:3vh; }
+    body.playing #pad button[data-k=select], body.playing #pad button[data-k=start] { top:90vh; width:20vh; height:7vh; transform:none; }
+    body.playing #pad button[data-k=select] { left:calc(50% - 22vh); } body.playing #pad button[data-k=start] { left:calc(50% + 2vh); }
+    #burger { position:fixed; top:8px; left:calc(50% - 21px); right:auto; z-index:7; }
+    body.playing #menu { position:fixed; top:56px; left:calc(50% - 130px); right:auto; z-index:7; width:400px; left:calc(50% - 200px); display:none; }
+    body.playing.menuopen #menu { display:grid; grid-template-columns:1fr 1fr; gap:6px; max-height:calc(100dvh - 64px); overflow:auto; }
+    body.playing #menu button { padding:8px 10px; font-size:.85rem; }
+    body.playing #menu .discm { grid-column:1/3; max-width:none; }
+  }
   small { display:block; margin-top:24px; opacity:.75; }
   details { margin-top:14px; } summary { cursor:pointer; }
   #teachbar { display:none; margin:14px 0 0; }
@@ -114,7 +145,7 @@
       <button class="k" data-k="b">B</button><button class="k" data-k="a">A</button>
       <button class="k" data-k="select">SELECT</button><button class="k" data-k="start">START</button>
     </div>
-    <div class="row" id="menu" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button></div>
+    <div class="row" id="menu" style="margin-top:12px"><button class="ghost" id="fs">Full screen</button><button class="ghost" id="mute">Sound on</button><button class="ghost" id="restart">Restart (title screen)</button><button class="ghost" id="leave">Leave</button><button class="ghost" id="forget">Forget my game file</button><small class="discm">This page does not contain, host or share any game. The emulator is mGBA (MPL 2.0, mgba.io). A note on the use of an LLM (AI assistant): this page and its server were written with the help of Claude, an AI assistant from Anthropic, and checked by running them.</small></div>
     <p>You can see the other players walk around on the same map. You can chat and share a whiteboard with the room below the game. You cannot trade and battle yet.</p>
   </section>
 

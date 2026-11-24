@@ -19562,7 +19562,7 @@ index 3e36c08..a3fc4eb 100644
          .bodyColor = BODY_COLOR_GRAY,
          .noFlip = FALSE,
 diff --git a/src/data/pokemon/tmhm_learnsets.h b/src/data/pokemon/tmhm_learnsets.h
-index 0aa21e8..fee8ee1 100644
+index 0aa21e8..fc268a4 100644
 --- a/src/data/pokemon/tmhm_learnsets.h
 +++ b/src/data/pokemon/tmhm_learnsets.h
 @@ -4818,7 +4818,35 @@ static const u32 sTMHMLearnsets[][2] =
@@ -19602,7 +19602,15 @@ index 0aa21e8..fee8ee1 100644
  
      [SPECIES_GIRAFARIG]   = TMHM_LEARNSET(TMHM(TM04_CALM_MIND)
                                          | TMHM(TM06_TOXIC)
-@@ -8022,7 +8050,35 @@ static const u32 sTMHMLearnsets[][2] =
+@@ -6059,6 +6087,7 @@ static const u32 sTMHMLearnsets[][2] =
+ 
+     [SPECIES_OLD_UNOWN_C] = TMHM_LEARNSET(0),
+ 
++
+     [SPECIES_OLD_UNOWN_D] = TMHM_LEARNSET(0),
+ 
+     [SPECIES_OLD_UNOWN_E] = TMHM_LEARNSET(0),
+@@ -8022,7 +8051,35 @@ static const u32 sTMHMLearnsets[][2] =
                                          | TMHM(HM02_FLY)
                                          | TMHM(HM06_ROCK_SMASH)),
  
@@ -28530,7 +28538,7 @@ index 124b646..9ab384e 100644
              gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
              gSprites[gBattlerSpriteIds[battler]].callback = SpriteCallbackDummy;
 diff --git a/src/script_pokemon_util.c b/src/script_pokemon_util.c
-index bc11dc0..0a5f5f1 100644
+index bc11dc0..1605eeb 100644
 --- a/src/script_pokemon_util.c
 +++ b/src/script_pokemon_util.c
 @@ -8,22 +8,176 @@
@@ -28947,8 +28955,8 @@ index bc11dc0..0a5f5f1 100644
 +
 +// Hän build: the team for the boss fight menu (see StartCheatBattle in battle_setup.c).
 +// It is a team a player might bring to the champion in the Johto games, with MEWTWO in the last place.
-+// Jane changed the first two: FERALIGATR for TYPHLOSION, and AERODACTYL for GYARADOS. Both have a
-+// set used in competitive play in these games. AERODACTYL has AERIAL ACE where that set has HIDDEN POWER,
++// Jane changed the first two: CHARIZARD for TYPHLOSION (first FERALIGATR, then on 23 November 2026 CHARIZARD), and AERODACTYL for
++// GYARADOS. Both have a set used in competitive play in these games. AERODACTYL has AERIAL ACE where that set has HIDDEN POWER,
 +// because the type of HIDDEN POWER depends on the IVs and these are random.
 +// Levels scale: the first five are 3 under the highest level in the boss's party (never under 5).
 +// Each has a line of species and takes the stage that fits its level, so against a low boss the team
@@ -28965,8 +28973,8 @@ index bc11dc0..0a5f5f1 100644
 +};
 +
 +static const struct CheatMon sJaneCheatTeam[PARTY_SIZE] = {
-+    {{SPECIES_TOTODILE, SPECIES_CROCONAW, SPECIES_FERALIGATR}, {18, 30}, FALSE, FALSE,
-+        {MOVE_ICE_BEAM, MOVE_EARTHQUAKE, MOVE_SURF, MOVE_HYDRO_PUMP}},
++    {{SPECIES_CHARMANDER, SPECIES_CHARMELEON, SPECIES_CHARIZARD}, {16, 36}, FALSE, FALSE, // Jane, 23 November 2026: CHARIZARD, not FERALIGATR
++        {MOVE_FLAMETHROWER, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROCK_SLIDE}},
 +    {{SPECIES_AERODACTYL, SPECIES_AERODACTYL, SPECIES_AERODACTYL}, {0, 0}, FALSE, FALSE,
 +        {MOVE_BITE, MOVE_EARTHQUAKE, MOVE_WING_ATTACK, MOVE_FLY}},
 +    {{SPECIES_MAREEP, SPECIES_FLAAFFY, SPECIES_AMPHAROS}, {15, 30}, FALSE, FALSE,
