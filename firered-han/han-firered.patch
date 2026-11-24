@@ -333,18 +333,19 @@ index 8aa0a10..6dffa50 100644
  	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
  	healthbarupdate BS_ATTACKER
 diff --git a/data/event_scripts.s b/data/event_scripts.s
-index 88d7594..ee9346a 100644
+index 88d7594..091060d 100644
 --- a/data/event_scripts.s
 +++ b/data/event_scripts.s
-@@ -87,6 +87,7 @@ gStdScripts::
+@@ -87,6 +87,8 @@ gStdScripts::
  	.4byte Std_ReceivedItem         @ STD_RECEIVED_ITEM
  gStdScriptsEnd::
  
 +	.include "data/scripts/han_trade.inc"
++	.include "data/scripts/han_tower.inc"
  	.include "data/maps/BattleColosseum_2P/scripts.inc"
  	.include "data/maps/TradeCenter/scripts.inc"
  	.include "data/maps/RecordCorner/scripts.inc"
-@@ -157,6 +158,7 @@ gStdScriptsEnd::
+@@ -157,6 +159,7 @@ gStdScriptsEnd::
  	.include "data/maps/PokemonMansion_B1F/scripts.inc"
  	.include "data/maps/SafariZone_Center/scripts.inc"
  	.include "data/maps/SafariZone_East/scripts.inc"
@@ -352,7 +353,7 @@ index 88d7594..ee9346a 100644
  	.include "data/maps/SafariZone_North/scripts.inc"
  	.include "data/maps/SafariZone_West/scripts.inc"
  	.include "data/maps/SafariZone_Center_RestHouse/scripts.inc"
-@@ -814,7 +816,7 @@ Text_WouldYouLikeToMixRecords::
+@@ -814,7 +817,7 @@ Text_WouldYouLikeToMixRecords::
  
  @ Unused
  Text_WeHopeToSeeYouAgain2::
@@ -361,7 +362,7 @@ index 88d7594..ee9346a 100644
  
  	.include "data/text/pc.inc"
  
-@@ -834,7 +836,7 @@ Text_WelcomeTimeCapsule::
+@@ -834,7 +837,7 @@ Text_WelcomeTimeCapsule::
  	.string "TIME CAPSULE.$"
  
  Text_PleaseComeAgain::
@@ -370,7 +371,7 @@ index 88d7594..ee9346a 100644
  
  @ Unused
  Text_HavingDiscountSaleToday::
-@@ -843,8 +845,7 @@ Text_HavingDiscountSaleToday::
+@@ -843,8 +846,7 @@ Text_HavingDiscountSaleToday::
  
  @ Unused
  Text_PlayerWhatCanIDoForYou::
@@ -380,7 +381,7 @@ index 88d7594..ee9346a 100644
  
  	.include "data/text/obtain_item.inc"
  
-@@ -852,7 +853,7 @@ Text_MakingPreparations::
+@@ -852,7 +854,7 @@ Text_MakingPreparations::
  	.string "じゅんびちゅうです！$"
  
  Text_WantWhichFloor::
@@ -389,7 +390,7 @@ index 88d7594..ee9346a 100644
  
  Text_BagItemCanBeRegistered::
  	.string "An item in the BAG can be\n"
-@@ -870,7 +871,7 @@ Text_TrainerSchoolEmail::
+@@ -870,7 +872,7 @@ Text_TrainerSchoolEmail::
  	.string "‥‥　‥‥　‥‥$"
  
  Text_PlayerBootedUpPC::
@@ -398,7 +399,7 @@ index 88d7594..ee9346a 100644
  
  @ Unused
  Text_LinkWasCanceled::
-@@ -878,29 +879,24 @@ Text_LinkWasCanceled::
+@@ -878,29 +880,24 @@ Text_LinkWasCanceled::
  
  @ Unused
  Text_GiveNicknameToReceivedMon::
@@ -436,7 +437,7 @@ index 88d7594..ee9346a 100644
  
  	.include "data/text/surf.inc"
  
-@@ -928,8 +924,8 @@ Text_HandedOverItem::
+@@ -928,8 +925,8 @@ Text_HandedOverItem::
  	.string "{STR_VAR_1}.$"
  
  Text_GiveNicknameToThisMon::
@@ -447,7 +448,7 @@ index 88d7594..ee9346a 100644
  
  	.include "data/text/itemfinder.inc"
  	.include "data/text/route23.inc"
-@@ -941,7 +937,7 @@ Text_CardKeyOpenedDoor::
+@@ -941,7 +938,7 @@ Text_CardKeyOpenedDoor::
  	.string "The CARD KEY opened the door!$"
  
  Text_ItNeedsCardKey::
@@ -456,7 +457,7 @@ index 88d7594..ee9346a 100644
  	.string "It needs a CARD KEY!$"
  
  Text_AccessedProfOaksPC::
-@@ -997,8 +993,8 @@ Text_TheresBedLetsRest::
+@@ -997,8 +994,8 @@ Text_TheresBedLetsRest::
  	.string "やすんでいこう$"
  
  Text_FoundTMHMContainsMove::
@@ -4243,6 +4244,55 @@ index 50b441f..416f5ff 100644
      .string "wanted to live somewhere quiet.\p"
      .string "Today, I think I'll go out fishing.$"
  
+diff --git a/data/maps/TrainerTower_Lobby/map.json b/data/maps/TrainerTower_Lobby/map.json
+index bc3221e..b6eb472 100644
+--- a/data/maps/TrainerTower_Lobby/map.json
++++ b/data/maps/TrainerTower_Lobby/map.json
+@@ -103,8 +103,8 @@
+       "x": 9,
+       "y": 15,
+       "elevation": 3,
+-      "dest_map": "MAP_SEVEN_ISLAND_TRAINER_TOWER",
+-      "dest_warp_id": "0"
++      "dest_map": "MAP_DYNAMIC",
++      "dest_warp_id": "WARP_ID_DYNAMIC"
+     },
+     {
+       "x": 17,
+diff --git a/data/maps/TrainerTower_Lobby/scripts.inc b/data/maps/TrainerTower_Lobby/scripts.inc
+index b2543ec..14deebd 100644
+--- a/data/maps/TrainerTower_Lobby/scripts.inc
++++ b/data/maps/TrainerTower_Lobby/scripts.inc
+@@ -36,9 +36,17 @@ TrainerTower_Lobby_OpenCounterBarrier::
+ 
+ TrainerTower_Lobby_OnTransition::
+ 	setworldmapflag FLAG_WORLD_MAP_TRAINER_TOWER_LOBBY
++	special HanTowerRestoreParty
+ 	getplayerxy VAR_TEMP_D, VAR_RESULT
++	call_if_eq VAR_RESULT, 15, TrainerTower_Lobby_ArrivedFromSevenIsland
++	special HanTowerApplyReturn
+ 	end
+ 
++@ Hän build: the door is a dynamic warp. Arriving on the door tile means Seven Island sent the player in.
++TrainerTower_Lobby_ArrivedFromSevenIsland::
++	clearflag FLAG_HAN_TOWER_FROM_CENTER
++	return
++
+ TrainerTower_Lobby_OnFrame::
+ 	map_script_2 VAR_TEMP_0, 0, TrainerTower_Lobby_EventScript_Enter
+ 	map_script_2 VAR_TEMP_D, 17, TrainerTower_Lobby_EventScript_ExitElevator
+@@ -180,7 +188,10 @@ TrainerTower_Lobby_EventScript_ChooseChallenge::
+ 	end
+ 
+ TrainerTower_Lobby_EventScript_BeginChallenge::
+-	copyvar VAR_0x8005, VAR_RESULT
++	copyvar VAR_0x8009, VAR_RESULT
++	call Han_Tower_ChooseTeam
++	goto_if_eq VAR_RESULT, FALSE, TrainerTower_Lobby_EventScript_DeclineChallenge
++	copyvar VAR_0x8005, VAR_0x8009
+ 	setvar VAR_MAP_SCENE_TRAINER_TOWER, 1
+ 	special HealPlayerParty
+ 	msgbox TrainerTower_Lobby_Text_StartClockGetSetGo
 diff --git a/data/maps/TwoIsland_CapeBrink_House/text.inc b/data/maps/TwoIsland_CapeBrink_House/text.inc
 index f00cf70..a01e856 100644
 --- a/data/maps/TwoIsland_CapeBrink_House/text.inc
@@ -4873,9 +4923,66 @@ index fc2998f..2cf58b9 100644
  
  Text_MonMaySurface::
  	.string "Light is filtering down from above.\n"
+diff --git a/data/scripts/han_tower.inc b/data/scripts/han_tower.inc
+new file mode 100644
+index 0000000..b9ae260
+--- /dev/null
++++ b/data/scripts/han_tower.inc
+@@ -0,0 +1,51 @@
++@ Hän build: the TRAINER TOWER from the POKéMON CENTER, and the choice of team at the lobby counter.
++
++Han_Tower_NurseOffer::
++	specialvar VAR_RESULT, IsPlayerNotInTrainerTowerLobby
++	goto_if_eq VAR_RESULT, FALSE, Han_Tower_NurseOfferEnd
++	msgbox Han_Tower_Text_Offer, MSGBOX_YESNO
++	goto_if_eq VAR_RESULT, NO, Han_Tower_NurseOfferEnd
++	special HanTowerSetReturn
++	closemessage
++	warp MAP_TRAINER_TOWER_LOBBY, 9, 14
++	waitstate
++Han_Tower_NurseOfferEnd::
++	return
++
++@ VAR_RESULT: TRUE a team is ready, FALSE the player backed out
++Han_Tower_ChooseTeam::
++	specialvar VAR_RESULT, HanTowerRollSpecial
++	goto_if_eq VAR_RESULT, TRUE, Han_Tower_ChooseTeamBrandon
++	message Han_Tower_Text_WhichTeam
++	waitmessage
++	multichoice 11, 3, MULTICHOICE_HAN_TOWER_TEAM, FALSE
++	goto Han_Tower_TeamPicked
++
++Han_Tower_ChooseTeamBrandon::
++	message Han_Tower_Text_WhichTeamSpecial
++	waitmessage
++	multichoice 11, 3, MULTICHOICE_HAN_TOWER_TEAM_BRANDON, FALSE
++Han_Tower_TeamPicked::
++	switch VAR_RESULT
++	case 0, Han_Tower_TeamOk
++	case 1, Han_Tower_TeamOk
++	case 2, Han_Tower_TeamOk
++	case 3, Han_Tower_TeamOk
++	setvar VAR_RESULT, FALSE
++	return
++
++Han_Tower_TeamOk::
++	copyvar VAR_0x8004, VAR_RESULT
++	specialvar VAR_RESULT, HanTowerBuildTeam
++	return
++
++Han_Tower_Text_Offer:
++	.string "Would you like to go to the\n"
++	.string "TRAINER TOWER?$"
++
++Han_Tower_Text_WhichTeam:
++	.string "Which team will you take in?$"
++
++Han_Tower_Text_WhichTeamSpecial:
++	.string "Which team? BRANDON's team is on\n"
++	.string "loan today!$"
 diff --git a/data/scripts/han_trade.inc b/data/scripts/han_trade.inc
 new file mode 100644
-index 0000000..95923d1
+index 0000000..73fb6c4
 --- /dev/null
 +++ b/data/scripts/han_trade.inc
 @@ -0,0 +1,192 @@
@@ -5030,11 +5137,11 @@ index 0000000..95923d1
 +	.string "(Ëh’ë: double, Ënä: single)$"
 +
 +Han_Battle_Text_Ask:
-+	.string "Do you want to battle this player?$"
++	.string "Yä̀ä łëtr’ubàa nindhän?$" @ Jane's line, Hän build
 +
 +Han_Battle_Text_Offered:
 +	.string "Another player wants a {STR_VAR_1} battle.\n"
-+	.string "Accept?$"
++	.string "Yä̀ä łëtr’ubàa nindhän?$"
 +
 +Han_Battle_Text_CannotFight:
 +	.string "You need a POKéMON that can fight.$"
@@ -5071,11 +5178,23 @@ index 0000000..95923d1
 +
 +Han_Trade_Text_TimedOut:
 +	.string "There was ënä answer.$"
+diff --git a/data/scripts/pkmn_center_nurse.inc b/data/scripts/pkmn_center_nurse.inc
+index 507c8a4..e0af42f 100644
+--- a/data/scripts/pkmn_center_nurse.inc
++++ b/data/scripts/pkmn_center_nurse.inc
+@@ -43,6 +43,7 @@ EventScript_PkmnCenterNurse_ReturnPkmn::
+ 	applymovement VAR_LAST_TALKED, Movement_Bow
+ 	waitmovement 0
+ 	msgbox Text_WeHopeToSeeYouAgain
++	call Han_Tower_NurseOffer
+ 	return
+ 
+ EventScript_PkmnCenterNurse_PlayerWaitingInUnionRoom::
 diff --git a/data/specials.inc b/data/specials.inc
-index d880bf6..7daef26 100644
+index d880bf6..1dfd272 100644
 --- a/data/specials.inc
 +++ b/data/specials.inc
-@@ -452,4 +452,22 @@ gSpecials::
+@@ -452,4 +452,27 @@ gSpecials::
  	def_special UpdateLoreleiDollCollection
  	def_special LoopWingFlapSound
  	def_special CreateEnemyEventMon
@@ -5097,6 +5216,11 @@ index d880bf6..7daef26 100644
 +	def_special HanBattleAccept
 +	def_special HanBattleRefuse
 +	def_special HanBattleLaunch
++	def_special HanTowerRollSpecial
++	def_special HanTowerSetReturn
++	def_special HanTowerBuildTeam
++	def_special HanTowerRestoreParty
++	def_special HanTowerApplyReturn
  gSpecialsEnd::
 diff --git a/data/text/day_care.inc b/data/text/day_care.inc
 index 3de4f4f..779c0ea 100644
@@ -13715,7 +13839,7 @@ index 9d8c514..ed13bab 100644
  // These are dynamic object gfx ids.
  // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.
 diff --git a/include/constants/flags.h b/include/constants/flags.h
-index d800adf..79c03a4 100644
+index d800adf..166bff8 100644
 --- a/include/constants/flags.h
 +++ b/include/constants/flags.h
 @@ -43,9 +43,12 @@
@@ -13746,6 +13870,16 @@ index d800adf..79c03a4 100644
  // Unused?
  #define FLAG_0x300               0x300
  #define FLAG_0x301               0x301
+@@ -1223,7 +1231,9 @@
+ 
+ // Unused hidden item flags
+ #define FLAG_UNUSED_0x4A7               0x4A7 // Unused Flag
++#define FLAG_HAN_TOWER_TEMP_PARTY       0x4A7 // Hän build: the party is a Trainer Tower rental or level 50 copy; the real one is kept in the saved copy
+ #define FLAG_UNUSED_0x4A8               0x4A8 // Unused Flag
++#define FLAG_HAN_TOWER_FROM_CENTER      0x4A8 // Hän build: the Trainer Tower was entered from a Pokémon Center
+ #define FLAG_UNUSED_0x4A9               0x4A9 // Unused Flag
+ #define FLAG_UNUSED_0x4AA               0x4AA // Unused Flag
+ #define FLAG_UNUSED_0x4AB               0x4AB // Unused Flag
 diff --git a/include/constants/global.h b/include/constants/global.h
 index 21c781a..18a21a4 100644
 --- a/include/constants/global.h
@@ -13784,6 +13918,19 @@ index cfc4225..4edf23f 100644
  #define ITEM_036 54
  #define ITEM_037 55
  #define ITEM_038 56
+diff --git a/include/constants/menu.h b/include/constants/menu.h
+index 7c36f36..c026e73 100644
+--- a/include/constants/menu.h
++++ b/include/constants/menu.h
+@@ -69,6 +69,8 @@
+ #define MULTICHOICE_62                                         62
+ #define MULTICHOICE_JOIN_OR_LEAD                               63
+ #define MULTICHOICE_TRAINER_TOWER_MODE                         64
++#define MULTICHOICE_HAN_TOWER_TEAM                             65
++#define MULTICHOICE_HAN_TOWER_TEAM_BRANDON                     66
+ 
+ #define MULTICHOICE_NONE                                      255
+ 
 diff --git a/include/constants/metatile_labels.h b/include/constants/metatile_labels.h
 index 7f42269..fa27517 100644
 --- a/include/constants/metatile_labels.h
@@ -14089,6 +14236,23 @@ index 0000000..887fe06
 +void HanLinkAbortBattle(void); // src/battle_main.c: the other player is gone, end the battle as a draw // src/han_trade.c, every overworld frame
 +
 +#endif // GUARD_HAN_MULTIPLAYER_H
+diff --git a/include/han_tower.h b/include/han_tower.h
+new file mode 100644
+index 0000000..a54fa83
+--- /dev/null
++++ b/include/han_tower.h
+@@ -0,0 +1,11 @@
++#ifndef GUARD_HAN_TOWER_H
++#define GUARD_HAN_TOWER_H
++
++u8 HanTowerRollSpecial(void);
++void HanTowerSetReturn(void);
++void HanTowerApplyReturn(void);
++bool8 HanTowerBuildTeam(void);
++void HanTowerRestoreParty(void);
++void HanTowerCopyTrainerTeam(u16 trainerNum);
++
++#endif
 diff --git a/include/main_menu.h b/include/main_menu.h
 index d8c2a5a..5de245c 100644
 --- a/include/main_menu.h
@@ -16349,7 +16513,7 @@ index 36fc9a5..06efae3 100644
 +        ShowHanSign(battler, ItemId_GetName(item), 0x400 + item, 6);
 +}
 diff --git a/src/battle_main.c b/src/battle_main.c
-index 64c9e59..87fb53b 100644
+index 64c9e59..c61cccc 100644
 --- a/src/battle_main.c
 +++ b/src/battle_main.c
 @@ -1,4 +1,6 @@
@@ -16359,7 +16523,15 @@ index 64c9e59..87fb53b 100644
  #include "gflib.h"
  #include "battle.h"
  #include "battle_anim.h"
-@@ -76,6 +78,7 @@ static void CB2_EndLinkBattle(void);
+@@ -67,6 +69,7 @@ static void CB2_InitBattleInternal(void);
+ static void CB2_PreInitMultiBattle(void);
+ static void CB2_HandleStartMultiBattle(void);
+ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum);
++void HanTowerCopyTrainerTeam(u16 trainerNum);
+ static void CB2_HandleStartBattle(void);
+ static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
+ static void BattleMainCB1(void);
+@@ -76,6 +79,7 @@ static void CB2_EndLinkBattle(void);
  static void EndLinkBattleInSteps(void);
  static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite);
  static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite);
@@ -16367,7 +16539,7 @@ index 64c9e59..87fb53b 100644
  static void SpriteCB_Flicker(struct Sprite *sprite);
  static void SpriteCB_AnimFaintOpponent(struct Sprite *sprite);
  static void SpriteCB_BlinkVisible(struct Sprite *sprite);
-@@ -108,6 +111,10 @@ static void ReturnFromBattleToOverworld(void);
+@@ -108,6 +112,10 @@ static void ReturnFromBattleToOverworld(void);
  static void TryEvolvePokemon(void);
  static void WaitForEvoSceneToFinish(void);
  
@@ -16378,7 +16550,7 @@ index 64c9e59..87fb53b 100644
  EWRAM_DATA u16 gBattle_BG0_X = 0;
  EWRAM_DATA u16 gBattle_BG0_Y = 0;
  EWRAM_DATA u16 gBattle_BG1_X = 0;
-@@ -309,7 +316,7 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0
+@@ -309,7 +317,7 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0
  // 10 is ×1.0 TYPE_MUL_NORMAL
  // 05 is ×0.5 TYPE_MUL_NOT_EFFECTIVE
  // 00 is ×0.0 TYPE_MUL_NO_EFFECT
@@ -16387,7 +16559,7 @@ index 64c9e59..87fb53b 100644
  {
      TYPE_NORMAL, TYPE_ROCK, TYPE_MUL_NOT_EFFECTIVE,
      TYPE_NORMAL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
-@@ -419,6 +426,15 @@ const u8 gTypeEffectiveness[336] =
+@@ -419,6 +427,15 @@ const u8 gTypeEffectiveness[336] =
      TYPE_STEEL, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
      TYPE_STEEL, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
      TYPE_STEEL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
@@ -16403,7 +16575,7 @@ index 64c9e59..87fb53b 100644
      TYPE_FORESIGHT, TYPE_FORESIGHT, TYPE_MUL_NO_EFFECT,
      TYPE_NORMAL, TYPE_GHOST, TYPE_MUL_NO_EFFECT,
      TYPE_FIGHTING, TYPE_GHOST, TYPE_MUL_NO_EFFECT,
-@@ -428,23 +444,23 @@ const u8 gTypeEffectiveness[336] =
+@@ -428,23 +445,23 @@ const u8 gTypeEffectiveness[336] =
  const u8 gTypeNames[NUMBER_OF_MON_TYPES][TYPE_NAME_LENGTH + 1] =
  {
      [TYPE_NORMAL] = _("NORMAL"),
@@ -16442,7 +16614,7 @@ index 64c9e59..87fb53b 100644
  };
  
  // This is a factor in how much money you get for beating a trainer.
-@@ -611,6 +627,12 @@ const u8 *const gStatusConditionStringsTable[][2] =
+@@ -611,6 +628,12 @@ const u8 *const gStatusConditionStringsTable[][2] =
  
  void CB2_InitBattle(void)
  {
@@ -16455,7 +16627,7 @@ index 64c9e59..87fb53b 100644
      MoveSaveBlocks_ResetHeap();
      AllocateBattleResources();
      AllocateBattleSpritesData();
-@@ -1536,6 +1558,153 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
+@@ -1536,6 +1559,169 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
      }
  }
  
@@ -16606,10 +16778,26 @@ index 64c9e59..87fb53b 100644
 +    CalculateMonStats(mon);
 +}
 +
++// Hän build: a trainer's team made into the player's party (the TRAINER TOWER rental of BRANDON's team)
++void HanTowerCopyTrainerTeam(u16 trainerNum)
++{
++    u8 i;
++    u32 savedFlags = gBattleTypeFlags;
++
++    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
++    CreateNPCTrainerParty(gEnemyParty, trainerNum);
++    gBattleTypeFlags = savedFlags;
++    ZeroPlayerPartyMons();
++    for (i = 0; i < gTrainers[trainerNum].partySize && i < PARTY_SIZE; i++)
++        gPlayerParty[i] = gEnemyParty[i];
++    gPlayerPartyCount = i;
++    ZeroEnemyPartyMons();
++}
++
  static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
  {
      u32 nameHash = 0;
-@@ -1575,6 +1744,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1575,6 +1761,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                  personalityValue += nameHash << 8;
                  fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                  CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
@@ -16620,7 +16808,7 @@ index 64c9e59..87fb53b 100644
                  break;
              }
              case F_TRAINER_PARTY_CUSTOM_MOVESET:
-@@ -1613,12 +1786,48 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1613,12 +1803,48 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
              {
                  const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
  
@@ -16670,7 +16858,7 @@ index 64c9e59..87fb53b 100644
                  SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
  
                  for (j = 0; j < MAX_MON_MOVES; j++)
-@@ -1631,7 +1840,13 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1631,7 +1857,13 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
              }
          }
  
@@ -16685,7 +16873,7 @@ index 64c9e59..87fb53b 100644
      }
  
      return gTrainers[trainerNum].partySize;
-@@ -1800,6 +2015,15 @@ static void CB2_EndLinkBattle(void)
+@@ -1800,6 +2032,15 @@ static void CB2_EndLinkBattle(void)
      RunTasks();
  }
  
@@ -16701,7 +16889,7 @@ index 64c9e59..87fb53b 100644
  static void EndLinkBattleInSteps(void)
  {
      s32 i;
-@@ -1895,8 +2119,8 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
+@@ -1895,8 +2136,8 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
          sprite->x2 += 2;
          if (sprite->x2 == 0)
          {
@@ -16711,7 +16899,7 @@ index 64c9e59..87fb53b 100644
          }
      }
  }
-@@ -1907,12 +2131,55 @@ static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite)
+@@ -1907,12 +2148,55 @@ static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite)
      {
          StartHealthboxSlideIn(sprite->sBattler);
          SetHealthboxSpriteVisible(gHealthboxSpriteIds[sprite->sBattler]);
@@ -16768,7 +16956,7 @@ index 64c9e59..87fb53b 100644
  void SpriteCallbackDummy_2(struct Sprite *sprite)
  {
  }
-@@ -2200,9 +2467,46 @@ void BeginBattleIntro(void)
+@@ -2200,9 +2484,46 @@ void BeginBattleIntro(void)
      gBattleMainFunc = BattleIntroGetMonsData;
  }
  
@@ -16816,7 +17004,7 @@ index 64c9e59..87fb53b 100644
  
      for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
          gBattlerControllerFuncs[gActiveBattler]();
-@@ -2579,7 +2883,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
+@@ -2579,7 +2900,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
  
              gBattleMons[gActiveBattler].type1 = gSpeciesInfo[gBattleMons[gActiveBattler].species].types[0];
              gBattleMons[gActiveBattler].type2 = gSpeciesInfo[gBattleMons[gActiveBattler].species].types[1];
@@ -16825,7 +17013,7 @@ index 64c9e59..87fb53b 100644
              hpOnSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(gActiveBattler)];
              *hpOnSwitchout = gBattleMons[gActiveBattler].hp;
              for (i = 0; i < NUM_BATTLE_STATS; i++)
-@@ -3409,11 +3713,13 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3409,11 +3730,13 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
      if (WEATHER_HAS_EFFECT)
      {
          if ((gBattleMons[battler1].ability == ABILITY_SWIFT_SWIM && gBattleWeather & B_WEATHER_RAIN)
@@ -16839,7 +17027,7 @@ index 64c9e59..87fb53b 100644
              || (gBattleMons[battler2].ability == ABILITY_CHLOROPHYLL && gBattleWeather & B_WEATHER_SUN))
              speedMultiplierBattler2 = 2;
          else
-@@ -3448,7 +3754,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3448,7 +3771,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
          speedBattler1 /= 2;
      if (gBattleMons[battler1].status1 & STATUS1_PARALYSIS)
          speedBattler1 /= 4;
@@ -16849,7 +17037,7 @@ index 64c9e59..87fb53b 100644
          speedBattler1 = UINT_MAX;
      // check second battlerId's speed
      speedBattler2 = (gBattleMons[battler2].speed * speedMultiplierBattler2)
-@@ -3473,7 +3780,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3473,7 +3797,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
          speedBattler2 /= 2;
      if (gBattleMons[battler2].status1 & STATUS1_PARALYSIS)
          speedBattler2 /= 4;
@@ -16859,7 +17047,7 @@ index 64c9e59..87fb53b 100644
          speedBattler2 = UINT_MAX;
      if (ignoreChosenMoves)
      {
-@@ -3825,6 +4133,16 @@ static void HandleEndTurn_FinishBattle(void)
+@@ -3825,6 +4150,16 @@ static void HandleEndTurn_FinishBattle(void)
  {
      if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
      {
@@ -26680,6 +26868,168 @@ index 0000000..4828587
 +    }
 +    return HAN_SYL_NONE;
 +}
+diff --git a/src/han_tower.c b/src/han_tower.c
+new file mode 100644
+index 0000000..60bd5b6
+--- /dev/null
++++ b/src/han_tower.c
+@@ -0,0 +1,156 @@
++#include "global.h"
++#include "han_tower.h"
++#include "battle.h"
++#include "event_data.h"
++#include "field_player_avatar.h"
++#include "load_save.h"
++#include "overworld.h"
++#include "pokemon.h"
++#include "random.h"
++#include "constants/flags.h"
++#include "constants/maps.h"
++#include "constants/moves.h"
++#include "constants/species.h"
++#include "constants/trainers.h"
++
++// Hän build: the TRAINER TOWER from the POKéMON CENTER. The nurse offers a way in, and at the lobby counter the
++// team is chosen: your own at level 50 (raised or lowered to it), or one of three rental teams. One of the
++// three has a one in three chance to be BRANDON's team instead. The real party is kept in the saved copy
++// (gSaveBlock1Ptr->playerParty) the whole time, and saving does not overwrite it while FLAG_HAN_TOWER_TEMP_PARTY
++// is up, so a reset or a save in the middle of a challenge never costs anyone their own team.
++
++#define TOWER_LEVEL 50
++
++struct HanRental
++{
++    u16 species;
++    u16 moves[MAX_MON_MOVES];
++};
++
++static const struct HanRental sRentals[3][PARTY_SIZE] = {
++    { // A: all round
++        { SPECIES_SNORLAX,   { MOVE_BODY_SLAM, MOVE_EARTHQUAKE, MOVE_SHADOW_BALL, MOVE_REST } },
++        { SPECIES_GENGAR,    { MOVE_SHADOW_BALL, MOVE_THUNDERBOLT, MOVE_ICE_PUNCH, MOVE_HYPNOSIS } },
++        { SPECIES_STARMIE,   { MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_RECOVER } },
++        { SPECIES_DRAGONITE, { MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE, MOVE_FIRE_PUNCH, MOVE_THUNDER_WAVE } },
++        { SPECIES_ALAKAZAM,  { MOVE_PSYCHIC, MOVE_SHADOW_BALL, MOVE_THUNDER_WAVE, MOVE_RECOVER } },
++        { SPECIES_GYARADOS,  { MOVE_SURF, MOVE_EARTHQUAKE, MOVE_ICE_BEAM, MOVE_DRAGON_DANCE } },
++    },
++    { // B: hard hitters and walls
++        { SPECIES_CHARIZARD, { MOVE_FLAMETHROWER, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROCK_SLIDE } },
++        { SPECIES_VENUSAUR,  { MOVE_SLEEP_POWDER, MOVE_GIGA_DRAIN, MOVE_SLUDGE_BOMB, MOVE_SYNTHESIS } },
++        { SPECIES_BLASTOISE, { MOVE_SURF, MOVE_ICE_BEAM, MOVE_EARTHQUAKE, MOVE_REST } },
++        { SPECIES_SCIZOR,    { MOVE_SWORDS_DANCE, MOVE_STEEL_WING, MOVE_BRICK_BREAK, MOVE_QUICK_ATTACK } },
++        { SPECIES_SKARMORY,  { MOVE_DRILL_PECK, MOVE_STEEL_WING, MOVE_TOXIC, MOVE_ROAR } },
++        { SPECIES_TYRANITAR, { MOVE_CRUNCH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_BLAST } },
++    },
++    { // C: fast and tricky
++        { SPECIES_JOLTEON,   { MOVE_THUNDERBOLT, MOVE_SHADOW_BALL, MOVE_THUNDER_WAVE, MOVE_SUBSTITUTE } },
++        { SPECIES_MACHAMP,   { MOVE_CROSS_CHOP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH } },
++        { SPECIES_LAPRAS,    { MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_CONFUSE_RAY } },
++        { SPECIES_AERODACTYL,{ MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE, MOVE_TAKE_DOWN } },
++        { SPECIES_GARDEVOIR, { MOVE_PSYCHIC, MOVE_THUNDERBOLT, MOVE_CALM_MIND, MOVE_SHADOW_BALL } },
++        { SPECIES_ARCANINE,  { MOVE_FLAMETHROWER, MOVE_EXTREME_SPEED, MOVE_EARTHQUAKE, MOVE_ROAR } },
++    },
++};
++
++static EWRAM_DATA bool8 sBrandonOffered = FALSE;
++
++static void SetMonToTowerLevel(struct Pokemon *mon)
++{
++    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
++    u32 exp = gExperienceTables[gSpeciesInfo[species].growthRate][TOWER_LEVEL];
++
++    SetMonData(mon, MON_DATA_EXP, &exp);
++    CalculateMonStats(mon);
++}
++
++static void BuildRentalTeam(u8 team)
++{
++    u8 i, j, count = 0;
++    u8 ivs = 31;
++
++    ZeroPlayerPartyMons();
++    for (i = 0; i < PARTY_SIZE; i++)
++    {
++        const struct HanRental *r = &sRentals[team][i];
++        u8 evs = 85;
++
++        CreateMon(&gPlayerParty[i], r->species, TOWER_LEVEL, ivs, FALSE, 0, OT_ID_PLAYER_ID, 0);
++        for (j = 0; j < MAX_MON_MOVES; j++)
++        {
++            SetMonData(&gPlayerParty[i], MON_DATA_MOVE1 + j, &r->moves[j]);
++            SetMonData(&gPlayerParty[i], MON_DATA_PP1 + j, &gBattleMoves[r->moves[j]].pp);
++        }
++        for (j = 0; j < NUM_STATS; j++)
++            SetMonData(&gPlayerParty[i], MON_DATA_HP_EV + j, &evs);
++        CalculateMonStats(&gPlayerParty[i]);
++        count++;
++    }
++    gPlayerPartyCount = count;
++}
++
++// 1 when BRANDON's team takes the place of rental team C in this offer
++u8 HanTowerRollSpecial(void)
++{
++    sBrandonOffered = (Random() % 3) == 0;
++    return sBrandonOffered;
++}
++
++// the nurse has offered the way in
++void HanTowerSetReturn(void)
++{
++    FlagSet(FLAG_HAN_TOWER_FROM_CENTER);
++}
++
++// every time the lobby loads: where its door leads. From a POKéMON CENTER it is the last place healed (the same
++// place a white out goes to), otherwise Seven Island, as in the original game.
++void HanTowerApplyReturn(void)
++{
++    if (FlagGet(FLAG_HAN_TOWER_FROM_CENTER))
++    {
++        struct WarpData *w = &gSaveBlock1Ptr->lastHealLocation;
++
++        SetDynamicWarpWithCoords(0, w->mapGroup, w->mapNum, -1, w->x, w->y);
++    }
++    else
++        SetDynamicWarpWithCoords(0, MAP_GROUP(MAP_SEVEN_ISLAND_TRAINER_TOWER), MAP_NUM(MAP_SEVEN_ISLAND_TRAINER_TOWER), -1, 58, 8);
++}
++
++// gSpecialVar_0x8004: 0 your own team, 1 to 3 the rental teams (3 is BRANDON's when he was offered). FALSE: not possible.
++bool8 HanTowerBuildTeam(void)
++{
++    u8 choice = gSpecialVar_0x8004;
++    u8 i;
++
++    if (choice == 0)
++    {
++        // your own team needs a Pokémon that can fight (the tower heals it first)
++        SavePlayerParty();
++        FlagSet(FLAG_HAN_TOWER_TEMP_PARTY);
++        for (i = 0; i < gPlayerPartyCount; i++)
++            SetMonToTowerLevel(&gPlayerParty[i]);
++        return TRUE;
++    }
++    SavePlayerParty();
++    FlagSet(FLAG_HAN_TOWER_TEMP_PARTY);
++    if (choice == 3 && sBrandonOffered)
++    {
++        HanTowerCopyTrainerTeam(TRAINER_LEADER_KOGA); // BRANDON
++        for (i = 0; i < gPlayerPartyCount; i++)
++            SetMonToTowerLevel(&gPlayerParty[i]);
++        return TRUE;
++    }
++    BuildRentalTeam(choice - 1);
++    return TRUE;
++}
++
++// the lobby is where every challenge ends: the player's own team comes back
++void HanTowerRestoreParty(void)
++{
++    if (FlagGet(FLAG_HAN_TOWER_TEMP_PARTY))
++    {
++        LoadPlayerParty();
++        FlagClear(FLAG_HAN_TOWER_TEMP_PARTY);
++    }
++}
 diff --git a/src/han_trade.c b/src/han_trade.c
 new file mode 100644
 index 0000000..d240834
@@ -27208,6 +27558,30 @@ index 84506bf..805fa7c 100644
      if (gWirelessCommType == 1)
      {
          Rfu_SetLinkStandbyCallback();
+diff --git a/src/load_save.c b/src/load_save.c
+index 8b723dd..8f62a2b 100644
+--- a/src/load_save.c
++++ b/src/load_save.c
+@@ -5,6 +5,8 @@
+ #include "pokemon.h"
+ #include "pokemon_storage_system.h"
+ #include "random.h"
++#include "event_data.h"
++#include "constants/flags.h"
+ #include "item.h"
+ #include "save_location.h"
+ #include "berry_powder.h"
+@@ -195,7 +197,9 @@ void LoadObjectEvents(void)
+ 
+ void SaveSerializedGame(void)
+ {
+-    SavePlayerParty();
++    // Hän build: in a Trainer Tower challenge on a rental or level 50 copy, the saved party stays the real one
++    if (!FlagGet(FLAG_HAN_TOWER_TEMP_PARTY))
++        SavePlayerParty();
+     SaveObjectEvents();
+ }
+ 
 diff --git a/src/m4a.c b/src/m4a.c
 index ebd3afe..53cf6d4 100644
 --- a/src/m4a.c
@@ -28546,6 +28920,48 @@ index 124b646..9ab384e 100644
                                                        GetBattlerSpriteSubpriority(0));
              gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
              gSprites[gBattlerSpriteIds[battler]].callback = SpriteCallbackDummy;
+diff --git a/src/script_menu.c b/src/script_menu.c
+index 41eebd8..c2bb4af 100644
+--- a/src/script_menu.c
++++ b/src/script_menu.c
+@@ -498,6 +498,28 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
+     { gOtherText_Exit }
+ };
+ 
++static const u8 sText_HanTowerOwn[] = _("Your team (Lv. 50)");
++static const u8 sText_HanTowerRentalA[] = _("Rental team A");
++static const u8 sText_HanTowerRentalB[] = _("Rental team B");
++static const u8 sText_HanTowerRentalC[] = _("Rental team C");
++static const u8 sText_HanTowerBrandon[] = _("BRANDON's team");
++
++static const struct MenuAction sMultichoiceList_HanTowerTeam[] = {
++    { sText_HanTowerOwn },
++    { sText_HanTowerRentalA },
++    { sText_HanTowerRentalB },
++    { sText_HanTowerRentalC },
++    { gOtherText_Exit }
++};
++
++static const struct MenuAction sMultichoiceList_HanTowerTeamBrandon[] = {
++    { sText_HanTowerOwn },
++    { sText_HanTowerRentalA },
++    { sText_HanTowerRentalB },
++    { sText_HanTowerBrandon },
++    { gOtherText_Exit }
++};
++
+ static const struct MenuAction sMultichoiceList_Exit[] = {
+     { gOtherText_Exit }
+ };
+@@ -568,6 +590,8 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
+     [MULTICHOICE_62]                                         = MULTICHOICE(sMultichoiceList_62),
+     [MULTICHOICE_JOIN_OR_LEAD]                               = MULTICHOICE(sMultichoiceList_JoinOrLead),
+     [MULTICHOICE_TRAINER_TOWER_MODE]                         = MULTICHOICE(sMultichoiceList_TrainerTowerMode),
++    [MULTICHOICE_HAN_TOWER_TEAM]                             = MULTICHOICE(sMultichoiceList_HanTowerTeam),
++    [MULTICHOICE_HAN_TOWER_TEAM_BRANDON]                     = MULTICHOICE(sMultichoiceList_HanTowerTeamBrandon),
+ };
+ 
+ // From Cool to Berries goes unused
 diff --git a/src/script_pokemon_util.c b/src/script_pokemon_util.c
 index bc11dc0..1605eeb 100644
 --- a/src/script_pokemon_util.c
