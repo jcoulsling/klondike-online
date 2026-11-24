@@ -1076,3 +1076,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - Items on the ground (133) and berry trees (88, as bushes that give 3 berries once; FireRed has no berry planting).
 - Mauville Game Corner: the clerk gives the Coin Case, coins and slot machines work as in Celadon. Roulette and the prize counter are not done.
 - Not done: Contest Hall (the building is there, contests are not), Battle Frontier, Hoenn hidden items.
+
+## 2026-11-24i
+- Hoenn people use their own Emerald walking pictures: Professor Birch, Roxanne and the other leaders, Aqua and Magma members, swimmers and so on. Before, they borrowed Kanto pictures (Birch was Prof. Oak).

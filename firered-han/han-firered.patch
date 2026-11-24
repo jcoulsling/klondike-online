@@ -10404,7 +10404,7 @@ index ae0524e..8c24f16 100644
  @ Unused
 diff --git a/data/maps/DewfordTown/map.json b/data/maps/DewfordTown/map.json
 new file mode 100644
-index 0000000..287a2c7
+index 0000000..3abf678
 --- /dev/null
 +++ b/data/maps/DewfordTown/map.json
 @@ -0,0 +1,224 @@
@@ -10489,7 +10489,7 @@ index 0000000..287a2c7
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_PROF_OAK",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 27",
 +      "x": 10,
 +      "y": 9,
 +      "elevation": 3,
@@ -10751,7 +10751,7 @@ index 0000000..ff3628a
 +	.string "PROF. BIRCH: Try the WILD AREA!$"
 diff --git a/data/maps/DewfordTown_Gym/map.json b/data/maps/DewfordTown_Gym/map.json
 new file mode 100644
-index 0000000..8058ec8
+index 0000000..f3e4783
 --- /dev/null
 +++ b/data/maps/DewfordTown_Gym/map.json
 @@ -0,0 +1,174 @@
@@ -10773,7 +10773,7 @@ index 0000000..8058ec8
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 9",
 +      "x": 4,
 +      "y": 3,
 +      "elevation": 0,
@@ -10939,7 +10939,7 @@ index 0000000..1bf0e8c
 +	.byte 0
 diff --git a/data/maps/DewfordTown_Hall/map.json b/data/maps/DewfordTown_Hall/map.json
 new file mode 100644
-index 0000000..eb35996
+index 0000000..67f1761
 --- /dev/null
 +++ b/data/maps/DewfordTown_Hall/map.json
 @@ -0,0 +1,158 @@
@@ -11052,7 +11052,7 @@ index 0000000..eb35996
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 15,
 +      "y": 3,
 +      "elevation": 3,
@@ -11677,7 +11677,7 @@ index 0000000..52287d3
 +	.byte 0
 diff --git a/data/maps/EverGrandeCity_DrakesRoom/map.json b/data/maps/EverGrandeCity_DrakesRoom/map.json
 new file mode 100644
-index 0000000..e68ceeb
+index 0000000..3b3b353
 --- /dev/null
 +++ b/data/maps/EverGrandeCity_DrakesRoom/map.json
 @@ -0,0 +1,50 @@
@@ -11699,7 +11699,7 @@ index 0000000..e68ceeb
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN_1",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 18",
 +      "x": 6,
 +      "y": 5,
 +      "elevation": 3,
@@ -11741,7 +11741,7 @@ index 0000000..e328f43
 +	.byte 0
 diff --git a/data/maps/EverGrandeCity_GlaciasRoom/map.json b/data/maps/EverGrandeCity_GlaciasRoom/map.json
 new file mode 100644
-index 0000000..66aa580
+index 0000000..d3b495a
 --- /dev/null
 +++ b/data/maps/EverGrandeCity_GlaciasRoom/map.json
 @@ -0,0 +1,50 @@
@@ -11763,7 +11763,7 @@ index 0000000..66aa580
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 17",
 +      "x": 6,
 +      "y": 5,
 +      "elevation": 3,
@@ -12154,7 +12154,7 @@ index 0000000..c455b44
 +	.byte 0
 diff --git a/data/maps/EverGrandeCity_PhoebesRoom/map.json b/data/maps/EverGrandeCity_PhoebesRoom/map.json
 new file mode 100644
-index 0000000..b6a1500
+index 0000000..1cf3004
 --- /dev/null
 +++ b/data/maps/EverGrandeCity_PhoebesRoom/map.json
 @@ -0,0 +1,50 @@
@@ -12176,7 +12176,7 @@ index 0000000..b6a1500
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 16",
 +      "x": 6,
 +      "y": 5,
 +      "elevation": 3,
@@ -12699,7 +12699,7 @@ index 0000000..fcd9e8c
 +	.byte 0
 diff --git a/data/maps/EverGrandeCity_SidneysRoom/map.json b/data/maps/EverGrandeCity_SidneysRoom/map.json
 new file mode 100644
-index 0000000..87aefb4
+index 0000000..e5e5c58
 --- /dev/null
 +++ b/data/maps/EverGrandeCity_SidneysRoom/map.json
 @@ -0,0 +1,50 @@
@@ -12721,7 +12721,7 @@ index 0000000..87aefb4
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 15",
 +      "x": 6,
 +      "y": 5,
 +      "elevation": 3,
@@ -13994,7 +13994,7 @@ index 0000000..fed8f19
 +	.byte 0
 diff --git a/data/maps/FortreeCity_Gym/map.json b/data/maps/FortreeCity_Gym/map.json
 new file mode 100644
-index 0000000..08e776e
+index 0000000..9dfea3f
 --- /dev/null
 +++ b/data/maps/FortreeCity_Gym/map.json
 @@ -0,0 +1,158 @@
@@ -14016,7 +14016,7 @@ index 0000000..08e776e
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 14",
 +      "x": 15,
 +      "y": 2,
 +      "elevation": 3,
@@ -16269,7 +16269,7 @@ index 0000000..24d51f6
 +	.byte 0
 diff --git a/data/maps/LavaridgeTown_Gym_1F/map.json b/data/maps/LavaridgeTown_Gym_1F/map.json
 new file mode 100644
-index 0000000..eb26177
+index 0000000..a3306e3
 --- /dev/null
 +++ b/data/maps/LavaridgeTown_Gym_1F/map.json
 @@ -0,0 +1,300 @@
@@ -16291,7 +16291,7 @@ index 0000000..eb26177
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 12",
 +      "x": 13,
 +      "y": 9,
 +      "elevation": 3,
@@ -17511,7 +17511,7 @@ index 7ce87cd..2478c04 100644
      .string "orphaned POKéMON.$"
 diff --git a/data/maps/LilycoveCity/map.json b/data/maps/LilycoveCity/map.json
 new file mode 100644
-index 0000000..35f38c5
+index 0000000..d762876
 --- /dev/null
 +++ b/data/maps/LilycoveCity/map.json
 @@ -0,0 +1,421 @@
@@ -17583,7 +17583,7 @@ index 0000000..35f38c5
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 21,
 +      "y": 15,
 +      "elevation": 3,
@@ -17946,7 +17946,7 @@ index 0000000..9ba6880
 +	.byte 0
 diff --git a/data/maps/LilycoveCity_ContestHall/map.json b/data/maps/LilycoveCity_ContestHall/map.json
 new file mode 100644
-index 0000000..0f38474
+index 0000000..7e1b2d0
 --- /dev/null
 +++ b/data/maps/LilycoveCity_ContestHall/map.json
 @@ -0,0 +1,516 @@
@@ -18176,7 +18176,7 @@ index 0000000..0f38474
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 26,
 +      "y": 13,
 +      "elevation": 3,
@@ -19398,7 +19398,7 @@ index 0000000..abde4c4
 +
 diff --git a/data/maps/LilycoveCity_DepartmentStore_3F/map.json b/data/maps/LilycoveCity_DepartmentStore_3F/map.json
 new file mode 100644
-index 0000000..b12b47b
+index 0000000..b83c35d
 --- /dev/null
 +++ b/data/maps/LilycoveCity_DepartmentStore_3F/map.json
 @@ -0,0 +1,109 @@
@@ -19420,7 +19420,7 @@ index 0000000..b12b47b
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 21",
 +      "x": 0,
 +      "y": 5,
 +      "elevation": 3,
@@ -21680,7 +21680,7 @@ index 0000000..ea6f874
 +	.byte 0
 diff --git a/data/maps/MauvilleCity/map.json b/data/maps/MauvilleCity/map.json
 new file mode 100644
-index 0000000..04d2943
+index 0000000..fd11d36
 --- /dev/null
 +++ b/data/maps/MauvilleCity/map.json
 @@ -0,0 +1,249 @@
@@ -21736,7 +21736,7 @@ index 0000000..04d2943
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 24,
 +      "y": 10,
 +      "elevation": 3,
@@ -22437,7 +22437,7 @@ index 0000000..5ea985f
 +	.byte 0
 diff --git a/data/maps/MauvilleCity_Gym/map.json b/data/maps/MauvilleCity_Gym/map.json
 new file mode 100644
-index 0000000..64c1c1b
+index 0000000..ea7c86b
 --- /dev/null
 +++ b/data/maps/MauvilleCity_Gym/map.json
 @@ -0,0 +1,145 @@
@@ -22459,7 +22459,7 @@ index 0000000..64c1c1b
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN_1",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 11",
 +      "x": 5,
 +      "y": 2,
 +      "elevation": 0,
@@ -23855,7 +23855,7 @@ index 0000000..97336f7
 +	.byte 0
 diff --git a/data/maps/MossdeepCity_Gym/map.json b/data/maps/MossdeepCity_Gym/map.json
 new file mode 100644
-index 0000000..7940ec1
+index 0000000..eaf159f
 --- /dev/null
 +++ b/data/maps/MossdeepCity_Gym/map.json
 @@ -0,0 +1,333 @@
@@ -23877,7 +23877,7 @@ index 0000000..7940ec1
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 10",
 +      "x": 23,
 +      "y": 7,
 +      "elevation": 0,
@@ -23890,7 +23890,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 1,
 +      "y": 30,
 +      "elevation": 3,
@@ -23903,7 +23903,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 5,
 +      "y": 20,
 +      "elevation": 3,
@@ -23942,7 +23942,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 6,
 +      "y": 9,
 +      "elevation": 3,
@@ -24007,7 +24007,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 7,
 +      "y": 5,
 +      "elevation": 3,
@@ -24046,7 +24046,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 22,
 +      "y": 23,
 +      "elevation": 3,
@@ -24059,7 +24059,7 @@ index 0000000..7940ec1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 25,
 +      "y": 22,
 +      "elevation": 3,
@@ -24998,7 +24998,7 @@ index 0000000..ac7549c
 +	.byte 0
 diff --git a/data/maps/MossdeepCity_SpaceCenter_2F/map.json b/data/maps/MossdeepCity_SpaceCenter_2F/map.json
 new file mode 100644
-index 0000000..39e461f
+index 0000000..35e7cfe
 --- /dev/null
 +++ b/data/maps/MossdeepCity_SpaceCenter_2F/map.json
 @@ -0,0 +1,69 @@
@@ -25020,7 +25020,7 @@ index 0000000..39e461f
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 6,
 +      "y": 2,
 +      "elevation": 3,
@@ -25520,7 +25520,7 @@ index 0000000..1678714
 +	.byte 0
 diff --git a/data/maps/MtPyre_2F/map.json b/data/maps/MtPyre_2F/map.json
 new file mode 100644
-index 0000000..0cf7b81
+index 0000000..056e690
 --- /dev/null
 +++ b/data/maps/MtPyre_2F/map.json
 @@ -0,0 +1,162 @@
@@ -25633,7 +25633,7 @@ index 0000000..0cf7b81
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 6,
 +      "y": 6,
 +      "elevation": 3,
@@ -25696,7 +25696,7 @@ index 0000000..2c18663
 +	.byte 0
 diff --git a/data/maps/MtPyre_3F/map.json b/data/maps/MtPyre_3F/map.json
 new file mode 100644
-index 0000000..8d506bd
+index 0000000..5a1785b
 --- /dev/null
 +++ b/data/maps/MtPyre_3F/map.json
 @@ -0,0 +1,117 @@
@@ -25718,7 +25718,7 @@ index 0000000..8d506bd
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 1,
 +      "y": 4,
 +      "elevation": 3,
@@ -25827,7 +25827,7 @@ index 0000000..0ca4873
 +	.byte 0
 diff --git a/data/maps/MtPyre_4F/map.json b/data/maps/MtPyre_4F/map.json
 new file mode 100644
-index 0000000..56836cd
+index 0000000..7bd67bf
 --- /dev/null
 +++ b/data/maps/MtPyre_4F/map.json
 @@ -0,0 +1,91 @@
@@ -25849,7 +25849,7 @@ index 0000000..56836cd
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 11,
 +      "y": 7,
 +      "elevation": 3,
@@ -26030,7 +26030,7 @@ index 0000000..87e0be5
 +	.byte 0
 diff --git a/data/maps/MtPyre_6F/map.json b/data/maps/MtPyre_6F/map.json
 new file mode 100644
-index 0000000..9dd8f3b
+index 0000000..c45dd5f
 --- /dev/null
 +++ b/data/maps/MtPyre_6F/map.json
 @@ -0,0 +1,76 @@
@@ -26052,7 +26052,7 @@ index 0000000..9dd8f3b
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 6,
 +      "y": 3,
 +      "elevation": 3,
@@ -26078,7 +26078,7 @@ index 0000000..9dd8f3b
 +      "flag": "8385"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 10,
 +      "y": 3,
 +      "elevation": 3,
@@ -28664,7 +28664,7 @@ index 0000000..9f5001d
 +	.byte 0
 diff --git a/data/maps/PetalburgCity_Gym/map.json b/data/maps/PetalburgCity_Gym/map.json
 new file mode 100644
-index 0000000..1780ba3
+index 0000000..5f31e99
 --- /dev/null
 +++ b/data/maps/PetalburgCity_Gym/map.json
 @@ -0,0 +1,506 @@
@@ -28686,7 +28686,7 @@ index 0000000..1780ba3
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 13",
 +      "x": 4,
 +      "y": 2,
 +      "elevation": 0,
@@ -30614,7 +30614,7 @@ index 0000000..458c6c6
 +	.byte 0
 diff --git a/data/maps/Route103/map.json b/data/maps/Route103/map.json
 new file mode 100644
-index 0000000..3af86ba
+index 0000000..6fd4a63
 --- /dev/null
 +++ b/data/maps/Route103/map.json
 @@ -0,0 +1,258 @@
@@ -30816,7 +30816,7 @@ index 0000000..3af86ba
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 36,
 +      "y": 6,
 +      "elevation": 1,
@@ -30829,7 +30829,7 @@ index 0000000..3af86ba
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 36,
 +      "y": 13,
 +      "elevation": 1,
@@ -30886,7 +30886,7 @@ index 0000000..83496d1
 +	.byte 0
 diff --git a/data/maps/Route104/map.json b/data/maps/Route104/map.json
 new file mode 100644
-index 0000000..2fbd1ba
+index 0000000..19701ad
 --- /dev/null
 +++ b/data/maps/Route104/map.json
 @@ -0,0 +1,513 @@
@@ -31197,7 +31197,7 @@ index 0000000..2fbd1ba
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 21,
 +      "y": 25,
 +      "elevation": 3,
@@ -31553,7 +31553,7 @@ index 0000000..01676bf
 +	.byte 0
 diff --git a/data/maps/Route105/map.json b/data/maps/Route105/map.json
 new file mode 100644
-index 0000000..2f87024
+index 0000000..338fe60
 --- /dev/null
 +++ b/data/maps/Route105/map.json
 @@ -0,0 +1,145 @@
@@ -31586,7 +31586,7 @@ index 0000000..2f87024
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 19,
 +      "y": 60,
 +      "elevation": 1,
@@ -31599,7 +31599,7 @@ index 0000000..2f87024
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 27,
 +      "y": 36,
 +      "elevation": 1,
@@ -31612,7 +31612,7 @@ index 0000000..2f87024
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 8,
 +      "y": 45,
 +      "elevation": 1,
@@ -31625,7 +31625,7 @@ index 0000000..2f87024
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 19,
 +      "y": 9,
 +      "elevation": 1,
@@ -31712,7 +31712,7 @@ index 0000000..76d89ee
 +	.byte 0
 diff --git a/data/maps/Route106/map.json b/data/maps/Route106/map.json
 new file mode 100644
-index 0000000..1fed89e
+index 0000000..062d3cd
 --- /dev/null
 +++ b/data/maps/Route106/map.json
 @@ -0,0 +1,115 @@
@@ -31745,7 +31745,7 @@ index 0000000..1fed89e
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 18,
 +      "y": 5,
 +      "elevation": 1,
@@ -31758,7 +31758,7 @@ index 0000000..1fed89e
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 29,
 +      "y": 10,
 +      "elevation": 1,
@@ -31841,7 +31841,7 @@ index 0000000..b992796
 +	.byte 0
 diff --git a/data/maps/Route107/map.json b/data/maps/Route107/map.json
 new file mode 100644
-index 0000000..61868c6
+index 0000000..cd365bd
 --- /dev/null
 +++ b/data/maps/Route107/map.json
 @@ -0,0 +1,124 @@
@@ -31874,7 +31874,7 @@ index 0000000..61868c6
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 41,
 +      "y": 10,
 +      "elevation": 1,
@@ -31887,7 +31887,7 @@ index 0000000..61868c6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 23,
 +      "y": 11,
 +      "elevation": 1,
@@ -31900,7 +31900,7 @@ index 0000000..61868c6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 16,
 +      "y": 7,
 +      "elevation": 1,
@@ -31913,7 +31913,7 @@ index 0000000..61868c6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 50,
 +      "y": 11,
 +      "elevation": 1,
@@ -31926,7 +31926,7 @@ index 0000000..61868c6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 33,
 +      "y": 4,
 +      "elevation": 1,
@@ -31952,7 +31952,7 @@ index 0000000..61868c6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 50,
 +      "y": 5,
 +      "elevation": 1,
@@ -31979,7 +31979,7 @@ index 0000000..0f73277
 +	.byte 0
 diff --git a/data/maps/Route108/map.json b/data/maps/Route108/map.json
 new file mode 100644
-index 0000000..174345c
+index 0000000..885cf08
 --- /dev/null
 +++ b/data/maps/Route108/map.json
 @@ -0,0 +1,132 @@
@@ -32012,7 +32012,7 @@ index 0000000..174345c
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 52,
 +      "y": 13,
 +      "elevation": 1,
@@ -32025,7 +32025,7 @@ index 0000000..174345c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 35,
 +      "y": 12,
 +      "elevation": 1,
@@ -32038,7 +32038,7 @@ index 0000000..174345c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 13,
 +      "y": 13,
 +      "elevation": 1,
@@ -32051,7 +32051,7 @@ index 0000000..174345c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 8,
 +      "y": 7,
 +      "elevation": 1,
@@ -32125,7 +32125,7 @@ index 0000000..3931355
 +	.byte 0
 diff --git a/data/maps/Route109/map.json b/data/maps/Route109/map.json
 new file mode 100644
-index 0000000..912aeb0
+index 0000000..bae4a9a
 --- /dev/null
 +++ b/data/maps/Route109/map.json
 @@ -0,0 +1,344 @@
@@ -32158,7 +32158,7 @@ index 0000000..912aeb0
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 12,
 +      "y": 36,
 +      "elevation": 3,
@@ -32171,7 +32171,7 @@ index 0000000..912aeb0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 25,
 +      "y": 39,
 +      "elevation": 1,
@@ -32637,7 +32637,7 @@ index 27e256c..7753ae9 100644
      .string "Careful!\n"
 diff --git a/data/maps/Route110/map.json b/data/maps/Route110/map.json
 new file mode 100644
-index 0000000..d592ea5
+index 0000000..ca40ef6
 --- /dev/null
 +++ b/data/maps/Route110/map.json
 @@ -0,0 +1,534 @@
@@ -32818,7 +32818,7 @@ index 0000000..d592ea5
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 3,
 +      "y": 39,
 +      "elevation": 3,
@@ -34274,7 +34274,7 @@ index 0000000..7b2da89
 +	.byte 0
 diff --git a/data/maps/Route110_TrickHousePuzzle7/map.json b/data/maps/Route110_TrickHousePuzzle7/map.json
 new file mode 100644
-index 0000000..a289315
+index 0000000..6736981
 --- /dev/null
 +++ b/data/maps/Route110_TrickHousePuzzle7/map.json
 @@ -0,0 +1,214 @@
@@ -34296,7 +34296,7 @@ index 0000000..a289315
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 9,
 +      "y": 20,
 +      "elevation": 0,
@@ -34322,7 +34322,7 @@ index 0000000..a289315
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 8,
 +      "y": 17,
 +      "elevation": 0,
@@ -34348,7 +34348,7 @@ index 0000000..a289315
 +      "flag": "8411"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 9,
 +      "y": 2,
 +      "elevation": 3,
@@ -36686,7 +36686,7 @@ index 0000000..7e5b073
 +	.byte 0
 diff --git a/data/maps/Route115/map.json b/data/maps/Route115/map.json
 new file mode 100644
-index 0000000..73d37ee
+index 0000000..09cdc94
 --- /dev/null
 +++ b/data/maps/Route115/map.json
 @@ -0,0 +1,358 @@
@@ -36914,7 +36914,7 @@ index 0000000..73d37ee
 +      "flag": "8261"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 22",
 +      "x": 10,
 +      "y": 15,
 +      "elevation": 3,
@@ -37519,7 +37519,7 @@ index 0000000..9c16943
 +	.byte 0
 diff --git a/data/maps/Route117/map.json b/data/maps/Route117/map.json
 new file mode 100644
-index 0000000..442283a
+index 0000000..42664ac
 --- /dev/null
 +++ b/data/maps/Route117/map.json
 @@ -0,0 +1,313 @@
@@ -37591,7 +37591,7 @@ index 0000000..442283a
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 21",
 +      "x": 38,
 +      "y": 16,
 +      "elevation": 3,
@@ -37695,7 +37695,7 @@ index 0000000..442283a
 +      "flag": "8277"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 22",
 +      "x": 26,
 +      "y": 13,
 +      "elevation": 3,
@@ -37786,7 +37786,7 @@ index 0000000..442283a
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 22",
 +      "x": 16,
 +      "y": 4,
 +      "elevation": 3,
@@ -39540,7 +39540,7 @@ index 0000000..3c8fbbb
 +	.byte 0
 diff --git a/data/maps/Route121/map.json b/data/maps/Route121/map.json
 new file mode 100644
-index 0000000..efab231
+index 0000000..d3d16ae
 --- /dev/null
 +++ b/data/maps/Route121/map.json
 @@ -0,0 +1,362 @@
@@ -39747,7 +39747,7 @@ index 0000000..efab231
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 11,
 +      "y": 11,
 +      "elevation": 3,
@@ -40070,7 +40070,7 @@ index 0000000..fabb5ec
 +	.byte 0
 diff --git a/data/maps/Route123/map.json b/data/maps/Route123/map.json
 new file mode 100644
-index 0000000..ff0f7a1
+index 0000000..611aa87
 --- /dev/null
 +++ b/data/maps/Route123/map.json
 @@ -0,0 +1,586 @@
@@ -40428,7 +40428,7 @@ index 0000000..ff0f7a1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GBA_KID",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
 +      "x": 138,
 +      "y": 12,
 +      "elevation": 3,
@@ -40454,7 +40454,7 @@ index 0000000..ff0f7a1
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
 +      "x": 87,
 +      "y": 12,
 +      "elevation": 3,
@@ -40747,7 +40747,7 @@ index 0000000..80f4f71
 +	.byte 0
 diff --git a/data/maps/Route124/map.json b/data/maps/Route124/map.json
 new file mode 100644
-index 0000000..c92554b
+index 0000000..1720168
 --- /dev/null
 +++ b/data/maps/Route124/map.json
 @@ -0,0 +1,216 @@
@@ -40790,7 +40790,7 @@ index 0000000..c92554b
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 34,
 +      "y": 25,
 +      "elevation": 1,
@@ -40803,7 +40803,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 61,
 +      "y": 74,
 +      "elevation": 1,
@@ -40816,7 +40816,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 49,
 +      "y": 45,
 +      "elevation": 1,
@@ -40829,7 +40829,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 7,
 +      "y": 23,
 +      "elevation": 1,
@@ -40842,7 +40842,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 58,
 +      "y": 58,
 +      "elevation": 1,
@@ -40894,7 +40894,7 @@ index 0000000..c92554b
 +      "flag": "8349"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 18,
 +      "y": 44,
 +      "elevation": 1,
@@ -40920,7 +40920,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 7,
 +      "y": 29,
 +      "elevation": 1,
@@ -40933,7 +40933,7 @@ index 0000000..c92554b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 69,
 +      "y": 74,
 +      "elevation": 1,
@@ -41050,7 +41050,7 @@ index 0000000..d13eaf8
 +	.byte 0
 diff --git a/data/maps/Route125/map.json b/data/maps/Route125/map.json
 new file mode 100644
-index 0000000..dece536
+index 0000000..17b532e
 --- /dev/null
 +++ b/data/maps/Route125/map.json
 @@ -0,0 +1,171 @@
@@ -41083,7 +41083,7 @@ index 0000000..dece536
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 7,
 +      "y": 31,
 +      "elevation": 1,
@@ -41096,7 +41096,7 @@ index 0000000..dece536
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 45,
 +      "y": 9,
 +      "elevation": 1,
@@ -41109,7 +41109,7 @@ index 0000000..dece536
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 38,
 +      "y": 24,
 +      "elevation": 1,
@@ -41122,7 +41122,7 @@ index 0000000..dece536
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 30,
 +      "y": 28,
 +      "elevation": 1,
@@ -41235,7 +41235,7 @@ index 0000000..392d268
 +	.byte 0
 diff --git a/data/maps/Route126/map.json b/data/maps/Route126/map.json
 new file mode 100644
-index 0000000..7ba33a0
+index 0000000..0328520
 --- /dev/null
 +++ b/data/maps/Route126/map.json
 @@ -0,0 +1,150 @@
@@ -41268,7 +41268,7 @@ index 0000000..7ba33a0
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 51,
 +      "y": 65,
 +      "elevation": 1,
@@ -41281,7 +41281,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 56,
 +      "y": 22,
 +      "elevation": 1,
@@ -41294,7 +41294,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 63,
 +      "y": 43,
 +      "elevation": 1,
@@ -41307,7 +41307,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 9,
 +      "y": 48,
 +      "elevation": 1,
@@ -41333,7 +41333,7 @@ index 0000000..7ba33a0
 +      "flag": "8351"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 15,
 +      "y": 66,
 +      "elevation": 1,
@@ -41346,7 +41346,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 7,
 +      "y": 66,
 +      "elevation": 1,
@@ -41359,7 +41359,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 64,
 +      "y": 5,
 +      "elevation": 1,
@@ -41372,7 +41372,7 @@ index 0000000..7ba33a0
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 56,
 +      "y": 5,
 +      "elevation": 1,
@@ -41399,7 +41399,7 @@ index 0000000..77c4ee9
 +	.byte 0
 diff --git a/data/maps/Route127/map.json b/data/maps/Route127/map.json
 new file mode 100644
-index 0000000..99f9341
+index 0000000..1f511d4
 --- /dev/null
 +++ b/data/maps/Route127/map.json
 @@ -0,0 +1,181 @@
@@ -41437,7 +41437,7 @@ index 0000000..99f9341
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 45,
 +      "y": 42,
 +      "elevation": 1,
@@ -41450,7 +41450,7 @@ index 0000000..99f9341
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 18,
 +      "y": 68,
 +      "elevation": 1,
@@ -41594,7 +41594,7 @@ index 0000000..6e4e5ac
 +	.byte 0
 diff --git a/data/maps/Route128/map.json b/data/maps/Route128/map.json
 new file mode 100644
-index 0000000..974f95c
+index 0000000..77501a0
 --- /dev/null
 +++ b/data/maps/Route128/map.json
 @@ -0,0 +1,129 @@
@@ -41632,7 +41632,7 @@ index 0000000..974f95c
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 35,
 +      "y": 33,
 +      "elevation": 1,
@@ -41645,7 +41645,7 @@ index 0000000..974f95c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 78,
 +      "y": 24,
 +      "elevation": 1,
@@ -41697,7 +41697,7 @@ index 0000000..974f95c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 101,
 +      "y": 29,
 +      "elevation": 1,
@@ -41710,7 +41710,7 @@ index 0000000..974f95c
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 101,
 +      "y": 22,
 +      "elevation": 1,
@@ -41737,7 +41737,7 @@ index 0000000..47f3f5c
 +	.byte 0
 diff --git a/data/maps/Route129/map.json b/data/maps/Route129/map.json
 new file mode 100644
-index 0000000..65ca2f6
+index 0000000..44068cb
 --- /dev/null
 +++ b/data/maps/Route129/map.json
 @@ -0,0 +1,98 @@
@@ -41770,7 +41770,7 @@ index 0000000..65ca2f6
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 28,
 +      "y": 16,
 +      "elevation": 1,
@@ -41783,7 +41783,7 @@ index 0000000..65ca2f6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 10,
 +      "y": 14,
 +      "elevation": 1,
@@ -41796,7 +41796,7 @@ index 0000000..65ca2f6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 13,
 +      "y": 22,
 +      "elevation": 1,
@@ -41809,7 +41809,7 @@ index 0000000..65ca2f6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 35,
 +      "y": 9,
 +      "elevation": 1,
@@ -41822,7 +41822,7 @@ index 0000000..65ca2f6
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 13,
 +      "y": 27,
 +      "elevation": 1,
@@ -41900,7 +41900,7 @@ index bf7fdd6..792be40 100644
  
 diff --git a/data/maps/Route130/map.json b/data/maps/Route130/map.json
 new file mode 100644
-index 0000000..fe092cc
+index 0000000..057f408
 --- /dev/null
 +++ b/data/maps/Route130/map.json
 @@ -0,0 +1,85 @@
@@ -41933,7 +41933,7 @@ index 0000000..fe092cc
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 70,
 +      "y": 21,
 +      "elevation": 1,
@@ -41946,7 +41946,7 @@ index 0000000..fe092cc
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 7,
 +      "y": 21,
 +      "elevation": 1,
@@ -41972,7 +41972,7 @@ index 0000000..fe092cc
 +      "flag": "8355"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 7,
 +      "y": 30,
 +      "elevation": 1,
@@ -41999,7 +41999,7 @@ index 0000000..9f623e4
 +	.byte 0
 diff --git a/data/maps/Route131/map.json b/data/maps/Route131/map.json
 new file mode 100644
-index 0000000..0197685
+index 0000000..17db796
 --- /dev/null
 +++ b/data/maps/Route131/map.json
 @@ -0,0 +1,145 @@
@@ -42032,7 +42032,7 @@ index 0000000..0197685
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 41,
 +      "y": 32,
 +      "elevation": 1,
@@ -42045,7 +42045,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 18,
 +      "y": 19,
 +      "elevation": 1,
@@ -42058,7 +42058,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 10,
 +      "y": 22,
 +      "elevation": 1,
@@ -42071,7 +42071,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 31,
 +      "y": 25,
 +      "elevation": 1,
@@ -42084,7 +42084,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 9,
 +      "y": 16,
 +      "elevation": 1,
@@ -42110,7 +42110,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 52,
 +      "y": 20,
 +      "elevation": 1,
@@ -42123,7 +42123,7 @@ index 0000000..0197685
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 52,
 +      "y": 27,
 +      "elevation": 1,
@@ -42158,7 +42158,7 @@ index 0000000..ca4b883
 +	.byte 0
 diff --git a/data/maps/Route132/map.json b/data/maps/Route132/map.json
 new file mode 100644
-index 0000000..298afd3
+index 0000000..f0c6da0
 --- /dev/null
 +++ b/data/maps/Route132/map.json
 @@ -0,0 +1,163 @@
@@ -42191,7 +42191,7 @@ index 0000000..298afd3
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 40,
 +      "y": 13,
 +      "elevation": 1,
@@ -42204,7 +42204,7 @@ index 0000000..298afd3
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 10,
 +      "y": 6,
 +      "elevation": 1,
@@ -42335,7 +42335,7 @@ index 0000000..8435ea3
 +	.byte 0
 diff --git a/data/maps/Route133/map.json b/data/maps/Route133/map.json
 new file mode 100644
-index 0000000..b89106b
+index 0000000..4c2effe
 --- /dev/null
 +++ b/data/maps/Route133/map.json
 @@ -0,0 +1,163 @@
@@ -42368,7 +42368,7 @@ index 0000000..b89106b
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 68,
 +      "y": 27,
 +      "elevation": 1,
@@ -42381,7 +42381,7 @@ index 0000000..b89106b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 13,
 +      "y": 3,
 +      "elevation": 1,
@@ -42394,7 +42394,7 @@ index 0000000..b89106b
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 68,
 +      "y": 28,
 +      "elevation": 1,
@@ -42512,7 +42512,7 @@ index 0000000..7efce34
 +	.byte 0
 diff --git a/data/maps/Route134/map.json b/data/maps/Route134/map.json
 new file mode 100644
-index 0000000..1440e55
+index 0000000..5bea054
 --- /dev/null
 +++ b/data/maps/Route134/map.json
 @@ -0,0 +1,176 @@
@@ -42545,7 +42545,7 @@ index 0000000..1440e55
 +  ],
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 23",
 +      "x": 49,
 +      "y": 9,
 +      "elevation": 1,
@@ -42558,7 +42558,7 @@ index 0000000..1440e55
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_SWIMMER_F_LAND",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 24",
 +      "x": 58,
 +      "y": 7,
 +      "elevation": 1,
@@ -44505,7 +44505,7 @@ index 0000000..777b053
 +	.byte 0
 diff --git a/data/maps/RustboroCity_Gym/map.json b/data/maps/RustboroCity_Gym/map.json
 new file mode 100644
-index 0000000..c00401f
+index 0000000..b391ab9
 --- /dev/null
 +++ b/data/maps/RustboroCity_Gym/map.json
 @@ -0,0 +1,119 @@
@@ -44527,7 +44527,7 @@ index 0000000..c00401f
 +  "connections": null,
 +  "object_events": [
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 8",
 +      "x": 5,
 +      "y": 2,
 +      "elevation": 3,
@@ -45250,7 +45250,7 @@ index 0000000..21d4756
 +	end
 diff --git a/data/maps/RustboroCity_PokemonSchool/map.json b/data/maps/RustboroCity_PokemonSchool/map.json
 new file mode 100644
-index 0000000..9f580be
+index 0000000..b89f38c
 --- /dev/null
 +++ b/data/maps/RustboroCity_PokemonSchool/map.json
 @@ -0,0 +1,156 @@
@@ -45298,7 +45298,7 @@ index 0000000..9f580be
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 3,
 +      "y": 8,
 +      "elevation": 3,
@@ -47614,7 +47614,7 @@ index 3648411..0f5a0be 100644
  SixIsland_WaterPath_House1_Text_BiggestHeracrossIsXInches::
 diff --git a/data/maps/SlateportCity/map.json b/data/maps/SlateportCity/map.json
 new file mode 100644
-index 0000000..549566e
+index 0000000..6601a39
 --- /dev/null
 +++ b/data/maps/SlateportCity/map.json
 @@ -0,0 +1,468 @@
@@ -47678,7 +47678,7 @@ index 0000000..549566e
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
 +      "x": 5,
 +      "y": 13,
 +      "elevation": 3,
@@ -142896,7 +142896,7 @@ index 0000000..1312c54
 +        sys.exit(__doc__)
 diff --git a/tools/han/han_people.py b/tools/han/han_people.py
 new file mode 100644
-index 0000000..8525562
+index 0000000..a5be92b
 --- /dev/null
 +++ b/tools/han/han_people.py
 @@ -0,0 +1,204 @@
@@ -142929,7 +142929,7 @@ index 0000000..8525562
 +    "AquaMemberM", "AquaMemberF", "Archie", "MagmaMemberM", "MagmaMemberF", "Maxie", "Wally", "Wallace",
 +    "Roxanne", "Brawly", "Tate", "Wattson", "Flannery", "Norman", "Winona", "Sidney", "Phoebe", "Glacia", "Drake",
 +    "HexManiac", "RichBoy", "RunningTriathleteM",
-+    "RunningTriathleteF", "SwimmerM", "SwimmerF", "ReporterM", "PsychicM",
++    "RunningTriathleteF", "SwimmerM", "SwimmerF", "ReporterM", "PsychicM", "ProfBirch",
 +]
 +# FireRed's own gym leaders and Elite Four are standing pictures too (three frames, the steps repeat them), so they
 +# walk by the same drawing: key, picture file in graphics/object_events/pics/people, FireRed's name for the graphics
