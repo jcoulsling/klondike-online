@@ -75,3 +75,9 @@ with no save.
 - The name Rowan, with no save yet, begins from `public/seed/rowan.sav`: Pallet Town, eight badges and a competitive team
   (see `src/han_rowan.c` in the decomp patch). Make it again after big changes to the game with the steps in the
   decomp README.
+
+## When the game is updated
+
+`public/patch.json` holds the date and the check number of the newest game (the target check number of the newest `.bps`).
+After you make a new patch, put its date and `rom` value there (the last 8 bytes before the final 4 of the `.bps`, or the CRC32
+of the patched game) and push. The page then tells players with an old kept copy, or an old patch file, that a new patch is needed.

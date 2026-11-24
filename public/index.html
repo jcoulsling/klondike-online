@@ -239,9 +239,16 @@
   function say(t, k) { $('msg').textContent = t; $('msg').className = k || ''; }
   function read(file, done) { var r = new FileReader(); r.onload = function () { done(new Uint8Array(r.result)); }; r.onerror = function () { say('That file could not be read.', 'bad'); }; r.readAsArrayBuffer(file); }
   function refresh() { $('go').disabled = !((romData && patchData) || madeRom); }
+  // the newest patch, from patch.json: a kept game or a patch that does not match it is out of date
+  var latest = null, latestReady = fetch('patch.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { latest = j; }).catch(function () {});
+  function patchTarget(d) { return d.length > 19 ? u32(d, d.length - 8) : 0; }
   function take(kind, file) {
     if (!file) return;
     read(file, function (d) {
+      if (kind === 'patch' && latest && d[0] === 0x42 && patchTarget(d) !== parseInt(latest.rom, 16)) {
+        patchData = null; $('patchInfo').textContent = 'Drop it here or tap to choose (.bps)'; $('dropPatch').className = 'drop';
+        say('This patch is out of date. A new patch is needed: get the one dated ' + latest.date + ' (haa_firered-han_coulson_' + latest.date + '.bps).', 'bad'); refresh(); return;
+      }
       if (kind === 'rom') { romData = d; $('romInfo').textContent = file.name + ' (' + (d.length / 1048576).toFixed(1) + ' MB)'; $('dropRom').className = 'drop done'; }
       else { patchData = d; $('patchInfo').textContent = file.name + ' (' + (d.length / 1048576).toFixed(1) + ' MB)'; $('dropPatch').className = 'drop done'; }
       say(''); refresh();
@@ -507,6 +514,16 @@
   var autoDone = false;
   keptGame(function (rom) {
     if (autoDone || !rom || /[?&]setup/.test(location.search)) return; autoDone = true;
+    latestReady.then(function () {
+      if (latest && crc32(rom) !== parseInt(latest.rom, 16)) {      // the game has been updated since this copy was made
+        forgetGame();
+        say('The game has been updated. A new patch is needed: choose your FireRed file and the patch dated ' + latest.date + ' again.', 'bad');
+        return;
+      }
+      useKept(rom);
+    });
+  });
+  function useKept(rom) {
     madeRom = new Uint8Array(rom);
     $('romInfo').textContent = 'Kept in this browser'; $('dropRom').className = 'drop done';
     $('patchInfo').textContent = 'Not needed again'; $('dropPatch').className = 'drop done';
@@ -516,7 +533,7 @@
       $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
       startEmulator(madeRom, sess, server, null);
     } else say('Your game is ready. Type your password and press Play.');
-  });
+  }
 
   function startEmulator(rom, me, room, saveBytes) {
     var nm = me.name || '';
