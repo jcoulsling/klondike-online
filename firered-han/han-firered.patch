@@ -4982,10 +4982,10 @@ index 0000000..b9ae260
 +	.string "loan today!$"
 diff --git a/data/scripts/han_trade.inc b/data/scripts/han_trade.inc
 new file mode 100644
-index 0000000..740c46c
+index 0000000..4b152dc
 --- /dev/null
 +++ b/data/scripts/han_trade.inc
-@@ -0,0 +1,190 @@
+@@ -0,0 +1,189 @@
 +@ Hän build: trading with another player (src/han_trade.c). Jane, 22 November 2026.
 +
 +Han_Trade_Initiate::
@@ -5138,7 +5138,6 @@ index 0000000..740c46c
 +	.string "Yä̀ä łëtr’ubàa nindhän?$" @ Jane's line, Hän build
 +
 +Han_Battle_Text_Offered:
-+	.string "Another player wants a battle.\n"
 +	.string "Yä̀ä łëtr’ubàa nindhän?$"
 +
 +Han_Battle_Text_CannotFight:
