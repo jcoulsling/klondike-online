@@ -17065,7 +17065,7 @@ index 64c9e59..c61cccc 100644
          {
              for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
 diff --git a/src/battle_message.c b/src/battle_message.c
-index a6392be..f3fefac 100644
+index a6392be..9058563 100644
 --- a/src/battle_message.c
 +++ b/src/battle_message.c
 @@ -45,65 +45,65 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst);
@@ -17387,8 +17387,9 @@ index a6392be..f3fefac 100644
  static const u8 sText_SilphScopeUnveil[] = _("SILPH SCOPE unveiled the GHOST's\nidentity!");
  static const u8 sText_TheGhostWas[] = _("The GHOST was MAROWAK!\p\n");
 -static const u8 sText_Trainer1WantsToBattle[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\nwould like to battle!\p");
+-static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nwants to battle!");
 +static const u8 sText_Trainer1WantsToBattle[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\nłëtr’uba nindhän!\p");
- static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nwants to battle!");
++static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nłëtr’uba nindhän!");
  static const u8 sText_TwoLinkTrainersWantToBattle[] = _("{B_LINK_OPPONENT1_NAME} and {B_LINK_OPPONENT2_NAME}\nwant to battle!");
 -static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME}!{PAUSE 60}");
 -static const u8 sText_Trainer1SentOutTwoPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} sent\nout {B_OPPONENT_MON1_NAME} and {B_OPPONENT_MON2_NAME}!{PAUSE 60}");
@@ -24962,7 +24963,7 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..eb5caff
+index 0000000..aef2c70
 --- /dev/null
 +++ b/src/han_custom.c
 @@ -0,0 +1,786 @@
@@ -25625,14 +25626,14 @@ index 0000000..eb5caff
 +    if (look[HAN_LOOK_PIC] == 0 || HanBackPicId() != id)
 +        return FALSE;
 +    LoadPalette(sHanPicPal[look[HAN_LOOK_PIC] - 1][look[HAN_LOOK_PAL]], offset, PLTT_SIZE_4BPP);
-+    if (id == TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY && look[HAN_LOOK_PAL] == 12)
++    if (id == TRAINER_BACK_PIC_RUBY_SAPPHIRE_MAY && look[HAN_LOOK_PAL] == 6)
 +    {
 +        // the collar of her shirt (colours 5 and 6 of the back picture) is the trans flag's light blue
 +        static const u16 sCollar[2] = {RGB(11, 25, 31), RGB(8, 19, 23)};
 +
 +        LoadPalette(sCollar, offset + 5, sizeof(sCollar));
 +    }
-+    if (id == TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN && look[HAN_LOOK_PAL] == 12)
++    if (id == TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN && look[HAN_LOOK_PAL] == 6)
 +    {
 +        // his red (colours 12 and 13 of the back picture, kept red in the front picture for the Poké Ball) is the flag's pink
 +        static const u16 sRed[2] = {RGB(30, 21, 23), RGB(23, 16, 17)};
@@ -42539,10 +42540,10 @@ index 0000000..8525562
 +    main(sys.argv)
 diff --git a/tools/han/han_pics.py b/tools/han/han_pics.py
 new file mode 100644
-index 0000000..85aa380
+index 0000000..a83946d
 --- /dev/null
 +++ b/tools/han/han_pics.py
-@@ -0,0 +1,463 @@
+@@ -0,0 +1,465 @@
 +#!/usr/bin/env python3
 +"""Palette swaps of the game's own trainer pictures (Jane, 22 November 2026).
 +
@@ -42560,7 +42561,8 @@ index 0000000..85aa380
 +from pathlib import Path
 +
 +ROOT = Path(__file__).resolve().parents[2]
-+N_VARIANTS = 13   # 0 the original, 1 to 7 rainbow, 8 black, 9 white, 10 and 11 that suit the picture, 12 the trans flag
++TRANS_AT = 6
++N_VARIANTS = 13   # 0 the original, trans flag at 6, rainbow 1-5 and 7-8, black 9, white 10, 11 and 12 that suit the picture
 +RAINBOW = [0.0, 30 / 360, 56 / 360, 125 / 360, 220 / 360, 262 / 360, 290 / 360]
 +
 +
@@ -42791,6 +42793,7 @@ index 0000000..85aa380
 +                p[i] = rgb(h - main_h + main_h + 1 / 3, max(s, 0.45), val)
 +        out.append(p)
 +    out[12] = trans_flag(pic, pal, follow)
++    out.insert(TRANS_AT, out.pop(12))    # the trans flag is palette 6
 +    return out
 +
 +
