@@ -16052,7 +16052,7 @@ index b4b6ebb..68e1837 100644
          switch (chosenMoveId)
          {
 diff --git a/src/battle_controller_player.c b/src/battle_controller_player.c
-index d8e1fe7..e3b0744 100644
+index d8e1fe7..22cdb12 100644
 --- a/src/battle_controller_player.c
 +++ b/src/battle_controller_player.c
 @@ -1,4 +1,5 @@
@@ -16061,25 +16061,49 @@ index d8e1fe7..e3b0744 100644
  #include "gflib.h"
  #include "data.h"
  #include "item.h"
-@@ -2189,7 +2190,7 @@ static void PlayerHandleDrawTrainerPic(void)
-     }
-     else
+@@ -2178,19 +2179,7 @@ static void PlayerHandleDrawTrainerPic(void)
      {
+         xPos = 80;
+     }
+-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+-    {
+-        if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_RUBY
+-         || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_SAPPHIRE
+-         || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_EMERALD)
+-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + TRAINER_BACK_PIC_RUBY_SAPPHIRE_BRENDAN;
+-        else
+-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender;
+-    }
+-    else
+-    {
 -        trainerPicId = gSaveBlock2Ptr->playerGender;
-+        trainerPicId = HanBackPicId();
-     }
+-    }
++    trainerPicId = HanBackPicId();
      DecompressTrainerBackPalette(trainerPicId, gActiveBattler);
      SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
-@@ -2219,7 +2220,7 @@ static void PlayerHandleTrainerSlide(void)
-     }
-     else
-     {
+     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate,
+@@ -2208,19 +2197,7 @@ static void PlayerHandleTrainerSlide(void)
+ {
+     u32 trainerPicId;
+ 
+-    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+-    {
+-        if ((gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_RUBY
+-         || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_SAPPHIRE
+-         || (gLinkPlayers[GetMultiplayerId()].version & 0xFF) == VERSION_EMERALD)
+-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + 2;
+-        else
+-            trainerPicId = gLinkPlayers[GetMultiplayerId()].gender + 0;
+-    }
+-    else
+-    {
 -        trainerPicId = gSaveBlock2Ptr->playerGender + 0;
-+        trainerPicId = HanBackPicId();
-     }
+-    }
++    trainerPicId = HanBackPicId();
      DecompressTrainerBackPalette(trainerPicId, gActiveBattler);
      SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
-@@ -2720,7 +2721,8 @@ static void PlayerHandleIntroTrainerBallThrow(void)
+     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate,
+@@ -2720,7 +2697,8 @@ static void PlayerHandleIntroTrainerBallThrow(void)
      StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[gActiveBattler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
      StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
      paletteNum = AllocSpritePalette(0xD6F8);
