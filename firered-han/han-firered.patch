@@ -24774,10 +24774,10 @@ index 94fd2cc..a693c9a 100644
  const u8 gGraphics_TitleScreen_CopyrightPressStartMap[] = INCBIN_U8("graphics/title_screen/copyright_press_start.bin.lz");
 diff --git a/src/han_custom.c b/src/han_custom.c
 new file mode 100644
-index 0000000..697a5b7
+index 0000000..eb5caff
 --- /dev/null
 +++ b/src/han_custom.c
-@@ -0,0 +1,777 @@
+@@ -0,0 +1,786 @@
 +#include "global.h"
 +#include "link.h"
 +#include "gflib.h"
@@ -24849,9 +24849,18 @@ index 0000000..697a5b7
 +}
 +
 +// the number shown for a picture in the customizer
++// counted among the pictures that suit the player's gender, so the number goes up by one with each press
 +u8 HanPicNumber(u8 pic)
 +{
-+    return pic < HAN_N_PIC ? sHanPicPos[pic] : 0;
++    u8 i, n = 0, pos, g = gSaveBlock2Ptr->playerGender;
++
++    if (pic >= HAN_N_PIC)
++        return 0;
++    pos = sHanPicPos[pic];
++    for (i = 0; i < pos; i++)
++        if (sHanPicSex[sHanPicAt[i]] == 2 || sHanPicSex[sHanPicAt[i]] == g)
++            n++;
++    return n;
 +}
 +
 +u8 HanPicFits(u8 pic, u8 gender)
