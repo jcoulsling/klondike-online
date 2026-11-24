@@ -28110,7 +28110,7 @@ index 01960d2..0acce5d 100644
              categoryStr[index] = categoryName[index];
              index++;
 diff --git a/src/pokemon.c b/src/pokemon.c
-index 66a5c3d..4cfa903 100644
+index 66a5c3d..c299f13 100644
 --- a/src/pokemon.c
 +++ b/src/pokemon.c
 @@ -1,6 +1,8 @@
@@ -28329,18 +28329,16 @@ index 66a5c3d..4cfa903 100644
      if (species < SPECIES_OLD_UNOWN_B - 1)
          return species;
  
-@@ -5857,6 +5923,10 @@ static u16 GetBattleBGM(void)
+@@ -5857,6 +5923,8 @@ static u16 GetBattleBGM(void)
          return MUS_RS_VS_TRAINER;
      if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
      {
 +        if (HAN_JANE_THEME && IsJaneBattle()) // Hän build: her own theme, when the build has it
 +            return MUS_HAN_JANE;
-+        if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) // Hän build: the double battle against Yuhke and Rowan has its own music
-+            return MUS_RS_VS_TRAINER;
          switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
          {
          case TRAINER_CLASS_CHAMPION:
-@@ -6451,3 +6521,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
+@@ -6451,3 +6519,120 @@ u8 *MonSpritesGfxManager_GetSpritePtr(u8 spriteNum)
          return sMonSpritesGfxManager->spritePointers[spriteNum];
      }
  }
