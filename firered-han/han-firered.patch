@@ -6485,7 +6485,7 @@ index 0b800ba..15fb4c7 100644
  
  Trade_Text_ThanksYoureAPal::
 diff --git a/data/text/new_game_intro.inc b/data/text/new_game_intro.inc
-index e667b68..2bd3d0f 100644
+index e667b68..f187862 100644
 --- a/data/text/new_game_intro.inc
 +++ b/data/text/new_game_intro.inc
 @@ -155,75 +155,64 @@ gControlsGuide_Text_LRButtons::
@@ -6562,7 +6562,7 @@ index e667b68..2bd3d0f 100644
  gOakSpeech_Text_IsInhabitedFarAndWide::
 -    .string "…is inhabited far and wide by\n"
 -    .string "creatures called POKéMON.\p$"
-+    .string "POKéMON huchin.\p$"
++    .string "POKéMON huhuchin.\p$"
  
  gOakSpeech_Text_IStudyPokemon::
 -    .string "For some people, POKéMON are pets.\n"
