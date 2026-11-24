@@ -4982,7 +4982,7 @@ index 0000000..b9ae260
 +	.string "loan today!$"
 diff --git a/data/scripts/han_trade.inc b/data/scripts/han_trade.inc
 new file mode 100644
-index 0000000..d285f77
+index 0000000..740c46c
 --- /dev/null
 +++ b/data/scripts/han_trade.inc
 @@ -0,0 +1,190 @@
@@ -4990,8 +4990,10 @@ index 0000000..d285f77
 +
 +Han_Trade_Initiate::
 +	lockall
++	msgbox Han_Battle_Text_Ask, MSGBOX_YESNO
++	goto_if_eq VAR_RESULT, YES, Han_Battle_Initiate
 +	msgbox Han_Trade_Text_Ask, MSGBOX_YESNO
-+	goto_if_eq VAR_RESULT, NO, Han_Battle_Initiate
++	goto_if_eq VAR_RESULT, NO, Han_Trade_End
 +	special ChoosePartyMon
 +	waitstate
 +	goto_if_ge VAR_0x8004, PARTY_SIZE, Han_Trade_Cancel
@@ -5071,8 +5073,6 @@ index 0000000..d285f77
 +	end
 +
 +Han_Battle_Initiate::
-+	msgbox Han_Battle_Text_Ask, MSGBOX_YESNO
-+	goto_if_eq VAR_RESULT, NO, Han_Trade_End
 +	setvar VAR_0x8004, 0
 +Han_Battle_Ask2::
 +	specialvar VAR_RESULT, HanBattleChallenge
@@ -6483,7 +6483,7 @@ index 0b800ba..15fb4c7 100644
  
  Trade_Text_ThanksYoureAPal::
 diff --git a/data/text/new_game_intro.inc b/data/text/new_game_intro.inc
-index e667b68..5ac9fd5 100644
+index e667b68..5c16f82 100644
 --- a/data/text/new_game_intro.inc
 +++ b/data/text/new_game_intro.inc
 @@ -155,75 +155,64 @@ gControlsGuide_Text_LRButtons::
@@ -6551,7 +6551,7 @@ index e667b68..5ac9fd5 100644
 +    .string "Drin hǫzǫ! Shò nënök-’į!\p"
 +    .string "POKéMON nän ǫ dänįha!\p"
 +    .string "Shozrè OAK.\p"
-+    .string "POKéMON PROFESSOR ihłį.\p$"
++    .string "POKéMON sgu jëje ihłį.\p$"
  
  gOakSpeech_Text_ThisWorld::
 -    .string "This world…$"
@@ -6567,7 +6567,7 @@ index e667b68..5ac9fd5 100644
 -    .string "Others use them for battling.\p"
 -    .string "As for myself…\p"
 -    .string "I study POKéMON as a profession.\p$"
-+    .string "Jëje hełà häjit POKéMON et henli,\n"
++    .string "Jëje hełà häjit POKéMON ey henli,\n"
 +    .string "ch’ëzhun chą POKéMON hè battle\p"
 +    .string "ohtsey.\p"
 +    .string "Shinch’a, POKéMON ha hehoy’į,\n"
