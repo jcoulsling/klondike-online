@@ -5,8 +5,9 @@ in the same room see each other walk around on the overworld.
 
 ## What is in here
 
-- `server.js`: serves the page and relays where each player is (a web socket at `/ws`).
-  It holds no game, patch or save. Rooms live in memory only.
+- `server.js`: serves the page and relays where each player is (a web socket at `/ws`), and the small
+  sign-in and save API (`/api/...`). It holds no game or patch. The three servers A, B and C are in memory only.
+- `accounts.js`, `storage.js`: names, passwords and saves (see below).
 - `public/index.html`: the page. The player drops their own FireRed (US 1.0) and the
   `.bps` patch. The page makes the game in the browser (CRC checks first), starts
   the emulator and joins a room.
@@ -50,3 +51,27 @@ Rooms are lost when it sleeps. The page needs `https`, which Render gives.
 It is a difference between the original game and the hack, so it holds the new
 pictures and the music. Give it only to people you mean to play with. Do not put it
 in the repository or on the page.
+
+
+## Names, passwords and saves
+
+A player types a name and a password. A name nobody has used yet is taken by the first password typed for it (there is
+no reset; to reset one, delete that player's file in the saves repository). Leaving the name empty plays as a guest
+with no save.
+
+- The browser makes 64 bytes from the password (PBKDF2, 200,000 rounds, a salt kept by the server). The first half is
+  sent to log in and the server keeps only a scrypt hash of it. The second half becomes an AES-GCM key that never leaves
+  the browser.
+- The game's save file (`klondike.sav`) is compressed and encrypted in the browser before it is sent, a few seconds after
+  the game writes it. At the next sign-in it is fetched, decrypted and put in the emulator before the game starts, so it
+  is on the Continue screen. The server and the repository only ever hold the scrambled save.
+- Wrong passwords: five in a row lock that name for ten minutes; an address may try 40 times in ten minutes.
+- One JSON file per player, in a private GitHub repository (`SAVES_REPO`, default `jcoulsling/klondike-saves`), written with
+  `SAVES_TOKEN` (a fine-grained token for that one repository, Contents read and write; set it in Render > Environment,
+  never in code). A separate repository means saving does not redeploy the site. Without a token everything is kept in
+  memory and lost on restart; the server logs that at start.
+- `storage.js` is the only file that knows where records live (`get(key)`, `put(key, text, version)`). To move to R2, S3 or a
+  database, write another class with those two methods and choose it in `open()`.
+- The name Rowan, with no save yet, begins from `public/seed/rowan.sav`: Pallet Town, eight badges and a competitive team
+  (see `src/han_rowan.c` in the decomp patch). Make it again after big changes to the game with the steps in the
+  decomp README.

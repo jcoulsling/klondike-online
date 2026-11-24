@@ -6,3 +6,7 @@ services:
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /health
+    envVars:
+      - key: SAVES_REPO
+        value: jcoulsling/klondike-saves
+      # SAVES_TOKEN (a fine-grained token for that repository, Contents read and write) is set by hand in Render > Environment.

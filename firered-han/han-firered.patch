@@ -14005,10 +14005,18 @@ index 88854ae..2c72b80 100644
  extern const union AffineAnimCmd *const gAffineAnims_BattleSpriteOpponentSide[];
  extern const struct SpriteFrameImage gBattlerPicTable_PlayerLeft[];
 diff --git a/include/global.h b/include/global.h
-index 77155b0..48c5481 100644
+index 77155b0..0ba7bbd 100644
 --- a/include/global.h
 +++ b/include/global.h
-@@ -354,7 +354,8 @@ struct SaveBlock2
+@@ -341,6 +341,7 @@ struct SaveBlock2
+               u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
+               u16 optionsBattleSceneOff:1; // whether battle animations are disabled
+               u16 regionMapZoom:1; // whether the map is zoomed in
++              u16 optionsHanSyllabics:1; // Hän build: text in syllabics (OPTION menu)
+     /*0x018*/ struct Pokedex pokedex;
+     /*0x090*/ u8 filler_90[0x8];
+     /*0x098*/ struct Time localTimeOffset;
+@@ -354,7 +355,8 @@ struct SaveBlock2
      /*0xAF0*/ struct BerryCrush berryCrush;
      /*0xB00*/ struct PokemonJumpRecords pokeJump;
      /*0xB10*/ struct BerryPickingResults berryPick;
@@ -14233,6 +14241,18 @@ index 0000000..887fe06
 +void HanLinkAbortBattle(void); // src/battle_main.c: the other player is gone, end the battle as a draw // src/han_trade.c, every overworld frame
 +
 +#endif // GUARD_HAN_MULTIPLAYER_H
+diff --git a/include/han_rowan.h b/include/han_rowan.h
+new file mode 100644
+index 0000000..7342656
+--- /dev/null
++++ b/include/han_rowan.h
+@@ -0,0 +1,6 @@
++#ifndef GUARD_HAN_ROWAN_H
++#define GUARD_HAN_ROWAN_H
++
++void HanRowanStart(void);
++
++#endif // GUARD_HAN_ROWAN_H
 diff --git a/include/han_tower.h b/include/han_tower.h
 new file mode 100644
 index 0000000..a54fa83
@@ -14270,6 +14290,18 @@ index d8c2a5a..5de245c 100644
 +u8 CheatCodeEntered(void);
  
  #endif //GUARD_MAIN_MENU_H
+diff --git a/include/party_menu.h b/include/party_menu.h
+index 9737991..f63bb2f 100644
+--- a/include/party_menu.h
++++ b/include/party_menu.h
+@@ -57,6 +57,7 @@ void ItemUseCB_PPUp(u8 taskId, TaskFunc func);
+ u16 ItemIdToBattleMoveId(u16 item);
+ bool8 IsMoveHm(u16 move);
+ bool8 MonKnowsMove(struct Pokemon *mon, u16 move);
++bool8 HanCanUseHM(struct Pokemon *mon, u16 move);
+ void ItemUseCB_TMHM(u8 taskId, TaskFunc func);
+ void ItemUseCB_RareCandy(u8 taskId, TaskFunc func);
+ void ItemUseCB_SacredAsh(u8 taskId, TaskFunc func);
 diff --git a/include/pokedex.h b/include/pokedex.h
 index 8e27bbe..02a451f 100644
 --- a/include/pokedex.h
@@ -24906,6 +24938,19 @@ index b39771a..cab768e 100644
                  sListMenuItems[nitems].index = nitems;
              }
              else
+diff --git a/src/field_player_avatar.c b/src/field_player_avatar.c
+index ef086dd..4b77cdc 100644
+--- a/src/field_player_avatar.c
++++ b/src/field_player_avatar.c
+@@ -1191,7 +1191,7 @@ bool8 PartyHasMonWithSurf(void)
+         {
+             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+                 break;
+-            if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
++            if (HanCanUseHM(&gPlayerParty[i], MOVE_SURF))
+                 return TRUE;
+         }
+     }
 diff --git a/src/field_poison.c b/src/field_poison.c
 index d44e32b..8816af1 100644
 --- a/src/field_poison.c
@@ -26678,6 +26723,144 @@ index 0000000..2d31104
 +    for (i = 0; i < HAN_OTHERS; i++)
 +        UpdateGhost(i, &gHanMailbox.others[i]);
 +}
+diff --git a/src/han_rowan.c b/src/han_rowan.c
+new file mode 100644
+index 0000000..3a62eb6
+--- /dev/null
++++ b/src/han_rowan.c
+@@ -0,0 +1,132 @@
++#include "global.h"
++#include "han_rowan.h"
++#include "event_data.h"
++#include "overworld.h"
++#include "constants/heal_locations.h"
++#include "pokemon.h"
++#include "random.h"
++#include "string_util.h"
++#include "constants/flags.h"
++#include "constants/items.h"
++#include "constants/maps.h"
++#include "constants/moves.h"
++#include "constants/species.h"
++#include "constants/vars.h"
++
++// Hän build: a player called ROWAN starts in Pallet Town with all eight badges and a team of six at level 100,
++// each with a competitive Gen 3 set (Jane, 24 November 2026). The TRAINER TOWER needs nothing more: the nurse offers it
++// in every POKéMON CENTER. The web page also keeps a save for each name, so this happens once, for a new game.
++
++static const u8 sName1[] = _("ROWAN");
++static const u8 sName2[] = _("Rowan");
++
++struct RowanMon
++{
++    u16 species;
++    u8 nature;
++    u8 ability;      // 0 or 1
++    u16 item;
++    u16 moves[4];
++    u8 ev[6];        // HP, Atk, Def, Spe, SpA, SpD
++    u8 iv[6];
++};
++
++#define IV_ALL {31, 31, 31, 31, 31, 31}
++
++static const struct RowanMon sTeam[] =
++{
++    // Snorlax: physical tank and sweeper (Curse)
++    { SPECIES_SNORLAX, NATURE_ADAMANT, 0, ITEM_LEFTOVERS,
++      {MOVE_CURSE, MOVE_BODY_SLAM, MOVE_EARTHQUAKE, MOVE_REST}, {252, 252, 0, 0, 0, 6}, IV_ALL },
++    // Zapdos: special attacker and pivot (Hidden Power is Ice with these IVs)
++    { SPECIES_ZAPDOS, NATURE_TIMID, 0, ITEM_MAGNET,
++      {MOVE_THUNDERBOLT, MOVE_HIDDEN_POWER, MOVE_TOXIC, MOVE_REST}, {6, 0, 0, 252, 252, 0}, {31, 31, 31, 30, 31, 31} },
++    // Starmie: fast special attacker and utility (Rapid Spin)
++    { SPECIES_STARMIE, NATURE_TIMID, 0, ITEM_MYSTIC_WATER,
++      {MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_RAPID_SPIN}, {6, 0, 0, 252, 252, 0}, IV_ALL },
++    // Nidoking: wallbreaker and status absorber (Lum Berry)
++    { SPECIES_NIDOKING, NATURE_NAIVE, 0, ITEM_LUM_BERRY,
++      {MOVE_EARTHQUAKE, MOVE_MEGAHORN, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}, {0, 252, 0, 6, 252, 0}, IV_ALL },
++    // Aerodactyl: fast lead and revenge killer
++    { SPECIES_AERODACTYL, NATURE_JOLLY, 0, ITEM_FOCUS_BAND,
++      {MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE, MOVE_HIDDEN_POWER}, {6, 252, 0, 252, 0, 0}, IV_ALL },
++    // Chansey: special wall and support
++    { SPECIES_CHANSEY, NATURE_BOLD, 0, ITEM_SITRUS_BERRY,
++      {MOVE_SOFT_BOILED, MOVE_SEISMIC_TOSS, MOVE_THUNDER_WAVE, MOVE_TOXIC}, {252, 0, 6, 0, 0, 252}, IV_ALL },
++};
++
++static const u16 sFlyTowns[] =
++{
++    FLAG_WORLD_MAP_PALLET_TOWN, FLAG_WORLD_MAP_VIRIDIAN_CITY, FLAG_WORLD_MAP_PEWTER_CITY, FLAG_WORLD_MAP_CERULEAN_CITY,
++    FLAG_WORLD_MAP_LAVENDER_TOWN, FLAG_WORLD_MAP_VERMILION_CITY, FLAG_WORLD_MAP_CELADON_CITY, FLAG_WORLD_MAP_FUCHSIA_CITY,
++    FLAG_WORLD_MAP_CINNABAR_ISLAND, FLAG_WORLD_MAP_INDIGO_PLATEAU_EXTERIOR, FLAG_WORLD_MAP_SAFFRON_CITY,
++    FLAG_WORLD_MAP_ONE_ISLAND, FLAG_WORLD_MAP_TWO_ISLAND, FLAG_WORLD_MAP_THREE_ISLAND, FLAG_WORLD_MAP_FOUR_ISLAND,
++    FLAG_WORLD_MAP_FIVE_ISLAND, FLAG_WORLD_MAP_SEVEN_ISLAND, FLAG_WORLD_MAP_SIX_ISLAND,
++};
++
++static void GiveMon(u8 slot, const struct RowanMon *r)
++{
++    struct Pokemon *mon = &gPlayerParty[slot];
++    u8 i, hp = 0;
++    u8 level = 100;
++
++    // a personality with the nature wanted
++    do
++    {
++        CreateMon(mon, r->species, level, 31, FALSE, 0, OT_ID_PLAYER_ID, 0);
++    } while (GetNature(mon) != r->nature);
++    for (i = 0; i < 4; i++)
++        SetMonMoveSlot(mon, r->moves[i], i);
++    SetMonData(mon, MON_DATA_HELD_ITEM, &r->item);
++    SetMonData(mon, MON_DATA_HP_EV, &r->ev[0]);
++    SetMonData(mon, MON_DATA_ATK_EV, &r->ev[1]);
++    SetMonData(mon, MON_DATA_DEF_EV, &r->ev[2]);
++    SetMonData(mon, MON_DATA_SPEED_EV, &r->ev[3]);
++    SetMonData(mon, MON_DATA_SPATK_EV, &r->ev[4]);
++    SetMonData(mon, MON_DATA_SPDEF_EV, &r->ev[5]);
++    SetMonData(mon, MON_DATA_HP_IV, &r->iv[0]);
++    SetMonData(mon, MON_DATA_ATK_IV, &r->iv[1]);
++    SetMonData(mon, MON_DATA_DEF_IV, &r->iv[2]);
++    SetMonData(mon, MON_DATA_SPEED_IV, &r->iv[3]);
++    SetMonData(mon, MON_DATA_SPATK_IV, &r->iv[4]);
++    SetMonData(mon, MON_DATA_SPDEF_IV, &r->iv[5]);
++    CalculateMonStats(mon);
++    hp = 0;
++    hp = GetMonData(mon, MON_DATA_MAX_HP);
++    SetMonData(mon, MON_DATA_HP, &hp);
++}
++
++// Called at the end of a new game's set-up. Does nothing for any other name.
++void HanRowanStart(void)
++{
++    u8 i;
++
++    if (StringCompare(gSaveBlock2Ptr->playerName, sName1) != 0 && StringCompare(gSaveBlock2Ptr->playerName, sName2) != 0)
++        return;
++
++    for (i = 0; i < 8; i++)
++        FlagSet(FLAG_BADGE01_GET + i);
++    FlagSet(FLAG_SYS_POKEMON_GET);
++    FlagSet(FLAG_SYS_POKEDEX_GET);
++    FlagSet(FLAG_OPENED_START_MENU);
++    FlagSet(FLAG_HIDE_OAK_IN_PALLET_TOWN);
++    VarSet(VAR_MAP_SCENE_PALLET_TOWN_OAK, 3);
++    VarSet(VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 6);
++    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_MART, 2);
++    VarSet(VAR_MAP_SCENE_VIRIDIAN_CITY_OLD_MAN, 1);
++    VarSet(VAR_MAP_SCENE_PALLET_TOWN_RIVALS_HOUSE, 1);
++    VarSet(VAR_MAP_SCENE_ROUTE22, 1);
++    for (i = 0; i < ARRAY_COUNT(sFlyTowns); i++)
++        FlagSet(sFlyTowns[i]);
++
++    ZeroPlayerPartyMons();
++    for (i = 0; i < ARRAY_COUNT(sTeam); i++)
++        GiveMon(i, &sTeam[i]);
++    gPlayerPartyCount = ARRAY_COUNT(sTeam);
++
++    // outside the player's house, in Pallet Town
++    SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN), MAP_NUM(MAP_PALLET_TOWN), -1, 6, 8);
++    WarpIntoMap();
++    // the heal place is Pallet Town too, so a white-out comes back here
++    SetLastHealLocationWarp(HEAL_LOCATION_PALLET_TOWN);
++}
 diff --git a/src/han_syllabics_core.h b/src/han_syllabics_core.h
 new file mode 100644
 index 0000000..4828587
@@ -27670,7 +27853,7 @@ index 542b0f5..d11d84f 100644
          CallCallbacks();
  }
 diff --git a/src/main_menu.c b/src/main_menu.c
-index 5cef7c4..1eb7578 100644
+index 5cef7c4..df267b7 100644
 --- a/src/main_menu.c
 +++ b/src/main_menu.c
 @@ -15,8 +15,14 @@
@@ -27706,7 +27889,7 @@ index 5cef7c4..1eb7578 100644
      MainMenuGpuInit(1);
  }
  
-@@ -565,8 +575,268 @@ static void MoveWindowByMenuTypeAndCursorPos(u8 menuType, u8 cursorPos)
+@@ -565,8 +575,270 @@ static void MoveWindowByMenuTypeAndCursorPos(u8 menuType, u8 cursorPos)
      SetGpuReg(REG_OFFSET_WIN0V, (win0vTop + (2 << 8)) | (win0vBot - 2));
  }
  
@@ -27739,6 +27922,8 @@ index 5cef7c4..1eb7578 100644
 +    u16 keys = JOY_NEW(DPAD_ANY | A_BUTTON | B_BUTTON | SELECT_BUTTON | START_BUTTON | L_BUTTON | R_BUTTON);
 +    u8 i, j;
 +
++    // Hän build: the cheat codes are turned off (Jane, 24 November 2026). Syllabics are a row in the OPTION menu.
++    return CHEAT_NONE;
 +    if (keys == 0)
 +        return CHEAT_NONE;
 +    for (i = 0; i < CHEAT_LENGTH - 1; i++)
@@ -27768,7 +27953,7 @@ index 5cef7c4..1eb7578 100644
 +static const u8 sQuickNames[][PLAYER_NAME_LENGTH + 1] = {
 +    _("AMBER"), _("ASPEN"), _("BIRCH"), _("CEDAR"), _("CLOVER"), _("DAWN"), _("EMBER"), _("FERN"), _("FINCH"),
 +    _("HAZEL"), _("IVY"), _("JUNIPER"), _("KIT"), _("LARK"), _("MAPLE"), _("MOSS"), _("NOVA"), _("ONYX"),
-+    _("PEBBLE"), _("QUILL"), _("RAVEN"), _("ROWAN"), _("SAGE"), _("SKY"), _("TANSY"), _("WREN"), _("YARROW"),
++    _("PEBBLE"), _("QUILL"), _("RAVEN"), _("SAGE"), _("SKY"), _("TANSY"), _("WREN"), _("YARROW"),
 +};
 +
 +void HanQuickStart(void)
@@ -28084,6 +28269,24 @@ index deef705..5ad13a9 100644
      FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], PIXEL_FILL(1));
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
+diff --git a/src/new_game.c b/src/new_game.c
+index 3768b3c..5739bbd 100644
+--- a/src/new_game.c
++++ b/src/new_game.c
+@@ -1,4 +1,5 @@
+ #include "global.h"
++#include "han_rowan.h"
+ #include "gflib.h"
+ #include "random.h"
+ #include "overworld.h"
+@@ -149,6 +150,7 @@ void NewGameInitData(void)
+     RunScriptImmediately(EventScript_ResetAllMapFlags);
+     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
+     ResetTrainerTowerResults();
++    HanRowanStart(); // Hän build
+ }
+ 
+ static void ResetMiniGamesResults(void)
 diff --git a/src/oak_speech.c b/src/oak_speech.c
 index 77dd3db..9628048 100644
 --- a/src/oak_speech.c
@@ -28333,7 +28536,7 @@ index 77dd3db..9628048 100644
      {
      case MALE_PLAYER_PIC:
 diff --git a/src/option_menu.c b/src/option_menu.c
-index 0b55a34..d356cbd 100644
+index 0b55a34..1dd4ba5 100644
 --- a/src/option_menu.c
 +++ b/src/option_menu.c
 @@ -1,4 +1,6 @@
@@ -28343,38 +28546,54 @@ index 0b55a34..d356cbd 100644
  #include "gflib.h"
  #include "scanline_effect.h"
  #include "text_window_graphics.h"
-@@ -23,7 +25,7 @@ enum
+@@ -23,10 +25,13 @@ enum
      MENUITEM_SOUND,
      MENUITEM_BUTTONMODE,
      MENUITEM_FRAMETYPE,
 -    MENUITEM_CANCEL,
 +    MENUITEM_NUZLOCKE, // Hän build: this row used to be CANCEL. A or B still leaves the menu.
++    MENUITEM_SYLLABICS, // Hän build: text in Hän syllabics. The window shows 7 rows and scrolls.
      MENUITEM_COUNT
  };
  
-@@ -131,7 +133,11 @@ static const struct BgTemplate sOptionMenuBgTemplates[] =
++#define VISIBLE_ROWS 7
++
+ // Window Ids
+ enum
+ {
+@@ -42,6 +47,7 @@ struct OptionMenu
+     /*0x10*/ u8 loadState;
+     /*0x11*/ u8 state;
+     /*0x12*/ u8 loadPaletteState;
++    u8 scroll;
+ };
+ 
+ static EWRAM_DATA struct OptionMenu *sOptionMenuPtr = NULL;
+@@ -131,7 +137,12 @@ static const struct BgTemplate sOptionMenuBgTemplates[] =
  };
  
  static const u16 sOptionMenuPalette[] = INCBIN_U16("graphics/misc/option_menu.gbapal");
 -static const u16 sOptionMenuItemCounts[MENUITEM_COUNT] = {3, 2, 2, 2, 3, 10, 0};
-+static const u16 sOptionMenuItemCounts[MENUITEM_COUNT] = {3, 2, 2, 2, 3, 10, 2};
++static const u16 sOptionMenuItemCounts[MENUITEM_COUNT] = {3, 2, 2, 2, 3, 10, 2, 2};
 +
 +static const u8 sText_Nuzlocke[] = _("NUZLOCKE");
 +static const u8 sText_NuzlockeOff[] = _("OFF");
 +static const u8 sText_NuzlockeOn[] = _("ON");
++static const u8 sText_Syllabics[] = _("SYLLABICS");
  
  static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
  {
-@@ -141,7 +147,7 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
+@@ -141,7 +152,8 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
      [MENUITEM_SOUND]       = gText_Sound,
      [MENUITEM_BUTTONMODE]  = gText_ButtonMode,
      [MENUITEM_FRAMETYPE]   = gText_Frame,
 -    [MENUITEM_CANCEL]      = gText_OptionMenuCancel,
 +    [MENUITEM_NUZLOCKE]    = sText_Nuzlocke,
++    [MENUITEM_SYLLABICS]   = sText_Syllabics,
  };
  
  static const u8 *const sTextSpeedOptions[] =
-@@ -169,6 +175,12 @@ static const u8 *const sSoundOptions[] =
+@@ -169,6 +181,12 @@ static const u8 *const sSoundOptions[] =
      gText_SoundStereo
  };
  
@@ -28387,45 +28606,109 @@ index 0b55a34..d356cbd 100644
  static const u8 *const sButtonTypeOptions[] =
  {
      gText_ButtonTypeHelp,
-@@ -212,8 +224,9 @@ void CB2_OptionsMenuFromStartMenu(void)
+@@ -212,8 +230,11 @@ void CB2_OptionsMenuFromStartMenu(void)
      sOptionMenuPtr->option[MENUITEM_SOUND] = gSaveBlock2Ptr->optionsSound;
      sOptionMenuPtr->option[MENUITEM_BUTTONMODE] = gSaveBlock2Ptr->optionsButtonMode;
      sOptionMenuPtr->option[MENUITEM_FRAMETYPE] = gSaveBlock2Ptr->optionsWindowFrameType;
 +    sOptionMenuPtr->option[MENUITEM_NUZLOCKE] = Nuzlocke_IsOn();
++    sOptionMenuPtr->option[MENUITEM_SYLLABICS] = gHanSyllabics;
++    sOptionMenuPtr->scroll = 0;
      
 -    for (i = 0; i < MENUITEM_COUNT - 1; i++)
 +    for (i = 0; i < MENUITEM_COUNT; i++)
      {
          if (sOptionMenuPtr->option[i] > (sOptionMenuItemCounts[i]) - 1)
              sOptionMenuPtr->option[i] = 0;
-@@ -440,14 +453,14 @@ static u8 OptionMenu_ProcessInput(void)
+@@ -358,6 +379,8 @@ static bool8 LoadOptionMenuPalette(void)
+ 
+ static void Task_OptionMenu(u8 taskId)
+ {
++    u8 i;
++
+     switch (sOptionMenuPtr->loadState)
+     {
+     case 0:
+@@ -391,6 +414,12 @@ static void Task_OptionMenu(u8 taskId)
+         case 4:
+             BufferOptionMenuString(sOptionMenuPtr->cursorPos);
+             break;
++        case 5:
++            LoadOptionMenuItemNames();
++            for (i = 0; i < MENUITEM_COUNT; i++)
++                BufferOptionMenuString(i);
++            UpdateSettingSelectionDisplay(sOptionMenuPtr->cursorPos);
++            break;
+         }
+         break;
+     case 3:
+@@ -408,6 +437,18 @@ static void Task_OptionMenu(u8 taskId)
+     }
+ }
+ 
++// Hän build: keeps the cursor in the window. Returns 5 when the rows must be drawn again, else 3.
++static u8 ScrollToCursor(void)
++{
++    u8 old = sOptionMenuPtr->scroll;
++
++    if (sOptionMenuPtr->cursorPos < sOptionMenuPtr->scroll)
++        sOptionMenuPtr->scroll = sOptionMenuPtr->cursorPos;
++    else if (sOptionMenuPtr->cursorPos >= sOptionMenuPtr->scroll + VISIBLE_ROWS)
++        sOptionMenuPtr->scroll = sOptionMenuPtr->cursorPos - VISIBLE_ROWS + 1;
++    return (old != sOptionMenuPtr->scroll) ? 5 : 3;
++}
++
+ static u8 OptionMenu_ProcessInput(void)
+ { 
+     u16 current;
+@@ -440,18 +481,18 @@ static u8 OptionMenu_ProcessInput(void)
      else if (JOY_REPT(DPAD_UP))
      {
          if (sOptionMenuPtr->cursorPos == MENUITEM_TEXTSPEED)
 -            sOptionMenuPtr->cursorPos = MENUITEM_CANCEL;
-+            sOptionMenuPtr->cursorPos = MENUITEM_NUZLOCKE;
++            sOptionMenuPtr->cursorPos = MENUITEM_COUNT - 1;
          else
              sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos - 1;
-         return 3;        
+-        return 3;        
++        return ScrollToCursor();
      }
      else if (JOY_REPT(DPAD_DOWN))
      {
 -        if (sOptionMenuPtr->cursorPos == MENUITEM_CANCEL)
-+        if (sOptionMenuPtr->cursorPos == MENUITEM_NUZLOCKE)
++        if (sOptionMenuPtr->cursorPos == MENUITEM_COUNT - 1)
              sOptionMenuPtr->cursorPos = MENUITEM_TEXTSPEED;
          else
              sOptionMenuPtr->cursorPos = sOptionMenuPtr->cursorPos + 1;
-@@ -498,6 +511,9 @@ static void BufferOptionMenuString(u8 selection)
+-        return 3;
++        return ScrollToCursor();
+     }
+     else if (JOY_NEW(B_BUTTON) || JOY_NEW(A_BUTTON))
+     {
+@@ -471,8 +512,10 @@ static void BufferOptionMenuString(u8 selection)
+     u8 x, y;
+     
+     memcpy(dst, sOptionMenuTextColor, 3);
++    if (selection < sOptionMenuPtr->scroll || selection >= sOptionMenuPtr->scroll + VISIBLE_ROWS)
++        return;
+     x = 0x82;
+-    y = ((GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT) - 1) * selection) + 2;
++    y = ((GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT) - 1) * (selection - sOptionMenuPtr->scroll)) + 2;
+     FillWindowPixelRect(1, 1, x, y, 0x46, GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT));
+ 
+     switch (selection)
+@@ -498,6 +541,12 @@ static void BufferOptionMenuString(u8 selection)
          StringAppendN(str, buf, 3);
          AddTextPrinterParameterized3(1, FONT_NORMAL, x, y, dst, -1, str);
          break;
 +    case MENUITEM_NUZLOCKE:
 +        AddTextPrinterParameterized3(1, FONT_NORMAL, x, y, dst, -1, sNuzlockeOptions[sOptionMenuPtr->option[selection]]);
 +        break;
++    case MENUITEM_SYLLABICS:
++        AddTextPrinterParameterized3(1, FONT_NORMAL, x, y, dst, -1, sNuzlockeOptions[sOptionMenuPtr->option[selection]]);
++        break;
      default:
          break;
      }
-@@ -516,6 +532,10 @@ static void CloseAndSaveOptionMenu(u8 taskId)
+@@ -516,6 +565,12 @@ static void CloseAndSaveOptionMenu(u8 taskId)
      gSaveBlock2Ptr->optionsSound = sOptionMenuPtr->option[MENUITEM_SOUND];
      gSaveBlock2Ptr->optionsButtonMode = sOptionMenuPtr->option[MENUITEM_BUTTONMODE];
      gSaveBlock2Ptr->optionsWindowFrameType = sOptionMenuPtr->option[MENUITEM_FRAMETYPE];
@@ -28433,11 +28716,35 @@ index 0b55a34..d356cbd 100644
 +        FlagSet(FLAG_NUZLOCKE);
 +    else if (Nuzlocke_IsOn())
 +        Nuzlocke_End(); // switched off by hand: the dead may be healed again
++    gHanSyllabics = sOptionMenuPtr->option[MENUITEM_SYLLABICS];
++    gSaveBlock2Ptr->optionsHanSyllabics = gHanSyllabics;
      SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
      FREE_AND_SET_NULL(sOptionMenuPtr);
      DestroyTask(taskId);
+@@ -558,9 +613,10 @@ static void LoadOptionMenuItemNames(void)
+     u8 i;
+     
+     FillWindowPixelBuffer(1, PIXEL_FILL(1));
+-    for (i = 0; i < MENUITEM_COUNT; i++)
++    for (i = sOptionMenuPtr->scroll; i < MENUITEM_COUNT && i < sOptionMenuPtr->scroll + VISIBLE_ROWS; i++)
+     {
+-        AddTextPrinterParameterized(WIN_OPTIONS, FONT_NORMAL, sOptionMenuItemsNames[i], 8, (u8)((i * (GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - i, TEXT_SKIP_DRAW, NULL);    
++        u8 r = i - sOptionMenuPtr->scroll;
++        AddTextPrinterParameterized(WIN_OPTIONS, FONT_NORMAL, sOptionMenuItemsNames[i], 8, (u8)((r * (GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT))) + 2) - r, TEXT_SKIP_DRAW, NULL);    
+     }
+ }
+ 
+@@ -569,7 +625,7 @@ static void UpdateSettingSelectionDisplay(u16 selection)
+     u16 maxLetterHeight, y;
+     
+     maxLetterHeight = GetFontAttribute(FONT_NORMAL, FONTATTR_MAX_LETTER_HEIGHT);
+-    y = selection * (maxLetterHeight - 1) + 0x3A;
++    y = (selection - sOptionMenuPtr->scroll) * (maxLetterHeight - 1) + 0x3A;
+     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(y, y + maxLetterHeight));
+     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0x10, 0xE0));
+ }
 diff --git a/src/overworld.c b/src/overworld.c
-index 339014d..8d39123 100644
+index 339014d..572d99c 100644
 --- a/src/overworld.c
 +++ b/src/overworld.c
 @@ -31,6 +31,8 @@
@@ -28458,11 +28765,54 @@ index 339014d..8d39123 100644
      BuildOamBuffer();
      UpdatePaletteFade();
      UpdateTilesetAnimations();
+@@ -1691,6 +1695,7 @@ static void FieldCB_ShowMapNameOnContinue(void)
+ void CB2_ContinueSavedGame(void)
+ {
+     FieldClearVBlankHBlankCallbacks();
++    gHanSyllabics = gSaveBlock2Ptr->optionsHanSyllabics; // Hän build
+     StopMapMusic();
+     ResetSafariZoneFlag_();
+     LoadSaveblockMapHeader();
 diff --git a/src/party_menu.c b/src/party_menu.c
-index 7f3a881..9356427 100644
+index 7f3a881..4b42717 100644
 --- a/src/party_menu.c
 +++ b/src/party_menu.c
-@@ -5317,7 +5317,9 @@ static void CB2_UseEvolutionStone(void)
+@@ -2978,6 +2978,12 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
+             }
+         }
+     }
++    // Hän build: an HM the Pokémon could learn is listed as if it knew it (room for four field moves).
++    for (j = 0; j < FIELD_MOVE_TELEPORT && sPartyMenuInternal->numActions < 5; ++j)
++    {
++        if (!MonKnowsMove(&mons[slotId], sFieldMoves[j]) && HanCanUseHM(&mons[slotId], sFieldMoves[j]))
++            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, j + CURSOR_OPTION_FIELD_MOVES);
++    }
+     if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
+         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_SWITCH);
+     if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
+@@ -4731,6 +4737,21 @@ bool8 IsMoveHm(u16 move)
+     return FALSE;
+ }
+ 
++// Hän build: true if the Pokémon knows the move, or the move is an HM it could learn (not DIVE).
++bool8 HanCanUseHM(struct Pokemon *mon, u16 move)
++{
++    u8 i;
++
++    if (MonKnowsMove(mon, move))
++        return TRUE;
++    if (GetMonData(mon, MON_DATA_IS_EGG))
++        return FALSE;
++    for (i = 0; i < NUM_HIDDEN_MACHINES - 1; ++i)
++        if (sTMHMMoves[i + NUM_TECHNICAL_MACHINES] == move)
++            return CanMonLearnTMHM(mon, i + NUM_TECHNICAL_MACHINES) != 0;
++    return FALSE;
++}
++
+ bool8 MonKnowsMove(struct Pokemon *mon, u16 move)
+ {
+     u8 i;
+@@ -5317,7 +5338,9 @@ static void CB2_UseEvolutionStone(void)
  
  static bool8 MonCanEvolve(void)
  {
@@ -28942,6 +29292,19 @@ index 124b646..9ab384e 100644
                                                        GetBattlerSpriteSubpriority(0));
              gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
              gSprites[gBattlerSpriteIds[battler]].callback = SpriteCallbackDummy;
+diff --git a/src/scrcmd.c b/src/scrcmd.c
+index 97b695e..3b5b896 100644
+--- a/src/scrcmd.c
++++ b/src/scrcmd.c
+@@ -1785,7 +1785,7 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext * ctx)
+         u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+         if (!species)
+             break;
+-        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsMove(&gPlayerParty[i], moveId) == TRUE)
++        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && HanCanUseHM(&gPlayerParty[i], moveId) == TRUE)
+         {
+             gSpecialVar_Result = i;
+             gSpecialVar_0x8004 = species;
 diff --git a/src/script_menu.c b/src/script_menu.c
 index 41eebd8..c2bb4af 100644
 --- a/src/script_menu.c

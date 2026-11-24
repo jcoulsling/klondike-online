@@ -1,9 +1,15 @@
 // Pokémon Klondike Version, online: serves the page and relays where each player is.
-// No game, patch or save ever reaches this server. It holds a small record per player and nothing else.
+// No game or patch ever reaches this server. It keeps one small record per player: the name, a hash of a key made
+// from the password, and the player's save, which the browser has compressed and encrypted (see accounts.js, storage.js).
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { WebSocketServer } = require('ws');
+const storage = require('./storage');
+
+const { store, durable } = storage.open(process.env);
+const accounts = require('./accounts')(store, process.env.SESSION_SECRET || process.env.SAVES_TOKEN);
+const SERVERS = ['A', 'B', 'C'];     // the three places to play; a player picks one
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC = path.join(__dirname, 'public');
@@ -14,6 +20,32 @@ const MAX_CHAT = 60;                 // chat lines a room keeps for people who a
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.wasm': 'application/wasm',
                 '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.txt': 'text/plain; charset=utf-8' };
 
+function body(req, limit) {
+  return new Promise((resolve, reject) => {
+    const chunks = []; let n = 0;
+    req.on('data', (d) => { n += d.length; if (n > limit) { reject(Object.assign(new Error('Too big.'), { status: 413 })); req.destroy(); } else chunks.push(d); });
+    req.on('end', () => { try { resolve(JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}')); } catch (e) { reject(Object.assign(new Error('Bad request.'), { status: 400 })); } });
+    req.on('error', reject);
+  });
+}
+function json(res, status, obj) { res.writeHead(status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(obj)); }
+function bearer(req) { const h = req.headers.authorization || ''; return h.startsWith('Bearer ') ? h.slice(7) : ''; }
+function clientIp(req) { return String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim(); }
+
+async function api(req, res, url) {
+  try {
+    if (url === '/api/info' && req.method === 'GET') return json(res, 200, { durable });
+    if (url === '/api/prelogin' && req.method === 'POST') { const b = await body(req, 2000); return json(res, 200, await accounts.prelogin(b.name)); }
+    if (url === '/api/login' && req.method === 'POST') { const b = await body(req, 2000); return json(res, 200, await accounts.login(b.name, b.auth, clientIp(req))); }
+    if (url === '/api/save' && req.method === 'GET') return json(res, 200, await accounts.getSave(bearer(req)));
+    if (url === '/api/save' && req.method === 'PUT') { const b = await body(req, 450000); return json(res, 200, await accounts.putSave(bearer(req), b.data)); }
+    return json(res, 404, { error: 'Not found.' });
+  } catch (e) {
+    if (!e.status) console.error('api error:', e.message);
+    return json(res, e.status || 503, { error: e.status ? e.message : 'Saved games are not available right now. Try again in a minute, or play as a guest (leave the name empty).' });
+  }
+}
+
 const server = http.createServer((req, res) => {
   const url = decodeURIComponent((req.url || '/').split('?')[0]);
   // The emulator uses threads, which a page may only use when it is cross-origin isolated.
@@ -21,6 +53,7 @@ const server = http.createServer((req, res) => {
   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
   res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
   if (url === '/health') { res.writeHead(200); return res.end('ok'); }
+  if (url.startsWith('/api/')) return api(req, res, url);
   const file = path.join(PUBLIC, url === '/' ? 'index.html' : url);
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
   fs.readFile(file, (err, data) => {
@@ -34,7 +67,7 @@ const rooms = new Map();             // code -> Map(id -> client)
 let nextId = 1;
 
 function roomList() {
-  return [...rooms.entries()].map(([code, m]) => ({ code, players: m.size, max: MAX_PER_ROOM }));
+  return SERVERS.map((code) => { const m = rooms.get(code); return { code, players: m ? [...m.values()].filter(o => !o.board).length : 0, max: MAX_PER_ROOM }; });
 }
 function send(ws, obj) { if (ws.readyState === 1) ws.send(JSON.stringify(obj)); }
 function leave(c) {
@@ -69,8 +102,9 @@ wss.on('connection', (ws) => {
     if (m.t === 'list') return send(ws, { t: 'rooms', rooms: roomList() });
     if (m.t === 'join') {
       leave(c);
-      const code = String(m.room || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || 'KLONDIKE';
-      c.name = String(m.name || 'Player').replace(/[^\p{L}\p{N} '_-]/gu, '').slice(0, 12) || 'Player';
+      const code = SERVERS.includes(String(m.room || '').toUpperCase()) ? String(m.room).toUpperCase() : SERVERS[0];
+      // a signed-in player is shown by their name; anyone else is a guest
+      c.name = accounts.who(m.token) || ('Guest' + (100 + Math.floor(Math.random() * 900)));
       let r = rooms.get(code);
       if (!r) { r = newRoom(); rooms.set(code, r); }
       c.board = !!m.board;                        // only the teaching board and chat, no game

@@ -15,6 +15,8 @@
   .drop { display:block; background:var(--card); border:2px dashed var(--line); border-radius:12px; padding:16px; margin:0 0 12px; text-align:center; cursor:pointer; }
   .drop.over { border-color:var(--accent); } .drop.done { border-style:solid; border-color:var(--ok); }
   .drop strong { display:block; } .drop span { opacity:.75; font-size:.9rem; } .drop input { display:none; }
+  .srv { flex:1 1 0; font:inherit; padding:12px 8px; border:2px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); cursor:pointer; }
+  .srv.on { border-color:var(--fg); font-weight:700; }
   .row { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 12px; }
   .row label { flex:1 1 200px; font-size:.9rem; } .row input { width:100%; font:inherit; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); text-transform:none; }
   button { font:inherit; font-weight:600; padding:13px 18px; border:0; border-radius:12px; background:var(--accent); color:#fff; cursor:pointer; }
@@ -120,16 +122,18 @@
 <body>
 <main>
   <h1>Pokémon Klondike Version online</h1>
-  <p class="lead">An unofficial fan project. You need your own copy of Pokémon FireRed (US, version 1.0) and the patch file. The game is made and played in this page, on your device. No game, patch or save is uploaded. Only where you stand on the map is sent, so that the people in your room can be seen walking in your game.</p>
+  <p class="lead">An unofficial fan project. You need your own copy of Pokémon FireRed (US, version 1.0) and the patch file. The game is made and played in this page, on your device. Your game file and the patch are never uploaded. If you sign in with a name and a password, your save file is kept for you on the server, locked with a key made from your password (the server cannot open it), so you can carry on from another device. Where you stand on the map is also sent, so that the people on your server can be seen walking in your game.</p>
 
   <section id="setup">
     <label class="drop" id="dropRom"><strong>1. Your Pokémon FireRed (US) file</strong><span id="romInfo">Drop it here or tap to choose (.gba)</span><input type="file" id="rom" accept=".gba,.bin,.rom"></label>
     <label class="drop" id="dropPatch"><strong>2. The patch file</strong><span id="patchInfo">Drop it here or tap to choose (.bps)</span><input type="file" id="patch" accept=".bps"></label>
     <div class="row">
-      <label>Your name in the room<input id="name" maxlength="12" value="" placeholder="Player" autocomplete="off"></label>
-      <label>Room code (the same for friends)<input id="room" maxlength="8" value="" placeholder="KLONDIKE" autocomplete="off" autocapitalize="characters"></label>
+      <label>Your name<input id="name" maxlength="12" value="" placeholder="Leave empty to play as a guest" autocomplete="username" autocapitalize="off"></label>
+      <label>Password<input id="pw" type="password" maxlength="64" value="" placeholder="A new name takes this one" autocomplete="current-password"></label>
     </div>
-    <div id="open" style="font-size:.9rem;margin:0 0 12px"></div>
+    <p class="hint" style="font-size:.85rem;margin:0 0 12px">A name that has not been used yet becomes yours with the password you type. There is no way to reset it, so pick one you will remember. Guests cannot keep a save.</p>
+    <div style="font-size:.9rem;margin:0 0 6px">Server (friends pick the same one)</div>
+    <div id="servers" class="row" role="radiogroup" aria-label="Server"></div>
     <button class="wide" id="go" disabled>Play</button>
     <button class="wide ghost" id="boardonly" style="margin-top:10px">Chat and whiteboard only (no game file needed)</button>
     <p id="msg" role="status"></p>
@@ -137,7 +141,7 @@
 
   <section id="game">
     <div id="screenwrap"><canvas id="screen" width="240" height="160" tabindex="0"></canvas><button id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button></div>
-    <div id="status"><span id="net">Not connected</span><span>Keys: arrows, Z = A, X = B, Enter = Start, Backspace = Select</span></div>
+    <div id="status"><span id="net">Not connected</span><span>Keys: arrows, X = A, Z = B, Enter = Start, Backspace = Select</span></div>
     <ul id="players"></ul>
     <div id="pad">
       <button class="k" data-k="l">L</button><button class="k" data-k="r">R</button>
@@ -186,7 +190,7 @@
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
-  var romData = null, patchData = null;
+  var romData = null, patchData = null, madeRom = null, server = 'A', sess = null;
   var Module = null, base = -1, ws = null, myId = 0, slots = {}, names = {}, lastSent = '', lastSentAt = 0, muted = false;
   var SLOTS = 4, lastScan = 0;
 
@@ -234,7 +238,7 @@
 
   function say(t, k) { $('msg').textContent = t; $('msg').className = k || ''; }
   function read(file, done) { var r = new FileReader(); r.onload = function () { done(new Uint8Array(r.result)); }; r.onerror = function () { say('That file could not be read.', 'bad'); }; r.readAsArrayBuffer(file); }
-  function refresh() { $('go').disabled = !(romData && patchData); }
+  function refresh() { $('go').disabled = !((romData && patchData) || madeRom); }
   function take(kind, file) {
     if (!file) return;
     read(file, function (d) {
@@ -253,7 +257,8 @@
   window.addEventListener('dragover', function (e) { e.preventDefault(); });
   window.addEventListener('drop', function (e) { if (e.target.closest && e.target.closest('.drop')) return; e.preventDefault(); Array.prototype.forEach.call(e.dataTransfer.files, function (f) { take(/\.bps$/i.test(f.name) ? 'patch' : 'rom', f); }); });
 
-  try { $('name').value = localStorage.getItem('klName') || ''; $('room').value = localStorage.getItem('klRoom') || ''; } catch (e) {}
+  try { $('name').value = localStorage.getItem('klName') || ''; server = localStorage.getItem('klServer') || 'A'; } catch (e) {}
+  if (['A', 'B', 'C'].indexOf(server) < 0) server = 'A';
 
   /* ---------- the room: a web socket ---------- */
   function connect(cb) {
@@ -266,8 +271,8 @@
       if (window.__teach) window.__teach.on(m);
       if (m.t === 'hello') { myId = m.id; showRooms(m.rooms); }
       else if (m.t === 'rooms') showRooms(m.rooms);
-      else if (m.t === 'joined') { $('net').textContent = 'Room ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { if (!o.b) names[o.id] = o.name; }); renderPlayers(); }
-      else if (m.t === 'full') { $('net').textContent = 'That room is full'; }
+      else if (m.t === 'joined') { $('net').textContent = 'Server ' + m.room; names = {}; slots = {}; m.others.forEach(function (o) { if (!o.b) names[o.id] = o.name; }); renderPlayers(); }
+      else if (m.t === 'full') { $('net').textContent = 'That server is full'; }
       else if (m.t === 'trade') { gotTrade(m); }
       else if (m.t === 'lnk') { gotLink(m); }
       else if (m.t === 'arrived') { if (!m.b) { names[m.id] = m.name; renderPlayers(); } }
@@ -281,13 +286,21 @@
     };
   }
   var seen = {}, where = {};
+  var counts = { A: 0, B: 0, C: 0 };
   function showRooms(list) {
-    if (!list) return; var el = $('open');
-    el.textContent = list.length ? 'Open rooms: ' + list.map(function (r) { return r.code + ' (' + r.players + ')'; }).join(', ') : 'No rooms are open yet. Pick any code and tell your friends.';
+    if (list) list.forEach(function (r) { counts[r.code] = r.players; });
+    var el = $('servers'); el.textContent = '';
+    ['A', 'B', 'C'].forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'srv' + (c === server ? ' on' : ''); b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', c === server ? 'true' : 'false');
+      b.textContent = 'Server ' + c + ' · ' + counts[c] + ' playing';
+      b.onclick = function () { server = c; try { localStorage.setItem('klServer', c); } catch (e) {} showRooms(); };
+      el.appendChild(b);
+    });
   }
+  showRooms();
   connect();
   window.__send = function (o) { if (ws && ws.readyState === 1) { ws.send(JSON.stringify(o)); return true; } return false; };
-  window.__join = function (room, nm, board) { var j = function () { ws.send(JSON.stringify({ t: 'join', room: room, name: nm, board: board ? 1 : 0 })); }; if (ws && ws.readyState === 1) j(); else connect(j); };
+  window.__join = function (room, nm, board, token) { var j = function () { ws.send(JSON.stringify({ t: 'join', room: room, name: nm, board: board ? 1 : 0, token: token || '' })); }; if (ws && ws.readyState === 1) j(); else connect(j); };
 
   /* ---------- the mailbox in the emulator's memory ---------- */
   function heap() { return new Uint8Array(window.__wasmMem.buffer); }
@@ -388,34 +401,125 @@
       a.textContent = names[id]; b.textContent = where[id] ? 'map ' + where[id][1] + '-' + where[id][2] : 'waiting for them to start';
       li.appendChild(a); li.appendChild(b); ul.appendChild(li);
     }
-    if (!Object.keys(names).length) { var l = document.createElement('li'); l.textContent = 'You are the only one in the room.'; ul.appendChild(l); }
+    if (!Object.keys(names).length) { var l = document.createElement('li'); l.textContent = 'You are the only one on this server.'; ul.appendChild(l); }
+  }
+
+  /* ---------- signing in: the password makes two keys, one to log in and one that locks the save (never sent) ---------- */
+  var enc = new TextEncoder();
+  function hexBytes(h) { var o = new Uint8Array(h.length / 2); for (var i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; }
+  function b64(u8) { var s = ''; for (var i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(s); }
+  function unb64(t) { var s = atob(t), o = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) o[i] = s.charCodeAt(i); return o; }
+  function post(url, obj) {
+    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(obj) }).then(function (r) {
+      return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'The server said no.'); return j; });
+    });
+  }
+  function signIn(name, pw) {
+    if (!name) return Promise.resolve({ name: '', token: '', key: null, guest: true });
+    if (!window.crypto || !crypto.subtle) return Promise.reject(new Error('This browser cannot sign in (it needs a secure page).'));
+    if (pw.length < 4) return Promise.reject(new Error('The password needs at least 4 letters or numbers.'));
+    var info;
+    return post('/api/prelogin', { name: name }).then(function (j) {
+      info = j;
+      return crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
+    }).then(function (k) {
+      return crypto.subtle.deriveBits({ name: 'PBKDF2', salt: hexBytes(info.salt), iterations: 200000, hash: 'SHA-256' }, k, 512);
+    }).then(function (bits) {
+      var u = new Uint8Array(bits);
+      return Promise.all([post('/api/login', { name: info.name, auth: b64(u.subarray(0, 32)) }),
+                          crypto.subtle.importKey('raw', u.subarray(32, 64), 'AES-GCM', false, ['encrypt', 'decrypt'])]);
+    }).then(function (r) { var j = r[0]; return { name: j.name, token: j.token, key: r[1], created: j.created, hasSave: j.hasSave }; });
+  }
+  function gzip(u8, mode) {
+    var ds = new (mode === 'c' ? CompressionStream : DecompressionStream)('gzip');
+    return new Response(new Blob([u8]).stream().pipeThrough(ds)).arrayBuffer().then(function (b) { return new Uint8Array(b); });
+  }
+  function lockSave(raw) {
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return gzip(raw, 'c').then(function (z) { return crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, sess.key, z); }).then(function (ct) {
+      var out = new Uint8Array(12 + ct.byteLength); out.set(iv, 0); out.set(new Uint8Array(ct), 12); return b64(out);
+    });
+  }
+  function openSave(text) {
+    var all = unb64(text);
+    return crypto.subtle.decrypt({ name: 'AES-GCM', iv: all.subarray(0, 12) }, sess.key, all.subarray(12)).then(function (z) { return gzip(new Uint8Array(z), 'd'); });
+  }
+  // the save kept for this player, or null. Rowan, who has none yet, begins from the prepared one.
+  function fetchSave() {
+    if (!sess || sess.guest) return Promise.resolve(null);
+    return fetch('/api/save', { headers: { Authorization: 'Bearer ' + sess.token } }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.save && j.save.data) return openSave(j.save.data).catch(function () { throw new Error('Your save could not be opened with this password.'); });
+      if (sess.name.toLowerCase() === 'rowan') return fetch('seed/rowan.sav').then(function (r) { return r.ok ? r.arrayBuffer() : null; }).then(function (b) { return b ? new Uint8Array(b) : null; });
+      return null;
+    });
+  }
+  window.__who = function () { return sess && sess.name; };
+  window.__begin = begin; window.__server = function () { return server; };
+  var upTimer = 0, upBusy = false, upLast = '', upDirty = false;
+  function queueUpload() {
+    if (!sess || sess.guest) return;
+    upDirty = true; clearTimeout(upTimer); upTimer = setTimeout(doUpload, 4000);
+  }
+  function doUpload() {
+    if (upBusy || !upDirty) return;
+    var raw; try { raw = Module.FS.readFile(Module.filePaths().savePath + '/klondike.sav'); } catch (e) { return; }
+    var sig = crc32(raw) + ':' + raw.length;
+    if (sig === upLast) { upDirty = false; return; }
+    upBusy = true; upDirty = false;
+    lockSave(raw).then(function (data) {
+      return fetch('/api/save', { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + sess.token }, body: JSON.stringify({ data: data }) });
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (r.ok) { upLast = sig; $('net').textContent = 'Server ' + server + ' · save kept'; }
+        else { upDirty = true; clearTimeout(upTimer); upTimer = setTimeout(doUpload, r.status === 429 ? 10000 : 30000); if (r.status === 401) $('net').textContent = 'Signed out: your save is not being kept. Reload and sign in.'; }
+      });
+    }).catch(function () { upDirty = true; clearTimeout(upTimer); upTimer = setTimeout(doUpload, 30000); }).then(function () { upBusy = false; });
+  }
+
+  // checks the form, signs in, then calls next(). The password is wiped from the page once it has been used.
+  function begin(next) {
+    var nm = $('name').value.trim();
+    try { localStorage.setItem('klName', nm); localStorage.setItem('klServer', server); } catch (e) {}
+    say(nm ? 'Signing in…' : '');
+    $('go').disabled = true; $('boardonly').disabled = true;
+    signIn(nm, $('pw').value).then(function (r) {
+      sess = r; $('pw').value = '';
+      if (r.created) say('New player ' + r.name + '. Your password is set.');
+      return next(r);
+    }).catch(function (e) { say(e.message || 'Could not sign in.', 'bad'); refresh(); $('boardonly').disabled = false; });
   }
 
   /* ---------- the emulator ---------- */
   $('go').addEventListener('click', function () {
-    $('go').disabled = true; say('Making the game…');
-    var rom;
-    setTimeout(function () {
-      try { rom = applyBps(romData, patchData); } catch (e) { say(e.message, 'bad'); $('go').disabled = false; return; }
-      var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
-      try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
-      keepGame(rom);
-      say('Starting…');
-      $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
-      startEmulator(rom, nm, room);
-    }, 30);
+    begin(function (me) {
+      say('Making the game…');
+      return Promise.all([fetchSave(), new Promise(function (ok) { setTimeout(ok, 30); })]).then(function (r) {
+        var rom = madeRom;
+        if (!rom) { try { rom = applyBps(romData, patchData); } catch (e) { say(e.message, 'bad'); refresh(); $('boardonly').disabled = false; return; } keepGame(rom); }
+        say('Starting…');
+        $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
+        startEmulator(rom, me, server, r[0]);
+      });
+    });
   });
 
 
   var autoDone = false;
   keptGame(function (rom) {
     if (autoDone || !rom || /[?&]setup/.test(location.search)) return; autoDone = true;
-    var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
-    $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
-    startEmulator(new Uint8Array(rom), nm, room);
+    madeRom = new Uint8Array(rom);
+    $('romInfo').textContent = 'Kept in this browser'; $('dropRom').className = 'drop done';
+    $('patchInfo').textContent = 'Not needed again'; $('dropPatch').className = 'drop done';
+    refresh();
+    if (!$('name').value.trim()) {      // a guest has nothing to sign in to: start at once
+      sess = { name: '', token: '', key: null, guest: true };
+      $('setup').style.display = 'none'; $('game').style.display = 'block'; document.body.classList.add('playing');
+      startEmulator(madeRom, sess, server, null);
+    } else say('Your game is ready. Type your password and press Play.');
   });
 
-  function startEmulator(rom, nm, room) {
+  function startEmulator(rom, me, room, saveBytes) {
+    var nm = me.name || '';
     var canvas = $('screen');
     import('./mgba.js').then(function (mod) { return (mod.default || mod)({ canvas: canvas }); }).then(function (M) {
       Module = M; window.Module = M;
@@ -425,16 +529,22 @@
       var file = paths.gamePath + '/klondike.gba';
       try { Module.FS.mkdir(paths.gamePath); } catch (e) {}
       Module.FS.writeFile(file, rom);
+      // the player's kept save goes in before the game starts, so it is on the Continue screen
+      try { Module.FS.mkdir(paths.savePath); } catch (e) {}
+      var sav = paths.savePath + '/klondike.sav';
+      try { Module.FS.unlink(sav); } catch (e) {}
+      if (saveBytes && saveBytes.length) { Module.FS.writeFile(sav, saveBytes); upLast = crc32(saveBytes) + ':' + saveBytes.length; } else upLast = '';
       // a refresh starts at the title screen: no automatic resume of where you were (the in-game save still works)
       try { Module.setCoreSettings({ autoSaveStateEnable: 0, restoreAutoSaveStateOnLoad: 0 }); } catch (e) {}
       [paths.autosave, paths.saveStatePath, paths.gamePath].forEach(function (d) {
         try { Module.FS.readdir(d).forEach(function (f) { if (/_auto\.ss$/.test(f) || d === paths.autosave && f !== '.' && f !== '..') { try { Module.FS.unlink(d + '/' + f); } catch (e) {} } }); } catch (e) {}
       });
       if (!Module.loadGame(file)) { $('net').textContent = 'The game did not start'; return; }
-      Module.addCoreCallbacks({ saveDataUpdatedCallback: function () { Module.FSSync(); } });
+      Module.addCoreCallbacks({ saveDataUpdatedCallback: function () { Module.FSSync(); queueUpload(); } });
       canvas.focus();
-      if (ws && ws.readyState === 1) ws.send(JSON.stringify({ t: 'join', room: room, name: nm }));
-      else connect(function () { ws.send(JSON.stringify({ t: 'join', room: room, name: nm })); });
+      var jm = { t: 'join', room: room, name: nm, token: me.token || '' };
+      if (ws && ws.readyState === 1) ws.send(JSON.stringify(jm));
+      else connect(function () { ws.send(JSON.stringify(jm)); });
       setInterval(tick, 50);
       window.__ready = true;
     }).catch(function (e) { $('net').textContent = 'Error: ' + (e && e.message || e); });
@@ -622,17 +732,17 @@
 
   /* ---------- the board-only door ---------- */
   $('boardonly').onclick = function () {
-    var nm = ($('name').value.trim() || 'Player'), room = ($('room').value.trim() || 'KLONDIKE');
-    try { localStorage.setItem('klName', $('name').value.trim()); localStorage.setItem('klRoom', $('room').value.trim()); } catch (e) {}
-    boardOnly = true; $('setup').style.display = 'none'; open = true; $('teach').style.display = 'block';
-    window.__join(room, nm, true);
+    window.__begin(function (me) {
+      boardOnly = true; $('setup').style.display = 'none'; open = true; $('teach').style.display = 'block';
+      window.__join(window.__server(), me.name, true, me.token);
+    });
   };
 
   /* ---------- from the server ---------- */
   window.__teach = { on: function (m) {
     if (m.t === 'joined') {
       myId = m.id; hostId = m.host; locked = !!m.locked; joined = true; people = {}; strokes = []; byKey = {};
-      people[m.id] = ($('name').value.trim() || 'Player').slice(0, 12);
+      people[m.id] = ((window.__who && window.__who()) || 'Guest').slice(0, 12);
       m.others.forEach(function (o) { people[o.id] = o.name; });
       $('chatlog').textContent = ''; (m.chat || []).forEach(function (l) { addLine(l); }); unread = 0; showUnread();
       addLine('You are in room ' + m.room + '.', true);
