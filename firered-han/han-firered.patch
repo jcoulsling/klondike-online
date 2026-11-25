@@ -136300,10 +136300,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..d81f62d
+index 0000000..c33bc4f
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,321 @@
+@@ -0,0 +1,325 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -136341,7 +136341,7 @@ index 0000000..d81f62d
 +#define LAND_B         59
 +
 +// Only Pokémon that nobody meets in the wild in FireRed, LeafGreen or Emerald: every starter of Kanto, Johto and Hoenn, their
-+// evolutions, and the rest that only come by gift, trade, fossil or evolution (the legendary ones are left out).
++// evolutions, and the rest that only come by gift, trade, fossil or evolution (and, with them, the legendary and mythical ones, which are the rarest by their stat totals).
 +// Made by listing every species in the wild encounter tables of the two games and taking those away from Gen 1-3.
 +static const u16 sPool[] = {
 +    SPECIES_BULBASAUR, SPECIES_IVYSAUR, SPECIES_VENUSAUR, SPECIES_CHARMANDER, SPECIES_CHARMELEON, SPECIES_CHARIZARD,
@@ -136370,6 +136370,10 @@ index 0000000..d81f62d
 +    SPECIES_HUNTAIL, SPECIES_GOREBYSS, SPECIES_ZANGOOSE, SPECIES_AGGRON, SPECIES_CASTFORM, SPECIES_LILEEP,
 +    SPECIES_CRADILY, SPECIES_ANORITH, SPECIES_ARMALDO, SPECIES_KIRLIA, SPECIES_GARDEVOIR, SPECIES_SHELGON,
 +    SPECIES_SALAMENCE, SPECIES_BELDUM, SPECIES_METANG, SPECIES_METAGROSS,
++    // legendary and mythical Pokémon of all three regions: rare by their stat totals, like all the others
++    SPECIES_ARTICUNO, SPECIES_ZAPDOS, SPECIES_MOLTRES, SPECIES_MEWTWO, SPECIES_MEW, SPECIES_RAIKOU, SPECIES_ENTEI,
++    SPECIES_SUICUNE, SPECIES_LUGIA, SPECIES_HO_OH, SPECIES_CELEBI, SPECIES_REGIROCK, SPECIES_REGICE, SPECIES_REGISTEEL,
++    SPECIES_LATIAS, SPECIES_LATIOS, SPECIES_KYOGRE, SPECIES_GROUDON, SPECIES_RAYQUAZA, SPECIES_JIRACHI, SPECIES_DEOXYS,
 +};
 +
 +extern const u8 HanWild_EventScript_Battle[];
