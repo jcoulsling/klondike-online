@@ -93475,14 +93475,15 @@ index 0000000..887fe06
 +#endif // GUARD_HAN_MULTIPLAYER_H
 diff --git a/include/han_rowan.h b/include/han_rowan.h
 new file mode 100644
-index 0000000..7342656
+index 0000000..87f9da9
 --- /dev/null
 +++ b/include/han_rowan.h
-@@ -0,0 +1,6 @@
+@@ -0,0 +1,7 @@
 +#ifndef GUARD_HAN_ROWAN_H
 +#define GUARD_HAN_ROWAN_H
 +
 +void HanRowanStart(void);
++void HanRowanContinue(void); // a saved game was loaded
 +
 +#endif // GUARD_HAN_ROWAN_H
 diff --git a/include/han_tower.h b/include/han_tower.h
@@ -126356,10 +126357,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..43aa465
+index 0000000..86af89e
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,143 @@
+@@ -0,0 +1,157 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "event_data.h"
@@ -126458,6 +126459,20 @@ index 0000000..43aa465
 +    hp = 0;
 +    hp = GetMonData(mon, MON_DATA_MAX_HP);
 +    SetMonData(mon, MON_DATA_HP, &hp);
++}
++
++// Called when a saved game is loaded. A Rowan save made before these flags existed gets them now:
++// every fly town in Kanto, the Sevii Islands and their maps. (Hoenn's fly towns need no flag.)
++void HanRowanContinue(void)
++{
++    u8 i;
++
++    if (StringCompare(gSaveBlock2Ptr->playerName, sName1) != 0 && StringCompare(gSaveBlock2Ptr->playerName, sName2) != 0)
++        return;
++    FlagSet(FLAG_SYS_SEVII_MAP_123);
++    FlagSet(FLAG_SYS_SEVII_MAP_4567);
++    for (i = 0; i < ARRAY_COUNT(sFlyTowns); i++)
++        FlagSet(sFlyTowns[i]);
 +}
 +
 +// Called at the end of a new game's set-up. Does nothing for any other name.
@@ -128620,19 +128635,20 @@ index 0b55a34..1dd4ba5 100644
      SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0x10, 0xE0));
  }
 diff --git a/src/overworld.c b/src/overworld.c
-index 339014d..01c8ce3 100644
+index 339014d..4a3a040 100644
 --- a/src/overworld.c
 +++ b/src/overworld.c
-@@ -31,6 +31,8 @@
+@@ -31,6 +31,9 @@
  #include "new_game.h"
  #include "new_menu_helpers.h"
  #include "overworld.h"
 +#include "han_multiplayer.h"
 +#include "han_follower.h"
++#include "han_rowan.h"
  #include "play_time.h"
  #include "quest_log.h"
  #include "quest_log_objects.h"
-@@ -582,6 +584,7 @@ static void SetPlayerCoordsFromWarp(void)
+@@ -582,6 +585,7 @@ static void SetPlayerCoordsFromWarp(void)
  
  void WarpIntoMap(void)
  {
@@ -128640,7 +128656,7 @@ index 339014d..01c8ce3 100644
      ApplyCurrentWarp();
      LoadCurrentMapData();
      SetPlayerCoordsFromWarp();
-@@ -1465,6 +1468,9 @@ static void OverworldBasic(void)
+@@ -1465,6 +1469,9 @@ static void OverworldBasic(void)
      CameraUpdate();
      SetQuestLogEvent_Arrived();
      UpdateCameraPanning();
@@ -128650,11 +128666,12 @@ index 339014d..01c8ce3 100644
      BuildOamBuffer();
      UpdatePaletteFade();
      UpdateTilesetAnimations();
-@@ -1691,6 +1697,7 @@ static void FieldCB_ShowMapNameOnContinue(void)
+@@ -1691,6 +1698,8 @@ static void FieldCB_ShowMapNameOnContinue(void)
  void CB2_ContinueSavedGame(void)
  {
      FieldClearVBlankHBlankCallbacks();
 +    gHanSyllabics = gSaveBlock2Ptr->optionsHanSyllabics; // Hän build
++    HanRowanContinue(); // Hän build
      StopMapMusic();
      ResetSafariZoneFlag_();
      LoadSaveblockMapHeader();

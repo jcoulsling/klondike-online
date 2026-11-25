@@ -1082,3 +1082,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-24j
 - The Kanto fly map shows SELECT HOENN on its top bar, so the switch to the Hoenn map can be found. (The top bar window is wider; the move hint keeps its place.)
+
+## 2026-11-24k
+- A Rowan save now gets every Kanto fly town, the Sevii Islands and their maps each time it loads (`HanRowanContinue` in `src/han_rowan.c`), so an older Rowan save made before those flags existed can fly to the Sevii Islands. The seed save already had them. Hoenn fly towns need no flag.
