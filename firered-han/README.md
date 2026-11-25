@@ -1118,3 +1118,10 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - **The frozen pond** in the middle of the island is ice, and you slide across it. Boulders in it stop you. **DIG** on the ice, facing more ice, opens a hole: the tile in front turns to water. Face a hole and press A to dive, down to the sea floor: a winding way through kelp, where the Pokémon you meet are the ones that live in water, and it comes out behind the north end of the island. (Dive here is not the Emerald move: no Pokémon needs to know it, you just press A at the hole.) Holes are kept in the save.
 - Fixed: Pokémon far from the player no longer show up on the other side of the screen (sprite coordinates wrap at 256).
 - The Hän text for Birch, the ship menu and the Wild Area is English placeholder for now.
+
+## 2026-11-25f
+- **The north building is a cave.** The outside is a rock face with a cave mouth (Hoenn's Route 106 piece); inside is a cave room (Granite Cave's back room, cave music). The Pokémon waits in the room facing the entrance.
+- **The rocks in the pond are plain rocks**, not Strength boulders: they cannot be pushed.
+- **The frozen pond is bigger** (about 16 by 11 tiles, with more rocks to stop the sliding).
+- **Pokémon now walk about the harbour yard** by the dock too, so some are in view when you arrive.
+- **No random encounters on the sea floor.** The water Pokémon swim about down there and you meet them by walking into them, like everywhere else on the island.

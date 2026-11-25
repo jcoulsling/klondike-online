@@ -800,18 +800,19 @@ HcmV?d00001
 
 diff --git a/data/layouts/HanWildArea/map.bin b/data/layouts/HanWildArea/map.bin
 new file mode 100644
-index 0000000000000000000000000000000000000000..f34b297ccbaea83ecfdf0e54156887e5455c48ab
+index 0000000000000000000000000000000000000000..f9d7de84d2df027644a6f910b3d16e70af0088c2
 GIT binary patch
 literal 4096
-zcmeH{J5B>Z5Jcr*CwB@&;LJ9d<!6cCmAD&cAS5#x+yxcmhfD2V{~$oZ8jZT9x~gkt
-zv6wY)%`EKRWO+pm=lAAgX;=3_dpKW5ZEuq4#4*Qf^&gj$`5Kho4*A0}D&z9poR+h)
-zdH&+%7v-{Cm6zta+?2}t9l`Nk3;%6<*WQ=c-a~n8D;u@h`xpLYM5fnl=CX71_cPmP
-zz-2Yd7w7&ijreRPoMwQ#>Z;lDuj>DW{K0u$d@tU~*}nlC9%;e!crRzw$l(zWM!#)7
-zK5ER$@?8t|>UVJL8e#P!r?cO|an!2UHJ{nk=+#-huKD7*OZ4LL{8c&bm(I7(a$Og8
-zeav5X2hRn^d0n~Uqn3O;o8-Gzdd+}y%<sC^s_;IZuA2F~v>Cst-{0&w^Lw96y~#Ix
-zR$T|yOy8Lg&UIksP|;=;jaTNVW}e8oUf5?vZFY9OF!Q38`%t})N0oWr7Z&f;`*_fJ
-zPnh`;XS&Gg%>0O>Hp};H^ckm~cr;YcUd5^RTlr*qC7T@YIp%Fyl{e#^^H~wE%a(rn
-yrJ6R`l0W0cafj-ca+@{%zU!|3eSZDFx$F1ix3a6BzxJ>{`oS9apZ4ote}PY~?e&xZ
+zcmeH|JxYT?5QYuxcYxf$!cK+QNDgGFpb$G#Xqiqg;VnEx?DQ`3W_g@(cJ|Z6MldX4
+z{@$P2O(5&xby$bbWY(UDp?(|Q!{_k)zQprTT3qF!WAUY2hI3U`#pYl4ZFO%-Jhx@_
+zWB<v_vlr#AT$E*56}?EdL-e1_#NjN<qC6iwmZuFrVpT`Y_T{Y;v8ppoV_25qGJiab
+znco{+PuKH%m@$9pO9P)?9McwmZ2lMgkIw4hy|^c}e*=1Oge7OjeW?{=503ie;J5XM
+zM~q&XzsHjM=y&kB$0*k<_Eh^Fd>*ly_4LsuMy_hjdiv_KOXR}w{$oC#FP#5)EsyKv
+z9v}Vd4*Vk8=zYnfUdysh#NyAc(lm6N)%_~k`@@%B%d(E<V0+QfdDi36&so+5M~rte
+zWSe;`{P?CV%Q_LOns+1`y3N4&7&Tj#bs{$U*E<=$&D#G1ugRN?MUVIXk)u1RNA&aT
+z{(i1p+CKWZ-@*6E(O2zr=EQ6_&CriIJR&<%D`tLK53J`Z_ukC19#}BM%q!~&uRc0>
+z5Yg++!J(Z+JhB-*bh7xJw>a|+YCdE~{H(7Y{*^D}HfR31@2>p4fBhfc_5Jw0?8@ic
+RKAxWZ;+#&e_vc@~zy~e|62t%i
 
 literal 0
 HcmV?d00001
@@ -18825,10 +18826,10 @@ index 0000000..1a0ba8b
 +	.byte 0
 diff --git a/data/maps/HanWildArea/map.json b/data/maps/HanWildArea/map.json
 new file mode 100644
-index 0000000..5934949
+index 0000000..d54087e
 --- /dev/null
 +++ b/data/maps/HanWildArea/map.json
-@@ -0,0 +1,390 @@
+@@ -0,0 +1,455 @@
 +{
 +  "id": "MAP_HAN_WILD_AREA",
 +  "name": "HanWildArea",
@@ -18866,47 +18867,34 @@ index 0000000..5934949
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
-+      "x": 14,
-+      "y": 28,
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 11,
++      "y": 26,
 +      "elevation": 3,
 +      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
 +      "movement_range_x": 0,
 +      "movement_range_y": 0,
 +      "trainer_type": "TRAINER_TYPE_NONE",
 +      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "EventScript_StrengthBoulder",
++      "script": "0x0",
 +      "flag": "0"
 +    },
 +    {
-+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
-+      "x": 17,
-+      "y": 29,
-+      "elevation": 3,
-+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-+      "movement_range_x": 0,
-+      "movement_range_y": 0,
-+      "trainer_type": "TRAINER_TYPE_NONE",
-+      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "EventScript_StrengthBoulder",
-+      "flag": "0"
-+    },
-+    {
-+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
-+      "x": 13,
-+      "y": 30,
-+      "elevation": 3,
-+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-+      "movement_range_x": 0,
-+      "movement_range_y": 0,
-+      "trainer_type": "TRAINER_TYPE_NONE",
-+      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "EventScript_StrengthBoulder",
-+      "flag": "0"
-+    },
-+    {
-+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
 +      "x": 16,
++      "y": 25,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 20,
 +      "y": 27,
 +      "elevation": 3,
 +      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -18914,13 +18902,91 @@ index 0000000..5934949
 +      "movement_range_y": 0,
 +      "trainer_type": "TRAINER_TYPE_NONE",
 +      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "EventScript_StrengthBoulder",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 13,
++      "y": 29,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 18,
++      "y": 30,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 10,
++      "y": 31,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 20,
++      "y": 32,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 15,
++      "y": 33,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
++      "x": 19,
++      "y": 28,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "0x0",
 +      "flag": "0"
 +    }
 +  ],
 +  "warp_events": [
 +    {
-+      "x": 16,
++      "x": 17,
 +      "y": 5,
 +      "elevation": 0,
 +      "dest_map": "MAP_HAN_WILD_TEMPLE",
@@ -19349,22 +19415,22 @@ index 0000000..4b1b36b
 +	.byte 0
 diff --git a/data/maps/HanWildTemple/map.json b/data/maps/HanWildTemple/map.json
 new file mode 100644
-index 0000000..50c2fb6
+index 0000000..e2fcd59
 --- /dev/null
 +++ b/data/maps/HanWildTemple/map.json
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,29 @@
 +{
 +  "id": "MAP_HAN_WILD_TEMPLE",
 +  "name": "HanWildTemple",
-+  "layout": "LAYOUT_HOENN_HOUSE4",
-+  "music": "MUS_PEWTER",
++  "layout": "LAYOUT_HOENN_GRANITE_CAVE_STEVENS_ROOM",
++  "music": "MUS_MT_MOON",
 +  "region_map_section": "MAPSEC_SECRET_BASE",
 +  "requires_flash": false,
 +  "weather": "WEATHER_NONE",
-+  "map_type": "MAP_TYPE_INDOOR",
-+  "allow_cycling": false,
++  "map_type": "MAP_TYPE_UNDERGROUND",
++  "allow_cycling": true,
 +  "allow_escaping": false,
-+  "allow_running": false,
++  "allow_running": true,
 +  "show_map_name": false,
 +  "floor_number": 0,
 +  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
@@ -19372,16 +19438,9 @@ index 0000000..50c2fb6
 +  "object_events": [],
 +  "warp_events": [
 +    {
-+      "x": 3,
-+      "y": 8,
-+      "elevation": 0,
-+      "dest_map": "MAP_HAN_WILD_AREA",
-+      "dest_warp_id": "0"
-+    },
-+    {
-+      "x": 4,
-+      "y": 8,
-+      "elevation": 0,
++      "x": 7,
++      "y": 3,
++      "elevation": 3,
 +      "dest_map": "MAP_HAN_WILD_AREA",
 +      "dest_warp_id": "0"
 +    }
@@ -121670,7 +121729,7 @@ index 02afbfd..0499b44 100644
 +    },
  };
 diff --git a/src/data/wild_encounters.json b/src/data/wild_encounters.json
-index 176027b..26710bf 100644
+index 176027b..3413fb6 100644
 --- a/src/data/wild_encounters.json
 +++ b/src/data/wild_encounters.json
 @@ -608,7 +608,7 @@
@@ -123901,7 +123960,7 @@ index 176027b..26710bf 100644
                },
                {
                  "min_level": 25,
-@@ -25161,6 +25161,8065 @@
+@@ -25161,6 +25161,7996 @@
              ],
              "encounter_rate": 7
            }
@@ -131895,75 +131954,6 @@ index 176027b..26710bf 100644
 +              }
 +            ]
 +          }
-+        },
-+        {
-+          "map": "MAP_HAN_WILD_UNDERWATER",
-+          "base_label": "sHanWildUnderwater",
-+          "land_mons": {
-+            "encounter_rate": 25,
-+            "mons": [
-+              {
-+                "min_level": 20,
-+                "max_level": 30,
-+                "species": "SPECIES_TENTACOOL"
-+              },
-+              {
-+                "min_level": 15,
-+                "max_level": 25,
-+                "species": "SPECIES_MAGIKARP"
-+              },
-+              {
-+                "min_level": 20,
-+                "max_level": 30,
-+                "species": "SPECIES_GOLDEEN"
-+              },
-+              {
-+                "min_level": 20,
-+                "max_level": 30,
-+                "species": "SPECIES_HORSEA"
-+              },
-+              {
-+                "min_level": 22,
-+                "max_level": 32,
-+                "species": "SPECIES_STARYU"
-+              },
-+              {
-+                "min_level": 22,
-+                "max_level": 32,
-+                "species": "SPECIES_SHELLDER"
-+              },
-+              {
-+                "min_level": 24,
-+                "max_level": 34,
-+                "species": "SPECIES_REMORAID"
-+              },
-+              {
-+                "min_level": 26,
-+                "max_level": 36,
-+                "species": "SPECIES_QWILFISH"
-+              },
-+              {
-+                "min_level": 28,
-+                "max_level": 38,
-+                "species": "SPECIES_CORSOLA"
-+              },
-+              {
-+                "min_level": 30,
-+                "max_level": 40,
-+                "species": "SPECIES_WAILMER"
-+              },
-+              {
-+                "min_level": 30,
-+                "max_level": 40,
-+                "species": "SPECIES_LUVDISC"
-+              },
-+              {
-+                "min_level": 32,
-+                "max_level": 42,
-+                "species": "SPECIES_LAPRAS"
-+              }
-+            ]
-+          }
          }
        ]
      }
@@ -137030,10 +137020,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..3474002
+index 0000000..be25555
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,852 @@
+@@ -0,0 +1,940 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137077,7 +137067,7 @@ index 0000000..3474002
 +#define LAND_L         0   // the snowfield of gen_wild.py (rows 4 to 45, between the building above and the harbour fence below)
 +#define LAND_R         31
 +#define LAND_T         4
-+#define LAND_B         47
++#define LAND_B         56
 +#define STATIC_PAL     (WILD_PAL + 8)
 +#define SHINY_BIT      0x100 // in data[5], above the level
 +
@@ -137204,6 +137194,11 @@ index 0000000..3474002
 +    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_AREA) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_AREA);
 +}
 +
++static bool8 InUnder(void)
++{
++    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_UNDERWATER) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_UNDERWATER);
++}
++
 +static bool8 InTemple(void)
 +{
 +    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_TEMPLE) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_TEMPLE);
@@ -137242,8 +137237,20 @@ index 0000000..3474002
 +    return !IsPlayerAt(tx, ty);
 +}
 +
++// the sea floor: anywhere that can be walked
++static bool8 UnderFree(s16 tx, s16 ty)
++{
++    if (tx < 1 || tx > 30 || ty < 1 || ty > 46)
++        return FALSE;
++    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
++        return FALSE;
++    return !IsPlayerAt(tx, ty);
++}
++
 +static bool8 FreeFor(u16 sp, s16 tx, s16 ty)
 +{
++    if (InUnder())
++        return UnderFree(tx, ty);
 +    return IsWaterOnly(sp) ? WaterFree(tx, ty) : TileFree(tx, ty);
 +}
 +
@@ -137726,6 +137733,71 @@ index 0000000..3474002
 +    return sFirst != 0;
 +}
 +
++static const u16 sUnder[] = {
++    SPECIES_TENTACOOL, SPECIES_MAGIKARP, SPECIES_GOLDEEN, SPECIES_HORSEA, SPECIES_STARYU, SPECIES_SHELLDER,
++    SPECIES_REMORAID, SPECIES_QWILFISH, SPECIES_CORSOLA, SPECIES_WAILMER, SPECIES_LUVDISC, SPECIES_LAPRAS,
++};
++
++// the sea floor: a handful of the water Pokémon swim about, met by touching them
++static void SpawnUnder(void)
++{
++    u16 kindSp[WILD_COUNT], loaded = 0;
++    u8 palIdx[WILD_COUNT * 2];
++    u8 nk = 0, i, k, tries, top = 5, lvl, id;
++    s16 px, py;
++
++    for (i = 0; i < PARTY_SIZE; i++)
++        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
++            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
++    PlayerGetDestCoords(&px, &py);
++    px -= MAP_OFFSET;
++    py -= MAP_OFFSET;
++    for (i = 0; i < 14; i++)
++    {
++        u16 sp = sUnder[Random() % ARRAY_COUNT(sUnder)];
++        s16 tx = 0, ty = 0;
++
++        for (tries = 0; tries < 60; tries++)
++        {
++            tx = 1 + Random() % 30;
++            ty = 1 + Random() % 46;
++            if (UnderFree(tx, ty) && (tx > px ? tx - px : px - tx) + (ty > py ? ty - py : py - ty) >= 5)
++                break;
++        }
++        if (tries == 60)
++            continue;
++        for (k = 0; k < nk; k++)
++            if (kindSp[k] == sp)
++                break;
++        if (k == nk)
++        {
++            if (nk >= WILD_COUNT)
++                continue;
++            kindSp[nk++] = sp;
++        }
++        lvl = top - 3 + Random() % 5;
++        if (lvl < 5)
++            lvl = 5;
++        if (lvl > 70)
++            lvl = 70;
++        id = MakeSprite(sp, FALSE, k, palIdx, &loaded);
++        if (id == MAX_SPRITES)
++            continue;
++        gSprites[id].data[0] = tx * 16;
++        gSprites[id].data[1] = ty * 16;
++        gSprites[id].data[2] = sp;
++        gSprites[id].data[3] = 1 + (Random() & 3);
++        gSprites[id].data[4] = Random() & 63;
++        gSprites[id].data[5] = lvl;
++        gSprites[id].data[6] = 0;
++        gSprites[id].data[7] = WILD_TAG;
++        gSprites[id].callback = SpriteCB_Roamer;
++        Place(&gSprites[id]);
++        if (sFirst == 0)
++            sFirst = id + 1;
++    }
++}
++
 +// the building's one Pokémon: stands still in the middle of the room
 +static void SpawnStatic(void)
 +{
@@ -137750,16 +137822,16 @@ index 0000000..3474002
 +    id = HanWildSpriteCreate(sp | (shiny ? 0x8000 : 0), STATIC_PAL, &palIdx, TRUE);
 +    if (id == MAX_SPRITES)
 +        return;
-+    gSprites[id].data[0] = 4 * 16;
-+    gSprites[id].data[1] = 3 * 16;
++    gSprites[id].data[0] = 7 * 16;
++    gSprites[id].data[1] = 8 * 16;
 +    gSprites[id].data[2] = sp;
-+    gSprites[id].data[3] = DIR_SOUTH;
++    gSprites[id].data[3] = DIR_NORTH;
 +    gSprites[id].data[4] = 0;
 +    gSprites[id].data[5] = top | (shiny ? SHINY_BIT : 0);
 +    gSprites[id].data[6] = 0;
 +    gSprites[id].data[7] = WILD_TAG;
 +    gSprites[id].callback = SpriteCB_Static;
-+    StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_SOUTH));
++    StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_NORTH));
 +    Place(&gSprites[id]);
 +    sFirst = id + 1;
 +}
@@ -137768,8 +137840,9 @@ index 0000000..3474002
 +void HanWildFrame(void)
 +{
 +    bool8 temple = InTemple();
++    bool8 under = InUnder();
 +
-+    if (!InWildArea() && !temple)
++    if (!InWildArea() && !temple && !under)
 +    {
 +        sFirst = 0;
 +        return;
@@ -137780,6 +137853,11 @@ index 0000000..3474002
 +        sFirst = 0;
 +    if (sFirst == 0)
 +    {
++        if (under)
++        {
++            SpawnUnder();
++            return;
++        }
 +        EnsureRoster();
 +        if (temple)
 +            SpawnStatic();
@@ -137794,7 +137872,7 @@ index 0000000..3474002
 +    struct Sprite *player;
 +    u8 i;
 +
-+    if (sFirst == 0 || (!InWildArea() && !InTemple()))
++    if (sFirst == 0 || (!InWildArea() && !InTemple() && !InUnder()))
 +        return FALSE;
 +    player = &gSprites[gPlayerAvatar.spriteId];
 +    for (i = 0; i < MAX_SPRITES; i++)
