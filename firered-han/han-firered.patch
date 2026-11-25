@@ -333,7 +333,7 @@ index 8aa0a10..6dffa50 100644
  	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
  	healthbarupdate BS_ATTACKER
 diff --git a/data/event_scripts.s b/data/event_scripts.s
-index 88d7594..904ca4e 100644
+index 88d7594..942e392 100644
 --- a/data/event_scripts.s
 +++ b/data/event_scripts.s
 @@ -87,6 +87,8 @@ gStdScripts::
@@ -468,7 +468,7 @@ index 88d7594..904ca4e 100644
  
  	.include "data/text/seagallop.inc"
  
-@@ -1360,3 +1357,315 @@ Text_TestMsg::
+@@ -1360,3 +1357,318 @@ Text_TestMsg::
  	.include "data/text/save.inc"
  	.include "data/text/new_game_intro.inc"
  	.include "data/text/pokedude.inc"
@@ -783,6 +783,9 @@ index 88d7594..904ca4e 100644
 +	.include "data/maps/Route119_House/scripts.inc"
 +	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
 +	.include "data/maps/HanWildArea/scripts.inc"
++	.include "data/maps/HanWildEast/scripts.inc"
++	.include "data/maps/HanWildTemple/scripts.inc"
++	.include "data/maps/HanWildCabin/scripts.inc"
 +@ # --- end Hoenn ---
 diff --git a/data/layouts/HanWildArea/border.bin b/data/layouts/HanWildArea/border.bin
 new file mode 100644
@@ -796,38 +799,45 @@ HcmV?d00001
 
 diff --git a/data/layouts/HanWildArea/map.bin b/data/layouts/HanWildArea/map.bin
 new file mode 100644
-index 0000000000000000000000000000000000000000..58f8576104ab1e4948bf32a40485756117913c52
+index 0000000000000000000000000000000000000000..eab7fa9a27423ff7b336c6e44b3cccf5c5e0d90a
 GIT binary patch
-literal 13824
-zcmeI2O^#ee5QOE0m$R5NFkS)D_+~z=+1YnNLHKh<R%LZR0}>3hT0Qw685Q;Vt>*Ll
-z-`;<I!{0COzrN}3Th?CO|10|c^!)C1x{G(O=e%lDJ#+Ms!)jOhSK{jV@C?^a&;E%2
-zpScThxH3l{_R7rE<M|KYSi}C)AN)C!dhl0!tG4!Djei_-=FfS3#;==Iom%>tTk~rz
-zcTmGp!=CdqfAveVwDR+_YMQn569+%*@)Ij-*+2Vd{*!)*jW*b<rJp$XS(gvSTF-d)
-z&-{g(XI^)r8GRX(W9ACZ)N?;~n}41eE?Cv5;}fe#{?oVa%rlRjX0wKG`|`14&HOpH
-zEMMkjsdsEg^vgcIa)P}^9~c#Ds?VwC<zs%Bn)!3au1(ET2PJLJtW2_o&n&TL))Ulj
-zJkQPi!IYIQvdr05o;ov%;ee*ulm5$h9l?A0KGRRow=43#`~0PgdkaIc^4d{#caf*2
-zSYI~UFD!e;lS=d_|FxT$cQ^Q#j^<_E%z~OMUw7%RHrHp~eJ|_z!rc2^JL@kUV4+^c
-z;88=Xtf_~&r(y5TWX|+o@ZNKezc{4M?l&{?^qlTs-+DFU-RLFTC#jtDH&5$a?_6hj
-z=BtN$09Dr2zV#gK{MI`)Hoqb^-R9r-)qQXd-LbR>Eq!twLs2~$d(9c{6DzC<`~3SA
-z!yVoCQS9ZVPU*uRE9DAN*@{+AIQdogjD6N$=k2(qKe~v&uu~gqYyKAB+*9i4rus*i
-z{d3}9?|0pUQ7VTv$_p>Gp+-KR*y5>bMR>x)@0N3P_NV6u4VjX)#?A;uaXrcX4!k9~
-zxULz_V?S96JLB#bhuk&mkA`OJzp1hK-HJWY_k)RoHP8J{Q(zPaX;!l{fAqD+XwPQO
-zZ%p;*Th$Yf>d>>}NVah7`Bv+>C5vUh5YGJ3OH*}TZ&eIFeXwH-%3)Q<UoAVBH5Soo
-z@9U4In#50y^Ep+I_EBdhd#v`#I^+G_Cd_0me0KSK`aA27rs~I+^;~D>r?)gwtX}UH
-zM^7c&-LDz;>9&%;F^jpqnLj-1ys$u%V!-{ZPlunc+*dP`2iK{_NfPZoe|79=>@mN(
-zpS|-(GN7JkcJ9iY^_Q+Qns@O$Dw<C^PtRFn&NZ_28`Ex|=gi;FJF{g`s-E$`i~ah$
-zs-5z*#hl8X^sn>zlzNVo%dgHs{8vt(+Y?r2yGHP^Eq=59oHM7C%dcw0^4E=5V{z9B
-z=Kf?*e({_6r>>eJKH2FPAV%s}O?EmV&*F)_&Qz@J8H?=9KXp|n@ySm6#SNXX-YQPT
-z9Pg_B9c$*#>10ouXMWzTw{{|xmb}m5E<0l|U$bOv@AE%tp80vVvf6U4<~jCGGwjpO
-z)!#G!)K~q)(n`LyJOA>uSNiw;dsKG-tJHe$*KRsb?@zHxebrB_ee&6>THliKUhTc0
-z*cPwydVjwA)pOFnaMhJ(-tQs#_HBxi3A4)L*Cu)HmX|xVp>UGVHU83D^Fo>LVdq^L
-zHrJghlQ^8gEFH0v={!NzPW*YpdAhjZu`w+h=&=<-cFBhmwLYPUiRo^0`pmz&cJ$o9
-zrs9?FLUGLw`-Ls<7XDnT`78XV4HK(8fzCj@@~`b@_NCB%f}Fp`-xGxd!pf|k3|HJ&
-zUCeb`xal!PFHdJ8pWi=B+3H=8*uqkd9cB9*QSF2U72A&O2+aN-B8yVj^!M+*wrHz!
-zg(t7GTBAOHuBs1Q_PCp@t#a4+tJ6A^eu}vR+hXKi#kHx}%gYLL)d5c`Sn{>+I{$j-
-z8ci{GFxA+3vT*5j>r<!hRc5r$w|$L&>DlqtNPSm(;WA;YImO0hif8p2|5e`!Upe(%
-z?S;vTb($ydIi_a*tA-h;FO)R~`JU}OI?i>>nLlTRL&oW=zQ)Y_s7;*oZ{y7TZ_oUj
-ust^AE>}~A&|NQ*R8~Xej|9M#dgZS_s3Op2eDDY6=p}<3dhXVfx1%3yK5s>o$
+literal 4096
+zcmeH{xlRK?5Jcr*CwB^tz?p5Zm&+2@FY#}D10k8o;9pR&es-z1*B1mxpwXyns;jzY
+zmSa)9Rg18D)AouQ&hOPnYd7wr`gpkpb#I#K#4*Qf<3A~<%QY;$1M){@TqfnYIxFX8
+z_x$zCFUn=PDlgS_xhW0ncLc|Gt^K$4U436(dk^KYZrG^J-oN&@5t&}InQiCp?`O8p
+zfXix@FV6j48u8goIL!ce)lIYI-_-vN`NLVW_+Gq|vws6PJko;c@m|iVk;5Y%jDFvI
+zeAJkg<+~Q_)$icgHNxsePG`S^<ET}yYd*87(W|q1UGv3rm*~ag`I~awFP(3n<+?8H
+z`k24%4xS5+^SW}yM=kkycFA|G^qK+Zcrf$TD7=rStGauz`s?UYxA|TD{$|IS-}@x$
+zO}^o?>N>Dy`p$fCt^+fNiZ-igyfQ~M^F+?|!agf%v$N}knHRO(hw6Pis?77guz0WD
+z$AiXu!px62(?w2a=0_a0S-xkZ&p7qOqoI2CCQiMd$|ut++2nZ7F>lMNyczGD&x&|k
+zw)FEa)x64<{24EfJ2ZYN_gVART@UsD=Qsa15B+}pt{m#;r#<SAzp*C$r~mb*zrZI1
+C#PqZP
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HanWildEast/border.bin b/data/layouts/HanWildEast/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..c3fe51511d0ddb88492f2082c4ae0dbb5222982a
+GIT binary patch
+literal 8
+LcmXS5EC53Q2-pF|
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HanWildEast/map.bin b/data/layouts/HanWildEast/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..2a6eb95a154eb3f004c904aff9266f7f343a57da
+GIT binary patch
+literal 3072
+zcmeH}%}&EG5QLRV*$W61C_fjtKsiI7tPfjmz_V1_?PylWjwhAO2}PEZ?&R}$;yB%p
+zpX2`6Hq&nUNylz_nNVZ@HGZF3Nsk))VEg?gJ-N^=<qz*TN_^C!_c8cOTkl?$=+EPO
+z20lv759-5-@7d1jQ6K)uKN70>M;-og-PSYz+WG-2*v#KEnCD}ikua}!9r=FM*3-YH
+z@4?T^d|vaPJ?Hb99{D+2;X|+If3dyX-q@q5`QO^w)^=y=`oFR#d$wzte{Y-B+v-8)
+zW5%j~>X+p2cPaV5e#GH=g`f33_?)fgKkF6$)Gu3~!*LJkzyCAS@_xd4<ik0a^{i{p
+zm-+P0|9pOAP@Zqee`L_s=d4=$n~#&9g`(H_@r~E{@r~E{k&@02{XhTr|KYsa;{EbW
+Tqm|YhYV1AJXeB*r?0fSMGD0C8
 
 literal 0
 HcmV?d00001
@@ -7202,10 +7212,10 @@ literal 0
 HcmV?d00001
 
 diff --git a/data/layouts/layouts.json b/data/layouts/layouts.json
-index 41d0eb1..74d3286 100644
+index 41d0eb1..c9a77be 100644
 --- a/data/layouts/layouts.json
 +++ b/data/layouts/layouts.json
-@@ -4398,6 +4398,2586 @@
+@@ -4398,6 +4398,2598 @@
        "secondary_tileset": "gTileset_MtEmber",
        "border_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/border.bin",
        "blockdata_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/map.bin"
@@ -9781,14 +9791,26 @@ index 41d0eb1..74d3286 100644
 +    {
 +      "id": "LAYOUT_HAN_WILD_AREA",
 +      "name": "HanWildArea_Layout",
-+      "width": 96,
-+      "height": 72,
++      "width": 32,
++      "height": 64,
 +      "border_width": 2,
 +      "border_height": 2,
 +      "primary_tileset": "gTileset_HoennGeneralSnow",
-+      "secondary_tileset": "gTileset_HoennPetalburg",
++      "secondary_tileset": "gTileset_HoennDewford",
 +      "border_filepath": "data/layouts/HanWildArea/border.bin",
 +      "blockdata_filepath": "data/layouts/HanWildArea/map.bin"
++    },
++    {
++      "id": "LAYOUT_HAN_WILD_EAST",
++      "name": "HanWildEast_Layout",
++      "width": 24,
++      "height": 64,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennGeneralSnow",
++      "secondary_tileset": "gTileset_HoennDewford",
++      "border_filepath": "data/layouts/HanWildEast/border.bin",
++      "blockdata_filepath": "data/layouts/HanWildEast/map.bin"
      }
    ]
  }
@@ -18766,10 +18788,10 @@ index 0000000..1a0ba8b
 +	.byte 0
 diff --git a/data/maps/HanWildArea/map.json b/data/maps/HanWildArea/map.json
 new file mode 100644
-index 0000000..a8cba71
+index 0000000..e2c3a47
 --- /dev/null
 +++ b/data/maps/HanWildArea/map.json
-@@ -0,0 +1,899 @@
+@@ -0,0 +1,338 @@
 +{
 +  "id": "MAP_HAN_WILD_AREA",
 +  "name": "HanWildArea",
@@ -18785,11 +18807,18 @@ index 0000000..a8cba71
 +  "show_map_name": true,
 +  "floor_number": 0,
 +  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": [
++    {
++      "map": "MAP_HAN_WILD_EAST",
++      "offset": 0,
++      "direction": "right"
++    }
++  ],
 +  "object_events": [
 +    {
 +      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
-+      "x": 49,
-+      "y": 55,
++      "x": 6,
++      "y": 54,
 +      "elevation": 3,
 +      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
 +      "movement_range_x": 0,
@@ -18800,13 +18829,20 @@ index 0000000..a8cba71
 +      "flag": "0"
 +    }
 +  ],
-+  "warp_events": [],
-+  "bg_events": [],
++  "warp_events": [
++    {
++      "x": 16,
++      "y": 5,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_TEMPLE",
++      "dest_warp_id": "0"
++    }
++  ],
 +  "coord_events": [
 +    {
 +      "type": "trigger",
 +      "x": 0,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18815,7 +18851,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 1,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18824,7 +18860,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 2,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18833,7 +18869,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 3,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18842,7 +18878,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 4,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18851,7 +18887,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 5,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18860,7 +18896,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 6,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18869,7 +18905,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 7,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18878,7 +18914,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 8,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18887,7 +18923,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 9,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18896,7 +18932,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 10,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18905,7 +18941,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 11,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18914,7 +18950,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 12,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18923,7 +18959,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 13,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18932,7 +18968,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 14,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18941,7 +18977,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 15,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18950,7 +18986,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 16,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18959,7 +18995,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 17,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18968,7 +19004,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 18,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18977,7 +19013,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 19,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18986,7 +19022,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 20,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -18995,7 +19031,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 21,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19004,7 +19040,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 22,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19013,7 +19049,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 23,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19022,7 +19058,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 24,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19031,7 +19067,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 25,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19040,7 +19076,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 26,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19049,7 +19085,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 27,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19058,7 +19094,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 28,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19067,7 +19103,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 29,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19076,7 +19112,7 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 30,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
@@ -19085,589 +19121,14 @@ index 0000000..a8cba71
 +    {
 +      "type": "trigger",
 +      "x": 31,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 32,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 33,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 34,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 35,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 36,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 37,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 38,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 39,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 40,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 41,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 42,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 43,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 44,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 45,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 46,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 47,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 48,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 49,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 50,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 51,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 52,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 53,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 54,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 55,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 56,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 57,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 58,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 59,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 60,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 61,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 62,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 63,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 64,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 65,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 66,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 67,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 68,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 69,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 70,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 71,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 72,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 73,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 74,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 75,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 76,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 77,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 78,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 79,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 80,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 81,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 82,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 83,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 84,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 85,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 86,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 87,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 88,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 89,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 90,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 91,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 92,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 93,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 94,
-+      "y": 71,
-+      "elevation": 0,
-+      "var": "VAR_TEMP_F",
-+      "var_value": "0",
-+      "script": "HanWild_EventScript_SurfOut"
-+    },
-+    {
-+      "type": "trigger",
-+      "x": 95,
-+      "y": 71,
++      "y": 63,
 +      "elevation": 0,
 +      "var": "VAR_TEMP_F",
 +      "var_value": "0",
 +      "script": "HanWild_EventScript_SurfOut"
 +    }
-+  ]
++  ],
++  "bg_events": []
 +}
 diff --git a/data/maps/HanWildArea/scripts.inc b/data/maps/HanWildArea/scripts.inc
 new file mode 100644
@@ -19676,6 +19137,176 @@ index 0000000..517e20b
 +++ b/data/maps/HanWildArea/scripts.inc
 @@ -0,0 +1,2 @@
 +HanWildArea_MapScripts::
++	.byte 0
+diff --git a/data/maps/HanWildCabin/map.json b/data/maps/HanWildCabin/map.json
+new file mode 100644
+index 0000000..9bf17ff
+--- /dev/null
++++ b/data/maps/HanWildCabin/map.json
+@@ -0,0 +1,50 @@
++{
++  "id": "MAP_HAN_WILD_CABIN",
++  "name": "HanWildCabin",
++  "layout": "LAYOUT_HOENN_HOUSE3",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_SECRET_BASE",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN_1",
++      "x": 5,
++      "y": 5,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "HanWild_EventScript_OldMan",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 3,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_EAST",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 4,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_EAST",
++      "dest_warp_id": "1"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/HanWildCabin/scripts.inc b/data/maps/HanWildCabin/scripts.inc
+new file mode 100644
+index 0000000..75d9fab
+--- /dev/null
++++ b/data/maps/HanWildCabin/scripts.inc
+@@ -0,0 +1,2 @@
++HanWildCabin_MapScripts::
++	.byte 0
+diff --git a/data/maps/HanWildEast/map.json b/data/maps/HanWildEast/map.json
+new file mode 100644
+index 0000000..392f5f7
+--- /dev/null
++++ b/data/maps/HanWildEast/map.json
+@@ -0,0 +1,42 @@
++{
++  "id": "MAP_HAN_WILD_EAST",
++  "name": "HanWildEast",
++  "layout": "LAYOUT_HAN_WILD_EAST",
++  "music": "MUS_ROUTE1",
++  "region_map_section": "MAPSEC_SECRET_BASE",
++  "requires_flash": false,
++  "weather": "WEATHER_SNOW",
++  "map_type": "MAP_TYPE_ROUTE",
++  "allow_cycling": true,
++  "allow_escaping": false,
++  "allow_running": true,
++  "show_map_name": true,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": [
++    {
++      "map": "MAP_HAN_WILD_AREA",
++      "offset": 0,
++      "direction": "left"
++    }
++  ],
++  "object_events": [],
++  "warp_events": [
++    {
++      "x": 18,
++      "y": 27,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_CABIN",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 19,
++      "y": 27,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_CABIN",
++      "dest_warp_id": "1"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/HanWildEast/scripts.inc b/data/maps/HanWildEast/scripts.inc
+new file mode 100644
+index 0000000..4b1b36b
+--- /dev/null
++++ b/data/maps/HanWildEast/scripts.inc
+@@ -0,0 +1,2 @@
++HanWildEast_MapScripts::
++	.byte 0
+diff --git a/data/maps/HanWildTemple/map.json b/data/maps/HanWildTemple/map.json
+new file mode 100644
+index 0000000..50c2fb6
+--- /dev/null
++++ b/data/maps/HanWildTemple/map.json
+@@ -0,0 +1,36 @@
++{
++  "id": "MAP_HAN_WILD_TEMPLE",
++  "name": "HanWildTemple",
++  "layout": "LAYOUT_HOENN_HOUSE4",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_SECRET_BASE",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [],
++  "warp_events": [
++    {
++      "x": 3,
++      "y": 8,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_AREA",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 4,
++      "y": 8,
++      "elevation": 0,
++      "dest_map": "MAP_HAN_WILD_AREA",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/HanWildTemple/scripts.inc b/data/maps/HanWildTemple/scripts.inc
+new file mode 100644
+index 0000000..8d5c7de
+--- /dev/null
++++ b/data/maps/HanWildTemple/scripts.inc
+@@ -0,0 +1,2 @@
++HanWildTemple_MapScripts::
 +	.byte 0
 diff --git a/data/maps/HoennVictoryRoad_1F/map.json b/data/maps/HoennVictoryRoad_1F/map.json
 new file mode 100644
@@ -58746,7 +58377,7 @@ index fb11547..7b2f664 100644
  ViridianForest_Text_CharliePostBattle::
      .string "BUG POKéMON evolve quickly.\n"
 diff --git a/data/maps/map_groups.json b/data/maps/map_groups.json
-index 8c382f5..b5c035c 100644
+index 8c382f5..161bbc7 100644
 --- a/data/maps/map_groups.json
 +++ b/data/maps/map_groups.json
 @@ -42,7 +42,39 @@
@@ -58800,7 +58431,7 @@ index 8c382f5..b5c035c 100644
    ],
    "gMapGroup_SpecialArea": [
      "NavelRock_Exterior",
-@@ -555,6 +588,378 @@
+@@ -555,6 +588,381 @@
    "gMapGroup_IndoorSevenIslandRoute": [
      "SevenIsland_SevaultCanyon_House"
    ],
@@ -58855,7 +58486,10 @@ index 8c382f5..b5c035c 100644
 +    "Route132",
 +    "Route133",
 +    "Route134",
-+    "HanWildArea"
++    "HanWildArea",
++    "HanWildEast",
++    "HanWildTemple",
++    "HanWildCabin"
 +  ],
 +  "gMapGroup_HoennIndoorLittleroot": [
 +    "LittlerootTown_BrendansHouse_1F",
@@ -59268,10 +58902,10 @@ index 0000000..dad0219
 +	.string "Setting up ROWAN...$"
 diff --git a/data/scripts/han_hoenn.inc b/data/scripts/han_hoenn.inc
 new file mode 100644
-index 0000000..3a2adaf
+index 0000000..6c745a8
 --- /dev/null
 +++ b/data/scripts/han_hoenn.inc
-@@ -0,0 +1,3058 @@
+@@ -0,0 +1,3078 @@
 +@ Hän build: what the people and signs of Hoenn say until their lines are written in Hän (Jane).
 +@ (generated place: hoenn/han_hoenn.inc)
 +
@@ -59297,19 +58931,39 @@ index 0000000..3a2adaf
 +@ Surfing north off Route 124 into the Wild Area, and south off the island again (VAR_0x8005: 0 = in, 1 = out).
 +HanWild_EventScript_SurfIn::
 +	lockall
-+	setvar VAR_0x8005, 0
 +	special HanWildEdgeX
-+	warp MAP_HAN_WILD_AREA, 255, VAR_0x8004, 70
++	warp MAP_HAN_WILD_AREA, 255, VAR_0x8004, 62
 +	waitstate
 +	end
 +
 +HanWild_EventScript_SurfOut::
 +	lockall
-+	setvar VAR_0x8005, 1
-+	special HanWildEdgeX
-+	warp MAP_ROUTE124, 255, VAR_0x8004, 1
++	warp MAP_ROUTE124, 255, 52, 1
 +	waitstate
 +	end
++
++@ The cabin across the river: an old man with a different team every time. Always ready to battle again.
++HanWild_EventScript_OldMan::
++	lock
++	faceplayer
++	msgbox HanWild_Text_OldManIntro, MSGBOX_DEFAULT
++	trainerbattle_no_intro TRAINER_HAN_OLD_MAN, HanWild_Text_OldManDefeat
++	msgbox HanWild_Text_OldManAfter, MSGBOX_DEFAULT
++	cleartrainerflag TRAINER_HAN_OLD_MAN
++	release
++	end
++
++HanWild_Text_OldManIntro:
++	.string "Han text to come.\n"
++	.string "Ha! Few come this far. Let us battle!$"
++
++HanWild_Text_OldManDefeat:
++	.string "Han text to come.\n"
++	.string "Well fought!$"
++
++HanWild_Text_OldManAfter:
++	.string "Han text to come.\n"
++	.string "Come back any time.$"
 +
 +@ The ship from the Wild Area: a sailor on the dock takes you to any port.
 +HanWild_EventScript_FerrySailor::
@@ -65917,24 +65571,24 @@ HcmV?d00001
 
 diff --git a/data/tilesets/primary/hoenn_general_snow/metatile_attributes.bin b/data/tilesets/primary/hoenn_general_snow/metatile_attributes.bin
 new file mode 100644
-index 0000000000000000000000000000000000000000..f0b0ef49844070c787c4334444fbc4ed8e030f78
+index 0000000000000000000000000000000000000000..324aafc9808cc44c47cd92f083b25129c2b8084e
 GIT binary patch
 literal 2048
-zcmcgt%TB~F3>>OxPkX3XmA!`LCqUfz7qtKX2WVW6*GWSc4lt7C#uGo{qzSM=-B>zI
-z6COHKgB^YpyIxms<352se=G%;x!|Kom_UBH!>8$nD=atjkLqi1IyA!#mV#+x+y~dM
-z+@t*Uc;j)r#R?y{^}fNoi?k4Yj!(P+^%bb^DX;e?d^jHP8-MPVWDvvR&IR0)s89Lx
-zxfuA`eELdG2kVtVeImy_b6q)SE||Dx3hjQTA`We96yOP{651srUN-iH!W!gD%`qkO
-zqjiZ_ybiQyPUBt^y)DM-aTh!A7d-p?3{>h-eA-{`@SH=5LRZAPy52N67hEW;fzpsb
-z@XGOcJC~cd<OaOvRdVO`E(lxR57m-w`TM85YURDd^W5D()@$#Voxhxe-}2|TpZlC!
-z_o>DBj^~;7IQEaLc520^&UW^O<Gcr&o9AU-@K_VIY!0r;_^i7%M;`ZY`mVWr!~7i!
-bn>fF(e+|FS{snvk{T;Nrz2EUR=}!IvF(x;j
+zcmcIlTTTNp3>;Rge)XfGTKXH>OMv*}3Y-D;{x?A5^?02JEl4nu<&7tP#K|T=htgRZ
+zOcNd&Q-vG+D0aE7-o||bxBRipI3H%bR|ylyFL(Gf-Ef8FX8uuq6^^@V*kPG5b;jG^
+z`jvZ>zw9?2`z==ZxUKaK-d&`H;B$Q96(}!2c}sb{H{rwafbaadSCT;ti+h;CJ&F31
+zKc9<%ug#~g<hZk58Pq3o+%wmOa}F~mu9-r+pQ(sL+ZqLU0*Zuo$%vPYeW9=h`BHOC
+z$^2+t;uWs}?U~cK)kJHHv3lIZ4*UntK0gD6dK91b%N?F`C{gH&SXa}V3a1%o3TvQL
+zBoMrEJZ|T*i%V|6YhEFDTJM6e<^51C*_OY5%Bxo1J3P<L{bRlMe%blUIruGqe*3x4
+zxpkjfjPH1!X^&(7xN4_XeCljxZ#d3-pt*To<^_*6QOoAwnvBo7S##uZ|Elkr%Qwv5
+gv9O8r`})`L`^@ms*Z!yA8|d$#)$RR`w@G*M7jXnQ7XSbN
 
 literal 0
 HcmV?d00001
 
 diff --git a/data/tilesets/primary/hoenn_general_snow/metatiles.bin b/data/tilesets/primary/hoenn_general_snow/metatiles.bin
 new file mode 100644
-index 0000000000000000000000000000000000000000..af899bcc5efa4bdd3ab1f418b371a866441207c9
+index 0000000000000000000000000000000000000000..9a61d2c1b71e49e2613204c8a0670844907b76c0
 GIT binary patch
 literal 8192
 zcma)BX_QpO6|U}{VIA<5(!<WF7az*VGWUg^WX6b40o=0ni-S7RR#0$>5kYZ_#<<{u
@@ -65993,10 +65647,10 @@ z{_CT~(e=?uR{xS{adfgg+n)bRq8p=gqN2q&MT?_iey-F1hG=edLmB4+wtaJPb2I)Q
 zWcWIii{1L?u4qxbVqwpsF4(+KLq0XXD4LZ|>Xk*&-R1G-z2TkWJIx;zKWavQ@Vl7#
 zzfyZuPrsM_|Jf0Bd(|Mu<@?VObzcR8{DH%9|2b8jnm=EjZ|{}Y_&wF_{y=-*>7}mq
 z2L^XoeLYl9H9)!Y-fCbl*!Caj5At39Uj86I<}bHie$UY{fBF7%rMxnKtGw0nKj_z~
-zhyCScz7ACvJmf#(KN@59Z-lB-jjGA|Ul)v2O~DUh%yQ<h^N+Ch_Np7??;YV_zvt+^
-zBkG2OA9kUo`Gs)#xuyA8p73+Sy*LJ<!`_n_vwi9NSch^k%fXNR82rF^|ABrN^LV@;
-zK<;9eL!bF?Z-)XO>`VVYw?ny@$K$+!eiySG=g=u(OL%U0UWjuUnERXk%e*H7qu${7
-daejTQdd4wh%=y(zeH{Of(S1+i__~<+{{uD-rjP&t
+zhyCScz7ACvJmf#(KN@595BnAL)deF}Q}BbBpXJP7=O1D1?Nv9(-#fy=e$UZ+N7M}m
+zKlGrb`Gs)#xs6bDs!=sre_eiVxEIGjbl7_`W414SAL~#qW;yt=AA=tl??2G*Vjhq8
+z1IS&>a_BSv?d?$DgMI1$=XNL;^Z0c9JM8@*<8cn161IfrhUbMimw|b_*}u$tA~5O=
+fjvwdO$Es%>Gsc`>z0}9?{}|o(B#y6(*}ne(SbV5}
 
 literal 0
 HcmV?d00001
@@ -100877,10 +100531,10 @@ index 5853f17..5045dd3 100644
  
  #endif // GUARD_HOLD_EFFECTS_H
 diff --git a/include/constants/items.h b/include/constants/items.h
-index cfc4225..4edf23f 100644
+index cfc4225..3eaa20d 100644
 --- a/include/constants/items.h
 +++ b/include/constants/items.h
-@@ -54,7 +54,9 @@
+@@ -54,8 +54,11 @@
  #define ITEM_YELLOW_SHARD 50
  #define ITEM_GREEN_SHARD 51
  #define ITEM_034 52
@@ -100888,8 +100542,10 @@ index cfc4225..4edf23f 100644
  #define ITEM_035 53
 +#define ITEM_NUN_CHO_FOSSIL ITEM_035 // Hän build: the fossil BRANDON gives. The slot was unused. Its name is Jane's
  #define ITEM_036 54
++#define ITEM_SHINY_CHARM ITEM_036 // Hän build: the charm ROWAN gives. The slot was unused
  #define ITEM_037 55
  #define ITEM_038 56
+ #define ITEM_039 57
 diff --git a/include/constants/menu.h b/include/constants/menu.h
 index 7c36f36..bc5afc8 100644
 --- a/include/constants/menu.h
@@ -100935,14 +100591,17 @@ index 14738f1..ec0d384 100644
  // Used for checks for moves affected by Disable, Mimic, etc.
  #define MOVE_UNAVAILABLE 0xFFFF
 diff --git a/include/constants/opponents.h b/include/constants/opponents.h
-index 3b893f2..3c285f6 100644
+index 3b893f2..5019684 100644
 --- a/include/constants/opponents.h
 +++ b/include/constants/opponents.h
-@@ -754,4 +754,6 @@
+@@ -754,4 +754,9 @@
  #define NUM_TRAINERS                             743
  #define MAX_TRAINERS_COUNT                       768
  
 +#include "constants/han_hoenn_trainers.h"
++
++// Hän build: the OLD MAN of the Wild Area cabin. His team is made when the battle starts (HanWildOldManParty in src/han_wild.c)
++#define TRAINER_HAN_OLD_MAN (MAX_TRAINERS_COUNT + HAN_HOENN_TRAINER_COUNT)
 +
  #endif  // GUARD_CONSTANTS_OPPONENTS_H
 diff --git a/include/constants/seagallop.h b/include/constants/seagallop.h
@@ -101297,12 +100956,14 @@ index 0000000..7440cbe
 +#endif // GUARD_HAN_CUSTOM_H
 diff --git a/include/han_follower.h b/include/han_follower.h
 new file mode 100644
-index 0000000..d5f2e0a
+index 0000000..5749f9a
 --- /dev/null
 +++ b/include/han_follower.h
-@@ -0,0 +1,21 @@
+@@ -0,0 +1,27 @@
 +#ifndef GUARD_HAN_FOLLOWER_H
 +#define GUARD_HAN_FOLLOWER_H
++
++struct Pokemon;
 +
 +// Hän build: the first Pokémon of the party walks behind the player on the overworld (src/han_follower.c).
 +#define OBJ_EVENT_PAL_TAG_HAN_FOLLOWER 0x1122
@@ -101312,9 +100973,13 @@ index 0000000..d5f2e0a
 +u16 HanFollowSpecies(void); // species (bit 15 shiny) of the follower now drawn, 0 for none
 +u8 HanGhostFollowerCreate(u16 what, u16 palTag); // another player's follower; MAX_SPRITES if it cannot be made
 +u8 HanWildSpriteCreate(u16 n, u16 palTag, u8 *palIdx, bool8 load); // a Wild Area Pokémon
++bool8 HanWildHasSprite(u16 n);
++void HanMonMakeShiny(struct Pokemon *mon, bool8 shiny); // src/han_wild.c: the same Pokémon made shiny or not
++void HanMonCharmRoll(struct Pokemon *mon); // with the SHINY CHARM, a wild Pokémon is shiny one time in five
 +void HanWildFrame(void); // src/han_wild.c
 +bool8 HanWildCollision(void); // the player has bumped into a Wild Area Pokémon: a battle starts
 +void HanWildEdgeX(void);
++u8 HanWildOldManParty(struct Pokemon *party);
 +void HanGhostFollowerDestroy(u8 id, u16 palTag);
 +void HanFollowerWarped(void); // a warp is starting: the next map shows the follower leaving its ball
 +void HanFollowerRecall(void); // the player steps into a warp: the follower goes back into its ball
@@ -103793,7 +103458,7 @@ index 36fc9a5..06efae3 100644
 +        ShowHanSign(battler, ItemId_GetName(item), 0x400 + item, 6);
 +}
 diff --git a/src/battle_main.c b/src/battle_main.c
-index 64c9e59..c61cccc 100644
+index 64c9e59..c34bb0c 100644
 --- a/src/battle_main.c
 +++ b/src/battle_main.c
 @@ -1,4 +1,6 @@
@@ -103803,15 +103468,17 @@ index 64c9e59..c61cccc 100644
  #include "gflib.h"
  #include "battle.h"
  #include "battle_anim.h"
-@@ -67,6 +69,7 @@ static void CB2_InitBattleInternal(void);
+@@ -67,6 +69,9 @@ static void CB2_InitBattleInternal(void);
  static void CB2_PreInitMultiBattle(void);
  static void CB2_HandleStartMultiBattle(void);
  static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum);
 +void HanTowerCopyTrainerTeam(u16 trainerNum);
++u8 HanWildOldManParty(struct Pokemon *party);
++void HanMonCharmRoll(struct Pokemon *mon);
  static void CB2_HandleStartBattle(void);
  static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
  static void BattleMainCB1(void);
-@@ -76,6 +79,7 @@ static void CB2_EndLinkBattle(void);
+@@ -76,6 +81,7 @@ static void CB2_EndLinkBattle(void);
  static void EndLinkBattleInSteps(void);
  static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite);
  static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite);
@@ -103819,7 +103486,7 @@ index 64c9e59..c61cccc 100644
  static void SpriteCB_Flicker(struct Sprite *sprite);
  static void SpriteCB_AnimFaintOpponent(struct Sprite *sprite);
  static void SpriteCB_BlinkVisible(struct Sprite *sprite);
-@@ -108,6 +112,10 @@ static void ReturnFromBattleToOverworld(void);
+@@ -108,6 +114,10 @@ static void ReturnFromBattleToOverworld(void);
  static void TryEvolvePokemon(void);
  static void WaitForEvoSceneToFinish(void);
  
@@ -103830,7 +103497,7 @@ index 64c9e59..c61cccc 100644
  EWRAM_DATA u16 gBattle_BG0_X = 0;
  EWRAM_DATA u16 gBattle_BG0_Y = 0;
  EWRAM_DATA u16 gBattle_BG1_X = 0;
-@@ -309,7 +317,7 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0
+@@ -309,7 +319,7 @@ static const s8 sPlayerThrowXTranslation[] = { -32, -16, -16, -32, -32, 0, 0, 0
  // 10 is ×1.0 TYPE_MUL_NORMAL
  // 05 is ×0.5 TYPE_MUL_NOT_EFFECTIVE
  // 00 is ×0.0 TYPE_MUL_NO_EFFECT
@@ -103839,7 +103506,7 @@ index 64c9e59..c61cccc 100644
  {
      TYPE_NORMAL, TYPE_ROCK, TYPE_MUL_NOT_EFFECTIVE,
      TYPE_NORMAL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
-@@ -419,6 +427,15 @@ const u8 gTypeEffectiveness[336] =
+@@ -419,6 +429,15 @@ const u8 gTypeEffectiveness[336] =
      TYPE_STEEL, TYPE_ICE, TYPE_MUL_SUPER_EFFECTIVE,
      TYPE_STEEL, TYPE_ROCK, TYPE_MUL_SUPER_EFFECTIVE,
      TYPE_STEEL, TYPE_STEEL, TYPE_MUL_NOT_EFFECTIVE,
@@ -103855,7 +103522,7 @@ index 64c9e59..c61cccc 100644
      TYPE_FORESIGHT, TYPE_FORESIGHT, TYPE_MUL_NO_EFFECT,
      TYPE_NORMAL, TYPE_GHOST, TYPE_MUL_NO_EFFECT,
      TYPE_FIGHTING, TYPE_GHOST, TYPE_MUL_NO_EFFECT,
-@@ -428,23 +445,23 @@ const u8 gTypeEffectiveness[336] =
+@@ -428,23 +447,23 @@ const u8 gTypeEffectiveness[336] =
  const u8 gTypeNames[NUMBER_OF_MON_TYPES][TYPE_NAME_LENGTH + 1] =
  {
      [TYPE_NORMAL] = _("NORMAL"),
@@ -103894,7 +103561,7 @@ index 64c9e59..c61cccc 100644
  };
  
  // This is a factor in how much money you get for beating a trainer.
-@@ -611,6 +628,12 @@ const u8 *const gStatusConditionStringsTable[][2] =
+@@ -611,6 +630,12 @@ const u8 *const gStatusConditionStringsTable[][2] =
  
  void CB2_InitBattle(void)
  {
@@ -103907,7 +103574,7 @@ index 64c9e59..c61cccc 100644
      MoveSaveBlocks_ResetHeap();
      AllocateBattleResources();
      AllocateBattleSpritesData();
-@@ -1536,6 +1559,169 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
+@@ -1536,6 +1561,169 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
      }
  }
  
@@ -104077,7 +103744,18 @@ index 64c9e59..c61cccc 100644
  static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
  {
      u32 nameHash = 0;
-@@ -1575,6 +1761,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1546,6 +1734,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+     if (trainerNum == TRAINER_SECRET_BASE)
+         return 0;
+ 
++    // Hän build: the OLD MAN of the Wild Area cabin has a different team each time
++    if (trainerNum == TRAINER_HAN_OLD_MAN && (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
++        return HanWildOldManParty(party);
++
+     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+      && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER)))
+     {
+@@ -1575,6 +1767,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
                  personalityValue += nameHash << 8;
                  fixedIV = partyData[i].iv * MAX_PER_STAT_IVS / 255;
                  CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
@@ -104088,7 +103766,7 @@ index 64c9e59..c61cccc 100644
                  break;
              }
              case F_TRAINER_PARTY_CUSTOM_MOVESET:
-@@ -1613,12 +1803,48 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1613,12 +1809,48 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
              {
                  const struct TrainerMonItemCustomMoves *partyData = gTrainers[trainerNum].party.ItemCustomMoves;
  
@@ -104138,7 +103816,7 @@ index 64c9e59..c61cccc 100644
                  SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
  
                  for (j = 0; j < MAX_MON_MOVES; j++)
-@@ -1631,7 +1857,13 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+@@ -1631,7 +1863,13 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
              }
          }
  
@@ -104153,7 +103831,7 @@ index 64c9e59..c61cccc 100644
      }
  
      return gTrainers[trainerNum].partySize;
-@@ -1800,6 +2032,15 @@ static void CB2_EndLinkBattle(void)
+@@ -1800,6 +2038,15 @@ static void CB2_EndLinkBattle(void)
      RunTasks();
  }
  
@@ -104169,7 +103847,7 @@ index 64c9e59..c61cccc 100644
  static void EndLinkBattleInSteps(void)
  {
      s32 i;
-@@ -1895,8 +2136,8 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
+@@ -1895,8 +2142,8 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
          sprite->x2 += 2;
          if (sprite->x2 == 0)
          {
@@ -104179,7 +103857,7 @@ index 64c9e59..c61cccc 100644
          }
      }
  }
-@@ -1907,12 +2148,55 @@ static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite)
+@@ -1907,12 +2154,55 @@ static void SpriteCB_WildMonShowHealthbox(struct Sprite *sprite)
      {
          StartHealthboxSlideIn(sprite->sBattler);
          SetHealthboxSpriteVisible(gHealthboxSpriteIds[sprite->sBattler]);
@@ -104236,7 +103914,7 @@ index 64c9e59..c61cccc 100644
  void SpriteCallbackDummy_2(struct Sprite *sprite)
  {
  }
-@@ -2200,9 +2484,46 @@ void BeginBattleIntro(void)
+@@ -2200,9 +2490,46 @@ void BeginBattleIntro(void)
      gBattleMainFunc = BattleIntroGetMonsData;
  }
  
@@ -104284,7 +103962,7 @@ index 64c9e59..c61cccc 100644
  
      for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
          gBattlerControllerFuncs[gActiveBattler]();
-@@ -2579,7 +2900,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
+@@ -2579,7 +2906,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
  
              gBattleMons[gActiveBattler].type1 = gSpeciesInfo[gBattleMons[gActiveBattler].species].types[0];
              gBattleMons[gActiveBattler].type2 = gSpeciesInfo[gBattleMons[gActiveBattler].species].types[1];
@@ -104293,7 +103971,7 @@ index 64c9e59..c61cccc 100644
              hpOnSwitchout = &gBattleStruct->hpOnSwitchout[GetBattlerSide(gActiveBattler)];
              *hpOnSwitchout = gBattleMons[gActiveBattler].hp;
              for (i = 0; i < NUM_BATTLE_STATS; i++)
-@@ -3409,11 +3730,13 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3409,11 +3736,13 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
      if (WEATHER_HAS_EFFECT)
      {
          if ((gBattleMons[battler1].ability == ABILITY_SWIFT_SWIM && gBattleWeather & B_WEATHER_RAIN)
@@ -104307,7 +103985,7 @@ index 64c9e59..c61cccc 100644
              || (gBattleMons[battler2].ability == ABILITY_CHLOROPHYLL && gBattleWeather & B_WEATHER_SUN))
              speedMultiplierBattler2 = 2;
          else
-@@ -3448,7 +3771,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3448,7 +3777,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
          speedBattler1 /= 2;
      if (gBattleMons[battler1].status1 & STATUS1_PARALYSIS)
          speedBattler1 /= 4;
@@ -104317,7 +103995,7 @@ index 64c9e59..c61cccc 100644
          speedBattler1 = UINT_MAX;
      // check second battlerId's speed
      speedBattler2 = (gBattleMons[battler2].speed * speedMultiplierBattler2)
-@@ -3473,7 +3797,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
+@@ -3473,7 +3803,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
          speedBattler2 /= 2;
      if (gBattleMons[battler2].status1 & STATUS1_PARALYSIS)
          speedBattler2 /= 4;
@@ -104327,7 +104005,7 @@ index 64c9e59..c61cccc 100644
          speedBattler2 = UINT_MAX;
      if (ignoreChosenMoves)
      {
-@@ -3825,6 +4150,16 @@ static void HandleEndTurn_FinishBattle(void)
+@@ -3825,6 +4156,16 @@ static void HandleEndTurn_FinishBattle(void)
  {
      if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
      {
@@ -106208,7 +105886,7 @@ index 0000000..b64be29
 +static const struct SpriteFrameImage sHanFollowImg[387][9] = {{FI(0, 0), FI(0, 2), FI(0, 4), FI(0, 1), FI(0, 1), FI(0, 3), FI(0, 3), FI(0, 5), FI(0, 5)}, {FI(1, 0), FI(1, 2), FI(1, 4), FI(1, 1), FI(1, 1), FI(1, 3), FI(1, 3), FI(1, 5), FI(1, 5)}, {FI(2, 0), FI(2, 2), FI(2, 4), FI(2, 1), FI(2, 1), FI(2, 3), FI(2, 3), FI(2, 5), FI(2, 5)}, {FI(3, 0), FI(3, 2), FI(3, 4), FI(3, 1), FI(3, 1), FI(3, 3), FI(3, 3), FI(3, 5), FI(3, 5)}, {FI(4, 0), FI(4, 2), FI(4, 4), FI(4, 1), FI(4, 1), FI(4, 3), FI(4, 3), FI(4, 5), FI(4, 5)}, {FI(5, 0), FI(5, 2), FI(5, 4), FI(5, 1), FI(5, 1), FI(5, 3), FI(5, 3), FI(5, 5), FI(5, 5)}, {FI(6, 0), FI(6, 2), FI(6, 4), FI(6, 1), FI(6, 1), FI(6, 3), FI(6, 3), FI(6, 5), FI(6, 5)}, {FI(7, 0), FI(7, 2), FI(7, 4), FI(7, 1), FI(7, 1), FI(7, 3), FI(7, 3), FI(7, 5), FI(7, 5)}, {FI(8, 0), FI(8, 2), FI(8, 4), FI(8, 1), FI(8, 1), FI(8, 3), FI(8, 3), FI(8, 5), FI(8, 5)}, {FI(9, 0), FI(9, 2), FI(9, 4), FI(9, 1), FI(9, 1), FI(9, 3), FI(9, 3), FI(9, 5), FI(9, 5)}, {FI(10, 0), FI(10, 2), FI(10, 4), FI(10, 1), FI(10, 1), FI(10, 3), FI(10, 3), FI(10, 5), FI(10, 5)}, {FI(11, 0), FI(11, 2), FI(11, 4), FI(11, 1), FI(11, 1), FI(11, 3), FI(11, 3), FI(11, 5), FI(11, 5)}, {FI(12, 0), FI(12, 2), FI(12, 4), FI(12, 1), FI(12, 1), FI(12, 3), FI(12, 3), FI(12, 5), FI(12, 5)}, {FI(13, 0), FI(13, 2), FI(13, 4), FI(13, 1), FI(13, 1), FI(13, 3), FI(13, 3), FI(13, 5), FI(13, 5)}, {FI(14, 0), FI(14, 2), FI(14, 4), FI(14, 1), FI(14, 1), FI(14, 3), FI(14, 3), FI(14, 5), FI(14, 5)}, {FI(15, 0), FI(15, 2), FI(15, 4), FI(15, 1), FI(15, 1), FI(15, 3), FI(15, 3), FI(15, 5), FI(15, 5)}, {FI(16, 0), FI(16, 2), FI(16, 4), FI(16, 1), FI(16, 1), FI(16, 3), FI(16, 3), FI(16, 5), FI(16, 5)}, {FI(17, 0), FI(17, 2), FI(17, 4), FI(17, 1), FI(17, 1), FI(17, 3), FI(17, 3), FI(17, 5), FI(17, 5)}, {FI(18, 0), FI(18, 2), FI(18, 4), FI(18, 1), FI(18, 1), FI(18, 3), FI(18, 3), FI(18, 5), FI(18, 5)}, {FI(19, 0), FI(19, 2), FI(19, 4), FI(19, 1), FI(19, 1), FI(19, 3), FI(19, 3), FI(19, 5), FI(19, 5)}, {FI(20, 0), FI(20, 2), FI(20, 4), FI(20, 1), FI(20, 1), FI(20, 3), FI(20, 3), FI(20, 5), FI(20, 5)}, {FI(21, 0), FI(21, 2), FI(21, 4), FI(21, 1), FI(21, 1), FI(21, 3), FI(21, 3), FI(21, 5), FI(21, 5)}, {FI(22, 0), FI(22, 2), FI(22, 4), FI(22, 1), FI(22, 1), FI(22, 3), FI(22, 3), FI(22, 5), FI(22, 5)}, {FI(23, 0), FI(23, 2), FI(23, 4), FI(23, 1), FI(23, 1), FI(23, 3), FI(23, 3), FI(23, 5), FI(23, 5)}, {FI(24, 0), FI(24, 2), FI(24, 4), FI(24, 1), FI(24, 1), FI(24, 3), FI(24, 3), FI(24, 5), FI(24, 5)}, {FI(25, 0), FI(25, 2), FI(25, 4), FI(25, 1), FI(25, 1), FI(25, 3), FI(25, 3), FI(25, 5), FI(25, 5)}, {FI(26, 0), FI(26, 2), FI(26, 4), FI(26, 1), FI(26, 1), FI(26, 3), FI(26, 3), FI(26, 5), FI(26, 5)}, {FI(27, 0), FI(27, 2), FI(27, 4), FI(27, 1), FI(27, 1), FI(27, 3), FI(27, 3), FI(27, 5), FI(27, 5)}, {FI(28, 0), FI(28, 2), FI(28, 4), FI(28, 1), FI(28, 1), FI(28, 3), FI(28, 3), FI(28, 5), FI(28, 5)}, {FI(29, 0), FI(29, 2), FI(29, 4), FI(29, 1), FI(29, 1), FI(29, 3), FI(29, 3), FI(29, 5), FI(29, 5)}, {FI(30, 0), FI(30, 2), FI(30, 4), FI(30, 1), FI(30, 1), FI(30, 3), FI(30, 3), FI(30, 5), FI(30, 5)}, {FI(31, 0), FI(31, 2), FI(31, 4), FI(31, 1), FI(31, 1), FI(31, 3), FI(31, 3), FI(31, 5), FI(31, 5)}, {FI(32, 0), FI(32, 2), FI(32, 4), FI(32, 1), FI(32, 1), FI(32, 3), FI(32, 3), FI(32, 5), FI(32, 5)}, {FI(33, 0), FI(33, 2), FI(33, 4), FI(33, 1), FI(33, 1), FI(33, 3), FI(33, 3), FI(33, 5), FI(33, 5)}, {FI(34, 0), FI(34, 2), FI(34, 4), FI(34, 1), FI(34, 1), FI(34, 3), FI(34, 3), FI(34, 5), FI(34, 5)}, {FI(35, 0), FI(35, 2), FI(35, 4), FI(35, 1), FI(35, 1), FI(35, 3), FI(35, 3), FI(35, 5), FI(35, 5)}, {FI(36, 0), FI(36, 2), FI(36, 4), FI(36, 1), FI(36, 1), FI(36, 3), FI(36, 3), FI(36, 5), FI(36, 5)}, {FI(37, 0), FI(37, 2), FI(37, 4), FI(37, 1), FI(37, 1), FI(37, 3), FI(37, 3), FI(37, 5), FI(37, 5)}, {FI(38, 0), FI(38, 2), FI(38, 4), FI(38, 1), FI(38, 1), FI(38, 3), FI(38, 3), FI(38, 5), FI(38, 5)}, {FI(39, 0), FI(39, 2), FI(39, 4), FI(39, 1), FI(39, 1), FI(39, 3), FI(39, 3), FI(39, 5), FI(39, 5)}, {FI(40, 0), FI(40, 2), FI(40, 4), FI(40, 1), FI(40, 1), FI(40, 3), FI(40, 3), FI(40, 5), FI(40, 5)}, {FI(41, 0), FI(41, 2), FI(41, 4), FI(41, 1), FI(41, 1), FI(41, 3), FI(41, 3), FI(41, 5), FI(41, 5)}, {FI(42, 0), FI(42, 2), FI(42, 4), FI(42, 1), FI(42, 1), FI(42, 3), FI(42, 3), FI(42, 5), FI(42, 5)}, {FI(43, 0), FI(43, 2), FI(43, 4), FI(43, 1), FI(43, 1), FI(43, 3), FI(43, 3), FI(43, 5), FI(43, 5)}, {FI(44, 0), FI(44, 2), FI(44, 4), FI(44, 1), FI(44, 1), FI(44, 3), FI(44, 3), FI(44, 5), FI(44, 5)}, {FI(45, 0), FI(45, 2), FI(45, 4), FI(45, 1), FI(45, 1), FI(45, 3), FI(45, 3), FI(45, 5), FI(45, 5)}, {FI(46, 0), FI(46, 2), FI(46, 4), FI(46, 1), FI(46, 1), FI(46, 3), FI(46, 3), FI(46, 5), FI(46, 5)}, {FI(47, 0), FI(47, 2), FI(47, 4), FI(47, 1), FI(47, 1), FI(47, 3), FI(47, 3), FI(47, 5), FI(47, 5)}, {FI(48, 0), FI(48, 2), FI(48, 4), FI(48, 1), FI(48, 1), FI(48, 3), FI(48, 3), FI(48, 5), FI(48, 5)}, {FI(49, 0), FI(49, 2), FI(49, 4), FI(49, 1), FI(49, 1), FI(49, 3), FI(49, 3), FI(49, 5), FI(49, 5)}, {FI(50, 0), FI(50, 2), FI(50, 4), FI(50, 1), FI(50, 1), FI(50, 3), FI(50, 3), FI(50, 5), FI(50, 5)}, {FI(51, 0), FI(51, 2), FI(51, 4), FI(51, 1), FI(51, 1), FI(51, 3), FI(51, 3), FI(51, 5), FI(51, 5)}, {FI(52, 0), FI(52, 2), FI(52, 4), FI(52, 1), FI(52, 1), FI(52, 3), FI(52, 3), FI(52, 5), FI(52, 5)}, {FI(53, 0), FI(53, 2), FI(53, 4), FI(53, 1), FI(53, 1), FI(53, 3), FI(53, 3), FI(53, 5), FI(53, 5)}, {FI(54, 0), FI(54, 2), FI(54, 4), FI(54, 1), FI(54, 1), FI(54, 3), FI(54, 3), FI(54, 5), FI(54, 5)}, {FI(55, 0), FI(55, 2), FI(55, 4), FI(55, 1), FI(55, 1), FI(55, 3), FI(55, 3), FI(55, 5), FI(55, 5)}, {FI(56, 0), FI(56, 2), FI(56, 4), FI(56, 1), FI(56, 1), FI(56, 3), FI(56, 3), FI(56, 5), FI(56, 5)}, {FI(57, 0), FI(57, 2), FI(57, 4), FI(57, 1), FI(57, 1), FI(57, 3), FI(57, 3), FI(57, 5), FI(57, 5)}, {FI(58, 0), FI(58, 2), FI(58, 4), FI(58, 1), FI(58, 1), FI(58, 3), FI(58, 3), FI(58, 5), FI(58, 5)}, {FI(59, 0), FI(59, 2), FI(59, 4), FI(59, 1), FI(59, 1), FI(59, 3), FI(59, 3), FI(59, 5), FI(59, 5)}, {FI(60, 0), FI(60, 2), FI(60, 4), FI(60, 1), FI(60, 1), FI(60, 3), FI(60, 3), FI(60, 5), FI(60, 5)}, {FI(61, 0), FI(61, 2), FI(61, 4), FI(61, 1), FI(61, 1), FI(61, 3), FI(61, 3), FI(61, 5), FI(61, 5)}, {FI(62, 0), FI(62, 2), FI(62, 4), FI(62, 1), FI(62, 1), FI(62, 3), FI(62, 3), FI(62, 5), FI(62, 5)}, {FI(63, 0), FI(63, 2), FI(63, 4), FI(63, 1), FI(63, 1), FI(63, 3), FI(63, 3), FI(63, 5), FI(63, 5)}, {FI(64, 0), FI(64, 2), FI(64, 4), FI(64, 1), FI(64, 1), FI(64, 3), FI(64, 3), FI(64, 5), FI(64, 5)}, {FI(65, 0), FI(65, 2), FI(65, 4), FI(65, 1), FI(65, 1), FI(65, 3), FI(65, 3), FI(65, 5), FI(65, 5)}, {FI(66, 0), FI(66, 2), FI(66, 4), FI(66, 1), FI(66, 1), FI(66, 3), FI(66, 3), FI(66, 5), FI(66, 5)}, {FI(67, 0), FI(67, 2), FI(67, 4), FI(67, 1), FI(67, 1), FI(67, 3), FI(67, 3), FI(67, 5), FI(67, 5)}, {FI(68, 0), FI(68, 2), FI(68, 4), FI(68, 1), FI(68, 1), FI(68, 3), FI(68, 3), FI(68, 5), FI(68, 5)}, {FI(69, 0), FI(69, 2), FI(69, 4), FI(69, 1), FI(69, 1), FI(69, 3), FI(69, 3), FI(69, 5), FI(69, 5)}, {FI(70, 0), FI(70, 2), FI(70, 4), FI(70, 1), FI(70, 1), FI(70, 3), FI(70, 3), FI(70, 5), FI(70, 5)}, {FI(71, 0), FI(71, 2), FI(71, 4), FI(71, 1), FI(71, 1), FI(71, 3), FI(71, 3), FI(71, 5), FI(71, 5)}, {FI(72, 0), FI(72, 2), FI(72, 4), FI(72, 1), FI(72, 1), FI(72, 3), FI(72, 3), FI(72, 5), FI(72, 5)}, {FI(73, 0), FI(73, 2), FI(73, 4), FI(73, 1), FI(73, 1), FI(73, 3), FI(73, 3), FI(73, 5), FI(73, 5)}, {FI(74, 0), FI(74, 2), FI(74, 4), FI(74, 1), FI(74, 1), FI(74, 3), FI(74, 3), FI(74, 5), FI(74, 5)}, {FI(75, 0), FI(75, 2), FI(75, 4), FI(75, 1), FI(75, 1), FI(75, 3), FI(75, 3), FI(75, 5), FI(75, 5)}, {FI(76, 0), FI(76, 2), FI(76, 4), FI(76, 1), FI(76, 1), FI(76, 3), FI(76, 3), FI(76, 5), FI(76, 5)}, {FI(77, 0), FI(77, 2), FI(77, 4), FI(77, 1), FI(77, 1), FI(77, 3), FI(77, 3), FI(77, 5), FI(77, 5)}, {FI(78, 0), FI(78, 2), FI(78, 4), FI(78, 1), FI(78, 1), FI(78, 3), FI(78, 3), FI(78, 5), FI(78, 5)}, {FI(79, 0), FI(79, 2), FI(79, 4), FI(79, 1), FI(79, 1), FI(79, 3), FI(79, 3), FI(79, 5), FI(79, 5)}, {FI(80, 0), FI(80, 2), FI(80, 4), FI(80, 1), FI(80, 1), FI(80, 3), FI(80, 3), FI(80, 5), FI(80, 5)}, {FI(81, 0), FI(81, 2), FI(81, 4), FI(81, 1), FI(81, 1), FI(81, 3), FI(81, 3), FI(81, 5), FI(81, 5)}, {FI(82, 0), FI(82, 2), FI(82, 4), FI(82, 1), FI(82, 1), FI(82, 3), FI(82, 3), FI(82, 5), FI(82, 5)}, {FI(83, 0), FI(83, 2), FI(83, 4), FI(83, 1), FI(83, 1), FI(83, 3), FI(83, 3), FI(83, 5), FI(83, 5)}, {FI(84, 0), FI(84, 2), FI(84, 4), FI(84, 1), FI(84, 1), FI(84, 3), FI(84, 3), FI(84, 5), FI(84, 5)}, {FI(85, 0), FI(85, 2), FI(85, 4), FI(85, 1), FI(85, 1), FI(85, 3), FI(85, 3), FI(85, 5), FI(85, 5)}, {FI(86, 0), FI(86, 2), FI(86, 4), FI(86, 1), FI(86, 1), FI(86, 3), FI(86, 3), FI(86, 5), FI(86, 5)}, {FI(87, 0), FI(87, 2), FI(87, 4), FI(87, 1), FI(87, 1), FI(87, 3), FI(87, 3), FI(87, 5), FI(87, 5)}, {FI(88, 0), FI(88, 2), FI(88, 4), FI(88, 1), FI(88, 1), FI(88, 3), FI(88, 3), FI(88, 5), FI(88, 5)}, {FI(89, 0), FI(89, 2), FI(89, 4), FI(89, 1), FI(89, 1), FI(89, 3), FI(89, 3), FI(89, 5), FI(89, 5)}, {FI(90, 0), FI(90, 2), FI(90, 4), FI(90, 1), FI(90, 1), FI(90, 3), FI(90, 3), FI(90, 5), FI(90, 5)}, {FI(91, 0), FI(91, 2), FI(91, 4), FI(91, 1), FI(91, 1), FI(91, 3), FI(91, 3), FI(91, 5), FI(91, 5)}, {FI(92, 0), FI(92, 2), FI(92, 4), FI(92, 1), FI(92, 1), FI(92, 3), FI(92, 3), FI(92, 5), FI(92, 5)}, {FI(93, 0), FI(93, 2), FI(93, 4), FI(93, 1), FI(93, 1), FI(93, 3), FI(93, 3), FI(93, 5), FI(93, 5)}, {FI(94, 0), FI(94, 2), FI(94, 4), FI(94, 1), FI(94, 1), FI(94, 3), FI(94, 3), FI(94, 5), FI(94, 5)}, {FI(95, 0), FI(95, 2), FI(95, 4), FI(95, 1), FI(95, 1), FI(95, 3), FI(95, 3), FI(95, 5), FI(95, 5)}, {FI(96, 0), FI(96, 2), FI(96, 4), FI(96, 1), FI(96, 1), FI(96, 3), FI(96, 3), FI(96, 5), FI(96, 5)}, {FI(97, 0), FI(97, 2), FI(97, 4), FI(97, 1), FI(97, 1), FI(97, 3), FI(97, 3), FI(97, 5), FI(97, 5)}, {FI(98, 0), FI(98, 2), FI(98, 4), FI(98, 1), FI(98, 1), FI(98, 3), FI(98, 3), FI(98, 5), FI(98, 5)}, {FI(99, 0), FI(99, 2), FI(99, 4), FI(99, 1), FI(99, 1), FI(99, 3), FI(99, 3), FI(99, 5), FI(99, 5)}, {FI(100, 0), FI(100, 2), FI(100, 4), FI(100, 1), FI(100, 1), FI(100, 3), FI(100, 3), FI(100, 5), FI(100, 5)}, {FI(101, 0), FI(101, 2), FI(101, 4), FI(101, 1), FI(101, 1), FI(101, 3), FI(101, 3), FI(101, 5), FI(101, 5)}, {FI(102, 0), FI(102, 2), FI(102, 4), FI(102, 1), FI(102, 1), FI(102, 3), FI(102, 3), FI(102, 5), FI(102, 5)}, {FI(103, 0), FI(103, 2), FI(103, 4), FI(103, 1), FI(103, 1), FI(103, 3), FI(103, 3), FI(103, 5), FI(103, 5)}, {FI(104, 0), FI(104, 2), FI(104, 4), FI(104, 1), FI(104, 1), FI(104, 3), FI(104, 3), FI(104, 5), FI(104, 5)}, {FI(105, 0), FI(105, 2), FI(105, 4), FI(105, 1), FI(105, 1), FI(105, 3), FI(105, 3), FI(105, 5), FI(105, 5)}, {FI(106, 0), FI(106, 2), FI(106, 4), FI(106, 1), FI(106, 1), FI(106, 3), FI(106, 3), FI(106, 5), FI(106, 5)}, {FI(107, 0), FI(107, 2), FI(107, 4), FI(107, 1), FI(107, 1), FI(107, 3), FI(107, 3), FI(107, 5), FI(107, 5)}, {FI(108, 0), FI(108, 2), FI(108, 4), FI(108, 1), FI(108, 1), FI(108, 3), FI(108, 3), FI(108, 5), FI(108, 5)}, {FI(109, 0), FI(109, 2), FI(109, 4), FI(109, 1), FI(109, 1), FI(109, 3), FI(109, 3), FI(109, 5), FI(109, 5)}, {FI(110, 0), FI(110, 2), FI(110, 4), FI(110, 1), FI(110, 1), FI(110, 3), FI(110, 3), FI(110, 5), FI(110, 5)}, {FI(111, 0), FI(111, 2), FI(111, 4), FI(111, 1), FI(111, 1), FI(111, 3), FI(111, 3), FI(111, 5), FI(111, 5)}, {FI(112, 0), FI(112, 2), FI(112, 4), FI(112, 1), FI(112, 1), FI(112, 3), FI(112, 3), FI(112, 5), FI(112, 5)}, {FI(113, 0), FI(113, 2), FI(113, 4), FI(113, 1), FI(113, 1), FI(113, 3), FI(113, 3), FI(113, 5), FI(113, 5)}, {FI(114, 0), FI(114, 2), FI(114, 4), FI(114, 1), FI(114, 1), FI(114, 3), FI(114, 3), FI(114, 5), FI(114, 5)}, {FI(115, 0), FI(115, 2), FI(115, 4), FI(115, 1), FI(115, 1), FI(115, 3), FI(115, 3), FI(115, 5), FI(115, 5)}, {FI(116, 0), FI(116, 2), FI(116, 4), FI(116, 1), FI(116, 1), FI(116, 3), FI(116, 3), FI(116, 5), FI(116, 5)}, {FI(117, 0), FI(117, 2), FI(117, 4), FI(117, 1), FI(117, 1), FI(117, 3), FI(117, 3), FI(117, 5), FI(117, 5)}, {FI(118, 0), FI(118, 2), FI(118, 4), FI(118, 1), FI(118, 1), FI(118, 3), FI(118, 3), FI(118, 5), FI(118, 5)}, {FI(119, 0), FI(119, 2), FI(119, 4), FI(119, 1), FI(119, 1), FI(119, 3), FI(119, 3), FI(119, 5), FI(119, 5)}, {FI(120, 0), FI(120, 2), FI(120, 4), FI(120, 1), FI(120, 1), FI(120, 3), FI(120, 3), FI(120, 5), FI(120, 5)}, {FI(121, 0), FI(121, 2), FI(121, 4), FI(121, 1), FI(121, 1), FI(121, 3), FI(121, 3), FI(121, 5), FI(121, 5)}, {FI(122, 0), FI(122, 2), FI(122, 4), FI(122, 1), FI(122, 1), FI(122, 3), FI(122, 3), FI(122, 5), FI(122, 5)}, {FI(123, 0), FI(123, 2), FI(123, 4), FI(123, 1), FI(123, 1), FI(123, 3), FI(123, 3), FI(123, 5), FI(123, 5)}, {FI(124, 0), FI(124, 2), FI(124, 4), FI(124, 1), FI(124, 1), FI(124, 3), FI(124, 3), FI(124, 5), FI(124, 5)}, {FI(125, 0), FI(125, 2), FI(125, 4), FI(125, 1), FI(125, 1), FI(125, 3), FI(125, 3), FI(125, 5), FI(125, 5)}, {FI(126, 0), FI(126, 2), FI(126, 4), FI(126, 1), FI(126, 1), FI(126, 3), FI(126, 3), FI(126, 5), FI(126, 5)}, {FI(127, 0), FI(127, 2), FI(127, 4), FI(127, 1), FI(127, 1), FI(127, 3), FI(127, 3), FI(127, 5), FI(127, 5)}, {FI(128, 0), FI(128, 2), FI(128, 4), FI(128, 1), FI(128, 1), FI(128, 3), FI(128, 3), FI(128, 5), FI(128, 5)}, {FI(129, 0), FI(129, 2), FI(129, 4), FI(129, 1), FI(129, 1), FI(129, 3), FI(129, 3), FI(129, 5), FI(129, 5)}, {FI(130, 0), FI(130, 2), FI(130, 4), FI(130, 1), FI(130, 1), FI(130, 3), FI(130, 3), FI(130, 5), FI(130, 5)}, {FI(131, 0), FI(131, 2), FI(131, 4), FI(131, 1), FI(131, 1), FI(131, 3), FI(131, 3), FI(131, 5), FI(131, 5)}, {FI(132, 0), FI(132, 2), FI(132, 4), FI(132, 1), FI(132, 1), FI(132, 3), FI(132, 3), FI(132, 5), FI(132, 5)}, {FI(133, 0), FI(133, 2), FI(133, 4), FI(133, 1), FI(133, 1), FI(133, 3), FI(133, 3), FI(133, 5), FI(133, 5)}, {FI(134, 0), FI(134, 2), FI(134, 4), FI(134, 1), FI(134, 1), FI(134, 3), FI(134, 3), FI(134, 5), FI(134, 5)}, {FI(135, 0), FI(135, 2), FI(135, 4), FI(135, 1), FI(135, 1), FI(135, 3), FI(135, 3), FI(135, 5), FI(135, 5)}, {FI(136, 0), FI(136, 2), FI(136, 4), FI(136, 1), FI(136, 1), FI(136, 3), FI(136, 3), FI(136, 5), FI(136, 5)}, {FI(137, 0), FI(137, 2), FI(137, 4), FI(137, 1), FI(137, 1), FI(137, 3), FI(137, 3), FI(137, 5), FI(137, 5)}, {FI(138, 0), FI(138, 2), FI(138, 4), FI(138, 1), FI(138, 1), FI(138, 3), FI(138, 3), FI(138, 5), FI(138, 5)}, {FI(139, 0), FI(139, 2), FI(139, 4), FI(139, 1), FI(139, 1), FI(139, 3), FI(139, 3), FI(139, 5), FI(139, 5)}, {FI(140, 0), FI(140, 2), FI(140, 4), FI(140, 1), FI(140, 1), FI(140, 3), FI(140, 3), FI(140, 5), FI(140, 5)}, {FI(141, 0), FI(141, 2), FI(141, 4), FI(141, 1), FI(141, 1), FI(141, 3), FI(141, 3), FI(141, 5), FI(141, 5)}, {FI(142, 0), FI(142, 2), FI(142, 4), FI(142, 1), FI(142, 1), FI(142, 3), FI(142, 3), FI(142, 5), FI(142, 5)}, {FI(143, 0), FI(143, 2), FI(143, 4), FI(143, 1), FI(143, 1), FI(143, 3), FI(143, 3), FI(143, 5), FI(143, 5)}, {FI(144, 0), FI(144, 2), FI(144, 4), FI(144, 1), FI(144, 1), FI(144, 3), FI(144, 3), FI(144, 5), FI(144, 5)}, {FI(145, 0), FI(145, 2), FI(145, 4), FI(145, 1), FI(145, 1), FI(145, 3), FI(145, 3), FI(145, 5), FI(145, 5)}, {FI(146, 0), FI(146, 2), FI(146, 4), FI(146, 1), FI(146, 1), FI(146, 3), FI(146, 3), FI(146, 5), FI(146, 5)}, {FI(147, 0), FI(147, 2), FI(147, 4), FI(147, 1), FI(147, 1), FI(147, 3), FI(147, 3), FI(147, 5), FI(147, 5)}, {FI(148, 0), FI(148, 2), FI(148, 4), FI(148, 1), FI(148, 1), FI(148, 3), FI(148, 3), FI(148, 5), FI(148, 5)}, {FI(149, 0), FI(149, 2), FI(149, 4), FI(149, 1), FI(149, 1), FI(149, 3), FI(149, 3), FI(149, 5), FI(149, 5)}, {FI(150, 0), FI(150, 2), FI(150, 4), FI(150, 1), FI(150, 1), FI(150, 3), FI(150, 3), FI(150, 5), FI(150, 5)}, {FI(151, 0), FI(151, 2), FI(151, 4), FI(151, 1), FI(151, 1), FI(151, 3), FI(151, 3), FI(151, 5), FI(151, 5)}, {FI(152, 0), FI(152, 2), FI(152, 4), FI(152, 1), FI(152, 1), FI(152, 3), FI(152, 3), FI(152, 5), FI(152, 5)}, {FI(153, 0), FI(153, 2), FI(153, 4), FI(153, 1), FI(153, 1), FI(153, 3), FI(153, 3), FI(153, 5), FI(153, 5)}, {FI(154, 0), FI(154, 2), FI(154, 4), FI(154, 1), FI(154, 1), FI(154, 3), FI(154, 3), FI(154, 5), FI(154, 5)}, {FI(155, 0), FI(155, 2), FI(155, 4), FI(155, 1), FI(155, 1), FI(155, 3), FI(155, 3), FI(155, 5), FI(155, 5)}, {FI(156, 0), FI(156, 2), FI(156, 4), FI(156, 1), FI(156, 1), FI(156, 3), FI(156, 3), FI(156, 5), FI(156, 5)}, {FI(157, 0), FI(157, 2), FI(157, 4), FI(157, 1), FI(157, 1), FI(157, 3), FI(157, 3), FI(157, 5), FI(157, 5)}, {FI(158, 0), FI(158, 2), FI(158, 4), FI(158, 1), FI(158, 1), FI(158, 3), FI(158, 3), FI(158, 5), FI(158, 5)}, {FI(159, 0), FI(159, 2), FI(159, 4), FI(159, 1), FI(159, 1), FI(159, 3), FI(159, 3), FI(159, 5), FI(159, 5)}, {FI(160, 0), FI(160, 2), FI(160, 4), FI(160, 1), FI(160, 1), FI(160, 3), FI(160, 3), FI(160, 5), FI(160, 5)}, {FI(161, 0), FI(161, 2), FI(161, 4), FI(161, 1), FI(161, 1), FI(161, 3), FI(161, 3), FI(161, 5), FI(161, 5)}, {FI(162, 0), FI(162, 2), FI(162, 4), FI(162, 1), FI(162, 1), FI(162, 3), FI(162, 3), FI(162, 5), FI(162, 5)}, {FI(163, 0), FI(163, 2), FI(163, 4), FI(163, 1), FI(163, 1), FI(163, 3), FI(163, 3), FI(163, 5), FI(163, 5)}, {FI(164, 0), FI(164, 2), FI(164, 4), FI(164, 1), FI(164, 1), FI(164, 3), FI(164, 3), FI(164, 5), FI(164, 5)}, {FI(165, 0), FI(165, 2), FI(165, 4), FI(165, 1), FI(165, 1), FI(165, 3), FI(165, 3), FI(165, 5), FI(165, 5)}, {FI(166, 0), FI(166, 2), FI(166, 4), FI(166, 1), FI(166, 1), FI(166, 3), FI(166, 3), FI(166, 5), FI(166, 5)}, {FI(167, 0), FI(167, 2), FI(167, 4), FI(167, 1), FI(167, 1), FI(167, 3), FI(167, 3), FI(167, 5), FI(167, 5)}, {FI(168, 0), FI(168, 2), FI(168, 4), FI(168, 1), FI(168, 1), FI(168, 3), FI(168, 3), FI(168, 5), FI(168, 5)}, {FI(169, 0), FI(169, 2), FI(169, 4), FI(169, 1), FI(169, 1), FI(169, 3), FI(169, 3), FI(169, 5), FI(169, 5)}, {FI(170, 0), FI(170, 2), FI(170, 4), FI(170, 1), FI(170, 1), FI(170, 3), FI(170, 3), FI(170, 5), FI(170, 5)}, {FI(171, 0), FI(171, 2), FI(171, 4), FI(171, 1), FI(171, 1), FI(171, 3), FI(171, 3), FI(171, 5), FI(171, 5)}, {FI(172, 0), FI(172, 2), FI(172, 4), FI(172, 1), FI(172, 1), FI(172, 3), FI(172, 3), FI(172, 5), FI(172, 5)}, {FI(173, 0), FI(173, 2), FI(173, 4), FI(173, 1), FI(173, 1), FI(173, 3), FI(173, 3), FI(173, 5), FI(173, 5)}, {FI(174, 0), FI(174, 2), FI(174, 4), FI(174, 1), FI(174, 1), FI(174, 3), FI(174, 3), FI(174, 5), FI(174, 5)}, {FI(175, 0), FI(175, 2), FI(175, 4), FI(175, 1), FI(175, 1), FI(175, 3), FI(175, 3), FI(175, 5), FI(175, 5)}, {FI(176, 0), FI(176, 2), FI(176, 4), FI(176, 1), FI(176, 1), FI(176, 3), FI(176, 3), FI(176, 5), FI(176, 5)}, {FI(177, 0), FI(177, 2), FI(177, 4), FI(177, 1), FI(177, 1), FI(177, 3), FI(177, 3), FI(177, 5), FI(177, 5)}, {FI(178, 0), FI(178, 2), FI(178, 4), FI(178, 1), FI(178, 1), FI(178, 3), FI(178, 3), FI(178, 5), FI(178, 5)}, {FI(179, 0), FI(179, 2), FI(179, 4), FI(179, 1), FI(179, 1), FI(179, 3), FI(179, 3), FI(179, 5), FI(179, 5)}, {FI(180, 0), FI(180, 2), FI(180, 4), FI(180, 1), FI(180, 1), FI(180, 3), FI(180, 3), FI(180, 5), FI(180, 5)}, {FI(181, 0), FI(181, 2), FI(181, 4), FI(181, 1), FI(181, 1), FI(181, 3), FI(181, 3), FI(181, 5), FI(181, 5)}, {FI(182, 0), FI(182, 2), FI(182, 4), FI(182, 1), FI(182, 1), FI(182, 3), FI(182, 3), FI(182, 5), FI(182, 5)}, {FI(183, 0), FI(183, 2), FI(183, 4), FI(183, 1), FI(183, 1), FI(183, 3), FI(183, 3), FI(183, 5), FI(183, 5)}, {FI(184, 0), FI(184, 2), FI(184, 4), FI(184, 1), FI(184, 1), FI(184, 3), FI(184, 3), FI(184, 5), FI(184, 5)}, {FI(185, 0), FI(185, 2), FI(185, 4), FI(185, 1), FI(185, 1), FI(185, 3), FI(185, 3), FI(185, 5), FI(185, 5)}, {FI(186, 0), FI(186, 2), FI(186, 4), FI(186, 1), FI(186, 1), FI(186, 3), FI(186, 3), FI(186, 5), FI(186, 5)}, {FI(187, 0), FI(187, 2), FI(187, 4), FI(187, 1), FI(187, 1), FI(187, 3), FI(187, 3), FI(187, 5), FI(187, 5)}, {FI(188, 0), FI(188, 2), FI(188, 4), FI(188, 1), FI(188, 1), FI(188, 3), FI(188, 3), FI(188, 5), FI(188, 5)}, {FI(189, 0), FI(189, 2), FI(189, 4), FI(189, 1), FI(189, 1), FI(189, 3), FI(189, 3), FI(189, 5), FI(189, 5)}, {FI(190, 0), FI(190, 2), FI(190, 4), FI(190, 1), FI(190, 1), FI(190, 3), FI(190, 3), FI(190, 5), FI(190, 5)}, {FI(191, 0), FI(191, 2), FI(191, 4), FI(191, 1), FI(191, 1), FI(191, 3), FI(191, 3), FI(191, 5), FI(191, 5)}, {FI(192, 0), FI(192, 2), FI(192, 4), FI(192, 1), FI(192, 1), FI(192, 3), FI(192, 3), FI(192, 5), FI(192, 5)}, {FI(193, 0), FI(193, 2), FI(193, 4), FI(193, 1), FI(193, 1), FI(193, 3), FI(193, 3), FI(193, 5), FI(193, 5)}, {FI(194, 0), FI(194, 2), FI(194, 4), FI(194, 1), FI(194, 1), FI(194, 3), FI(194, 3), FI(194, 5), FI(194, 5)}, {FI(195, 0), FI(195, 2), FI(195, 4), FI(195, 1), FI(195, 1), FI(195, 3), FI(195, 3), FI(195, 5), FI(195, 5)}, {FI(196, 0), FI(196, 2), FI(196, 4), FI(196, 1), FI(196, 1), FI(196, 3), FI(196, 3), FI(196, 5), FI(196, 5)}, {FI(197, 0), FI(197, 2), FI(197, 4), FI(197, 1), FI(197, 1), FI(197, 3), FI(197, 3), FI(197, 5), FI(197, 5)}, {FI(198, 0), FI(198, 2), FI(198, 4), FI(198, 1), FI(198, 1), FI(198, 3), FI(198, 3), FI(198, 5), FI(198, 5)}, {FI(199, 0), FI(199, 2), FI(199, 4), FI(199, 1), FI(199, 1), FI(199, 3), FI(199, 3), FI(199, 5), FI(199, 5)}, {FI(200, 0), FI(200, 2), FI(200, 4), FI(200, 1), FI(200, 1), FI(200, 3), FI(200, 3), FI(200, 5), FI(200, 5)}, {FI(201, 0), FI(201, 2), FI(201, 4), FI(201, 1), FI(201, 1), FI(201, 3), FI(201, 3), FI(201, 5), FI(201, 5)}, {FI(202, 0), FI(202, 2), FI(202, 4), FI(202, 1), FI(202, 1), FI(202, 3), FI(202, 3), FI(202, 5), FI(202, 5)}, {FI(203, 0), FI(203, 2), FI(203, 4), FI(203, 1), FI(203, 1), FI(203, 3), FI(203, 3), FI(203, 5), FI(203, 5)}, {FI(204, 0), FI(204, 2), FI(204, 4), FI(204, 1), FI(204, 1), FI(204, 3), FI(204, 3), FI(204, 5), FI(204, 5)}, {FI(205, 0), FI(205, 2), FI(205, 4), FI(205, 1), FI(205, 1), FI(205, 3), FI(205, 3), FI(205, 5), FI(205, 5)}, {FI(206, 0), FI(206, 2), FI(206, 4), FI(206, 1), FI(206, 1), FI(206, 3), FI(206, 3), FI(206, 5), FI(206, 5)}, {FI(207, 0), FI(207, 2), FI(207, 4), FI(207, 1), FI(207, 1), FI(207, 3), FI(207, 3), FI(207, 5), FI(207, 5)}, {FI(208, 0), FI(208, 2), FI(208, 4), FI(208, 1), FI(208, 1), FI(208, 3), FI(208, 3), FI(208, 5), FI(208, 5)}, {FI(209, 0), FI(209, 2), FI(209, 4), FI(209, 1), FI(209, 1), FI(209, 3), FI(209, 3), FI(209, 5), FI(209, 5)}, {FI(210, 0), FI(210, 2), FI(210, 4), FI(210, 1), FI(210, 1), FI(210, 3), FI(210, 3), FI(210, 5), FI(210, 5)}, {FI(211, 0), FI(211, 2), FI(211, 4), FI(211, 1), FI(211, 1), FI(211, 3), FI(211, 3), FI(211, 5), FI(211, 5)}, {FI(212, 0), FI(212, 2), FI(212, 4), FI(212, 1), FI(212, 1), FI(212, 3), FI(212, 3), FI(212, 5), FI(212, 5)}, {FI(213, 0), FI(213, 2), FI(213, 4), FI(213, 1), FI(213, 1), FI(213, 3), FI(213, 3), FI(213, 5), FI(213, 5)}, {FI(214, 0), FI(214, 2), FI(214, 4), FI(214, 1), FI(214, 1), FI(214, 3), FI(214, 3), FI(214, 5), FI(214, 5)}, {FI(215, 0), FI(215, 2), FI(215, 4), FI(215, 1), FI(215, 1), FI(215, 3), FI(215, 3), FI(215, 5), FI(215, 5)}, {FI(216, 0), FI(216, 2), FI(216, 4), FI(216, 1), FI(216, 1), FI(216, 3), FI(216, 3), FI(216, 5), FI(216, 5)}, {FI(217, 0), FI(217, 2), FI(217, 4), FI(217, 1), FI(217, 1), FI(217, 3), FI(217, 3), FI(217, 5), FI(217, 5)}, {FI(218, 0), FI(218, 2), FI(218, 4), FI(218, 1), FI(218, 1), FI(218, 3), FI(218, 3), FI(218, 5), FI(218, 5)}, {FI(219, 0), FI(219, 2), FI(219, 4), FI(219, 1), FI(219, 1), FI(219, 3), FI(219, 3), FI(219, 5), FI(219, 5)}, {FI(220, 0), FI(220, 2), FI(220, 4), FI(220, 1), FI(220, 1), FI(220, 3), FI(220, 3), FI(220, 5), FI(220, 5)}, {FI(221, 0), FI(221, 2), FI(221, 4), FI(221, 1), FI(221, 1), FI(221, 3), FI(221, 3), FI(221, 5), FI(221, 5)}, {FI(222, 0), FI(222, 2), FI(222, 4), FI(222, 1), FI(222, 1), FI(222, 3), FI(222, 3), FI(222, 5), FI(222, 5)}, {FI(223, 0), FI(223, 2), FI(223, 4), FI(223, 1), FI(223, 1), FI(223, 3), FI(223, 3), FI(223, 5), FI(223, 5)}, {FI(224, 0), FI(224, 2), FI(224, 4), FI(224, 1), FI(224, 1), FI(224, 3), FI(224, 3), FI(224, 5), FI(224, 5)}, {FI(225, 0), FI(225, 2), FI(225, 4), FI(225, 1), FI(225, 1), FI(225, 3), FI(225, 3), FI(225, 5), FI(225, 5)}, {FI(226, 0), FI(226, 2), FI(226, 4), FI(226, 1), FI(226, 1), FI(226, 3), FI(226, 3), FI(226, 5), FI(226, 5)}, {FI(227, 0), FI(227, 2), FI(227, 4), FI(227, 1), FI(227, 1), FI(227, 3), FI(227, 3), FI(227, 5), FI(227, 5)}, {FI(228, 0), FI(228, 2), FI(228, 4), FI(228, 1), FI(228, 1), FI(228, 3), FI(228, 3), FI(228, 5), FI(228, 5)}, {FI(229, 0), FI(229, 2), FI(229, 4), FI(229, 1), FI(229, 1), FI(229, 3), FI(229, 3), FI(229, 5), FI(229, 5)}, {FI(230, 0), FI(230, 2), FI(230, 4), FI(230, 1), FI(230, 1), FI(230, 3), FI(230, 3), FI(230, 5), FI(230, 5)}, {FI(231, 0), FI(231, 2), FI(231, 4), FI(231, 1), FI(231, 1), FI(231, 3), FI(231, 3), FI(231, 5), FI(231, 5)}, {FI(232, 0), FI(232, 2), FI(232, 4), FI(232, 1), FI(232, 1), FI(232, 3), FI(232, 3), FI(232, 5), FI(232, 5)}, {FI(233, 0), FI(233, 2), FI(233, 4), FI(233, 1), FI(233, 1), FI(233, 3), FI(233, 3), FI(233, 5), FI(233, 5)}, {FI(234, 0), FI(234, 2), FI(234, 4), FI(234, 1), FI(234, 1), FI(234, 3), FI(234, 3), FI(234, 5), FI(234, 5)}, {FI(235, 0), FI(235, 2), FI(235, 4), FI(235, 1), FI(235, 1), FI(235, 3), FI(235, 3), FI(235, 5), FI(235, 5)}, {FI(236, 0), FI(236, 2), FI(236, 4), FI(236, 1), FI(236, 1), FI(236, 3), FI(236, 3), FI(236, 5), FI(236, 5)}, {FI(237, 0), FI(237, 2), FI(237, 4), FI(237, 1), FI(237, 1), FI(237, 3), FI(237, 3), FI(237, 5), FI(237, 5)}, {FI(238, 0), FI(238, 2), FI(238, 4), FI(238, 1), FI(238, 1), FI(238, 3), FI(238, 3), FI(238, 5), FI(238, 5)}, {FI(239, 0), FI(239, 2), FI(239, 4), FI(239, 1), FI(239, 1), FI(239, 3), FI(239, 3), FI(239, 5), FI(239, 5)}, {FI(240, 0), FI(240, 2), FI(240, 4), FI(240, 1), FI(240, 1), FI(240, 3), FI(240, 3), FI(240, 5), FI(240, 5)}, {FI(241, 0), FI(241, 2), FI(241, 4), FI(241, 1), FI(241, 1), FI(241, 3), FI(241, 3), FI(241, 5), FI(241, 5)}, {FI(242, 0), FI(242, 2), FI(242, 4), FI(242, 1), FI(242, 1), FI(242, 3), FI(242, 3), FI(242, 5), FI(242, 5)}, {FI(243, 0), FI(243, 2), FI(243, 4), FI(243, 1), FI(243, 1), FI(243, 3), FI(243, 3), FI(243, 5), FI(243, 5)}, {FI(244, 0), FI(244, 2), FI(244, 4), FI(244, 1), FI(244, 1), FI(244, 3), FI(244, 3), FI(244, 5), FI(244, 5)}, {FI(245, 0), FI(245, 2), FI(245, 4), FI(245, 1), FI(245, 1), FI(245, 3), FI(245, 3), FI(245, 5), FI(245, 5)}, {FI(246, 0), FI(246, 2), FI(246, 4), FI(246, 1), FI(246, 1), FI(246, 3), FI(246, 3), FI(246, 5), FI(246, 5)}, {FI(247, 0), FI(247, 2), FI(247, 4), FI(247, 1), FI(247, 1), FI(247, 3), FI(247, 3), FI(247, 5), FI(247, 5)}, {FI(248, 0), FI(248, 2), FI(248, 4), FI(248, 1), FI(248, 1), FI(248, 3), FI(248, 3), FI(248, 5), FI(248, 5)}, {FI(249, 0), FI(249, 2), FI(249, 4), FI(249, 1), FI(249, 1), FI(249, 3), FI(249, 3), FI(249, 5), FI(249, 5)}, {FI(250, 0), FI(250, 2), FI(250, 4), FI(250, 1), FI(250, 1), FI(250, 3), FI(250, 3), FI(250, 5), FI(250, 5)}, {FI(251, 0), FI(251, 2), FI(251, 4), FI(251, 1), FI(251, 1), FI(251, 3), FI(251, 3), FI(251, 5), FI(251, 5)}, {FI(252, 0), FI(252, 2), FI(252, 4), FI(252, 1), FI(252, 1), FI(252, 3), FI(252, 3), FI(252, 5), FI(252, 5)}, {FI(253, 0), FI(253, 2), FI(253, 4), FI(253, 1), FI(253, 1), FI(253, 3), FI(253, 3), FI(253, 5), FI(253, 5)}, {FI(254, 0), FI(254, 2), FI(254, 4), FI(254, 1), FI(254, 1), FI(254, 3), FI(254, 3), FI(254, 5), FI(254, 5)}, {FI(255, 0), FI(255, 2), FI(255, 4), FI(255, 1), FI(255, 1), FI(255, 3), FI(255, 3), FI(255, 5), FI(255, 5)}, {FI(256, 0), FI(256, 2), FI(256, 4), FI(256, 1), FI(256, 1), FI(256, 3), FI(256, 3), FI(256, 5), FI(256, 5)}, {FI(257, 0), FI(257, 2), FI(257, 4), FI(257, 1), FI(257, 1), FI(257, 3), FI(257, 3), FI(257, 5), FI(257, 5)}, {FI(258, 0), FI(258, 2), FI(258, 4), FI(258, 1), FI(258, 1), FI(258, 3), FI(258, 3), FI(258, 5), FI(258, 5)}, {FI(259, 0), FI(259, 2), FI(259, 4), FI(259, 1), FI(259, 1), FI(259, 3), FI(259, 3), FI(259, 5), FI(259, 5)}, {FI(260, 0), FI(260, 2), FI(260, 4), FI(260, 1), FI(260, 1), FI(260, 3), FI(260, 3), FI(260, 5), FI(260, 5)}, {FI(261, 0), FI(261, 2), FI(261, 4), FI(261, 1), FI(261, 1), FI(261, 3), FI(261, 3), FI(261, 5), FI(261, 5)}, {FI(262, 0), FI(262, 2), FI(262, 4), FI(262, 1), FI(262, 1), FI(262, 3), FI(262, 3), FI(262, 5), FI(262, 5)}, {FI(263, 0), FI(263, 2), FI(263, 4), FI(263, 1), FI(263, 1), FI(263, 3), FI(263, 3), FI(263, 5), FI(263, 5)}, {FI(264, 0), FI(264, 2), FI(264, 4), FI(264, 1), FI(264, 1), FI(264, 3), FI(264, 3), FI(264, 5), FI(264, 5)}, {FI(265, 0), FI(265, 2), FI(265, 4), FI(265, 1), FI(265, 1), FI(265, 3), FI(265, 3), FI(265, 5), FI(265, 5)}, {FI(266, 0), FI(266, 2), FI(266, 4), FI(266, 1), FI(266, 1), FI(266, 3), FI(266, 3), FI(266, 5), FI(266, 5)}, {FI(267, 0), FI(267, 2), FI(267, 4), FI(267, 1), FI(267, 1), FI(267, 3), FI(267, 3), FI(267, 5), FI(267, 5)}, {FI(268, 0), FI(268, 2), FI(268, 4), FI(268, 1), FI(268, 1), FI(268, 3), FI(268, 3), FI(268, 5), FI(268, 5)}, {FI(269, 0), FI(269, 2), FI(269, 4), FI(269, 1), FI(269, 1), FI(269, 3), FI(269, 3), FI(269, 5), FI(269, 5)}, {FI(270, 0), FI(270, 2), FI(270, 4), FI(270, 1), FI(270, 1), FI(270, 3), FI(270, 3), FI(270, 5), FI(270, 5)}, {FI(271, 0), FI(271, 2), FI(271, 4), FI(271, 1), FI(271, 1), FI(271, 3), FI(271, 3), FI(271, 5), FI(271, 5)}, {FI(272, 0), FI(272, 2), FI(272, 4), FI(272, 1), FI(272, 1), FI(272, 3), FI(272, 3), FI(272, 5), FI(272, 5)}, {FI(273, 0), FI(273, 2), FI(273, 4), FI(273, 1), FI(273, 1), FI(273, 3), FI(273, 3), FI(273, 5), FI(273, 5)}, {FI(274, 0), FI(274, 2), FI(274, 4), FI(274, 1), FI(274, 1), FI(274, 3), FI(274, 3), FI(274, 5), FI(274, 5)}, {FI(275, 0), FI(275, 2), FI(275, 4), FI(275, 1), FI(275, 1), FI(275, 3), FI(275, 3), FI(275, 5), FI(275, 5)}, {FI(276, 0), FI(276, 2), FI(276, 4), FI(276, 1), FI(276, 1), FI(276, 3), FI(276, 3), FI(276, 5), FI(276, 5)}, {FI(277, 0), FI(277, 2), FI(277, 4), FI(277, 1), FI(277, 1), FI(277, 3), FI(277, 3), FI(277, 5), FI(277, 5)}, {FI(278, 0), FI(278, 2), FI(278, 4), FI(278, 1), FI(278, 1), FI(278, 3), FI(278, 3), FI(278, 5), FI(278, 5)}, {FI(279, 0), FI(279, 2), FI(279, 4), FI(279, 1), FI(279, 1), FI(279, 3), FI(279, 3), FI(279, 5), FI(279, 5)}, {FI(280, 0), FI(280, 2), FI(280, 4), FI(280, 1), FI(280, 1), FI(280, 3), FI(280, 3), FI(280, 5), FI(280, 5)}, {FI(281, 0), FI(281, 2), FI(281, 4), FI(281, 1), FI(281, 1), FI(281, 3), FI(281, 3), FI(281, 5), FI(281, 5)}, {FI(282, 0), FI(282, 2), FI(282, 4), FI(282, 1), FI(282, 1), FI(282, 3), FI(282, 3), FI(282, 5), FI(282, 5)}, {FI(283, 0), FI(283, 2), FI(283, 4), FI(283, 1), FI(283, 1), FI(283, 3), FI(283, 3), FI(283, 5), FI(283, 5)}, {FI(284, 0), FI(284, 2), FI(284, 4), FI(284, 1), FI(284, 1), FI(284, 3), FI(284, 3), FI(284, 5), FI(284, 5)}, {FI(285, 0), FI(285, 2), FI(285, 4), FI(285, 1), FI(285, 1), FI(285, 3), FI(285, 3), FI(285, 5), FI(285, 5)}, {FI(286, 0), FI(286, 2), FI(286, 4), FI(286, 1), FI(286, 1), FI(286, 3), FI(286, 3), FI(286, 5), FI(286, 5)}, {FI(287, 0), FI(287, 2), FI(287, 4), FI(287, 1), FI(287, 1), FI(287, 3), FI(287, 3), FI(287, 5), FI(287, 5)}, {FI(288, 0), FI(288, 2), FI(288, 4), FI(288, 1), FI(288, 1), FI(288, 3), FI(288, 3), FI(288, 5), FI(288, 5)}, {FI(289, 0), FI(289, 2), FI(289, 4), FI(289, 1), FI(289, 1), FI(289, 3), FI(289, 3), FI(289, 5), FI(289, 5)}, {FI(290, 0), FI(290, 2), FI(290, 4), FI(290, 1), FI(290, 1), FI(290, 3), FI(290, 3), FI(290, 5), FI(290, 5)}, {FI(291, 0), FI(291, 2), FI(291, 4), FI(291, 1), FI(291, 1), FI(291, 3), FI(291, 3), FI(291, 5), FI(291, 5)}, {FI(292, 0), FI(292, 2), FI(292, 4), FI(292, 1), FI(292, 1), FI(292, 3), FI(292, 3), FI(292, 5), FI(292, 5)}, {FI(293, 0), FI(293, 2), FI(293, 4), FI(293, 1), FI(293, 1), FI(293, 3), FI(293, 3), FI(293, 5), FI(293, 5)}, {FI(294, 0), FI(294, 2), FI(294, 4), FI(294, 1), FI(294, 1), FI(294, 3), FI(294, 3), FI(294, 5), FI(294, 5)}, {FI(295, 0), FI(295, 2), FI(295, 4), FI(295, 1), FI(295, 1), FI(295, 3), FI(295, 3), FI(295, 5), FI(295, 5)}, {FI(296, 0), FI(296, 2), FI(296, 4), FI(296, 1), FI(296, 1), FI(296, 3), FI(296, 3), FI(296, 5), FI(296, 5)}, {FI(297, 0), FI(297, 2), FI(297, 4), FI(297, 1), FI(297, 1), FI(297, 3), FI(297, 3), FI(297, 5), FI(297, 5)}, {FI(298, 0), FI(298, 2), FI(298, 4), FI(298, 1), FI(298, 1), FI(298, 3), FI(298, 3), FI(298, 5), FI(298, 5)}, {FI(299, 0), FI(299, 2), FI(299, 4), FI(299, 1), FI(299, 1), FI(299, 3), FI(299, 3), FI(299, 5), FI(299, 5)}, {FI(300, 0), FI(300, 2), FI(300, 4), FI(300, 1), FI(300, 1), FI(300, 3), FI(300, 3), FI(300, 5), FI(300, 5)}, {FI(301, 0), FI(301, 2), FI(301, 4), FI(301, 1), FI(301, 1), FI(301, 3), FI(301, 3), FI(301, 5), FI(301, 5)}, {FI(302, 0), FI(302, 2), FI(302, 4), FI(302, 1), FI(302, 1), FI(302, 3), FI(302, 3), FI(302, 5), FI(302, 5)}, {FI(303, 0), FI(303, 2), FI(303, 4), FI(303, 1), FI(303, 1), FI(303, 3), FI(303, 3), FI(303, 5), FI(303, 5)}, {FI(304, 0), FI(304, 2), FI(304, 4), FI(304, 1), FI(304, 1), FI(304, 3), FI(304, 3), FI(304, 5), FI(304, 5)}, {FI(305, 0), FI(305, 2), FI(305, 4), FI(305, 1), FI(305, 1), FI(305, 3), FI(305, 3), FI(305, 5), FI(305, 5)}, {FI(306, 0), FI(306, 2), FI(306, 4), FI(306, 1), FI(306, 1), FI(306, 3), FI(306, 3), FI(306, 5), FI(306, 5)}, {FI(307, 0), FI(307, 2), FI(307, 4), FI(307, 1), FI(307, 1), FI(307, 3), FI(307, 3), FI(307, 5), FI(307, 5)}, {FI(308, 0), FI(308, 2), FI(308, 4), FI(308, 1), FI(308, 1), FI(308, 3), FI(308, 3), FI(308, 5), FI(308, 5)}, {FI(309, 0), FI(309, 2), FI(309, 4), FI(309, 1), FI(309, 1), FI(309, 3), FI(309, 3), FI(309, 5), FI(309, 5)}, {FI(310, 0), FI(310, 2), FI(310, 4), FI(310, 1), FI(310, 1), FI(310, 3), FI(310, 3), FI(310, 5), FI(310, 5)}, {FI(311, 0), FI(311, 2), FI(311, 4), FI(311, 1), FI(311, 1), FI(311, 3), FI(311, 3), FI(311, 5), FI(311, 5)}, {FI(312, 0), FI(312, 2), FI(312, 4), FI(312, 1), FI(312, 1), FI(312, 3), FI(312, 3), FI(312, 5), FI(312, 5)}, {FI(313, 0), FI(313, 2), FI(313, 4), FI(313, 1), FI(313, 1), FI(313, 3), FI(313, 3), FI(313, 5), FI(313, 5)}, {FI(314, 0), FI(314, 2), FI(314, 4), FI(314, 1), FI(314, 1), FI(314, 3), FI(314, 3), FI(314, 5), FI(314, 5)}, {FI(315, 0), FI(315, 2), FI(315, 4), FI(315, 1), FI(315, 1), FI(315, 3), FI(315, 3), FI(315, 5), FI(315, 5)}, {FI(316, 0), FI(316, 2), FI(316, 4), FI(316, 1), FI(316, 1), FI(316, 3), FI(316, 3), FI(316, 5), FI(316, 5)}, {FI(317, 0), FI(317, 2), FI(317, 4), FI(317, 1), FI(317, 1), FI(317, 3), FI(317, 3), FI(317, 5), FI(317, 5)}, {FI(318, 0), FI(318, 2), FI(318, 4), FI(318, 1), FI(318, 1), FI(318, 3), FI(318, 3), FI(318, 5), FI(318, 5)}, {FI(319, 0), FI(319, 2), FI(319, 4), FI(319, 1), FI(319, 1), FI(319, 3), FI(319, 3), FI(319, 5), FI(319, 5)}, {FI(320, 0), FI(320, 2), FI(320, 4), FI(320, 1), FI(320, 1), FI(320, 3), FI(320, 3), FI(320, 5), FI(320, 5)}, {FI(321, 0), FI(321, 2), FI(321, 4), FI(321, 1), FI(321, 1), FI(321, 3), FI(321, 3), FI(321, 5), FI(321, 5)}, {FI(322, 0), FI(322, 2), FI(322, 4), FI(322, 1), FI(322, 1), FI(322, 3), FI(322, 3), FI(322, 5), FI(322, 5)}, {FI(323, 0), FI(323, 2), FI(323, 4), FI(323, 1), FI(323, 1), FI(323, 3), FI(323, 3), FI(323, 5), FI(323, 5)}, {FI(324, 0), FI(324, 2), FI(324, 4), FI(324, 1), FI(324, 1), FI(324, 3), FI(324, 3), FI(324, 5), FI(324, 5)}, {FI(325, 0), FI(325, 2), FI(325, 4), FI(325, 1), FI(325, 1), FI(325, 3), FI(325, 3), FI(325, 5), FI(325, 5)}, {FI(326, 0), FI(326, 2), FI(326, 4), FI(326, 1), FI(326, 1), FI(326, 3), FI(326, 3), FI(326, 5), FI(326, 5)}, {FI(327, 0), FI(327, 2), FI(327, 4), FI(327, 1), FI(327, 1), FI(327, 3), FI(327, 3), FI(327, 5), FI(327, 5)}, {FI(328, 0), FI(328, 2), FI(328, 4), FI(328, 1), FI(328, 1), FI(328, 3), FI(328, 3), FI(328, 5), FI(328, 5)}, {FI(329, 0), FI(329, 2), FI(329, 4), FI(329, 1), FI(329, 1), FI(329, 3), FI(329, 3), FI(329, 5), FI(329, 5)}, {FI(330, 0), FI(330, 2), FI(330, 4), FI(330, 1), FI(330, 1), FI(330, 3), FI(330, 3), FI(330, 5), FI(330, 5)}, {FI(331, 0), FI(331, 2), FI(331, 4), FI(331, 1), FI(331, 1), FI(331, 3), FI(331, 3), FI(331, 5), FI(331, 5)}, {FI(332, 0), FI(332, 2), FI(332, 4), FI(332, 1), FI(332, 1), FI(332, 3), FI(332, 3), FI(332, 5), FI(332, 5)}, {FI(333, 0), FI(333, 2), FI(333, 4), FI(333, 1), FI(333, 1), FI(333, 3), FI(333, 3), FI(333, 5), FI(333, 5)}, {FI(334, 0), FI(334, 2), FI(334, 4), FI(334, 1), FI(334, 1), FI(334, 3), FI(334, 3), FI(334, 5), FI(334, 5)}, {FI(335, 0), FI(335, 2), FI(335, 4), FI(335, 1), FI(335, 1), FI(335, 3), FI(335, 3), FI(335, 5), FI(335, 5)}, {FI(336, 0), FI(336, 2), FI(336, 4), FI(336, 1), FI(336, 1), FI(336, 3), FI(336, 3), FI(336, 5), FI(336, 5)}, {FI(337, 0), FI(337, 2), FI(337, 4), FI(337, 1), FI(337, 1), FI(337, 3), FI(337, 3), FI(337, 5), FI(337, 5)}, {FI(338, 0), FI(338, 2), FI(338, 4), FI(338, 1), FI(338, 1), FI(338, 3), FI(338, 3), FI(338, 5), FI(338, 5)}, {FI(339, 0), FI(339, 2), FI(339, 4), FI(339, 1), FI(339, 1), FI(339, 3), FI(339, 3), FI(339, 5), FI(339, 5)}, {FI(340, 0), FI(340, 2), FI(340, 4), FI(340, 1), FI(340, 1), FI(340, 3), FI(340, 3), FI(340, 5), FI(340, 5)}, {FI(341, 0), FI(341, 2), FI(341, 4), FI(341, 1), FI(341, 1), FI(341, 3), FI(341, 3), FI(341, 5), FI(341, 5)}, {FI(342, 0), FI(342, 2), FI(342, 4), FI(342, 1), FI(342, 1), FI(342, 3), FI(342, 3), FI(342, 5), FI(342, 5)}, {FI(343, 0), FI(343, 2), FI(343, 4), FI(343, 1), FI(343, 1), FI(343, 3), FI(343, 3), FI(343, 5), FI(343, 5)}, {FI(344, 0), FI(344, 2), FI(344, 4), FI(344, 1), FI(344, 1), FI(344, 3), FI(344, 3), FI(344, 5), FI(344, 5)}, {FI(345, 0), FI(345, 2), FI(345, 4), FI(345, 1), FI(345, 1), FI(345, 3), FI(345, 3), FI(345, 5), FI(345, 5)}, {FI(346, 0), FI(346, 2), FI(346, 4), FI(346, 1), FI(346, 1), FI(346, 3), FI(346, 3), FI(346, 5), FI(346, 5)}, {FI(347, 0), FI(347, 2), FI(347, 4), FI(347, 1), FI(347, 1), FI(347, 3), FI(347, 3), FI(347, 5), FI(347, 5)}, {FI(348, 0), FI(348, 2), FI(348, 4), FI(348, 1), FI(348, 1), FI(348, 3), FI(348, 3), FI(348, 5), FI(348, 5)}, {FI(349, 0), FI(349, 2), FI(349, 4), FI(349, 1), FI(349, 1), FI(349, 3), FI(349, 3), FI(349, 5), FI(349, 5)}, {FI(350, 0), FI(350, 2), FI(350, 4), FI(350, 1), FI(350, 1), FI(350, 3), FI(350, 3), FI(350, 5), FI(350, 5)}, {FI(351, 0), FI(351, 2), FI(351, 4), FI(351, 1), FI(351, 1), FI(351, 3), FI(351, 3), FI(351, 5), FI(351, 5)}, {FI(352, 0), FI(352, 2), FI(352, 4), FI(352, 1), FI(352, 1), FI(352, 3), FI(352, 3), FI(352, 5), FI(352, 5)}, {FI(353, 0), FI(353, 2), FI(353, 4), FI(353, 1), FI(353, 1), FI(353, 3), FI(353, 3), FI(353, 5), FI(353, 5)}, {FI(354, 0), FI(354, 2), FI(354, 4), FI(354, 1), FI(354, 1), FI(354, 3), FI(354, 3), FI(354, 5), FI(354, 5)}, {FI(355, 0), FI(355, 2), FI(355, 4), FI(355, 1), FI(355, 1), FI(355, 3), FI(355, 3), FI(355, 5), FI(355, 5)}, {FI(356, 0), FI(356, 2), FI(356, 4), FI(356, 1), FI(356, 1), FI(356, 3), FI(356, 3), FI(356, 5), FI(356, 5)}, {FI(357, 0), FI(357, 2), FI(357, 4), FI(357, 1), FI(357, 1), FI(357, 3), FI(357, 3), FI(357, 5), FI(357, 5)}, {FI(358, 0), FI(358, 2), FI(358, 4), FI(358, 1), FI(358, 1), FI(358, 3), FI(358, 3), FI(358, 5), FI(358, 5)}, {FI(359, 0), FI(359, 2), FI(359, 4), FI(359, 1), FI(359, 1), FI(359, 3), FI(359, 3), FI(359, 5), FI(359, 5)}, {FI(360, 0), FI(360, 2), FI(360, 4), FI(360, 1), FI(360, 1), FI(360, 3), FI(360, 3), FI(360, 5), FI(360, 5)}, {FI(361, 0), FI(361, 2), FI(361, 4), FI(361, 1), FI(361, 1), FI(361, 3), FI(361, 3), FI(361, 5), FI(361, 5)}, {FI(362, 0), FI(362, 2), FI(362, 4), FI(362, 1), FI(362, 1), FI(362, 3), FI(362, 3), FI(362, 5), FI(362, 5)}, {FI(363, 0), FI(363, 2), FI(363, 4), FI(363, 1), FI(363, 1), FI(363, 3), FI(363, 3), FI(363, 5), FI(363, 5)}, {FI(364, 0), FI(364, 2), FI(364, 4), FI(364, 1), FI(364, 1), FI(364, 3), FI(364, 3), FI(364, 5), FI(364, 5)}, {FI(365, 0), FI(365, 2), FI(365, 4), FI(365, 1), FI(365, 1), FI(365, 3), FI(365, 3), FI(365, 5), FI(365, 5)}, {FI(366, 0), FI(366, 2), FI(366, 4), FI(366, 1), FI(366, 1), FI(366, 3), FI(366, 3), FI(366, 5), FI(366, 5)}, {FI(367, 0), FI(367, 2), FI(367, 4), FI(367, 1), FI(367, 1), FI(367, 3), FI(367, 3), FI(367, 5), FI(367, 5)}, {FI(368, 0), FI(368, 2), FI(368, 4), FI(368, 1), FI(368, 1), FI(368, 3), FI(368, 3), FI(368, 5), FI(368, 5)}, {FI(369, 0), FI(369, 2), FI(369, 4), FI(369, 1), FI(369, 1), FI(369, 3), FI(369, 3), FI(369, 5), FI(369, 5)}, {FI(370, 0), FI(370, 2), FI(370, 4), FI(370, 1), FI(370, 1), FI(370, 3), FI(370, 3), FI(370, 5), FI(370, 5)}, {FI(371, 0), FI(371, 2), FI(371, 4), FI(371, 1), FI(371, 1), FI(371, 3), FI(371, 3), FI(371, 5), FI(371, 5)}, {FI(372, 0), FI(372, 2), FI(372, 4), FI(372, 1), FI(372, 1), FI(372, 3), FI(372, 3), FI(372, 5), FI(372, 5)}, {FI(373, 0), FI(373, 2), FI(373, 4), FI(373, 1), FI(373, 1), FI(373, 3), FI(373, 3), FI(373, 5), FI(373, 5)}, {FI(374, 0), FI(374, 2), FI(374, 4), FI(374, 1), FI(374, 1), FI(374, 3), FI(374, 3), FI(374, 5), FI(374, 5)}, {FI(375, 0), FI(375, 2), FI(375, 4), FI(375, 1), FI(375, 1), FI(375, 3), FI(375, 3), FI(375, 5), FI(375, 5)}, {FI(376, 0), FI(376, 2), FI(376, 4), FI(376, 1), FI(376, 1), FI(376, 3), FI(376, 3), FI(376, 5), FI(376, 5)}, {FI(377, 0), FI(377, 2), FI(377, 4), FI(377, 1), FI(377, 1), FI(377, 3), FI(377, 3), FI(377, 5), FI(377, 5)}, {FI(378, 0), FI(378, 2), FI(378, 4), FI(378, 1), FI(378, 1), FI(378, 3), FI(378, 3), FI(378, 5), FI(378, 5)}, {FI(379, 0), FI(379, 2), FI(379, 4), FI(379, 1), FI(379, 1), FI(379, 3), FI(379, 3), FI(379, 5), FI(379, 5)}, {FI(380, 0), FI(380, 2), FI(380, 4), FI(380, 1), FI(380, 1), FI(380, 3), FI(380, 3), FI(380, 5), FI(380, 5)}, {FI(381, 0), FI(381, 2), FI(381, 4), FI(381, 1), FI(381, 1), FI(381, 3), FI(381, 3), FI(381, 5), FI(381, 5)}, {FI(382, 0), FI(382, 2), FI(382, 4), FI(382, 1), FI(382, 1), FI(382, 3), FI(382, 3), FI(382, 5), FI(382, 5)}, {FI(383, 0), FI(383, 2), FI(383, 4), FI(383, 1), FI(383, 1), FI(383, 3), FI(383, 3), FI(383, 5), FI(383, 5)}, {FI(384, 0), FI(384, 2), FI(384, 4), FI(384, 1), FI(384, 1), FI(384, 3), FI(384, 3), FI(384, 5), FI(384, 5)}, {FI(385, 0), FI(385, 2), FI(385, 4), FI(385, 1), FI(385, 1), FI(385, 3), FI(385, 3), FI(385, 5), FI(385, 5)}, {FI(386, 0), FI(386, 2), FI(386, 4), FI(386, 1), FI(386, 1), FI(386, 3), FI(386, 3), FI(386, 5), FI(386, 5)}};
 diff --git a/src/data/han_hoenn_fly.h b/src/data/han_hoenn_fly.h
 new file mode 100644
-index 0000000..d690a3f
+index 0000000..fe8a944
 --- /dev/null
 +++ b/src/data/han_hoenn_fly.h
 @@ -0,0 +1,33 @@
@@ -106243,7 +105921,7 @@ index 0000000..d690a3f
 +    {MAPSEC_SOOTOPOLIS_CITY, 180, 76, HEAL_LOCATION_SOOTOPOLIS_CITY, MAP_GROUP(MAP_SOOTOPOLIS_CITY), MAP_NUM(MAP_SOOTOPOLIS_CITY), 0, 0},
 +    {MAPSEC_PACIFIDLOG_TOWN, 148, 100, HEAL_LOCATION_PACIFIDLOG_TOWN, MAP_GROUP(MAP_PACIFIDLOG_TOWN), MAP_NUM(MAP_PACIFIDLOG_TOWN), 0, 0},
 +    {MAPSEC_EVER_GRANDE_CITY, 228, 88, HEAL_LOCATION_EVER_GRANDE_CITY, MAP_GROUP(MAP_EVER_GRANDE_CITY), MAP_NUM(MAP_EVER_GRANDE_CITY), 0, 0},
-+    {MAPSEC_SECRET_BASE, 181, 16, 0, MAP_GROUP(MAP_HAN_WILD_AREA), MAP_NUM(MAP_HAN_WILD_AREA), 48, 56},
++    {MAPSEC_SECRET_BASE, 181, 16, 0, MAP_GROUP(MAP_HAN_WILD_AREA), MAP_NUM(MAP_HAN_WILD_AREA), 5, 54},
 +};
 diff --git a/src/data/han_hoenn_trainer_parties.h b/src/data/han_hoenn_trainer_parties.h
 new file mode 100644
@@ -116005,20 +115683,22 @@ index 9802525..39e7a8e 100644
    ]
  }
 diff --git a/src/data/item_icon_table.h b/src/data/item_icon_table.h
-index a9dd7f0..a22ce9e 100644
+index a9dd7f0..df9f273 100644
 --- a/src/data/item_icon_table.h
 +++ b/src/data/item_icon_table.h
-@@ -57,7 +57,7 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
+@@ -57,8 +57,8 @@ static const u32 *const sItemIconTable[ITEMS_COUNT + 1][2] =
      [ITEM_GREEN_SHARD]    = {gItemIcon_Shard, gItemIconPalette_GreenShard},
      // ????????
      [ITEM_034]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
 -    [ITEM_035]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+-    [ITEM_036]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
 +    [ITEM_035]            = {gItemIcon_RootFossil, gItemIconPalette_HoennFossil}, // Hän build: ITEM_NUN_CHO_FOSSIL, with the ROOT FOSSIL's picture
-     [ITEM_036]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
++    [ITEM_036]            = {gItemIcon_Stardust, gItemIconPalette_Star}, // Hän build: ITEM_SHINY_CHARM
      [ITEM_037]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
      [ITEM_038]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+     [ITEM_039]            = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
 diff --git a/src/data/items.json b/src/data/items.json
-index 0a87abb..8012ff8 100644
+index 0a87abb..8e76049 100644
 --- a/src/data/items.json
 +++ b/src/data/items.json
 @@ -17,7 +17,7 @@
@@ -116143,6 +115823,27 @@ index 0a87abb..8012ff8 100644
 -      "description_english": "?????",
 -      "importance": 0,
 +      "description_english": "A fossil of an ancient POKéMON\\nthat lived in snow and ice.",
++      "importance": 1,
+       "registrability": 0,
+-      "pocket": "POCKET_ITEMS",
++      "pocket": "POCKET_KEY_ITEMS",
+       "type": "ITEM_TYPE_BAG_MENU",
+       "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+       "battleUsage": 0,
+@@ -865,15 +865,15 @@
+       "secondaryId": 0
+     },
+     {
+-      "english": "????????",
+-      "itemId": "ITEM_NONE",
++      "english": "SHINY CHARM",
++      "itemId": "ITEM_SHINY_CHARM",
+       "price": 0,
+       "holdEffect": "HOLD_EFFECT_NONE",
+       "holdEffectParam": 0,
+-      "description_english": "?????",
+-      "importance": 0,
++      "description_english": "A charm that makes shiny POKéMON\\nmuch easier to find.",
 +      "importance": 1,
        "registrability": 0,
 -      "pocket": "POCKET_ITEMS",
@@ -120372,7 +120073,7 @@ index c2ad6ac..2d14e1b 100644
 +    TRAINER_PAL(SALON_MAIDEN_ANABEL, gTrainerPalette_SalonMaidenAnabel), // HANPIC
  };
 diff --git a/src/data/trainer_parties.h b/src/data/trainer_parties.h
-index 2e57800..1c24685 100644
+index 2e57800..2956dac 100644
 --- a/src/data/trainer_parties.h
 +++ b/src/data/trainer_parties.h
 @@ -4099,77 +4099,113 @@ static const struct TrainerMonNoItemDefaultMoves sParty_ScientistIvan[] = {
@@ -120909,14 +120610,23 @@ index 2e57800..1c24685 100644
      },
  };
  
-@@ -10860,3 +10998,5 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallPaxton[] = {
+@@ -10860,3 +10998,14 @@ static const struct TrainerMonNoItemDefaultMoves sParty_CueBallPaxton[] = {
          .species = SPECIES_MUK,
      },
  };
 +
 +#include "han_hoenn_trainer_parties.h"
++
++// Hän build: a stand-in; the OLD MAN's real team is made by HanWildOldManParty
++static const struct TrainerMonNoItemDefaultMoves sParty_HanOldMan[] = {
++    {
++        .iv = 50,
++        .lvl = 5,
++        .species = SPECIES_PIDGEY,
++    },
++};
 diff --git a/src/data/trainers.h b/src/data/trainers.h
-index 02afbfd..b79936b 100644
+index 02afbfd..0499b44 100644
 --- a/src/data/trainers.h
 +++ b/src/data/trainers.h
 @@ -3474,33 +3474,33 @@ const struct Trainer gTrainers[] = {
@@ -121070,11 +120780,21 @@ index 02afbfd..b79936b 100644
          .items = {ITEM_FULL_RESTORE, ITEM_FULL_RESTORE},
          .doubleBattle = FALSE,
          .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT | AI_SCRIPT_CHECK_VIABILITY,
-@@ -7422,4 +7422,5 @@ const struct Trainer gTrainers[] = {
+@@ -7422,4 +7422,15 @@ const struct Trainer gTrainers[] = {
          .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE,
          .party = NO_ITEM_DEFAULT_MOVES(sParty_CueBallPaxton),
      },
 +#include "han_hoenn_trainers.h"
++    [TRAINER_HAN_OLD_MAN] = {
++        .trainerClass = TRAINER_CLASS_GENTLEMAN,
++        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
++        .trainerPic = TRAINER_PIC_GENTLEMAN,
++        .trainerName = _("OLD MAN"),
++        .items = {},
++        .doubleBattle = FALSE,
++        .aiFlags = AI_SCRIPT_CHECK_BAD_MOVE | AI_SCRIPT_TRY_TO_FAINT,
++        .party = NO_ITEM_DEFAULT_MOVES(sParty_HanOldMan),
++    },
  };
 diff --git a/src/data/wild_encounters.json b/src/data/wild_encounters.json
 index 176027b..3413fb6 100644
@@ -133158,10 +132878,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..ccb8e24
+index 0000000..ccdb724
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,605 @@
+@@ -0,0 +1,618 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -133729,13 +133449,22 @@ index 0000000..ccb8e24
 +
 +// The Wild Area's Pokémon (src/han_wild.c): a sprite like a ghost's follower, but the Pokémon of one species share a palette.
 +// load: make the palette (palTag) and give its slot back in *palIdx; otherwise use the slot in *palIdx.
++bool8 HanWildHasSprite(u16 n)
++{
++    return n != 0 && n < HAN_FOLLOW_SPECIES && sHanFollowIndex[n] != 0xFFFF;
++}
++
++// n: species, plus 0x8000 for a shiny one (its palette is the second of the species' two). A shiny palette (tag with bit 2 set) is never
++// borrowed from the water reflections: if no slot is free, *palIdx is 0xFF and the sprite is not made, so that the caller can use the usual colours.
 +u8 HanWildSpriteCreate(u16 n, u16 palTag, u8 *palIdx, bool8 load)
 +{
 +    struct SpriteTemplate template;
 +    const struct SubspriteTable *subs;
 +    struct SpritePalette pal;
++    bool8 shiny = (n & 0x8000) != 0;
 +    u8 id;
 +
++    n &= 0x7FFF;
 +    if (n == 0 || n >= HAN_FOLLOW_SPECIES || sHanFollowIndex[n] == 0xFFFF)
 +        return MAX_SPRITES;
 +    CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_HAN_FOLLOWER, SpriteCB_Follower, &template, &subs);
@@ -133743,16 +133472,20 @@ index 0000000..ccb8e24
 +    template.paletteTag = TAG_NONE;
 +    if (load)
 +    {
-+        pal.data = &sHanFollowPal[sHanFollowIndex[n] * 32];
++        pal.data = &sHanFollowPal[sHanFollowIndex[n] * 32 + (shiny ? 16 : 0)];
 +        pal.tag = palTag;
 +        FreeSpritePaletteByTag(palTag);
 +        *palIdx = LoadSpritePalette(&pal);
 +        if (*palIdx == 0xFF)
 +        {
++            if (palTag & 4)
++                return MAX_SPRITES;
 +            *palIdx = 9 - (palTag & 3);
 +            LoadPalette(pal.data, OBJ_PLTT_ID(*palIdx), PLTT_SIZE_4BPP);
 +        }
 +    }
++    if (*palIdx == 0xFF)
++        return MAX_SPRITES;
 +    id = CreateSprite(&template, 0, 0, 0);
 +    if (id == MAX_SPRITES)
 +        return MAX_SPRITES;
@@ -134571,10 +134304,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..b16b2b9
+index 0000000..bc9210d
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,226 @@
+@@ -0,0 +1,228 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "han_hoenn.h"
@@ -134696,6 +134429,8 @@ index 0000000..b16b2b9
 +    for (i = 0; i < ARRAY_COUNT(sFlyTowns); i++)
 +        FlagSet(sFlyTowns[i]);
 +    HanHoennVisitAll();
++    if (!CheckBagHasItem(ITEM_SHINY_CHARM, 1))
++        AddBagItem(ITEM_SHINY_CHARM, 1); // shiny odds 1 in 5, see HanShinyOdds
 +}
 +
 +// Called at the end of a new game's set-up. Does nothing for any other name.
@@ -136300,10 +136035,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..3554a67
+index 0000000..7a9d6e4
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,333 @@
+@@ -0,0 +1,598 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -136320,6 +136055,8 @@ index 0000000..3554a67
 +#include "constants/maps.h"
 +#include "constants/species.h"
 +#include "constants/items.h"
++#include "pokedex.h"
++#include "item.h"
 +
 +// Hän build: the Wild Area (Jane, 24 November 2026).
 +//
@@ -136327,18 +136064,20 @@ index 0000000..3554a67
 +// saved, nothing blocks you): every time the map is loaded, including on coming back from a battle, a few species from the
 +// list below are put on the field again. Walking into one starts an ordinary wild battle.
 +// Each sprite keeps its state in its own data fields:
-+//   0 world x in pixels   1 world y in pixels   2 species   3 direction   4 wait (frames)   5 level   6 half pixels left to walk   7 tag
++//   0 world x in pixels   1 world y in pixels   2 species   3 direction   4 wait (frames)   5 level (plus SHINY_BIT)   6 half pixels left to walk   7 tag
 +
 +#define WILD_TAG       0x57A5
 +#define WILD_PAL       0x57B0
 +#define GROUPS         4
 +#define PER_GROUP      3
-+#define MAP_W          96
-+#define MAP_H          72
-+#define LAND_L         4   // shore columns and the shore row of gen_wild.py: roamers stay on the snow
-+#define LAND_R         91
-+#define LAND_T         8
-+#define LAND_B         59
++#define MAP_W          32
++#define MAP_H          64
++#define LAND_L         0   // the snowfield of gen_wild.py (rows 4 to 45, between the building above and the harbour fence below)
++#define LAND_R         31
++#define LAND_T         4
++#define LAND_B         47
++#define STATIC_PAL     (WILD_PAL + 8)
++#define SHINY_BIT      0x100 // in data[5], above the level
 +
 +// Only Pokémon that nobody meets in the wild in FireRed, LeafGreen or Emerald: every starter of Kanto, Johto and Hoenn, their
 +// evolutions, and the rest that only come by gift, trade, fossil or evolution (and, with them, the legendary and mythical ones, which are the rarest by their stat totals).
@@ -136381,17 +136120,24 @@ index 0000000..3554a67
 +static EWRAM_DATA u8 sFirst = 0; // the first roamer's sprite id plus 1; 0 when none are out
 +static EWRAM_DATA u16 sBattleSpecies = 0;
 +static EWRAM_DATA u8 sBattleLevel = 0;
++static EWRAM_DATA bool8 sBattleShiny = FALSE;
++static EWRAM_DATA bool8 sStaticDone = FALSE; // the temple's Pokémon has been met on this visit
 +
 +static bool8 InWildArea(void)
 +{
 +    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_AREA) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_AREA);
 +}
 +
++static bool8 InTemple(void)
++{
++    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_TEMPLE) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_TEMPLE);
++}
++
 +static bool8 TileFree(s16 tx, s16 ty)
 +{
 +    s16 px, py;
 +
-+    if (tx <= LAND_L + 1 || ty < LAND_T || tx >= LAND_R - 1 || ty >= LAND_B - 1)
++    if (tx < LAND_L + 2 || ty < LAND_T || tx >= LAND_R - 1 || ty >= LAND_B - 1)
 +        return FALSE;
 +    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
 +        return FALSE;
@@ -136462,16 +136208,41 @@ index 0000000..3554a67
 +    s->subpriority = (s->y < player->y + player->y2) ? player->subpriority + 1 : (player->subpriority > 0 ? player->subpriority - 1 : 0);
 +}
 +
++static void SpriteCB_Static(struct Sprite *s)
++{
++    struct Sprite *player = &gSprites[gPlayerAvatar.spriteId];
++
++    Place(s);
++    s->oam.priority = player->oam.priority;
++    s->subpriority = (s->y < player->y + player->y2) ? player->subpriority + 1 : (player->subpriority > 0 ? player->subpriority - 1 : 0);
++}
++
 +extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
++
++static s32 Bst(u16 species)
++{
++    const struct SpeciesInfo *b = &gSpeciesInfo[species];
++
++    return b->baseHP + b->baseAttack + b->baseDefense + b->baseSpeed + b->baseSpAttack + b->baseSpDefense;
++}
++
++static bool8 InParty(u16 species)
++{
++    u8 i;
++
++    for (i = 0; i < PARTY_SIZE; i++)
++        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == species && species != SPECIES_NONE)
++            return TRUE;
++    return FALSE;
++}
 +
 +// Rarity: the higher a species' base stat total, the smaller its weight, but never below 1.
 +// weight = ((720 - BST) / 10)^2, at least 1 (BST 200 -> 2704, BST 300 -> 1764, BST 500 -> 484, BST 600 -> 144, BST 680 -> 16).
++// Then, for this player: a species in the party is four times as likely, one caught before (and not in the party) half as likely.
 +static u32 WeightOf(u16 species)
 +{
-+    const struct SpeciesInfo *b = &gSpeciesInfo[species];
-+    s32 bst = b->baseHP + b->baseAttack + b->baseDefense + b->baseSpeed + b->baseSpAttack + b->baseSpDefense;
++    s32 bst = Bst(species);
 +    s32 t = (720 - bst) / 10;
-+
 +    u32 w;
 +
 +    if (t < 1)
@@ -136480,7 +136251,13 @@ index 0000000..3554a67
 +    // a final stage (nothing to evolve into) with a total under 350 is 5% rarer still
 +    if (bst < 350 && gEvolutionTable[species][0].method == 0)
 +        w = w * 95 / 100;
-+    return w < 1 ? 1 : w;
++    if (w < 1)
++        w = 1;
++    if (InParty(species))
++        w *= 4;
++    else if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
++        w = w / 2 < 1 ? 1 : w / 2;
++    return w;
 +}
 +
 +static u16 PickSpecies(void)
@@ -136502,10 +136279,185 @@ index 0000000..3554a67
 +    return sPool[0];
 +}
 +
++// the temple: any Pokémon with a total of 350 or more (and a picture), on the same scale
++static bool8 StaticOk(u16 sp)
++{
++    return sp != SPECIES_NONE && sp != SPECIES_EGG && HanWildHasSprite(sp) && Bst(sp) >= 350;
++}
++
++static u16 PickStatic(void)
++{
++    u32 total = 0, roll;
++    u16 i;
++
++    for (i = 1; i < NUM_SPECIES; i++)
++        if (StaticOk(i))
++            total += WeightOf(i);
++    roll = Random32() % total;
++    for (i = 1; i < NUM_SPECIES; i++)
++    {
++        u32 w;
++
++        if (!StaticOk(i))
++            continue;
++        w = WeightOf(i);
++        if (roll < w)
++            return i;
++        roll -= w;
++    }
++    return SPECIES_MEW;
++}
++
++static bool8 HasCharm(void)
++{
++    return CheckBagHasItem(ITEM_SHINY_CHARM, 1);
++}
++
++// Shiny in the Wild Area: one in 8192, or one in five with the charm
++static bool8 ShinyRoll(void)
++{
++    return Random() % (HasCharm() ? 5 : 8192) == 0;
++}
++
++// The same Pokémon, shiny or not (a Pokémon's colours are in its personality and the trainer ID, and the stored data depends on the personality,
++// so it is made again with another personality that keeps the nature and the low half, which sets gender and ability).
++void HanMonMakeShiny(struct Pokemon *mon, bool8 shiny)
++{
++    u32 pers, otId, np = 0, cand;
++    u16 species, lo, base;
++    u8 level, k, start, nature;
++    bool8 found = FALSE;
++
++    if ((IsMonShiny(mon) != FALSE) == (shiny != FALSE))
++        return;
++    species = GetMonData(mon, MON_DATA_SPECIES);
++    level = GetMonData(mon, MON_DATA_LEVEL);
++    pers = GetMonData(mon, MON_DATA_PERSONALITY);
++    otId = GetMonData(mon, MON_DATA_OT_ID);
++    nature = pers % NUM_NATURES;
++    lo = pers & 0xFFFF;
++    base = HIHALF(otId) ^ LOHALF(otId) ^ lo;
++    if (shiny)
++    {
++        start = Random() & 7;
++        for (k = 0; k < 8; k++)
++        {
++            cand = ((u32)(base ^ ((start + k) & 7)) << 16) | lo;
++            if (!found)
++            {
++                np = cand;
++                found = TRUE;
++            }
++            if (cand % NUM_NATURES == nature)
++            {
++                np = cand;
++                break;
++            }
++        }
++    }
++    else
++    {
++        for (k = 0; k < 200; k++)
++        {
++            u16 hi = Random();
++
++            cand = ((u32)hi << 16) | lo;
++            if ((base ^ hi) >= 8 && (cand % NUM_NATURES == nature || k == 199))
++            {
++                np = cand;
++                break;
++            }
++        }
++    }
++    CreateMon(mon, species, level, USE_RANDOM_IVS, TRUE, np, OT_ID_PLAYER_ID, 0);
++}
++
++// any other wild Pokémon (grass, water, fishing, scripted): the charm makes one in five shiny
++void HanMonCharmRoll(struct Pokemon *mon)
++{
++    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_UNOWN || !HasCharm())
++        return;
++    HanMonMakeShiny(mon, Random() % 5 == 0);
++}
++
++// the OLD MAN's team: as many Pokémon as the player has (3 to 6), at the level of the player's team on average, picked at random from the
++// Wild Area Pokémon whose total is nearest to the average total of the player's team
++u8 HanWildOldManParty(struct Pokemon *party)
++{
++    u16 nearest[12];
++    bool8 used[ARRAY_COUNT(sPool)];
++    s32 sum = 0, lvlSum = 0, n = 0, target, size, count, i, j;
++
++    for (i = 0; i < PARTY_SIZE; i++)
++    {
++        u16 sp = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
++
++        if (sp != SPECIES_NONE && sp != SPECIES_EGG)
++        {
++            sum += Bst(sp);
++            lvlSum += GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
++            n++;
++        }
++    }
++    if (n == 0)
++        n = 1;
++    target = sum / n;
++    lvlSum = lvlSum / n;
++    if (lvlSum < 5)
++        lvlSum = 5;
++    size = gPlayerPartyCount < 3 ? 3 : (gPlayerPartyCount > 6 ? 6 : gPlayerPartyCount);
++    count = size * 2;
++    for (i = 0; i < ARRAY_COUNT(sPool); i++)
++        used[i] = FALSE;
++    for (j = 0; j < count; j++)
++    {
++        s32 best = -1, bestD = 0x7FFFFFFF;
++
++        for (i = 0; i < ARRAY_COUNT(sPool); i++)
++        {
++            s32 d = Bst(sPool[i]) - target;
++
++            if (d < 0)
++                d = -d;
++            if (!used[i] && d < bestD)
++            {
++                bestD = d;
++                best = i;
++            }
++        }
++        used[best] = TRUE;
++        nearest[j] = sPool[best];
++    }
++    ZeroEnemyPartyMons();
++    for (i = 0; i < size; i++)
++    {
++        u16 pick;
++
++        do
++            pick = Random() % count;
++        while (nearest[pick] == SPECIES_NONE);
++        CreateMon(&party[i], nearest[pick], lvlSum, 24, FALSE, 0, OT_ID_RANDOM_NO_SHINY, 0);
++        nearest[pick] = SPECIES_NONE;
++    }
++    return size;
++}
++
++static u8 PaletteFor(u16 sp, bool8 shiny, u16 tag, u8 *idx, u8 *loadedMask, u8 slot, bool8 *isShiny)
++{
++    u8 id;
++    bool8 load = !(*loadedMask & (1 << slot));
++
++    id = HanWildSpriteCreate(sp | (shiny ? 0x8000 : 0), tag, &idx[slot], load);
++    if (load && id != MAX_SPRITES)
++        *loadedMask |= 1 << slot;
++    *isShiny = shiny;
++    return id;
++}
++
 +static bool8 Spawn(void)
 +{
 +    u16 chosen[GROUPS];
-+    u8 g, n, i, tries, palIdx = 0, top = 5, lvl;
++    u8 g, n, i, tries, top = 5, lvl, loaded = 0, palIdx[2 * GROUPS];
 +    s16 px, py;
 +
 +    // level: about that of the player's best Pokémon
@@ -136533,6 +136485,7 @@ index 0000000..3554a67
 +        for (n = 0; n < PER_GROUP; n++)
 +        {
 +            u8 id;
++            bool8 shiny = ShinyRoll(), isShiny;
 +            s16 tx = 0, ty = 0;
 +
 +            for (tries = 0; tries < 60; tries++)
@@ -136549,7 +136502,14 @@ index 0000000..3554a67
 +                lvl = 5;
 +            if (lvl > 70)
 +                lvl = 70;
-+            id = HanWildSpriteCreate(sp, WILD_PAL + g, &palIdx, n == 0);
++            id = MAX_SPRITES;
++            if (shiny)
++                id = PaletteFor(sp, TRUE, WILD_PAL + 4 + g, palIdx, &loaded, GROUPS + g, &isShiny);
++            if (id == MAX_SPRITES) // no shiny palette to spare: this one is drawn in the usual colours, and is not shiny
++            {
++                shiny = FALSE;
++                id = PaletteFor(sp, FALSE, WILD_PAL + g, palIdx, &loaded, g, &isShiny);
++            }
 +            if (id == MAX_SPRITES)
 +                continue;
 +            gSprites[id].data[0] = tx * 16;
@@ -136557,7 +136517,7 @@ index 0000000..3554a67
 +            gSprites[id].data[2] = sp;
 +            gSprites[id].data[3] = 1 + (Random() & 3);
 +            gSprites[id].data[4] = Random() & 63;
-+            gSprites[id].data[5] = lvl;
++            gSprites[id].data[5] = lvl | (shiny ? SHINY_BIT : 0);
 +            gSprites[id].data[6] = 0;
 +            gSprites[id].data[7] = WILD_TAG;
 +            gSprites[id].callback = SpriteCB_Roamer;
@@ -136569,10 +136529,44 @@ index 0000000..3554a67
 +    return sFirst != 0;
 +}
 +
++// the temple's one Pokémon: stands still in the middle of the room
++static void SpawnStatic(void)
++{
++    u8 palIdx = 0, id;
++    u16 sp = PickStatic();
++    bool8 shiny = ShinyRoll();
++    u8 top = 5, i;
++
++    for (i = 0; i < PARTY_SIZE; i++)
++        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
++            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
++    if (top > 70)
++        top = 70;
++    id = HanWildSpriteCreate(sp | (shiny ? 0x8000 : 0), STATIC_PAL, &palIdx, TRUE);
++    if (id == MAX_SPRITES)
++        return;
++    gSprites[id].data[0] = 4 * 16;
++    gSprites[id].data[1] = 3 * 16;
++    gSprites[id].data[2] = sp;
++    gSprites[id].data[3] = DIR_SOUTH;
++    gSprites[id].data[4] = 0;
++    gSprites[id].data[5] = top | (shiny ? SHINY_BIT : 0);
++    gSprites[id].data[6] = 0;
++    gSprites[id].data[7] = WILD_TAG;
++    gSprites[id].callback = SpriteCB_Static;
++    StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_SOUTH));
++    Place(&gSprites[id]);
++    sFirst = id + 1;
++}
++
 +// every frame of the overworld
 +void HanWildFrame(void)
 +{
-+    if (!InWildArea())
++    bool8 temple = InTemple();
++
++    if (!temple)
++        sStaticDone = FALSE; // another visit, another Pokémon
++    if (!InWildArea() && !temple)
 +    {
 +        sFirst = 0;
 +        return;
@@ -136582,7 +136576,17 @@ index 0000000..3554a67
 +    if (sFirst != 0 && (!gSprites[sFirst - 1].inUse || gSprites[sFirst - 1].data[7] != WILD_TAG))
 +        sFirst = 0;
 +    if (sFirst == 0)
-+        Spawn();
++    {
++        if (temple)
++        {
++            if (!sStaticDone)
++                SpawnStatic();
++        }
++        else
++        {
++            Spawn();
++        }
++    }
 +}
 +
 +// called where the player can act: a roamer on the player's tile starts a battle
@@ -136591,7 +136595,7 @@ index 0000000..3554a67
 +    struct Sprite *player;
 +    u8 i;
 +
-+    if (sFirst == 0 || !InWildArea())
++    if (sFirst == 0 || (!InWildArea() && !InTemple()))
 +        return FALSE;
 +    player = &gSprites[gPlayerAvatar.spriteId];
 +    for (i = 0; i < MAX_SPRITES; i++)
@@ -136599,14 +136603,17 @@ index 0000000..3554a67
 +        struct Sprite *s = &gSprites[i];
 +        s16 dx, dy;
 +
-+        if (!s->inUse || s->data[7] != WILD_TAG || s->callback != SpriteCB_Roamer)
++        if (!s->inUse || s->data[7] != WILD_TAG || (s->callback != SpriteCB_Roamer && s->callback != SpriteCB_Static))
 +            continue;
 +        dx = s->x - (player->x + player->x2);
 +        dy = s->y - (player->y + player->y2);
 +        if (dx < 13 && dx > -13 && dy < 13 && dy > -13)
 +        {
 +            sBattleSpecies = s->data[2];
-+            sBattleLevel = s->data[5];
++            sBattleLevel = s->data[5] & 0xFF;
++            sBattleShiny = (s->data[5] & SHINY_BIT) != 0;
++            if (s->callback == SpriteCB_Static)
++                sStaticDone = TRUE;
 +            ScriptContext_SetupScript(HanWild_EventScript_Battle);
 +            return TRUE;
 +        }
@@ -136617,25 +136624,18 @@ index 0000000..3554a67
 +void HanWildStartBattle(void)
 +{
 +    CreateScriptedWildMon(sBattleSpecies, sBattleLevel, ITEM_NONE);
++    HanMonMakeShiny(&gEnemyParty[0], sBattleShiny); // what the sprite showed
 +}
 +
-+// Surfing across the edge between Route 124 and the Wild Area: VAR_0x8004 gets the column to arrive at (VAR_0x8005: 0 = going in, 1 = out)
++// Surfing in from Route 124 to the Wild Area's south edge: VAR_0x8004 gets the column to arrive at
 +void HanWildEdgeX(void)
 +{
 +    s16 x, y;
 +
 +    PlayerGetDestCoords(&x, &y);
 +    x -= MAP_OFFSET;
-+    if (gSpecialVar_0x8005 == 0)
-+    {
-+        x += 8;
-+        gSpecialVar_0x8004 = x < 6 ? 6 : (x > 89 ? 89 : x);
-+    }
-+    else
-+    {
-+        x -= 8;
-+        gSpecialVar_0x8004 = x < 1 ? 1 : (x > 78 ? 78 : x);
-+    }
++    x -= 24;
++    gSpecialVar_0x8004 = x < 2 ? 2 : (x > 29 ? 29 : x);
 +}
 diff --git a/src/item_use.c b/src/item_use.c
 index 954f482..2a5a09e 100644
@@ -138681,7 +138681,7 @@ index 41eebd8..476128e 100644
 +    return list[start + gSpecialVar_Result];
  }
 diff --git a/src/script_pokemon_util.c b/src/script_pokemon_util.c
-index bc11dc0..1605eeb 100644
+index bc11dc0..11f3cfe 100644
 --- a/src/script_pokemon_util.c
 +++ b/src/script_pokemon_util.c
 @@ -8,22 +8,176 @@
@@ -138892,10 +138892,18 @@ index bc11dc0..1605eeb 100644
      isEgg = TRUE;
      SetMonData(mon, MON_DATA_IS_EGG, &isEgg);
  
-@@ -131,6 +301,11 @@ void CreateScriptedWildMon(u16 species, u8 level, u16 item)
+@@ -125,12 +295,19 @@ bool8 DoesPartyHaveEnigmaBerry(void)
+     return hasItem;
+ }
+ 
++extern void HanMonCharmRoll(struct Pokemon *mon);
+ void CreateScriptedWildMon(u16 species, u8 level, u16 item)
+ {
+     u8 heldItem[2];
  
      ZeroEnemyPartyMons();
      CreateMon(&gEnemyParty[0], species, level, 32, 0, 0, OT_ID_PLAYER_ID, 0);
++    HanMonCharmRoll(&gEnemyParty[0]); // Hän build: the SHINY CHARM
 +    if (species == SPECIES_MIGHTYENA) // Hän build: the one MIGHTYENA a script sets up stands in the ice cave. It has SLUSH RUSH
 +    {
 +        u8 second = 1;
@@ -138904,7 +138912,7 @@ index bc11dc0..1605eeb 100644
      if (item)
      {
          heldItem[0] = item;
-@@ -213,3 +388,266 @@ void ReducePlayerPartyToThree(void)
+@@ -213,3 +390,266 @@ void ReducePlayerPartyToThree(void)
      CalculatePlayerPartyCount();
      Free(party);
  }
@@ -139172,7 +139180,7 @@ index bc11dc0..1605eeb 100644
 +    CalculatePlayerPartyCount();
 +}
 diff --git a/src/seagallop.c b/src/seagallop.c
-index 8d00ead..b296fb8 100644
+index 8d00ead..e275f89 100644
 --- a/src/seagallop.c
 +++ b/src/seagallop.c
 @@ -71,7 +71,10 @@ static const s8 sSeag[][4] = {
@@ -139183,7 +139191,7 @@ index 8d00ead..b296fb8 100644
 +    [SEAGALLOP_BIRTH_ISLAND]    = {MAP(MAP_BIRTH_ISLAND_HARBOR), 0x08, 0x05},
 +    [SEAGALLOP_DEWFORD]         = {MAP(MAP_DEWFORD_TOWN),        0x0B, 0x09},
 +    [SEAGALLOP_FRONTIER]        = {MAP(MAP_BATTLE_FRONTIER_RECEPTION_GATE), 0x04, 0x0B},
-+    [SEAGALLOP_WILD]            = {MAP(MAP_HAN_WILD_AREA),       0x30, 0x37}
++    [SEAGALLOP_WILD]            = {MAP(MAP_HAN_WILD_AREA),       0x05, 0x36}
  };
  
  // Bitpacked array.  In the commented section, right-most bit is the
@@ -140762,6 +140770,26 @@ index 90b481a..789ecec 100644
  ALIGNED(4) const u8 gText_UR_Chat2[] = _("CHAT");
  ALIGNED(4) const u8 gText_UR_Greetings[] = _("GREETINGS");
  ALIGNED(4) const u8 gText_UR_Exit[] = _("EXIT");
+diff --git a/src/wild_encounter.c b/src/wild_encounter.c
+index fa358c0..650d7b4 100644
+--- a/src/wild_encounter.c
++++ b/src/wild_encounter.c
+@@ -223,6 +223,7 @@ static bool8 UnlockedTanobyOrAreNotInTanoby(void)
+     return FALSE;
+ }
+ 
++extern void HanMonCharmRoll(struct Pokemon *mon);
+ static void GenerateWildMon(u16 species, u8 level, u8 slot)
+ {
+     u32 personality;
+@@ -238,6 +239,7 @@ static void GenerateWildMon(u16 species, u8 level, u8 slot)
+         personality = GenerateUnownPersonalityByLetter(sUnownLetterSlots[chamber][slot]);
+         CreateMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, TRUE, personality, FALSE, 0);
+     }
++    HanMonCharmRoll(&gEnemyParty[0]); // Hän build: the SHINY CHARM
+ }
+ 
+ static u32 GenerateUnownPersonalityByLetter(u8 letter)
 diff --git a/tools/han/README.md b/tools/han/README.md
 new file mode 100644
 index 0000000..59f6bfb
