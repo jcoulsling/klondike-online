@@ -133815,7 +133815,7 @@ index 0000000..2be09a4
 +}
 diff --git a/src/han_hoenn_fly.c b/src/han_hoenn_fly.c
 new file mode 100644
-index 0000000..0e12eb1
+index 0000000..4d32cef
 --- /dev/null
 +++ b/src/han_hoenn_fly.c
 @@ -0,0 +1,292 @@
@@ -133871,7 +133871,7 @@ index 0000000..0e12eb1
 +        FlagSet(VISIT_FLAG(i));
 +}
 +
-+static const u8 sText_Hint[] = _("{SELECT_BUTTON}KANTO, SEVII");
++static const u8 sText_Hint[] = _("{SELECT_BUTTON}SWITCH REGION");
 +
 +static const u32 sMapTiles[] = INCBIN_U32("graphics/han_hoenn_map/map.8bpp.lz");
 +static const u32 sMapTilemap[] = INCBIN_U32("graphics/han_hoenn_map/map.bin.lz");
@@ -138224,7 +138224,7 @@ index b3e3c77..c4e7d7f 100644
  }
  
 diff --git a/src/region_map.c b/src/region_map.c
-index d65f99f..b5d8e8e 100644
+index d65f99f..46dea39 100644
 --- a/src/region_map.c
 +++ b/src/region_map.c
 @@ -496,9 +496,9 @@ static const struct WindowTemplate sRegionMapWindowTemplates[] = {
@@ -138295,7 +138295,7 @@ index d65f99f..b5d8e8e 100644
 +// Hän build: SELECT on the fly map goes to the fly map of Hoenn (src/han_hoenn_fly.c), and SELECT there comes back
 +bool8 gHanFlyForceKanto;
 +static bool8 sHanGoHoenn;
-+static const u8 sText_HanSelectHoenn[] = _("{SELECT_BUTTON}HOENN");
++static const u8 sText_HanSelectHoenn[] = _("{SELECT_BUTTON}SWITCH REGION");
 +
  void CB2_OpenFlyMap(void)
  {
