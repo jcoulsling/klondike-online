@@ -1089,3 +1089,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 ## 2026-11-24l
 - Hoenn fly towns now unlock when you stand in them (16 flags, 480 to 495 in the Hoenn flag range). The Hoenn fly map only moves between unlocked towns and A on a locked one does nothing. Rowan gets all of them, on a new game and on each load.
 - Tested: the first Hoenn badge is given after beating Roxanne (level cap passes at level 12); the Hoenn trainer card shows badge pictures for the badges held.
+
+## 2026-11-24m
+- Hoenn hidden items (77 of Emerald's): face the spot and press A, as in Kanto. They use their own flags in the Hoenn range (300 to 479). A hidden item with a quantity of 127 in the map data means "a Hoenn one, quantity 1" (`GetHiddenItemAttr` in `src/field_specials.c`). Tested on Route 104.

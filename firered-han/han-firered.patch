@@ -12763,10 +12763,10 @@ index 0000000..392261d
 +	.byte 0
 diff --git a/data/maps/FallarborTown/map.json b/data/maps/FallarborTown/map.json
 new file mode 100644
-index 0000000..42ce0bc
+index 0000000..4ecfb25
 --- /dev/null
 +++ b/data/maps/FallarborTown/map.json
-@@ -0,0 +1,165 @@
+@@ -0,0 +1,175 @@
 +{
 +  "id": "MAP_FALLARBOR_TOWN",
 +  "name": "FallarborTown",
@@ -12929,6 +12929,16 @@ index 0000000..42ce0bc
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 2,
++      "y": 15,
++      "elevation": 3,
++      "item": "ITEM_NUGGET",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 5",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -15475,10 +15485,10 @@ index 0000000..11e20f7
 +	.byte 0
 diff --git a/data/maps/GraniteCave_B2F/map.json b/data/maps/GraniteCave_B2F/map.json
 new file mode 100644
-index 0000000..bcf03cf
+index 0000000..bf0188a
 --- /dev/null
 +++ b/data/maps/GraniteCave_B2F/map.json
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,105 @@
 +{
 +  "id": "MAP_GRANITE_CAVE_B2F",
 +  "name": "GraniteCave_B2F",
@@ -15561,7 +15571,28 @@ index 0000000..bcf03cf
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 28,
++      "y": 6,
++      "elevation": 3,
++      "item": "ITEM_EVERSTONE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 61",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 15,
++      "y": 11,
++      "elevation": 3,
++      "item": "ITEM_EVERSTONE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 62",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/GraniteCave_B2F/scripts.inc b/data/maps/GraniteCave_B2F/scripts.inc
 new file mode 100644
@@ -15685,10 +15716,10 @@ index 0000000..517e20b
 +	.byte 0
 diff --git a/data/maps/HoennVictoryRoad_1F/map.json b/data/maps/HoennVictoryRoad_1F/map.json
 new file mode 100644
-index 0000000..8285839
+index 0000000..50992f1
 --- /dev/null
 +++ b/data/maps/HoennVictoryRoad_1F/map.json
-@@ -0,0 +1,149 @@
+@@ -0,0 +1,160 @@
 +{
 +  "id": "MAP_HOENN_VICTORY_ROAD_1F",
 +  "name": "HoennVictoryRoad_1F",
@@ -15836,7 +15867,18 @@ index 0000000..8285839
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 30,
++      "y": 39,
++      "elevation": 4,
++      "item": "ITEM_ULTRA_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 73",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/HoennVictoryRoad_1F/scripts.inc b/data/maps/HoennVictoryRoad_1F/scripts.inc
 new file mode 100644
@@ -15886,10 +15928,10 @@ index 7706453..dac75e3 100644
    "warp_events": [
 diff --git a/data/maps/JaggedPass/map.json b/data/maps/JaggedPass/map.json
 new file mode 100644
-index 0000000..212966b
+index 0000000..84df861
 --- /dev/null
 +++ b/data/maps/JaggedPass/map.json
-@@ -0,0 +1,136 @@
+@@ -0,0 +1,157 @@
 +{
 +  "id": "MAP_JAGGED_PASS",
 +  "name": "JaggedPass",
@@ -16024,7 +16066,28 @@ index 0000000..212966b
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 8,
++      "y": 10,
++      "elevation": 3,
++      "item": "ITEM_FULL_HEAL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 67",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 7,
++      "y": 29,
++      "elevation": 3,
++      "item": "ITEM_GREAT_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 68",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/JaggedPass/scripts.inc b/data/maps/JaggedPass/scripts.inc
 new file mode 100644
@@ -16036,10 +16099,10 @@ index 0000000..2ae45ec
 +	.byte 0
 diff --git a/data/maps/LavaridgeTown/map.json b/data/maps/LavaridgeTown/map.json
 new file mode 100644
-index 0000000..7859c96
+index 0000000..96ca2de
 --- /dev/null
 +++ b/data/maps/LavaridgeTown/map.json
-@@ -0,0 +1,219 @@
+@@ -0,0 +1,229 @@
 +{
 +  "id": "MAP_LAVARIDGE_TOWN",
 +  "name": "LavaridgeTown",
@@ -16256,6 +16319,16 @@ index 0000000..7859c96
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 4,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_ICE_HEAL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 4",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -17511,10 +17584,10 @@ index 7ce87cd..2478c04 100644
      .string "orphaned POKéMON.$"
 diff --git a/data/maps/LilycoveCity/map.json b/data/maps/LilycoveCity/map.json
 new file mode 100644
-index 0000000..d762876
+index 0000000..8efaf71
 --- /dev/null
 +++ b/data/maps/LilycoveCity/map.json
-@@ -0,0 +1,421 @@
+@@ -0,0 +1,451 @@
 +{
 +  "id": "MAP_LILYCOVE_CITY",
 +  "name": "LilycoveCity",
@@ -17933,6 +18006,36 @@ index 0000000..d762876
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 36,
++      "y": 31,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 1",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 61,
++      "y": 7,
++      "elevation": 0,
++      "item": "ITEM_PP_UP",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 2",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 64,
++      "y": 31,
++      "elevation": 0,
++      "item": "ITEM_POKE_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 3",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -26120,10 +26223,10 @@ index 0000000..c467b5a
 +	.byte 0
 diff --git a/data/maps/MtPyre_Exterior/map.json b/data/maps/MtPyre_Exterior/map.json
 new file mode 100644
-index 0000000..c9c5093
+index 0000000..f5cdc48
 --- /dev/null
 +++ b/data/maps/MtPyre_Exterior/map.json
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,91 @@
 +{
 +  "id": "MAP_MT_PYRE_EXTERIOR",
 +  "name": "MtPyre_Exterior",
@@ -26192,7 +26295,28 @@ index 0000000..c9c5093
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 9,
++      "y": 8,
++      "elevation": 0,
++      "item": "ITEM_ULTRA_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 69",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 16,
++      "y": 22,
++      "elevation": 0,
++      "item": "ITEM_MAX_ETHER",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 70",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/MtPyre_Exterior/scripts.inc b/data/maps/MtPyre_Exterior/scripts.inc
 new file mode 100644
@@ -26204,10 +26328,10 @@ index 0000000..ab90015
 +	.byte 0
 diff --git a/data/maps/MtPyre_Summit/map.json b/data/maps/MtPyre_Summit/map.json
 new file mode 100644
-index 0000000..5e411f2
+index 0000000..6084739
 --- /dev/null
 +++ b/data/maps/MtPyre_Summit/map.json
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,91 @@
 +{
 +  "id": "MAP_MT_PYRE_SUMMIT",
 +  "name": "MtPyre_Summit",
@@ -26276,7 +26400,28 @@ index 0000000..5e411f2
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 9,
++      "y": 25,
++      "elevation": 0,
++      "item": "ITEM_ZINC",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 71",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 37,
++      "y": 7,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 72",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/MtPyre_Summit/scripts.inc b/data/maps/MtPyre_Summit/scripts.inc
 new file mode 100644
@@ -28452,10 +28597,10 @@ index bde0f85..98150a6 100644
  #ifdef BUGFIX @ The localizers missed what should be a textcolor change in the localizations.
 diff --git a/data/maps/PetalburgCity/map.json b/data/maps/PetalburgCity/map.json
 new file mode 100644
-index 0000000..2a80786
+index 0000000..da943eb
 --- /dev/null
 +++ b/data/maps/PetalburgCity/map.json
-@@ -0,0 +1,198 @@
+@@ -0,0 +1,208 @@
 +{
 +  "id": "MAP_PETALBURG_CITY",
 +  "name": "PetalburgCity",
@@ -28651,6 +28796,16 @@ index 0000000..2a80786
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 11,
++      "y": 29,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 0",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -29784,10 +29939,10 @@ index 0000000..a1eedb1
 +	.byte 0
 diff --git a/data/maps/PetalburgWoods/map.json b/data/maps/PetalburgWoods/map.json
 new file mode 100644
-index 0000000..686d104
+index 0000000..be6df08
 --- /dev/null
 +++ b/data/maps/PetalburgWoods/map.json
-@@ -0,0 +1,199 @@
+@@ -0,0 +1,239 @@
 +{
 +  "id": "MAP_PETALBURG_WOODS",
 +  "name": "PetalburgWoods",
@@ -29976,6 +30131,46 @@ index 0000000..686d104
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 39,
++      "y": 35,
++      "elevation": 3,
++      "item": "ITEM_POTION",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 63",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 26,
++      "y": 6,
++      "elevation": 3,
++      "item": "ITEM_TINY_MUSHROOM",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 64",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 40,
++      "y": 29,
++      "elevation": 3,
++      "item": "ITEM_TINY_MUSHROOM",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 65",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 4,
++      "y": 19,
++      "elevation": 3,
++      "item": "ITEM_POKE_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 66",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    },
 +    {
 +      "type": "sign",
@@ -30886,10 +31081,10 @@ index 0000000..83496d1
 +	.byte 0
 diff --git a/data/maps/Route104/map.json b/data/maps/Route104/map.json
 new file mode 100644
-index 0000000..19701ad
+index 0000000..afa5f08
 --- /dev/null
 +++ b/data/maps/Route104/map.json
-@@ -0,0 +1,513 @@
+@@ -0,0 +1,563 @@
 +{
 +  "id": "MAP_ROUTE104",
 +  "name": "Route104",
@@ -31400,6 +31595,56 @@ index 0000000..19701ad
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 7,
++      "y": 6,
++      "elevation": 3,
++      "item": "ITEM_SUPER_POTION",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 6",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 3,
++      "y": 9,
++      "elevation": 3,
++      "item": "ITEM_POKE_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 7",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 14,
++      "y": 55,
++      "elevation": 3,
++      "item": "ITEM_POTION",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 8",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 16,
++      "y": 72,
++      "elevation": 3,
++      "item": "ITEM_ANTIDOTE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 9",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 16,
++      "y": 64,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 10",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -31553,10 +31798,10 @@ index 0000000..01676bf
 +	.byte 0
 diff --git a/data/maps/Route105/map.json b/data/maps/Route105/map.json
 new file mode 100644
-index 0000000..338fe60
+index 0000000..e6868e0
 --- /dev/null
 +++ b/data/maps/Route105/map.json
-@@ -0,0 +1,145 @@
+@@ -0,0 +1,166 @@
 +{
 +  "id": "MAP_ROUTE105",
 +  "name": "Route105",
@@ -31700,7 +31945,28 @@ index 0000000..338fe60
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 15,
++      "y": 68,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 11",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 5,
++      "y": 56,
++      "elevation": 3,
++      "item": "ITEM_BIG_PEARL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 12",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/Route105/scripts.inc b/data/maps/Route105/scripts.inc
 new file mode 100644
@@ -31712,10 +31978,10 @@ index 0000000..76d89ee
 +	.byte 0
 diff --git a/data/maps/Route106/map.json b/data/maps/Route106/map.json
 new file mode 100644
-index 0000000..062d3cd
+index 0000000..75eac29
 --- /dev/null
 +++ b/data/maps/Route106/map.json
-@@ -0,0 +1,115 @@
+@@ -0,0 +1,145 @@
 +{
 +  "id": "MAP_ROUTE106",
 +  "name": "Route106",
@@ -31821,6 +32087,36 @@ index 0000000..062d3cd
 +  ],
 +  "coord_events": [],
 +  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 41,
++      "y": 11,
++      "elevation": 3,
++      "item": "ITEM_POKE_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 13",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 53,
++      "y": 12,
++      "elevation": 0,
++      "item": "ITEM_STARDUST",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 14",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 68,
++      "y": 15,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 15",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
 +    {
 +      "type": "sign",
 +      "x": 59,
@@ -31979,10 +32275,10 @@ index 0000000..0f73277
 +	.byte 0
 diff --git a/data/maps/Route108/map.json b/data/maps/Route108/map.json
 new file mode 100644
-index 0000000..885cf08
+index 0000000..a1c7145
 --- /dev/null
 +++ b/data/maps/Route108/map.json
-@@ -0,0 +1,132 @@
+@@ -0,0 +1,143 @@
 +{
 +  "id": "MAP_ROUTE108",
 +  "name": "Route108",
@@ -32113,7 +32409,18 @@ index 0000000..885cf08
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 38,
++      "y": 14,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 16",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/Route108/scripts.inc b/data/maps/Route108/scripts.inc
 new file mode 100644
@@ -32125,10 +32432,10 @@ index 0000000..3931355
 +	.byte 0
 diff --git a/data/maps/Route109/map.json b/data/maps/Route109/map.json
 new file mode 100644
-index 0000000..bae4a9a
+index 0000000..a42262a
 --- /dev/null
 +++ b/data/maps/Route109/map.json
-@@ -0,0 +1,344 @@
+@@ -0,0 +1,404 @@
 +{
 +  "id": "MAP_ROUTE109",
 +  "name": "Route109",
@@ -32470,6 +32777,66 @@ index 0000000..bae4a9a
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 16,
++      "y": 23,
++      "elevation": 3,
++      "item": "ITEM_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 17",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 33,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 18",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 9,
++      "y": 10,
++      "elevation": 3,
++      "item": "ITEM_GREAT_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 19",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 28,
++      "y": 20,
++      "elevation": 3,
++      "item": "ITEM_ETHER",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 20",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 13,
++      "y": 16,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 21",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 8,
++      "y": 42,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 22",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -32637,10 +33004,10 @@ index 27e256c..7753ae9 100644
      .string "Careful!\n"
 diff --git a/data/maps/Route110/map.json b/data/maps/Route110/map.json
 new file mode 100644
-index 0000000..ca40ef6
+index 0000000..736e9fc
 --- /dev/null
 +++ b/data/maps/Route110/map.json
-@@ -0,0 +1,534 @@
+@@ -0,0 +1,574 @@
 +{
 +  "id": "MAP_ROUTE110",
 +  "name": "Route110",
@@ -33166,6 +33533,46 @@ index 0000000..ca40ef6
 +      "script": "Hoenn_EventScript_Sign"
 +    },
 +    {
++      "type": "hidden_item",
++      "x": 35,
++      "y": 39,
++      "elevation": 3,
++      "item": "ITEM_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 23",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 33,
++      "y": 45,
++      "elevation": 3,
++      "item": "ITEM_GREAT_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 24",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 4,
++      "y": 35,
++      "elevation": 3,
++      "item": "ITEM_POKE_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 25",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 37,
++      "y": 67,
++      "elevation": 3,
++      "item": "ITEM_FULL_HEAL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 26",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
 +      "type": "sign",
 +      "x": 13,
 +      "y": 16,
@@ -33405,10 +33812,10 @@ index 0000000..c0fa391
 +	.byte 0
 diff --git a/data/maps/Route110_TrickHouseEnd/map.json b/data/maps/Route110_TrickHouseEnd/map.json
 new file mode 100644
-index 0000000..a88a44f
+index 0000000..24f12b5
 --- /dev/null
 +++ b/data/maps/Route110_TrickHouseEnd/map.json
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,47 @@
 +{
 +  "id": "MAP_ROUTE110_TRICK_HOUSE_END",
 +  "name": "Route110_TrickHouseEnd",
@@ -33443,7 +33850,18 @@ index 0000000..a88a44f
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 4,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_NUGGET",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 76",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/Route110_TrickHouseEnd/scripts.inc b/data/maps/Route110_TrickHouseEnd/scripts.inc
 new file mode 100644
@@ -34621,10 +35039,10 @@ index 0000000..692e135
 +	.byte 0
 diff --git a/data/maps/Route111/map.json b/data/maps/Route111/map.json
 new file mode 100644
-index 0000000..d0a12cd
+index 0000000..67cbc6e
 --- /dev/null
 +++ b/data/maps/Route111/map.json
-@@ -0,0 +1,508 @@
+@@ -0,0 +1,538 @@
 +{
 +  "id": "MAP_ROUTE111",
 +  "name": "Route111",
@@ -35116,12 +35534,42 @@ index 0000000..d0a12cd
 +      "script": "Hoenn_EventScript_Sign"
 +    },
 +    {
++      "type": "hidden_item",
++      "x": 26,
++      "y": 70,
++      "elevation": 0,
++      "item": "ITEM_STARDUST",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 27",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
 +      "type": "sign",
 +      "x": 7,
 +      "y": 84,
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 19,
++      "y": 55,
++      "elevation": 0,
++      "item": "ITEM_PROTEIN",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 28",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 35,
++      "y": 66,
++      "elevation": 0,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 29",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    },
 +    {
 +      "type": "sign",
@@ -35650,10 +36098,10 @@ index 0000000..1587140
 +	.byte 0
 diff --git a/data/maps/Route113/map.json b/data/maps/Route113/map.json
 new file mode 100644
-index 0000000..6fe775b
+index 0000000..38e3ad4
 --- /dev/null
 +++ b/data/maps/Route113/map.json
-@@ -0,0 +1,301 @@
+@@ -0,0 +1,331 @@
 +{
 +  "id": "MAP_ROUTE113",
 +  "name": "Route113",
@@ -35952,6 +36400,36 @@ index 0000000..6fe775b
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 66,
++      "y": 3,
++      "elevation": 3,
++      "item": "ITEM_ETHER",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 30",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 22,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_TM32_DOUBLE_TEAM",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 31",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 73,
++      "y": 3,
++      "elevation": 3,
++      "item": "ITEM_NUGGET",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 32",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -36042,10 +36520,10 @@ index 0000000..4a14001
 +	.byte 0
 diff --git a/data/maps/Route114/map.json b/data/maps/Route114/map.json
 new file mode 100644
-index 0000000..2a8c55d
+index 0000000..236f543
 --- /dev/null
 +++ b/data/maps/Route114/map.json
-@@ -0,0 +1,380 @@
+@@ -0,0 +1,400 @@
 +{
 +  "id": "MAP_ROUTE114",
 +  "name": "Route114",
@@ -36423,6 +36901,26 @@ index 0000000..2a8c55d
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 20,
++      "y": 57,
++      "elevation": 3,
++      "item": "ITEM_CARBOS",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 33",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 7,
++      "y": 30,
++      "elevation": 3,
++      "item": "ITEM_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 34",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -36686,10 +37184,10 @@ index 0000000..7e5b073
 +	.byte 0
 diff --git a/data/maps/Route115/map.json b/data/maps/Route115/map.json
 new file mode 100644
-index 0000000..09cdc94
+index 0000000..1a91a7d
 --- /dev/null
 +++ b/data/maps/Route115/map.json
-@@ -0,0 +1,358 @@
+@@ -0,0 +1,368 @@
 +{
 +  "id": "MAP_ROUTE115",
 +  "name": "Route115",
@@ -37045,6 +37543,16 @@ index 0000000..09cdc94
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 15,
++      "y": 49,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 35",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -37058,10 +37566,10 @@ index 0000000..7efba01
 +	.byte 0
 diff --git a/data/maps/Route116/map.json b/data/maps/Route116/map.json
 new file mode 100644
-index 0000000..2c8252d
+index 0000000..a0c4955
 --- /dev/null
 +++ b/data/maps/Route116/map.json
-@@ -0,0 +1,357 @@
+@@ -0,0 +1,377 @@
 +{
 +  "id": "MAP_ROUTE116",
 +  "name": "Route116",
@@ -37416,6 +37924,26 @@ index 0000000..2c8252d
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 22,
++      "y": 9,
++      "elevation": 3,
++      "item": "ITEM_SUPER_POTION",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 36",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 70,
++      "y": 13,
++      "elevation": 3,
++      "item": "ITEM_BLACK_GLASSES",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 37",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -37519,10 +38047,10 @@ index 0000000..9c16943
 +	.byte 0
 diff --git a/data/maps/Route117/map.json b/data/maps/Route117/map.json
 new file mode 100644
-index 0000000..42664ac
+index 0000000..63cf1ba
 --- /dev/null
 +++ b/data/maps/Route117/map.json
-@@ -0,0 +1,313 @@
+@@ -0,0 +1,323 @@
 +{
 +  "id": "MAP_ROUTE117",
 +  "name": "Route117",
@@ -37833,6 +38361,16 @@ index 0000000..42664ac
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 3,
++      "y": 18,
++      "elevation": 3,
++      "item": "ITEM_REPEL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 38",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -37910,10 +38448,10 @@ index 0000000..fb6f473
 +	.byte 0
 diff --git a/data/maps/Route118/map.json b/data/maps/Route118/map.json
 new file mode 100644
-index 0000000..b60c6f3
+index 0000000..96c6139
 --- /dev/null
 +++ b/data/maps/Route118/map.json
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,259 @@
 +{
 +  "id": "MAP_ROUTE118",
 +  "name": "Route118",
@@ -38150,6 +38688,26 @@ index 0000000..b60c6f3
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 31,
++      "y": 13,
++      "elevation": 3,
++      "item": "ITEM_IRON",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 39",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 12,
++      "y": 14,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 40",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -38163,10 +38721,10 @@ index 0000000..eebc1e2
 +	.byte 0
 diff --git a/data/maps/Route119/map.json b/data/maps/Route119/map.json
 new file mode 100644
-index 0000000..abf3879
+index 0000000..dc1320a
 --- /dev/null
 +++ b/data/maps/Route119/map.json
-@@ -0,0 +1,541 @@
+@@ -0,0 +1,581 @@
 +{
 +  "id": "MAP_ROUTE119",
 +  "name": "Route119",
@@ -38699,6 +39257,46 @@ index 0000000..abf3879
 +      "script": "Hoenn_EventScript_Sign"
 +    },
 +    {
++      "type": "hidden_item",
++      "x": 17,
++      "y": 82,
++      "elevation": 3,
++      "item": "ITEM_CALCIUM",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 41",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 38,
++      "y": 63,
++      "elevation": 3,
++      "item": "ITEM_ULTRA_BALL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 42",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 26,
++      "y": 120,
++      "elevation": 3,
++      "item": "ITEM_FULL_HEAL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 43",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 20,
++      "y": 29,
++      "elevation": 3,
++      "item": "ITEM_MAX_ETHER",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 44",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
 +      "type": "sign",
 +      "x": 28,
 +      "y": 9,
@@ -39084,10 +39682,10 @@ index c4bd1d9..eff90e4 100644
  Route12_Text_SportfishingArea::
 diff --git a/data/maps/Route120/map.json b/data/maps/Route120/map.json
 new file mode 100644
-index 0000000..f582211
+index 0000000..eafd82b
 --- /dev/null
 +++ b/data/maps/Route120/map.json
-@@ -0,0 +1,442 @@
+@@ -0,0 +1,482 @@
 +{
 +  "id": "MAP_ROUTE120",
 +  "name": "Route120",
@@ -39527,6 +40125,46 @@ index 0000000..f582211
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 9,
++      "y": 1,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 45",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 31,
++      "y": 11,
++      "elevation": 3,
++      "item": "ITEM_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 46",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 0,
++      "y": 86,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 47",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 24,
++      "y": 42,
++      "elevation": 3,
++      "item": "ITEM_ZINC",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 48",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -39540,10 +40178,10 @@ index 0000000..3c8fbbb
 +	.byte 0
 diff --git a/data/maps/Route121/map.json b/data/maps/Route121/map.json
 new file mode 100644
-index 0000000..d3d16ae
+index 0000000..fea0f35
 --- /dev/null
 +++ b/data/maps/Route121/map.json
-@@ -0,0 +1,362 @@
+@@ -0,0 +1,402 @@
 +{
 +  "id": "MAP_ROUTE121",
 +  "name": "Route121",
@@ -39903,6 +40541,46 @@ index 0000000..d3d16ae
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 23,
++      "y": 10,
++      "elevation": 3,
++      "item": "ITEM_HP_UP",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 49",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 58,
++      "y": 3,
++      "elevation": 3,
++      "item": "ITEM_NUGGET",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 50",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 72,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_FULL_HEAL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 51",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 68,
++      "y": 8,
++      "elevation": 3,
++      "item": "ITEM_MAX_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 52",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -40070,10 +40748,10 @@ index 0000000..fabb5ec
 +	.byte 0
 diff --git a/data/maps/Route123/map.json b/data/maps/Route123/map.json
 new file mode 100644
-index 0000000..611aa87
+index 0000000..7040c03
 --- /dev/null
 +++ b/data/maps/Route123/map.json
-@@ -0,0 +1,586 @@
+@@ -0,0 +1,636 @@
 +{
 +  "id": "MAP_ROUTE123",
 +  "name": "Route123",
@@ -40651,12 +41329,62 @@ index 0000000..611aa87
 +      "script": "Hoenn_EventScript_Sign"
 +    },
 +    {
++      "type": "hidden_item",
++      "x": 75,
++      "y": 1,
++      "elevation": 3,
++      "item": "ITEM_SUPER_REPEL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 53",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
 +      "type": "sign",
 +      "x": 20,
 +      "y": 7,
 +      "elevation": 3,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
 +      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "hidden_item",
++      "x": 12,
++      "y": 1,
++      "elevation": 3,
++      "item": "ITEM_REVIVE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 54",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 91,
++      "y": 15,
++      "elevation": 3,
++      "item": "ITEM_HYPER_POTION",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 55",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 139,
++      "y": 15,
++      "elevation": 3,
++      "item": "ITEM_PP_UP",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 56",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 138,
++      "y": 18,
++      "elevation": 3,
++      "item": "ITEM_RARE_CANDY",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 57",
++      "quantity": 127,
++      "underfoot": "FALSE"
 +    }
 +  ]
 +}
@@ -41594,10 +42322,10 @@ index 0000000..6e4e5ac
 +	.byte 0
 diff --git a/data/maps/Route128/map.json b/data/maps/Route128/map.json
 new file mode 100644
-index 0000000..77501a0
+index 0000000..167c5b7
 --- /dev/null
 +++ b/data/maps/Route128/map.json
-@@ -0,0 +1,129 @@
+@@ -0,0 +1,160 @@
 +{
 +  "id": "MAP_ROUTE128",
 +  "name": "Route128",
@@ -41725,7 +42453,38 @@ index 0000000..77501a0
 +  ],
 +  "warp_events": [],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 49,
++      "y": 9,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 58",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 57,
++      "y": 21,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 59",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 31,
++      "y": 33,
++      "elevation": 3,
++      "item": "ITEM_HEART_SCALE",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 60",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/Route128/scripts.inc b/data/maps/Route128/scripts.inc
 new file mode 100644
@@ -52885,10 +53644,10 @@ index 0000000..ff1aff4
 +	.byte 0
 diff --git a/data/maps/VictoryRoad_B2F/map.json b/data/maps/VictoryRoad_B2F/map.json
 new file mode 100644
-index 0000000..c6abe15
+index 0000000..07f09d3
 --- /dev/null
 +++ b/data/maps/VictoryRoad_B2F/map.json
-@@ -0,0 +1,142 @@
+@@ -0,0 +1,163 @@
 +{
 +  "id": "MAP_VICTORY_ROAD_B2F",
 +  "name": "VictoryRoad_B2F",
@@ -53029,7 +53788,28 @@ index 0000000..c6abe15
 +    }
 +  ],
 +  "coord_events": [],
-+  "bg_events": []
++  "bg_events": [
++    {
++      "type": "hidden_item",
++      "x": 28,
++      "y": 5,
++      "elevation": 3,
++      "item": "ITEM_ELIXIR",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 74",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    },
++    {
++      "type": "hidden_item",
++      "x": 37,
++      "y": 1,
++      "elevation": 3,
++      "item": "ITEM_MAX_REPEL",
++      "flag": "FLAG_HIDDEN_ITEMS_START + 75",
++      "quantity": 127,
++      "underfoot": "FALSE"
++    }
++  ]
 +}
 diff --git a/data/maps/VictoryRoad_B2F/scripts.inc b/data/maps/VictoryRoad_B2F/scripts.inc
 new file mode 100644
@@ -123969,6 +124749,32 @@ index d44e32b..8816af1 100644
      GetMonData(pokemon, MON_DATA_NICKNAME, gStringVar1);
      StringGet_Nickname(gStringVar1);
  }
+diff --git a/src/field_specials.c b/src/field_specials.c
+index 08b7ced..9378218 100644
+--- a/src/field_specials.c
++++ b/src/field_specials.c
+@@ -1,4 +1,5 @@
+ #include "global.h"
++#include "han_hoenn.h"
+ #include "gflib.h"
+ #include "quest_log.h"
+ #include "list_menu.h"
+@@ -1755,9 +1756,14 @@ u16 GetHiddenItemAttr(u32 hiddenItem, u8 attr)
+     if (attr == HIDDEN_ITEM_ITEM)
+         return GET_HIDDEN_ITEM_ITEM(hiddenItem);
+     else if (attr == HIDDEN_ITEM_FLAG)
++    {
++        // Hän build: a quantity of 127 marks a Hoenn hidden item (one of it), whose flag lives in the Hoenn flag range
++        if (GET_HIDDEN_ITEM_QUANTITY(hiddenItem) == 127)
++            return HAN_HOENN_FLAG_BASE + 300 + GET_HIDDEN_ITEM_FLAG(hiddenItem);
+         return GET_HIDDEN_ITEM_FLAG(hiddenItem) + FLAG_HIDDEN_ITEMS_START;
++    }
+     else if (attr == HIDDEN_ITEM_QUANTITY)
+-        return GET_HIDDEN_ITEM_QUANTITY(hiddenItem);
++        return GET_HIDDEN_ITEM_QUANTITY(hiddenItem) == 127 ? 1 : GET_HIDDEN_ITEM_QUANTITY(hiddenItem);
+     else if (attr == HIDDEN_ITEM_UNDERFOOT)
+         return GET_HIDDEN_ITEM_UNDERFOOT(hiddenItem);
+     else // Invalid
 diff --git a/src/fieldmap.c b/src/fieldmap.c
 index 4156777..ec43f7a 100644
 --- a/src/fieldmap.c
