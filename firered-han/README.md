@@ -1098,3 +1098,7 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-25a
 - Battle Frontier, outside only: both outdoor areas, the reception gate, Pokémon Center, Mart, Scott's house, the lounges, the exchange corner and the ranking hall are in. The ship from Dewford has a third stop, BATTLE FRONTIER, and a sailor at the reception gate sails home. The facilities (Tower, Dome, Factory, Palace, Arena, Pike, Pyramid) are not brought across: their doors do nothing. No Battle Points yet. Placeholder English text.
+
+## 2026-11-25b
+- Rowan's team is made without a loop that could stall (the nature is built into the personality).
+- A test build switch: add `#define HAN_CHEAT` to `include/han_rowan.h` and B+SELECT on the overworld becomes Rowan: whole team, all Kanto and Hoenn badges, the fly and Game Corner flags, money, coins, HMs, balls. It is off in the real build. The cheat ROM is a separate BPS, `haa_firered-han-cheat_coulson_*`, not for the web page.
