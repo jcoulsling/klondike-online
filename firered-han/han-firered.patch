@@ -333,7 +333,7 @@ index 8aa0a10..6dffa50 100644
  	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
  	healthbarupdate BS_ATTACKER
 diff --git a/data/event_scripts.s b/data/event_scripts.s
-index 88d7594..bafff02 100644
+index 88d7594..904ca4e 100644
 --- a/data/event_scripts.s
 +++ b/data/event_scripts.s
 @@ -87,6 +87,8 @@ gStdScripts::
@@ -468,7 +468,7 @@ index 88d7594..bafff02 100644
  
  	.include "data/text/seagallop.inc"
  
-@@ -1360,3 +1357,297 @@ Text_TestMsg::
+@@ -1360,3 +1357,315 @@ Text_TestMsg::
  	.include "data/text/save.inc"
  	.include "data/text/new_game_intro.inc"
  	.include "data/text/pokedude.inc"
@@ -737,6 +737,24 @@ index 88d7594..bafff02 100644
 +	.include "data/maps/ShoalCave_LowTideIceRoom/scripts.inc"
 +	.include "data/maps/AlteringCave/scripts.inc"
 +	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"
++	.include "data/maps/BattleFrontier_OutsideWest/scripts.inc"
++	.include "data/maps/BattleFrontier_OutsideEast/scripts.inc"
++	.include "data/maps/BattleFrontier_RankingHall/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge1/scripts.inc"
++	.include "data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge2/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge3/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge4/scripts.inc"
++	.include "data/maps/BattleFrontier_ScottsHouse/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge5/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge6/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge7/scripts.inc"
++	.include "data/maps/BattleFrontier_ReceptionGate/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge8/scripts.inc"
++	.include "data/maps/BattleFrontier_Lounge9/scripts.inc"
++	.include "data/maps/BattleFrontier_PokemonCenter_1F/scripts.inc"
++	.include "data/maps/BattleFrontier_PokemonCenter_2F/scripts.inc"
++	.include "data/maps/BattleFrontier_Mart/scripts.inc"
 +	.include "data/maps/TrainerHill_Entrance/scripts.inc"
 +	.include "data/maps/TrainerHill_1F/scripts.inc"
 +	.include "data/maps/TrainerHill_2F/scripts.inc"
@@ -839,6 +857,299 @@ index 0000000000000000000000000000000000000000..16dfe34aba70d1c45cf58218b6c086f9
 GIT binary patch
 literal 70
 tcmdO3)?x=i9d-j|Lv|1}VYgtmWCuYT_86mBC`>U*g+gSOzfm|?6ab)l4#EHc
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ExchangeServiceCorner/border.bin b/data/layouts/HoennBattleFrontier_ExchangeServiceCorner/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f496f458ecf2897514c7ef858e657bf062c57506
+GIT binary patch
+literal 8
+LcmZQ%U<5+|02}}X
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ExchangeServiceCorner/map.bin b/data/layouts/HoennBattleFrontier_ExchangeServiceCorner/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..62d5761e0df3314768b72f31552280dd33031b5e
+GIT binary patch
+literal 330
+zcmZusyAHxI3>0#><2CU5O<)54AR{AVM}C2piS94~dtm}5)Tuy0C~4Dzge=F7Pv<*F
+zIO2rp@0;L^3$D1~jt6S2v%x1)#CERKO4bsJ<_mAM*<qJWwy0_5OPNU^zGzkn`nK<}
+zPtA?(=VE4>TU#@{{ChcfAv@U@>9`puVf+(mzAMuWtvBP(<-zXs3N5GkT`Q{eGmxQ-
+UEXUjtNJW`&_*f<~Ew~2x0AWIL-~a#s
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_Lounge1/border.bin b/data/layouts/HoennBattleFrontier_Lounge1/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f496f458ecf2897514c7ef858e657bf062c57506
+GIT binary patch
+literal 8
+LcmZQ%U<5+|02}}X
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_Lounge1/map.bin b/data/layouts/HoennBattleFrontier_Lounge1/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..11ae8d6ee211f049e650470e8b7c16c491393323
+GIT binary patch
+literal 208
+zcmY+5!3u&<6hujc`JnU5_6fFow$kovQMwhQ7KUxYrCWLWLSq;>40D_cITbp~DO=dZ
+zl&W-zP121^)!cN~+T)I|JTNAV0i(n4kz3w)Mm$eEy*7UFjlb{>&d>kQEL+(B9pjMZ
+KoOa&&3HuC0L|&Hw
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_Lounge2/border.bin b/data/layouts/HoennBattleFrontier_Lounge2/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f496f458ecf2897514c7ef858e657bf062c57506
+GIT binary patch
+literal 8
+LcmZQ%U<5+|02}}X
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_Lounge2/map.bin b/data/layouts/HoennBattleFrontier_Lounge2/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f5f1745b1556abbf225a2a2e1aab2ccef127338c
+GIT binary patch
+literal 180
+zcmXYpI|_q96h$#dxT{a;66`cPP`h!aQLF+1F-?e#SlY_dR~_!RQL9d^p3Y7|LA`<s
+zXRo&gjT-dGZ;qOYBqF8r!$xAiyu?D{i**jq|3p@Pp4ryAwu)C~U)Eij{Nw&NKg-Rl
+IsCl_Q0a&6&z5oCK
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_OutsideEast/border.bin b/data/layouts/HoennBattleFrontier_OutsideEast/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..c3fe51511d0ddb88492f2082c4ae0dbb5222982a
+GIT binary patch
+literal 8
+LcmXS5EC53Q2-pF|
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_OutsideEast/map.bin b/data/layouts/HoennBattleFrontier_OutsideEast/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..b073c4585b6f95f00a9306ecd9d0924c13b12e30
+GIT binary patch
+literal 10368
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_OutsideWest/border.bin b/data/layouts/HoennBattleFrontier_OutsideWest/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..c3fe51511d0ddb88492f2082c4ae0dbb5222982a
+GIT binary patch
+literal 8
+LcmXS5EC53Q2-pF|
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_OutsideWest/map.bin b/data/layouts/HoennBattleFrontier_OutsideWest/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..d43111bda9d96982e9677ccd8f3897c447672c99
+GIT binary patch
+literal 8064
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_RankingHall/border.bin b/data/layouts/HoennBattleFrontier_RankingHall/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f496f458ecf2897514c7ef858e657bf062c57506
+GIT binary patch
+literal 8
+LcmZQ%U<5+|02}}X
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_RankingHall/map.bin b/data/layouts/HoennBattleFrontier_RankingHall/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..df32e066570ff77f16c5d1cf5cd7df4c47b0aa52
+GIT binary patch
+literal 1590
+zcmb7CYfA$$5G1|p6nd3{S_QQVzM(#j@m27X2!i-PQ9)7v|KE_k+}<X=;&FtqOLlfM
+zGl@%Gi?xiyYK_pQvki6ytJpwZtuf@J%>>0Z@!iB0b}_Bi9^^#3EjG<@Y0TF;HQUDl
+zx=d+XPPA(A|2g7A%r|ys5lgt?fPH4{vscCe?<f_!rD={UoH4G#J9cIb>$qpaPO*pZ
+zG2t_%VmC=ws5+gQ;|gaMBEI5`IzGZScFMYFQf-n;#c<N)tG%L{)f}D_I)t<G6=vf2
+z3v!H0y$O4jF3lD98sXwOrrD)ul^$WF?;tPti7ECfJws%C;3J=y6}f*m!F>fd=?~|G
+zH%%fvp)PgZzfqS7-|&tPBt`DuOED5dUvy4*lh>sFYm|4W?{EI_ch0$CwO?a+ljov;
+zOQRw5ug#B5IIH{Yh{q+b6Q0(pE;Y`f&e<t~yQb}W-KFQeC^=v9Y7U}FkIwAymbUe@
+OZS=a3_j1wIuKN!<$!zEV
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ReceptionGate/border.bin b/data/layouts/HoennBattleFrontier_ReceptionGate/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..9afd13cdc071af0d8f69eec5aae33adf6454fdb6
+GIT binary patch
+literal 8
+LcmY#pPzFN)0>l7~
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ReceptionGate/map.bin b/data/layouts/HoennBattleFrontier_ReceptionGate/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b75ea8510f1a9d6da9fdc38fc5ba7bc56f3e5b4
+GIT binary patch
+literal 252
+zcmbV_xemfG5JasV$@6;<0^*2Vx!_2_@k2lrs5mP_mH5BV+Crj6BkeJInh6XHyxWI;
+zTD@Lu*|B43hcdEl`g-WYV~+!l@F+0Am=o4)aKafir<`$)1wFFkvE&MCZhn|8cZ}kU
+jGnpxqqUg>}MO74?*-`o}x&52`f4inRbHNq2l<dq0h;l;8
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ScottsHouse/border.bin b/data/layouts/HoennBattleFrontier_ScottsHouse/border.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..f496f458ecf2897514c7ef858e657bf062c57506
+GIT binary patch
+literal 8
+LcmZQ%U<5+|02}}X
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/layouts/HoennBattleFrontier_ScottsHouse/map.bin b/data/layouts/HoennBattleFrontier_ScottsHouse/map.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..8844e94dd7bad3c38e513b13a85d89865391429b
+GIT binary patch
+literal 96
+zcmdnZzK4A`6dz_k0>>AaPcxr_;!DgYm`{T7eddc$)(Pf2Na9b}5#lGA8CfneZ#CX#
+H3}OKQM3W^W
 
 literal 0
 HcmV?d00001
@@ -6873,10 +7184,10 @@ literal 0
 HcmV?d00001
 
 diff --git a/data/layouts/layouts.json b/data/layouts/layouts.json
-index 41d0eb1..57c2e0d 100644
+index 41d0eb1..0bbfb41 100644
 --- a/data/layouts/layouts.json
 +++ b/data/layouts/layouts.json
-@@ -4398,6 +4398,2490 @@
+@@ -4398,6 +4398,2586 @@
        "secondary_tileset": "gTileset_MtEmber",
        "border_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/border.bin",
        "blockdata_filepath": "data/layouts/OneIsland_KindleRoad_EmberSpa/map.bin"
@@ -9078,6 +9389,102 @@ index 41d0eb1..57c2e0d 100644
 +      "blockdata_filepath": "data/layouts/HoennMeteorFalls_StevensCave/map.bin"
 +    },
 +    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "name": "HoennBattleFrontier_OutsideWest_Layout",
++      "width": 56,
++      "height": 72,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennGeneral",
++      "secondary_tileset": "gTileset_HoennBattleFrontierOutsideWest",
++      "border_filepath": "data/layouts/HoennBattleFrontier_OutsideWest/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_OutsideWest/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "name": "HoennBattleFrontier_OutsideEast_Layout",
++      "width": 72,
++      "height": 72,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennGeneral",
++      "secondary_tileset": "gTileset_HoennBattleFrontierOutsideEast",
++      "border_filepath": "data/layouts/HoennBattleFrontier_OutsideEast/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_OutsideEast/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_RANKING_HALL",
++      "name": "HoennBattleFrontier_RankingHall_Layout",
++      "width": 53,
++      "height": 15,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennBuildingMain",
++      "secondary_tileset": "gTileset_HoennBattleFrontierRankingHall",
++      "border_filepath": "data/layouts/HoennBattleFrontier_RankingHall/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_RankingHall/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++      "name": "HoennBattleFrontier_Lounge2_Layout",
++      "width": 9,
++      "height": 10,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennBuildingMain",
++      "secondary_tileset": "gTileset_HoennBattleFrontier",
++      "border_filepath": "data/layouts/HoennBattleFrontier_Lounge2/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_Lounge2/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_EXCHANGE_SERVICE_CORNER",
++      "name": "HoennBattleFrontier_ExchangeServiceCorner_Layout",
++      "width": 15,
++      "height": 11,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennBuildingMain",
++      "secondary_tileset": "gTileset_HoennBattleFrontier",
++      "border_filepath": "data/layouts/HoennBattleFrontier_ExchangeServiceCorner/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_ExchangeServiceCorner/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE1",
++      "name": "HoennBattleFrontier_Lounge1_Layout",
++      "width": 13,
++      "height": 8,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennBuildingMain",
++      "secondary_tileset": "gTileset_HoennBattleFrontier",
++      "border_filepath": "data/layouts/HoennBattleFrontier_Lounge1/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_Lounge1/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_SCOTTS_HOUSE",
++      "name": "HoennBattleFrontier_ScottsHouse_Layout",
++      "width": 6,
++      "height": 8,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennBuildingMain",
++      "secondary_tileset": "gTileset_HoennBattleFrontier",
++      "border_filepath": "data/layouts/HoennBattleFrontier_ScottsHouse/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_ScottsHouse/map.bin"
++    },
++    {
++      "id": "LAYOUT_HOENN_BATTLE_FRONTIER_RECEPTION_GATE",
++      "name": "HoennBattleFrontier_ReceptionGate_Layout",
++      "width": 9,
++      "height": 14,
++      "border_width": 2,
++      "border_height": 2,
++      "primary_tileset": "gTileset_HoennGeneral",
++      "secondary_tileset": "gTileset_HoennBattleFrontier",
++      "border_filepath": "data/layouts/HoennBattleFrontier_ReceptionGate/border.bin",
++      "blockdata_filepath": "data/layouts/HoennBattleFrontier_ReceptionGate/map.bin"
++    },
++    {
 +      "id": "LAYOUT_HOENN_TRAINER_HILL_ENTRANCE",
 +      "name": "HoennTrainerHill_Entrance_Layout",
 +      "width": 19,
@@ -9409,6 +9816,2688 @@ index 0000000..d14d02f
 +++ b/data/maps/AlteringCave/scripts.inc
 @@ -0,0 +1,2 @@
 +AlteringCave_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_ExchangeServiceCorner/map.json b/data/maps/BattleFrontier_ExchangeServiceCorner/map.json
+new file mode 100644
+index 0000000..c9035bd
+--- /dev/null
++++ b/data/maps/BattleFrontier_ExchangeServiceCorner/map.json
+@@ -0,0 +1,161 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_EXCHANGE_SERVICE_CORNER",
++  "name": "BattleFrontier_ExchangeServiceCorner",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_EXCHANGE_SERVICE_CORNER",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 4,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
++      "x": 0,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 0,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
++      "x": 14,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 1,
++      "y": 9,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 5,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 9,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 10,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "x": 12,
++      "y": 10,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 7,
++      "y": 10,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "6"
++    },
++    {
++      "x": 6,
++      "y": 10,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "6"
++    },
++    {
++      "x": 8,
++      "y": 10,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "6"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc b/data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc
+new file mode 100644
+index 0000000..cdd8ffc
+--- /dev/null
++++ b/data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_ExchangeServiceCorner_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge1/map.json b/data/maps/BattleFrontier_Lounge1/map.json
+new file mode 100644
+index 0000000..e8ffb94
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge1/map.json
+@@ -0,0 +1,69 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE1",
++  "name": "BattleFrontier_Lounge1",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 0,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 7,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
++      "x": 5,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 2,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "5"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge1/scripts.inc b/data/maps/BattleFrontier_Lounge1/scripts.inc
+new file mode 100644
+index 0000000..20961ab
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge1/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge1_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge2/map.json b/data/maps/BattleFrontier_Lounge2/map.json
+new file mode 100644
+index 0000000..b16827d
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge2/map.json
+@@ -0,0 +1,102 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE2",
++  "name": "BattleFrontier_Lounge2",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE1",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 8,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 10,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 10,
++      "y": 3,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 22",
++      "x": 4,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 10,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 1,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "3"
++    },
++    {
++      "x": 2,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "3"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge2/scripts.inc b/data/maps/BattleFrontier_Lounge2/scripts.inc
+new file mode 100644
+index 0000000..7e004f2
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge2/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge2_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge3/map.json b/data/maps/BattleFrontier_Lounge3/map.json
+new file mode 100644
+index 0000000..272a7fa
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge3/map.json
+@@ -0,0 +1,95 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE3",
++  "name": "BattleFrontier_Lounge3",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HIKER",
++      "x": 4,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
++      "x": 4,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
++      "x": 3,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 5,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 0,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 0,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "9"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge3/scripts.inc b/data/maps/BattleFrontier_Lounge3/scripts.inc
+new file mode 100644
+index 0000000..e0d6be4
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge3/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge3_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge4/map.json b/data/maps/BattleFrontier_Lounge4/map.json
+new file mode 100644
+index 0000000..0a651a4
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge4/map.json
+@@ -0,0 +1,69 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE4",
++  "name": "BattleFrontier_Lounge4",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 4,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_CHEF",
++      "x": 6,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 0,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 2,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "6"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge4/scripts.inc b/data/maps/BattleFrontier_Lounge4/scripts.inc
+new file mode 100644
+index 0000000..b6bd646
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge4/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge4_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge5/map.json b/data/maps/BattleFrontier_Lounge5/map.json
+new file mode 100644
+index 0000000..c32c75c
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge5/map.json
+@@ -0,0 +1,89 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE5",
++  "name": "BattleFrontier_Lounge5",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE1",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
++      "x": 12,
++      "y": 4,
++      "elevation": 4,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "x": 0,
++      "y": 4,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
++      "x": 6,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
++      "x": 11,
++      "y": 7,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 1,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "7"
++    },
++    {
++      "x": 2,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "7"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge5/scripts.inc b/data/maps/BattleFrontier_Lounge5/scripts.inc
+new file mode 100644
+index 0000000..541e4b7
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge5/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge5_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge6/map.json b/data/maps/BattleFrontier_Lounge6/map.json
+new file mode 100644
+index 0000000..a36b999
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge6/map.json
+@@ -0,0 +1,43 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE6",
++  "name": "BattleFrontier_Lounge6",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
++      "x": 2,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "8"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge6/scripts.inc b/data/maps/BattleFrontier_Lounge6/scripts.inc
+new file mode 100644
+index 0000000..146c9c4
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge6/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge6_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge7/map.json b/data/maps/BattleFrontier_Lounge7/map.json
+new file mode 100644
+index 0000000..83e5bf1
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge7/map.json
+@@ -0,0 +1,82 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE7",
++  "name": "BattleFrontier_Lounge7",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
++      "x": 0,
++      "y": 7,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 2,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 6,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "x": 8,
++      "y": 3,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "7"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge7/scripts.inc b/data/maps/BattleFrontier_Lounge7/scripts.inc
+new file mode 100644
+index 0000000..6bacb7e
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge7/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge7_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge8/map.json b/data/maps/BattleFrontier_Lounge8/map.json
+new file mode 100644
+index 0000000..1ca7c83
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge8/map.json
+@@ -0,0 +1,69 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE8",
++  "name": "BattleFrontier_Lounge8",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 4,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 2,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 8,
++      "y": 7,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 8,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "10"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge8/scripts.inc b/data/maps/BattleFrontier_Lounge8/scripts.inc
+new file mode 100644
+index 0000000..03f1d7d
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge8/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge8_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Lounge9/map.json b/data/maps/BattleFrontier_Lounge9/map.json
+new file mode 100644
+index 0000000..cc55da2
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge9/map.json
+@@ -0,0 +1,36 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_LOUNGE9",
++  "name": "BattleFrontier_Lounge9",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_LOUNGE2",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [],
++  "warp_events": [
++    {
++      "x": 1,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "11"
++    },
++    {
++      "x": 2,
++      "y": 9,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "11"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Lounge9/scripts.inc b/data/maps/BattleFrontier_Lounge9/scripts.inc
+new file mode 100644
+index 0000000..dd64536
+--- /dev/null
++++ b/data/maps/BattleFrontier_Lounge9/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_Lounge9_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_Mart/map.json b/data/maps/BattleFrontier_Mart/map.json
+new file mode 100644
+index 0000000..dca575a
+--- /dev/null
++++ b/data/maps/BattleFrontier_Mart/map.json
+@@ -0,0 +1,89 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_MART",
++  "name": "BattleFrontier_Mart",
++  "layout": "LAYOUT_HOENN_MART",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_CLERK",
++      "x": 1,
++      "y": 3,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "BattleFrontier_Mart_EventScript_Clerk",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
++      "x": 5,
++      "y": 4,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 5,
++      "y": 5,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
++      "x": 8,
++      "y": 4,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 3,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "4"
++    },
++    {
++      "x": 4,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "4"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_Mart/scripts.inc b/data/maps/BattleFrontier_Mart/scripts.inc
+new file mode 100644
+index 0000000..0d31918
+--- /dev/null
++++ b/data/maps/BattleFrontier_Mart/scripts.inc
+@@ -0,0 +1,30 @@
++BattleFrontier_Mart_MapScripts::
++	.byte 0
++
++BattleFrontier_Mart_EventScript_Clerk::
++	lock
++	faceplayer
++	message Text_MayIHelpYou
++	waitmessage
++	pokemart BattleFrontier_Mart_EventScript_Clerk_Items
++	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
++	release
++	end
++
++	.align 2
++BattleFrontier_Mart_EventScript_Clerk_Items:
++	.2byte ITEM_ULTRA_BALL
++	.2byte ITEM_HYPER_POTION
++	.2byte ITEM_MAX_POTION
++	.2byte ITEM_FULL_RESTORE
++	.2byte ITEM_FULL_HEAL
++	.2byte ITEM_REVIVE
++	.2byte ITEM_MAX_REPEL
++	.2byte ITEM_PROTEIN
++	.2byte ITEM_CALCIUM
++	.2byte ITEM_IRON
++	.2byte ITEM_ZINC
++	.2byte ITEM_CARBOS
++	.2byte ITEM_HP_UP
++	.2byte ITEM_NONE
++
+diff --git a/data/maps/BattleFrontier_OutsideEast/map.json b/data/maps/BattleFrontier_OutsideEast/map.json
+new file mode 100644
+index 0000000..7e03c2a
+--- /dev/null
++++ b/data/maps/BattleFrontier_OutsideEast/map.json
+@@ -0,0 +1,517 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++  "name": "BattleFrontier_OutsideEast",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_OUTSIDE_EAST",
++  "music": "MUS_ROUTE1",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_ROUTE",
++  "allow_cycling": true,
++  "allow_escaping": false,
++  "allow_running": true,
++  "show_map_name": true,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": [
++    {
++      "map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "offset": 0,
++      "direction": "left"
++    }
++  ],
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 20,
++      "y": 17,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WALK_LEFT_AND_RIGHT",
++      "movement_range_x": 3,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 42,
++      "y": 15,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HIKER",
++      "x": 53,
++      "y": 6,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 2,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 19",
++      "x": 54,
++      "y": 16,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 2,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
++      "x": 37,
++      "y": 32,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_CHEF",
++      "x": 41,
++      "y": 56,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 8,
++      "y": 46,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 21",
++      "x": 34,
++      "y": 41,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WALK_RIGHT_AND_LEFT",
++      "movement_range_x": 3,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 20",
++      "x": 45,
++      "y": 47,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
++      "x": 59,
++      "y": 35,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WALK_DOWN_AND_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 6,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
++      "x": 18,
++      "y": 40,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 17,
++      "y": 40,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MIGHTYENA",
++      "x": 40,
++      "y": 56,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 42,
++      "y": 34,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "x": 51,
++      "y": 53,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_HAN_PEOPLE + 26",
++      "x": 62,
++      "y": 18,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WALK_SEQUENCE_DOWN_RIGHT_UP_LEFT",
++      "movement_range_x": 2,
++      "movement_range_y": 6,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 11,
++      "y": 21,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 10,
++      "y": 21,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 16,
++      "y": 30,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 3,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
++      "x": 33,
++      "y": 14,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 54,
++      "y": 31,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
++      "x": 54,
++      "y": 32,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
++      "x": 58,
++      "y": 55,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN_AND_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "x": 48,
++      "y": 41,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_CAMPER",
++      "x": 29,
++      "y": 14,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 16,
++      "y": 14,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 39,
++      "y": 29,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "1"
++    },
++    {
++      "x": 45,
++      "y": 56,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "2"
++    },
++    {
++      "x": 58,
++      "y": 14,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "3"
++    },
++    {
++      "x": 35,
++      "y": 12,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_RANKING_HALL",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 4,
++      "y": 44,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE1",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 10,
++      "y": 28,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_EXCHANGE_SERVICE_CORNER",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 22,
++      "y": 51,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE5",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 5,
++      "y": 8,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE6",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 65,
++      "y": 31,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE3",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 14,
++      "y": 51,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE8",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 21,
++      "y": 45,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE9",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 3,
++      "y": 51,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 28,
++      "y": 7,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "13"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": [
++    {
++      "type": "sign",
++      "x": 13,
++      "y": 17,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 43,
++      "y": 56,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 36,
++      "y": 34,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 62,
++      "y": 15,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 7,
++      "y": 29,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 32,
++      "y": 13,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 4,
++      "y": 51,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 5,
++      "y": 51,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    }
++  ]
++}
+diff --git a/data/maps/BattleFrontier_OutsideEast/scripts.inc b/data/maps/BattleFrontier_OutsideEast/scripts.inc
+new file mode 100644
+index 0000000..3a338b8
+--- /dev/null
++++ b/data/maps/BattleFrontier_OutsideEast/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_OutsideEast_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_OutsideWest/map.json b/data/maps/BattleFrontier_OutsideWest/map.json
+new file mode 100644
+index 0000000..158c44f
+--- /dev/null
++++ b/data/maps/BattleFrontier_OutsideWest/map.json
+@@ -0,0 +1,446 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++  "name": "BattleFrontier_OutsideWest",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_OUTSIDE_WEST",
++  "music": "MUS_ROUTE1",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_ROUTE",
++  "allow_cycling": true,
++  "allow_escaping": false,
++  "allow_running": true,
++  "show_map_name": true,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": [
++    {
++      "map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "offset": 0,
++      "direction": "right"
++    }
++  ],
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
++      "x": 26,
++      "y": 38,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 2,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BEAUTY",
++      "x": 19,
++      "y": 68,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_OLD_MAN_1",
++      "x": 26,
++      "y": 20,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
++      "movement_range_x": 8,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 27,
++      "y": 30,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 33,
++      "y": 41,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
++      "x": 28,
++      "y": 43,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "x": 17,
++      "y": 20,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 13,
++      "y": 44,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
++      "x": 14,
++      "y": 44,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 23,
++      "y": 47,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP_AND_LEFT",
++      "movement_range_x": 2,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "x": 38,
++      "y": 27,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 45,
++      "y": 18,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_CAMPER",
++      "x": 9,
++      "y": 47,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP_AND_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 2,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_LASS",
++      "x": 35,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 2,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 11,
++      "y": 66,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_FISHER",
++      "x": 31,
++      "y": 31,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_FISHER",
++      "x": 42,
++      "y": 48,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN_AND_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
++      "x": 38,
++      "y": 22,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_WANDER_UP_AND_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 3,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
++      "x": 12,
++      "y": 9,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 12,
++      "y": 10,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_UP",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 11,
++      "y": 10,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_ROTATE_COUNTERCLOCKWISE",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 8,
++      "y": 5,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
++      "x": 4,
++      "y": 26,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_ROTATE_CLOCKWISE",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 42,
++      "y": 27,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 19,
++      "y": 17,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "1"
++    },
++    {
++      "x": 11,
++      "y": 38,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "2"
++    },
++    {
++      "x": 45,
++      "y": 44,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE2",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 51,
++      "y": 51,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_MART",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 44,
++      "y": 5,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_SCOTTS_HOUSE",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 53,
++      "y": 44,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE4",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 5,
++      "y": 20,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_LOUNGE7",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 26,
++      "y": 65,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_RECEPTION_GATE",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 26,
++      "y": 61,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_RECEPTION_GATE",
++      "dest_warp_id": "1"
++    },
++    {
++      "x": 39,
++      "y": 55,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "10"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": [
++    {
++      "type": "sign",
++      "x": 15,
++      "y": 18,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 45,
++      "y": 30,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 16,
++      "y": 43,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 52,
++      "y": 51,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 53,
++      "y": 51,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    }
++  ]
++}
+diff --git a/data/maps/BattleFrontier_OutsideWest/scripts.inc b/data/maps/BattleFrontier_OutsideWest/scripts.inc
+new file mode 100644
+index 0000000..6648d95
+--- /dev/null
++++ b/data/maps/BattleFrontier_OutsideWest/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_OutsideWest_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_PokemonCenter_1F/map.json b/data/maps/BattleFrontier_PokemonCenter_1F/map.json
+new file mode 100644
+index 0000000..f22ae1d
+--- /dev/null
++++ b/data/maps/BattleFrontier_PokemonCenter_1F/map.json
+@@ -0,0 +1,66 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
++  "name": "BattleFrontier_PokemonCenter_1F",
++  "layout": "LAYOUT_POKEMON_CENTER_1F",
++  "music": "MUS_POKE_CENTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "local_id": "LOCALID_FRONTIER_NURSE",
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_NURSE",
++      "x": 7,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "BattleFrontier_PokemonCenter_1F_EventScript_Nurse",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 6,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "12"
++    },
++    {
++      "x": 7,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "12"
++    },
++    {
++      "x": 8,
++      "y": 8,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "12"
++    },
++    {
++      "x": 1,
++      "y": 6,
++      "elevation": 4,
++      "dest_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_2F",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_PokemonCenter_1F/scripts.inc b/data/maps/BattleFrontier_PokemonCenter_1F/scripts.inc
+new file mode 100644
+index 0000000..8e48cd2
+--- /dev/null
++++ b/data/maps/BattleFrontier_PokemonCenter_1F/scripts.inc
+@@ -0,0 +1,15 @@
++BattleFrontier_PokemonCenter_1F_MapScripts::
++	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_PokemonCenter_1F_OnTransition
++	map_script MAP_SCRIPT_ON_RESUME, CableClub_OnResume
++	.byte 0
++
++BattleFrontier_PokemonCenter_1F_OnTransition::
++	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
++	end
++
++BattleFrontier_PokemonCenter_1F_EventScript_Nurse::
++	lock
++	faceplayer
++	call EventScript_PkmnCenterNurse
++	release
++	end
+diff --git a/data/maps/BattleFrontier_PokemonCenter_2F/map.json b/data/maps/BattleFrontier_PokemonCenter_2F/map.json
+new file mode 100644
+index 0000000..ad7c2ee
+--- /dev/null
++++ b/data/maps/BattleFrontier_PokemonCenter_2F/map.json
+@@ -0,0 +1,114 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_2F",
++  "name": "BattleFrontier_PokemonCenter_2F",
++  "layout": "LAYOUT_POKEMON_CENTER_2F",
++  "music": "MUS_POKE_CENTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 6,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_UnionRoomAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 2,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_WirelessClubAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
++      "x": 10,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Common_EventScript_DirectCornerAttendant",
++      "flag": "0"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_MG_DELIVERYMAN",
++      "x": 1,
++      "y": 2,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "CableClub_EventScript_MysteryGiftMan",
++      "flag": "FLAG_HIDE_MG_DELIVERYMEN"
++    },
++    {
++      "type": "object",
++      "graphics_id": "OBJ_EVENT_GFX_COOLTRAINER_M",
++      "x": 13,
++      "y": 6,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Han_Tower_Attendant",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 1,
++      "y": 6,
++      "elevation": 4,
++      "dest_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
++      "dest_warp_id": "3"
++    },
++    {
++      "x": 5,
++      "y": 1,
++      "elevation": 0,
++      "dest_map": "MAP_UNION_ROOM",
++      "dest_warp_id": "0"
++    },
++    {
++      "x": 9,
++      "y": 1,
++      "elevation": 0,
++      "dest_map": "MAP_TRADE_CENTER",
++      "dest_warp_id": "0"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_PokemonCenter_2F/scripts.inc b/data/maps/BattleFrontier_PokemonCenter_2F/scripts.inc
+new file mode 100644
+index 0000000..3bc2f4c
+--- /dev/null
++++ b/data/maps/BattleFrontier_PokemonCenter_2F/scripts.inc
+@@ -0,0 +1,19 @@
++BattleFrontier_PokemonCenter_2F_MapScripts::
++	map_script MAP_SCRIPT_ON_FRAME_TABLE, CableClub_OnFrame
++	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, CableClub_OnWarp
++	map_script MAP_SCRIPT_ON_LOAD, CableClub_OnLoad
++	map_script MAP_SCRIPT_ON_TRANSITION, CableClub_OnTransition
++	.byte 0
++
++@ The below 3 are unused and leftover from RS
++BattleFrontier_PokemonCenter_2F_EventScript_Colosseum::
++	call CableClub_EventScript_Colosseum
++	end
++
++BattleFrontier_PokemonCenter_2F_EventScript_TradeCenter::
++	call CableClub_EventScript_TradeCenter
++	end
++
++BattleFrontier_PokemonCenter_2F_EventScript_RecordCorner::
++	call CableClub_EventScript_RecordCorner
++	end
+diff --git a/data/maps/BattleFrontier_RankingHall/map.json b/data/maps/BattleFrontier_RankingHall/map.json
+new file mode 100644
+index 0000000..bfabfcd
+--- /dev/null
++++ b/data/maps/BattleFrontier_RankingHall/map.json
+@@ -0,0 +1,173 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_RANKING_HALL",
++  "name": "BattleFrontier_RankingHall",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_RANKING_HALL",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 24,
++      "y": 13,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 4,
++      "y": 10,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_BOY",
++      "x": 44,
++      "y": 11,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 26,
++      "y": 14,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "4"
++    },
++    {
++      "x": 27,
++      "y": 14,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "dest_warp_id": "4"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": [
++    {
++      "type": "sign",
++      "x": 26,
++      "y": 9,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 23,
++      "y": 8,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 26,
++      "y": 5,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 29,
++      "y": 8,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 42,
++      "y": 9,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 46,
++      "y": 9,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 10,
++      "y": 9,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 8,
++      "y": 7,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 6,
++      "y": 9,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 44,
++      "y": 7,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 16,
++      "y": 8,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    },
++    {
++      "type": "sign",
++      "x": 36,
++      "y": 8,
++      "elevation": 0,
++      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
++      "script": "Hoenn_EventScript_Sign"
++    }
++  ]
++}
+diff --git a/data/maps/BattleFrontier_RankingHall/scripts.inc b/data/maps/BattleFrontier_RankingHall/scripts.inc
+new file mode 100644
+index 0000000..cd6cd98
+--- /dev/null
++++ b/data/maps/BattleFrontier_RankingHall/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_RankingHall_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_ReceptionGate/map.json b/data/maps/BattleFrontier_ReceptionGate/map.json
+new file mode 100644
+index 0000000..aafbaa3
+--- /dev/null
++++ b/data/maps/BattleFrontier_ReceptionGate/map.json
+@@ -0,0 +1,102 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_RECEPTION_GATE",
++  "name": "BattleFrontier_ReceptionGate",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_RECEPTION_GATE",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 0,
++      "y": 11,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 8,
++      "y": 11,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 8,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_MAN",
++      "x": 0,
++      "y": 4,
++      "elevation": 0,
++      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    },
++    {
++      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
++      "x": 3,
++      "y": 11,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
++      "movement_range_x": 0,
++      "movement_range_y": 0,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "BattleFrontier_EventScript_FerrySailor",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 4,
++      "y": 13,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "8"
++    },
++    {
++      "x": 4,
++      "y": 1,
++      "elevation": 0,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "9"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_ReceptionGate/scripts.inc b/data/maps/BattleFrontier_ReceptionGate/scripts.inc
+new file mode 100644
+index 0000000..e4bb4d5
+--- /dev/null
++++ b/data/maps/BattleFrontier_ReceptionGate/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_ReceptionGate_MapScripts::
++	.byte 0
+diff --git a/data/maps/BattleFrontier_ScottsHouse/map.json b/data/maps/BattleFrontier_ScottsHouse/map.json
+new file mode 100644
+index 0000000..73d577c
+--- /dev/null
++++ b/data/maps/BattleFrontier_ScottsHouse/map.json
+@@ -0,0 +1,50 @@
++{
++  "id": "MAP_BATTLE_FRONTIER_SCOTTS_HOUSE",
++  "name": "BattleFrontier_ScottsHouse",
++  "layout": "LAYOUT_HOENN_BATTLE_FRONTIER_SCOTTS_HOUSE",
++  "music": "MUS_PEWTER",
++  "region_map_section": "MAPSEC_BATTLE_FRONTIER",
++  "requires_flash": false,
++  "weather": "WEATHER_NONE",
++  "map_type": "MAP_TYPE_INDOOR",
++  "allow_cycling": false,
++  "allow_escaping": false,
++  "allow_running": false,
++  "show_map_name": false,
++  "floor_number": 0,
++  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
++  "connections": null,
++  "object_events": [
++    {
++      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
++      "x": 2,
++      "y": 3,
++      "elevation": 3,
++      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
++      "movement_range_x": 1,
++      "movement_range_y": 1,
++      "trainer_type": "TRAINER_TYPE_NONE",
++      "trainer_sight_or_berry_tree_id": "0",
++      "script": "Hoenn_EventScript_Npc",
++      "flag": "0"
++    }
++  ],
++  "warp_events": [
++    {
++      "x": 2,
++      "y": 7,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "5"
++    },
++    {
++      "x": 3,
++      "y": 7,
++      "elevation": 3,
++      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
++      "dest_warp_id": "5"
++    }
++  ],
++  "coord_events": [],
++  "bg_events": []
++}
+diff --git a/data/maps/BattleFrontier_ScottsHouse/scripts.inc b/data/maps/BattleFrontier_ScottsHouse/scripts.inc
+new file mode 100644
+index 0000000..cf6821c
+--- /dev/null
++++ b/data/maps/BattleFrontier_ScottsHouse/scripts.inc
+@@ -0,0 +1,2 @@
++BattleFrontier_ScottsHouse_MapScripts::
 +	.byte 0
 diff --git a/data/maps/CaveOfOrigin_1F/map.json b/data/maps/CaveOfOrigin_1F/map.json
 new file mode 100644
@@ -10634,10 +13723,10 @@ index 0000000..3abf678
 +}
 diff --git a/data/maps/DewfordTown/scripts.inc b/data/maps/DewfordTown/scripts.inc
 new file mode 100644
-index 0000000..ff3628a
+index 0000000..d5e5cf1
 --- /dev/null
 +++ b/data/maps/DewfordTown/scripts.inc
-@@ -0,0 +1,111 @@
+@@ -0,0 +1,134 @@
 +DewfordTown_MapScripts::
 +	map_script MAP_SCRIPT_ON_FRAME_TABLE, DewfordTown_OnFrame
 +	.byte 0
@@ -10657,7 +13746,8 @@ index 0000000..ff3628a
 +	switch VAR_RESULT
 +	case 0, DewfordTown_EventScript_SailToSevenIsland
 +	case 1, DewfordTown_EventScript_SailToCinnabar
-+	case 2, EventScript_CancelSail
++	case 2, DewfordTown_EventScript_SailToFrontier
++	case 3, EventScript_CancelSail
 +	case SCR_MENU_CANCEL, EventScript_CancelSail
 +	end
 +
@@ -10670,6 +13760,28 @@ index 0000000..ff3628a
 +	setvar VAR_0x8006, SEAGALLOP_CINNABAR_ISLAND
 +	goto EventScript_SailToDest
 +	end
++
++@ The Battle Frontier: a ship from Dewford, and a sailor at the reception gate to bring you back.
++DewfordTown_EventScript_SailToFrontier::
++	closemessage
++	fadescreen FADE_TO_BLACK
++	warp MAP_BATTLE_FRONTIER_RECEPTION_GATE, 4, 11
++	waitstate
++	end
++
++BattleFrontier_EventScript_FerrySailor::
++	lock
++	faceplayer
++	msgbox BattleFrontier_Text_SailHome, MSGBOX_YESNO
++	goto_if_eq VAR_RESULT, NO, EventScript_CancelSail
++	closemessage
++	fadescreen FADE_TO_BLACK
++	warp MAP_DEWFORD_TOWN, 12, 9
++	waitstate
++	end
++
++BattleFrontier_Text_SailHome:
++	.string "Want a ride back to DEWFORD?$"
 +
 +@ Arrival in Hoenn: Professor Birch meets the player on the pier.
 +DewfordTown_EventScript_BirchArrival::
@@ -54077,7 +57189,7 @@ index fb11547..7b2f664 100644
  ViridianForest_Text_CharliePostBattle::
      .string "BUG POKéMON evolve quickly.\n"
 diff --git a/data/maps/map_groups.json b/data/maps/map_groups.json
-index 8c382f5..080df35 100644
+index 8c382f5..b5c035c 100644
 --- a/data/maps/map_groups.json
 +++ b/data/maps/map_groups.json
 @@ -42,7 +42,39 @@
@@ -54131,7 +57243,7 @@ index 8c382f5..080df35 100644
    ],
    "gMapGroup_SpecialArea": [
      "NavelRock_Exterior",
-@@ -555,6 +588,360 @@
+@@ -555,6 +588,378 @@
    "gMapGroup_IndoorSevenIslandRoute": [
      "SevenIsland_SevaultCanyon_House"
    ],
@@ -54449,6 +57561,24 @@ index 8c382f5..080df35 100644
 +    "MeteorFalls_StevensCave"
 +  ],
 +  "gMapGroup_HoennSpecialArea": [
++    "BattleFrontier_OutsideWest",
++    "BattleFrontier_OutsideEast",
++    "BattleFrontier_RankingHall",
++    "BattleFrontier_Lounge1",
++    "BattleFrontier_ExchangeServiceCorner",
++    "BattleFrontier_Lounge2",
++    "BattleFrontier_Lounge3",
++    "BattleFrontier_Lounge4",
++    "BattleFrontier_ScottsHouse",
++    "BattleFrontier_Lounge5",
++    "BattleFrontier_Lounge6",
++    "BattleFrontier_Lounge7",
++    "BattleFrontier_ReceptionGate",
++    "BattleFrontier_Lounge8",
++    "BattleFrontier_Lounge9",
++    "BattleFrontier_PokemonCenter_1F",
++    "BattleFrontier_PokemonCenter_2F",
++    "BattleFrontier_Mart",
 +    "TrainerHill_Entrance",
 +    "TrainerHill_1F",
 +    "TrainerHill_2F",
@@ -62219,6 +65349,1642 @@ z^XMNnfl3effm{lIt7R_dua0HF;al|TUwuD4;6WU4g4fU2&8^e`wVVr9jePIJD<8}Z
 z*f6c;YNxZF8laZ*HS0&stG4~|>;T7k|7y3J9-#IE0Q_?Er`;PfYw(`)+xBLsGdti~
 z<7e&7E1jRr47lsuJhrcVn0`T_0uJr#o^RX9YvZ#3o_~x_RO$PH3dmf}@5iI~&&&XI
 dA&|8n{0BR`Y3Q1gm4N^N002ovPDHLkV1lXlLgxSg
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatile_attributes.bin b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatile_attributes.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0d65dd788f89f19abd7814a3b2694b7809162b5
+GIT binary patch
+literal 2040
+zcmdUwOA5m<3`D)?6}k_-T<(8^GRDsgsujoJ7WyDanvtS>N>fVbD5W04^IyQe9g*wz
+zSb09mOZRr}y+5uw1Ai2S>sQbRs#oy-c&-_v*{-$cxx&hRdObR>lV?O<wUhayJ`weZ
+z`<{ceZytBZ_6t1E(LBz4?~OULDdG3!^US&y^UI#I+8v(-X#&sl53QXKomrqJI?P1S
+rM>FECpTT?vKKs2!6Xez3{2vSK{ug*Ao%Riy!CZ_Z=mFK4*5At;<Ov*z
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatiles.bin b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatiles.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..d2e3a6995d201699fa29319078db6216da6f5fca
+GIT binary patch
+literal 8160
+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
+Oe}^$|myiDyH2w``=0#@!
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/00.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/00.pal
+new file mode 100644
+index 0000000..b330eaf
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/00.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++255 0 255
++115 189 246
++98 172 238
++115 189 246
++98 164 222
++82 139 197
++74 115 172
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/01.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/01.pal
+new file mode 100644
+index 0000000..3c6e40c
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/01.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++255 189 131
++238 148 115
++222 106 98
++205 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/02.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/02.pal
+new file mode 100644
+index 0000000..4c41030
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/02.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++115 197 164
++65 180 131
++24 164 106
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/03.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/03.pal
+new file mode 100644
+index 0000000..3760ac9
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/03.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++213 213 213
++189 189 189
++164 164 164
++131 131 139
++255 0 255
++255 0 255
++65 49 65
++238 213 205
++222 180 164
++189 148 139
++156 115 115
++131 90 90
++98 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/04.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/04.pal
+new file mode 100644
+index 0000000..2eeaba6
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/04.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++255 0 255
++255 0 255
++255 0 255
++255 0 255
++82 106 213
++65 90 189
++57 82 164
++49 74 148
++172 197 230
++139 164 222
++106 131 213
++82 106 213
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/05.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/05.pal
+new file mode 100644
+index 0000000..90adedf
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/05.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++238 230 164
++222 205 131
++213 180 106
++205 156 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/06.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/06.pal
+new file mode 100644
+index 0000000..4173d16
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/06.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++197 139 205
++172 115 180
++148 90 156
++106 57 115
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/07.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/07.pal
+new file mode 100644
+index 0000000..0aa4da9
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/07.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 205 115
++189 172 82
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++164 189 98
++131 156 65
++98 123 32
++65 90 0
++156 139 49
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/08.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/08.pal
+new file mode 100644
+index 0000000..6a21cef
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/08.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++222 205 131
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++222 205 115
++189 172 82
++156 139 49
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/09.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/09.pal
+new file mode 100644
+index 0000000..ab7b248
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/09.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++255 255 148
++197 197 115
++213 238 255
++139 139 148
++98 98 123
++65 74 106
++213 205 222
++180 213 255
++148 164 238
++131 148 197
++238 148 16
++205 115 82
++172 82 65
++131 74 65
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/10.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/10.pal
+new file mode 100644
+index 0000000..451da6c
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/10.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++255 255 255
++205 205 197
++180 180 164
++123 213 164
++139 139 148
++0 0 0
++0 0 0
++0 0 0
++180 213 255
++148 164 238
++255 213 49
++0 0 0
++205 115 82
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/11.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/11.pal
+new file mode 100644
+index 0000000..70a091b
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/11.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++98 197 0
++164 98 90
++255 255 255
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++255 213 49
++156 139 49
++238 148 115
++205 65 82
++197 139 205
++172 115 180
++98 197 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/12.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/12.pal
+new file mode 100644
+index 0000000..46b06b2
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/12.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++255 238 148
++255 230 41
++205 180 41
++156 139 49
++230 213 197
++197 164 148
++164 123 98
++115 82 57
++106 90 49
++255 180 131
++222 131 90
++189 82 57
++164 32 24
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/13.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/13.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/13.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/14.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/14.pal
+new file mode 100644
+index 0000000..d7bd13f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/14.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++255 0 255
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/15.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/15.pal
+new file mode 100644
+index 0000000..e7717d7
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/15.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 213 180
++255 197 148
++222 148 115
++123 65 65
++57 74 123
++41 57 98
++24 41 82
++16 32 57
++222 230 238
++255 197 90
++189 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_east/tiles.png b/data/tilesets/secondary/hoenn_battle_frontier_outside_east/tiles.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..59ac5b7e9a488751d4510d92e82594473344fae5
+GIT binary patch
+literal 3798
+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
+Jo*9sm{|^<FzE%JL
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatile_attributes.bin b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatile_attributes.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..2fe7999cb37f42418a6ddc86b1ecb02421773396
+GIT binary patch
+literal 2040
+zcmd^<(F%hw3`O&>U)a0s-^Bm_1BvWN7Gsi4Cxac3l-}DkZ6zWrgUIqJIz9{X`dG2}
+z?>BiQ#<b32ZK;2VJ*S0QclF7-uZQ|VrtLqG`Wyd{UvKY)v4uI}uRuLSg>e+U9--?p
+z&d`tM_!l~F=sgN^GJfx-s-983@jH-<a}nW1fA$MJQG`ev^v;6*%^n#Y&rv#iaIP+C
+P&Y=GS`}k;CHQr?gd~Olp
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatiles.bin b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatiles.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..b41be94da93a764f1897b61cd63f17dbbb086945
+GIT binary patch
+literal 8160
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/00.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/00.pal
+new file mode 100644
+index 0000000..b330eaf
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/00.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++255 0 255
++115 189 246
++98 172 238
++115 189 246
++98 164 222
++82 139 197
++74 115 172
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/01.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/01.pal
+new file mode 100644
+index 0000000..3c6e40c
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/01.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++255 189 131
++238 148 115
++222 106 98
++205 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/02.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/02.pal
+new file mode 100644
+index 0000000..4c41030
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/02.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++115 197 164
++65 180 131
++24 164 106
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/03.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/03.pal
+new file mode 100644
+index 0000000..3760ac9
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/03.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++213 213 213
++189 189 189
++164 164 164
++131 131 139
++255 0 255
++255 0 255
++65 49 65
++238 213 205
++222 180 164
++189 148 139
++156 115 115
++131 90 90
++98 65 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/04.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/04.pal
+new file mode 100644
+index 0000000..2eeaba6
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/04.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++255 0 255
++255 0 255
++255 0 255
++255 0 255
++82 106 213
++65 90 189
++57 82 164
++49 74 148
++172 197 230
++139 164 222
++106 131 213
++82 106 213
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/05.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/05.pal
+new file mode 100644
+index 0000000..90adedf
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/05.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++238 230 164
++222 205 131
++213 180 106
++205 156 82
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/06.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/06.pal
+new file mode 100644
+index 0000000..4173d16
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/06.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 230 238
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++197 139 205
++172 115 180
++148 90 156
++106 57 115
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/07.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/07.pal
+new file mode 100644
+index 0000000..0aa4da9
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/07.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++222 205 115
++189 172 82
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++115 189 246
++98 172 238
++164 189 98
++131 156 65
++98 123 32
++65 90 0
++156 139 49
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/08.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/08.pal
+new file mode 100644
+index 0000000..6a21cef
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/08.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++222 205 131
++180 255 131
++131 197 98
++57 139 49
++57 82 0
++222 148 115
++106 90 90
++164 98 90
++65 57 49
++255 197 148
++222 106 98
++205 65 82
++164 213 197
++222 205 115
++189 172 82
++156 139 49
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/09.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/09.pal
+new file mode 100644
+index 0000000..ab7b248
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/09.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++255 255 148
++197 197 115
++213 238 255
++139 139 148
++98 98 123
++65 74 106
++213 205 222
++180 213 255
++148 164 238
++131 148 197
++238 148 16
++205 115 82
++172 82 65
++131 74 65
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/10.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/10.pal
+new file mode 100644
+index 0000000..451da6c
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/10.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++255 255 255
++205 205 197
++180 180 164
++123 213 164
++139 139 148
++0 0 0
++0 0 0
++0 0 0
++180 213 255
++148 164 238
++255 213 49
++0 0 0
++205 115 82
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/11.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/11.pal
+new file mode 100644
+index 0000000..70a091b
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/11.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++98 197 0
++164 98 90
++255 255 255
++189 205 230
++156 180 222
++131 131 139
++98 98 123
++65 74 106
++41 49 90
++255 213 49
++156 139 49
++238 148 115
++205 65 82
++197 139 205
++172 115 180
++98 197 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/12.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/12.pal
+new file mode 100644
+index 0000000..46b06b2
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/12.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++24 41 82
++255 255 255
++255 238 148
++255 230 41
++205 180 41
++156 139 49
++230 213 197
++197 164 148
++164 123 98
++115 82 57
++106 90 49
++255 180 131
++222 131 90
++189 82 57
++164 32 24
++115 197 164
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/13.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/13.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/13.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/14.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/14.pal
+new file mode 100644
+index 0000000..d7bd13f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/14.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++255 0 255
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/15.pal b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/15.pal
+new file mode 100644
+index 0000000..e7717d7
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/15.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 213 180
++255 197 148
++222 148 115
++123 65 65
++57 74 123
++41 57 98
++24 41 82
++16 32 57
++222 230 238
++255 197 90
++189 156 90
++255 98 90
++197 65 65
++255 255 255
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_outside_west/tiles.png b/data/tilesets/secondary/hoenn_battle_frontier_outside_west/tiles.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..277abe7f891ff66769fad716d84ffbb1cc5263e8
+GIT binary patch
+literal 5544
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatile_attributes.bin b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatile_attributes.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..507df4a03f641eab788beca0b64131ae2df6e5fa
+GIT binary patch
+literal 376
+pcmZQzpa>`+=?1Zf5{3bMZUzBld1L?*2LYHoG8-m`EQZWh003%(2tfb<
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatiles.bin b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatiles.bin
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed953f7c61d63de1cc94e7be6c928174cd64f7a7
+GIT binary patch
+literal 1504
+zcmaKsSyNL%5QPT~;1Vz>i%U`=NP-Jnkbp}ds4Olos4U5we!?Yr)0X8A0RC-jhUzvo
+z5qm0CIrq%%Gkv=6IQReP;tB)YMt5DsafgiIUQ&!OXt<jmh8Q;75p<DZfH(41KFb&B
+z;G-xoMwvOw_mEMZF>82&aTb|3T%<&W1;cTSQec)c$afL>C0gIAtjU&ai`KU;8?qz2
+zlG(giY0_lLqWBi+Bv0OOnm)4R4EK{xa&7!Iu5*`r#^2y3_j!PxcTe`^P>w|FN#sC|
+z<wR0+GssZT_WC{aGRz2G+poWTF6b-owf#@|M?4Pt%0J<0(AR#Q%30`z_VZkR2Ru%Z
+zc`8(y#JMUZCRkvR8EVvU#!oUul_le+nPHh4`u=lX@Q(M!zvLAk_-KCg(NC_;zsvm8
+z^RCEi*_2PB^P#wXKK!#7$NSYEukDxmlci3Uruo+(Pm8?u>#KZ|AM(@YN3qV2Kbz-c
+ztn;S()t@P*Sz_7zQ9qSeKQF7t&v|>j{=e6V=RXeZx9-<@RIKx;SnJXA$MwW~oG;eb
+z{F+but2oZ5{c~<roZGVguF1M=%Z~9I;@qw{yT3GFtnd5ppZVT5l6n$w%B4K6)9AQI
+zv|i`-#JNK|-@YVrB**5*fjD>4q4w|a-&ZSXCcgh(+v6s!Fc0w?1xl2|{dO9%tAA&5
+P9&nK{D$H^5^*Z+lb#g|F
+
+literal 0
+HcmV?d00001
+
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/00.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/00.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/00.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/01.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/01.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/01.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/02.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/02.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/02.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/03.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/03.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/03.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/04.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/04.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/04.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/05.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/05.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/05.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/06.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/06.pal
+new file mode 100644
+index 0000000..aa7d8ec
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/06.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++156 164 148
++189 197 205
++213 213 222
++230 238 238
++246 255 255
++246 32 222
++131 131 106
++246 32 222
++222 189 172
++197 139 131
++189 106 90
++139 115 98
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/07.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/07.pal
+new file mode 100644
+index 0000000..6b7b174
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/07.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++115 197 164
++255 255 255
++213 222 246
++164 172 222
++98 98 123
++65 74 106
++123 197 246
++74 180 213
++65 123 164
++49 106 123
++189 238 180
++106 222 115
++74 180 98
++57 131 82
++131 197 230
++98 156 172
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/08.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/08.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/08.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/09.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/09.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/09.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/10.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/10.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/10.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/11.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/11.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/11.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/12.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/12.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/12.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/13.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/13.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/13.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/14.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/14.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/14.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/15.pal b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/15.pal
+new file mode 100644
+index 0000000..4b0812f
+--- /dev/null
++++ b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/15.pal
+@@ -0,0 +1,19 @@
++JASC-PAL
++0100
++16
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
++0 0 0
+diff --git a/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/tiles.png b/data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/tiles.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9e82b5fe2eff8ead3cf5c6adda140ec18048de7e
+GIT binary patch
+literal 1503
+zcmV<51t9u~P)<h;3K|Lk000e1NJLTq004jh002k?0{{R3%&Xub0000mP)t-s|NsB)
+z?(W{+-p$R;y}iAxtgM`zoQsQ#b8~ZIVq#KKQb9pMF)=Y9ARrJB5C8xGL-gVL000GQ
+zNkl<ZScS!wF>l*A6vw@EIN%o2Xr18}k@BglNg3B!qJWNVEWrh?OK-?71%~F}TEOG2
+zb^HY^d+kt3LvQF%iy!LVqnyN&l}5>OZ!lrN{PF+Z`}5HQ)e6=MJ!pjf*8KkKAcz_f
+za@h#c2K;D#Uk?J|2BGgp;SFF!xv;1d_W`m-0D##+<Oh+0-9Z3=G~v?XlEH4y`v3%2
+zkr&LSczzIqf|yB%Plk9t7bk$K2`Ev4ie|1D8-PLuOit+N(g2vy{~YiCMgJ%ofhi~z
+zg?`9Q31$FbObScHrUa8yz)1?O>qf3A0|Y3bluByK009cVem;upE`X;(C_spS5Q<10
+zCZGTU0RoDcXO+&YVqM|7?EnOR;6e5?ECP0cTik){Cs+jRLS9x?wFdyMU4T$24yVuT
+zx(!?~7Q^Y2q;7-Gcl%ww(<_Z@7hq<4F3JZ5G629NaVW|M1%x9&>ug_C*BaMOfRrH?
+zfuR;C;)D=^MMzN#L%=rM>HS*c+67Q(0qB80Rmyfl&d>tT18c}wLIr5A@@l^Y1+Z>9
+z0AND^*wM^~^T7{bLjWXlV!`<q0?Hj64GLiG0-%Da?Mdzi<3QF5hKWOB$}c(T;RD~}
+zQh7cTw#_7@U^y{ij+Ks*BqfjncwklP0y2Pg+jSRs5Cn>kJ>fBCgOy{>Ig2lyk&~tg
+z7O}j}%57EQy6w6PZs5Dhn}*zm%L4$)Ey|psh!Ya0=tRBFwpm%3RqsDHVh4b!tDygO
+zD48cX0EU!7{}Vw{XA}cqTV3bHUT3&=reOO4j3cF_XL}xAXN$u)VvIP6;}|2Yc3D+s
+zxB{S=f~kQ!4pb0MmCI~Y5YtP}xEL~;CZJ$d<m)Wk78=)02SA!(9L>0|d<iumW*Ey!
+zY%z<Z=!4z5-0$=b*G>TRAdu1q5O=``Z~+)6Bmq!NPknF-@L^{t1q?=4`2u_ZI|UiR
+zV5H0%iK^5`0eAWY;4-)bE=M~D3R0jcTml-SojFUzkL%;#e_eMdaFz634;}~RdH?_u
+z5Q{qSIHc48z~(rGRR_R!1$S*ZjRKEh5feI!X+nmQJ1G>gT5YT1;DaLHbfmyspGk8i
+zL&haK(MpNAk|K=>05lAx+6Vcr3m`ajGEy$iWCV<2=%i#6XR-mn`3E1A*#@pvBlLrh
+zD=64)4?ZZ%P5GN{#J_`wp7&~%XE_|TEs8uZHYI7r?VHmE-9)vj-vw>ng-toQFTDCd
+z+iME2tCe{d%F?_GPXg5M!rr_KPXg5MLS^2Crvc2npi5kT0toAx1#Ljv%BMT){tsq#
+z-=`;l)@3@`|IB!^d~+W_H;1S`0lcpP-*2qg2Be3$H~05j1mxfScT0#*ZX2+ux$_4B
+z-uwb$anglFx>!W>v=86|Azc8Bs2AWK1rX_c-UmQlARuhsrQqQj9J+uC{$dMz)|>}Z
+z1bq1^pdJhc@PTv#ihc@S5ClZ6SVVso#h0FKM1cRco-}96+7|{;^Z~ph<cfT<p`9--
+z2o|*N$|Dq{FvX#bb8>->xC1;?gS$2o19*ER-~jk}7mgI9DFTiJ8~{CiZ~)AY1oQ&j
+z_@KUxc6}$%RP6VQi|0MA^8s*vj?Ej7u@)oPkT3>+^Pb!HZfpZ0c6N3~Smc2ZP|HW9
+zUN4uA0Gu;az{UWeFByCJx0J7zS3LmFYQWu0d`s9Zfb;>>RXzex1Hd${dI8iM^D#4j
+z_YknGL%w=Nz}h_&yfGhl3T^>c<g5qaCT_?24FD1#eNt%0`T6lk9FHFjh?+w+db|Sm
+zM|vBV?C}a_^7ZmIKFaC;0XTjZo&;!)^+yBRWBsAu{|DN~L4`zAiE#h`002ovPDHLk
+FV1f~EoVNe~
 
 literal 0
 HcmV?d00001
@@ -108684,10 +113450,10 @@ index 0000000..e483bc9
 +    0xFF
 +};
 diff --git a/src/data/heal_locations.json b/src/data/heal_locations.json
-index 9802525..e64b832 100644
+index 9802525..39e7a8e 100644
 --- a/src/data/heal_locations.json
 +++ b/src/data/heal_locations.json
-@@ -159,6 +159,126 @@
+@@ -159,6 +159,134 @@
        "y": 12,
        "respawn_map": "MAP_SIX_ISLAND_POKEMON_CENTER_1F",
        "respawn_npc": "LOCALID_SIX_ISLAND_NURSE"
@@ -108811,6 +113577,14 @@ index 9802525..e64b832 100644
 +      "y": 49,
 +      "respawn_map": "MAP_EVER_GRANDE_CITY_POKEMON_CENTER_1F",
 +      "respawn_npc": "LOCALID_EVER_GRANDE_NURSE"
++    },
++    {
++      "id": "HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "map": "MAP_BATTLE_FRONTIER_OUTSIDE_EAST",
++      "x": 3,
++      "y": 52,
++      "respawn_map": "MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F",
++      "respawn_npc": "LOCALID_FRONTIER_NURSE"
      }
    ]
  }
@@ -111178,10 +115952,10 @@ index cedb48b..3a3c791 100644
      [TRAINER_CLASS_PKMN_BREEDER]        = _("{PKMN} BREEDER"),
      [TRAINER_CLASS_PKMN_RANGER]         = _("{PKMN} RANGER"),
 diff --git a/src/data/tilesets/graphics.h b/src/data/tilesets/graphics.h
-index 5e6791a..6ffaa7b 100644
+index 5e6791a..f2c761e 100644
 --- a/src/data/tilesets/graphics.h
 +++ b/src/data/tilesets/graphics.h
-@@ -1407,3 +1407,1039 @@ const u16 gTilesetPalettes_HallOfFame[][16] =
+@@ -1407,3 +1407,1105 @@ const u16 gTilesetPalettes_HallOfFame[][16] =
  	INCBIN_U16("data/tilesets/secondary/hall_of_fame/palettes/14.gbapal"),
  	INCBIN_U16("data/tilesets/secondary/hall_of_fame/palettes/15.gbapal"),
  };
@@ -112155,6 +116929,72 @@ index 5e6791a..6ffaa7b 100644
 +	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/15.gbapal"),
 +};
 +
++const u32 gTilesetTiles_HoennBattleFrontierOutsideWest[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_outside_west/tiles.4bpp.lz");
++
++const u16 gTilesetPalettes_HoennBattleFrontierOutsideWest[][16] =
++{
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/00.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/01.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/02.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/03.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/04.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/05.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/06.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/07.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/08.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/09.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/10.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/11.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/12.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/13.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/14.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/palettes/15.gbapal"),
++};
++
++const u32 gTilesetTiles_HoennBattleFrontierOutsideEast[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_outside_east/tiles.4bpp.lz");
++
++const u16 gTilesetPalettes_HoennBattleFrontierOutsideEast[][16] =
++{
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/00.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/01.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/02.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/03.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/04.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/05.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/06.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/07.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/08.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/09.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/10.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/11.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/12.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/13.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/14.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/palettes/15.gbapal"),
++};
++
++const u32 gTilesetTiles_HoennBattleFrontierRankingHall[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/tiles.4bpp.lz");
++
++const u16 gTilesetPalettes_HoennBattleFrontierRankingHall[][16] =
++{
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/00.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/01.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/02.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/03.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/04.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/05.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/06.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/07.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/08.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/09.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/10.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/11.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/12.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/13.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/14.gbapal"),
++	INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/palettes/15.gbapal"),
++};
++
 +const u32 gTilesetTiles_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/tiles.4bpp.lz");
 +
 +const u16 gTilesetPalettes_HoennTrainerHill[][16] =
@@ -112222,10 +117062,10 @@ index 5e6791a..6ffaa7b 100644
 +};
 +// # --- end Hoenn ---
 diff --git a/src/data/tilesets/headers.h b/src/data/tilesets/headers.h
-index 676bd21..418514f 100644
+index 676bd21..18c3c23 100644
 --- a/src/data/tilesets/headers.h
 +++ b/src/data/tilesets/headers.h
-@@ -746,3 +746,568 @@ const struct Tileset gTileset_HallOfFame =
+@@ -746,3 +746,604 @@ const struct Tileset gTileset_HallOfFame =
      .callback = NULL,
  };
  
@@ -112758,6 +117598,42 @@ index 676bd21..418514f 100644
 +    .isHoenn = TRUE,
 +};
 +
++const struct Tileset gTileset_HoennBattleFrontierOutsideWest =
++{
++    .isCompressed = TRUE,
++    .isSecondary = TRUE,
++    .tiles = gTilesetTiles_HoennBattleFrontierOutsideWest,
++    .palettes = gTilesetPalettes_HoennBattleFrontierOutsideWest,
++    .metatiles = gMetatiles_HoennBattleFrontierOutsideWest,
++    .metatileAttributes = gMetatileAttributes_HoennBattleFrontierOutsideWest,
++    .callback = NULL,
++    .isHoenn = TRUE,
++};
++
++const struct Tileset gTileset_HoennBattleFrontierOutsideEast =
++{
++    .isCompressed = TRUE,
++    .isSecondary = TRUE,
++    .tiles = gTilesetTiles_HoennBattleFrontierOutsideEast,
++    .palettes = gTilesetPalettes_HoennBattleFrontierOutsideEast,
++    .metatiles = gMetatiles_HoennBattleFrontierOutsideEast,
++    .metatileAttributes = gMetatileAttributes_HoennBattleFrontierOutsideEast,
++    .callback = NULL,
++    .isHoenn = TRUE,
++};
++
++const struct Tileset gTileset_HoennBattleFrontierRankingHall =
++{
++    .isCompressed = TRUE,
++    .isSecondary = TRUE,
++    .tiles = gTilesetTiles_HoennBattleFrontierRankingHall,
++    .palettes = gTilesetPalettes_HoennBattleFrontierRankingHall,
++    .metatiles = gMetatiles_HoennBattleFrontierRankingHall,
++    .metatileAttributes = gMetatileAttributes_HoennBattleFrontierRankingHall,
++    .callback = NULL,
++    .isHoenn = TRUE,
++};
++
 +const struct Tileset gTileset_HoennTrainerHill =
 +{
 +    .isCompressed = TRUE,
@@ -112795,10 +117671,10 @@ index 676bd21..418514f 100644
 +};
 +// # --- end Hoenn ---
 diff --git a/src/data/tilesets/metatiles.h b/src/data/tilesets/metatiles.h
-index a9f2671..addd11f 100644
+index a9f2671..dc864c3 100644
 --- a/src/data/tilesets/metatiles.h
 +++ b/src/data/tilesets/metatiles.h
-@@ -201,3 +201,146 @@ const u32 gMetatileAttributes_PokemonLeague[] = INCBIN_U32("data/tilesets/second
+@@ -201,3 +201,155 @@ const u32 gMetatileAttributes_PokemonLeague[] = INCBIN_U32("data/tilesets/second
  
  const u16 gMetatiles_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_fame/metatiles.bin");
  const u32 gMetatileAttributes_HallOfFame[] = INCBIN_U32("data/tilesets/secondary/hall_of_fame/metatile_attributes.bin");
@@ -112935,6 +117811,15 @@ index a9f2671..addd11f 100644
 +
 +const u16 gMetatiles_HoennRusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/metatiles.bin");
 +const u32 gMetatileAttributes_HoennRusturfTunnel[] = INCBIN_U32("data/tilesets/secondary/hoenn_rusturf_tunnel/metatile_attributes.bin");
++
++const u16 gMetatiles_HoennBattleFrontierOutsideWest[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatiles.bin");
++const u32 gMetatileAttributes_HoennBattleFrontierOutsideWest[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_outside_west/metatile_attributes.bin");
++
++const u16 gMetatiles_HoennBattleFrontierOutsideEast[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatiles.bin");
++const u32 gMetatileAttributes_HoennBattleFrontierOutsideEast[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_outside_east/metatile_attributes.bin");
++
++const u16 gMetatiles_HoennBattleFrontierRankingHall[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatiles.bin");
++const u32 gMetatileAttributes_HoennBattleFrontierRankingHall[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier_ranking_hall/metatile_attributes.bin");
 +
 +const u16 gMetatiles_HoennTrainerHill[] = INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/metatiles.bin");
 +const u32 gMetatileAttributes_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/metatile_attributes.bin");
@@ -130162,10 +135047,10 @@ index 97b695e..3b5b896 100644
              gSpecialVar_Result = i;
              gSpecialVar_0x8004 = species;
 diff --git a/src/script_menu.c b/src/script_menu.c
-index 41eebd8..9e29669 100644
+index 41eebd8..f5675b2 100644
 --- a/src/script_menu.c
 +++ b/src/script_menu.c
-@@ -498,6 +498,53 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
+@@ -498,6 +498,55 @@ static const struct MenuAction sMultichoiceList_TrainerTowerMode[] = {
      { gOtherText_Exit }
  };
  
@@ -130193,6 +135078,7 @@ index 41eebd8..9e29669 100644
 +
 +static const u8 sText_HanFerryCinnabar[] = _("CINNABAR");
 +static const u8 sText_HanFerryDewford[] = _("DEWFORD");
++static const u8 sText_HanFerryFrontier[] = _("BATTLE FRONTIER");
 +
 +// Hän build: the ship from Seven Island to Cinnabar or Hoenn, and the ship home
 +static const struct MenuAction sMultichoiceList_HanFerrySeven[] = {
@@ -130204,6 +135090,7 @@ index 41eebd8..9e29669 100644
 +static const struct MenuAction sMultichoiceList_HanFerryDewford[] = {
 +    { gText_SevenIsland },
 +    { sText_HanFerryCinnabar },
++    { sText_HanFerryFrontier },
 +    { gOtherText_Exit }
 +};
 +
@@ -130219,7 +135106,7 @@ index 41eebd8..9e29669 100644
  static const struct MenuAction sMultichoiceList_Exit[] = {
      { gOtherText_Exit }
  };
-@@ -568,6 +615,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
+@@ -568,6 +617,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
      [MULTICHOICE_62]                                         = MULTICHOICE(sMultichoiceList_62),
      [MULTICHOICE_JOIN_OR_LEAD]                               = MULTICHOICE(sMultichoiceList_JoinOrLead),
      [MULTICHOICE_TRAINER_TOWER_MODE]                         = MULTICHOICE(sMultichoiceList_TrainerTowerMode),

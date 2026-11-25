@@ -1095,3 +1095,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-24n
 - Mauville Game Corner: the two prize counters use Celadon's prize scripts (TMs, and the other prizes). The roulette tables say they are closed; Emerald's roulette is its own program and is not brought across. Placeholder English text.
+
+## 2026-11-25a
+- Battle Frontier, outside only: both outdoor areas, the reception gate, Pokémon Center, Mart, Scott's house, the lounges, the exchange corner and the ranking hall are in. The ship from Dewford has a third stop, BATTLE FRONTIER, and a sailor at the reception gate sails home. The facilities (Tower, Dome, Factory, Palace, Arena, Pike, Pyramid) are not brought across: their doors do nothing. No Battle Points yet. Placeholder English text.
