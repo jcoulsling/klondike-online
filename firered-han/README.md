@@ -1092,3 +1092,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-24m
 - Hoenn hidden items (77 of Emerald's): face the spot and press A, as in Kanto. They use their own flags in the Hoenn range (300 to 479). A hidden item with a quantity of 127 in the map data means "a Hoenn one, quantity 1" (`GetHiddenItemAttr` in `src/field_specials.c`). Tested on Route 104.
+
+## 2026-11-24n
+- Mauville Game Corner: the two prize counters use Celadon's prize scripts (TMs, and the other prizes). The roulette tables say they are closed; Emerald's roulette is its own program and is not brought across. Placeholder English text.

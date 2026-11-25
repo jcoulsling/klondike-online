@@ -22140,7 +22140,7 @@ index 0000000..75c02d6
 +	.byte 0
 diff --git a/data/maps/MauvilleCity_GameCorner/map.json b/data/maps/MauvilleCity_GameCorner/map.json
 new file mode 100644
-index 0000000..3af5721
+index 0000000..9cf9a94
 --- /dev/null
 +++ b/data/maps/MauvilleCity_GameCorner/map.json
 @@ -0,0 +1,386 @@
@@ -22210,7 +22210,7 @@ index 0000000..3af5721
 +      "movement_range_y": 0,
 +      "trainer_type": "TRAINER_TYPE_NONE",
 +      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "Hoenn_EventScript_Npc",
++      "script": "CeladonCity_GameCorner_PrizeRoom_EventScript_PrizeClerkItems",
 +      "flag": "0"
 +    },
 +    {
@@ -22275,7 +22275,7 @@ index 0000000..3af5721
 +      "movement_range_y": 1,
 +      "trainer_type": "TRAINER_TYPE_NONE",
 +      "trainer_sight_or_berry_tree_id": "0",
-+      "script": "Hoenn_EventScript_Npc",
++      "script": "CeladonCity_GameCorner_PrizeRoom_EventScript_PrizeClerkTMs",
 +      "flag": "0"
 +    },
 +    {
@@ -22438,7 +22438,7 @@ index 0000000..3af5721
 +      "y": 6,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22446,7 +22446,7 @@ index 0000000..3af5721
 +      "y": 6,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22454,7 +22454,7 @@ index 0000000..3af5721
 +      "y": 7,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22462,7 +22462,7 @@ index 0000000..3af5721
 +      "y": 7,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22470,7 +22470,7 @@ index 0000000..3af5721
 +      "y": 8,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22478,7 +22478,7 @@ index 0000000..3af5721
 +      "y": 8,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22486,7 +22486,7 @@ index 0000000..3af5721
 +      "y": 6,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22494,7 +22494,7 @@ index 0000000..3af5721
 +      "y": 6,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22502,7 +22502,7 @@ index 0000000..3af5721
 +      "y": 7,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22510,7 +22510,7 @@ index 0000000..3af5721
 +      "y": 7,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22518,7 +22518,7 @@ index 0000000..3af5721
 +      "y": 8,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    },
 +    {
 +      "type": "sign",
@@ -22526,7 +22526,7 @@ index 0000000..3af5721
 +      "y": 8,
 +      "elevation": 0,
 +      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-+      "script": "Hoenn_EventScript_Sign"
++      "script": "Hoenn_GameCorner_Roulette"
 +    }
 +  ]
 +}
@@ -54560,10 +54560,10 @@ index fc2998f..2cf58b9 100644
  	.string "Light is filtering down from above.\n"
 diff --git a/data/scripts/han_hoenn.inc b/data/scripts/han_hoenn.inc
 new file mode 100644
-index 0000000..554fee5
+index 0000000..3fa177d
 --- /dev/null
 +++ b/data/scripts/han_hoenn.inc
-@@ -0,0 +1,3033 @@
+@@ -0,0 +1,3042 @@
 +@ Hän build: what the people and signs of Hoenn say until their lines are written in Hän (Jane).
 +@ (generated place: hoenn/han_hoenn.inc)
 +
@@ -54611,6 +54611,15 @@ index 0000000..554fee5
 +Hoenn_GameCorner_Text_CoinCase:
 +	.string "Welcome to the GAME CORNER!\n"
 +	.string "Please take this COIN CASE.$"
++
++@ The roulette tables: Emerald's roulette is its own program and has not been brought across.
++Hoenn_GameCorner_Roulette::
++	msgbox Hoenn_GameCorner_Text_RouletteClosed, MSGBOX_SIGN
++	end
++
++Hoenn_GameCorner_Text_RouletteClosed:
++	.string "The roulette table is closed.\n"
++	.string "Try the slot machines instead.$"
 +
 +Hoenn_Trainer_CALVIN_1::
 +	trainerbattle_single TRAINER_HOENN_CALVIN_1, Hoenn_Text_Placeholder, Hoenn_Text_Placeholder
