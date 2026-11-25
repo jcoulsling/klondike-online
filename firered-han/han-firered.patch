@@ -129127,9 +129127,30 @@ index b3e3c77..c4e7d7f 100644
  }
  
 diff --git a/src/region_map.c b/src/region_map.c
-index d65f99f..6b1a82e 100644
+index d65f99f..d0d9b2c 100644
 --- a/src/region_map.c
 +++ b/src/region_map.c
+@@ -496,9 +496,9 @@ static const struct WindowTemplate sRegionMapWindowTemplates[] = {
+     [WIN_TOPBAR_LEFT] =
+     {
+         .bg = 3,
+-        .tilemapLeft = 18,
++        .tilemapLeft = 11, // Hän build: wider, to the left, to fit the SELECT hint (the old text is drawn 56 pixels in)
+         .tilemapTop = 0,
+-        .width = 5,
++        .width = 12,
+         .height = 2,
+         .paletteNum = 12,
+         .baseBlock = 0x150
+@@ -511,7 +511,7 @@ static const struct WindowTemplate sRegionMapWindowTemplates[] = {
+         .width = 5,
+         .height = 2,
+         .paletteNum = 12,
+-        .baseBlock = 0x15a
++        .baseBlock = 0x168
+     }, DUMMY_WIN_TEMPLATE
+ };
+ 
 @@ -819,6 +819,16 @@ static const u8 sWinRegs[][2] = {
  static const u8 sTextColors[] = {TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY};
  
@@ -129161,13 +129182,23 @@ index d65f99f..6b1a82e 100644
      {
          if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
              dst = StringCopy(dst0, sMapsecName_CELADON_DEPT_);
-@@ -3870,8 +3885,19 @@ static void ClearOrDrawTopBar(bool8 clear)
+@@ -3842,7 +3857,7 @@ static void PrintTopBarTextLeft(const u8 *str)
+         FillWindowPixelBuffer(WIN_TOPBAR_LEFT, PIXEL_FILL(0));
+     else
+         FillWindowPixelBuffer(WIN_TOPBAR_LEFT, PIXEL_FILL(15));
+-    AddTextPrinterParameterized3(WIN_TOPBAR_LEFT, FONT_SMALL, 0, 0, sTextColors, 0, str);
++    AddTextPrinterParameterized3(WIN_TOPBAR_LEFT, FONT_SMALL, 56, 0, sTextColors, 0, str);
+     CopyWindowToVram(WIN_TOPBAR_LEFT, COPYWIN_GFX);
+ }
+ 
+@@ -3870,8 +3885,20 @@ static void ClearOrDrawTopBar(bool8 clear)
      }
  }
  
 +// Hän build: SELECT on the fly map goes to the fly map of Hoenn (src/han_hoenn_fly.c), and SELECT there comes back
 +bool8 gHanFlyForceKanto;
 +static bool8 sHanGoHoenn;
++static const u8 sText_HanSelectHoenn[] = _("{SELECT_BUTTON}HOENN");
 +
  void CB2_OpenFlyMap(void)
  {
@@ -129181,7 +129212,22 @@ index d65f99f..6b1a82e 100644
      InitFlyMap();
      InitRegionMap(REGIONMAP_TYPE_FLY);
  }
-@@ -3921,6 +3947,14 @@ static void Task_FlyMap(u8 taskId)
+@@ -3906,8 +3933,14 @@ static void Task_FlyMap(u8 taskId)
+         sFlyMap->state++;
+         break;
+     case 2:
++        // Hän build: on the Kanto map, SELECT goes to the Hoenn map
+         PrintTopBarTextRight(gText_RegionMap_AButtonOK);
+         ClearOrDrawTopBar(FALSE);
++        if (!HanInHoenn())
++        {
++            AddTextPrinterParameterized3(WIN_TOPBAR_LEFT, FONT_SMALL, 0, 0, sTextColors, 0, sText_HanSelectHoenn);
++            CopyWindowToVram(WIN_TOPBAR_LEFT, COPYWIN_GFX);
++        }
+         sFlyMap->state++;
+         break;
+     case 3:
+@@ -3921,6 +3954,14 @@ static void Task_FlyMap(u8 taskId)
          }
          break;
      case 4:
@@ -129196,7 +129242,7 @@ index d65f99f..6b1a82e 100644
          switch (GetRegionMapInput())
          {
          case MAP_INPUT_MOVE_START:
-@@ -4015,6 +4049,8 @@ static void FreeFlyMap(u8 taskId)
+@@ -4015,6 +4056,8 @@ static void FreeFlyMap(u8 taskId)
      FreeAllWindowBuffers();
      if (sFlyMap->selectedDestination == TRUE)
          SetMainCallback2(CB2_ReturnToField);

@@ -1079,3 +1079,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-24i
 - Hoenn people use their own Emerald walking pictures: Professor Birch, Roxanne and the other leaders, Aqua and Magma members, swimmers and so on. Before, they borrowed Kanto pictures (Birch was Prof. Oak).
+
+## 2026-11-24j
+- The Kanto fly map shows SELECT HOENN on its top bar, so the switch to the Hoenn map can be found. (The top bar window is wider; the move hint keeps its place.)
