@@ -93355,10 +93355,10 @@ index 0000000..a101d24
 +#endif // GUARD_HAN_FOLLOWER_H
 diff --git a/include/han_hoenn.h b/include/han_hoenn.h
 new file mode 100644
-index 0000000..0d10546
+index 0000000..63302a0
 --- /dev/null
 +++ b/include/han_hoenn.h
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,18 @@
 +#ifndef GUARD_HAN_HOENN_H
 +#define GUARD_HAN_HOENN_H
 +
@@ -93372,6 +93372,9 @@ index 0000000..0d10546
 +void HanHoennFlagClear(u16 index);
 +void HanHoennBadge(void); // VAR_0x8004 = 0-7: gives the badge
 +u8 HanHoennBadgeCount(void);
++
++void HanHoennVisitFrame(void); // standing in a Hoenn fly town unlocks it on the fly map
++void HanHoennVisitAll(void);
 +
 +#endif
 diff --git a/include/han_multiplayer.h b/include/han_multiplayer.h
@@ -125635,10 +125638,10 @@ index 0000000..2be09a4
 +}
 diff --git a/src/han_hoenn_fly.c b/src/han_hoenn_fly.c
 new file mode 100644
-index 0000000..247427e
+index 0000000..74100e4
 --- /dev/null
 +++ b/src/han_hoenn_fly.c
-@@ -0,0 +1,258 @@
+@@ -0,0 +1,284 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "task.h"
@@ -125658,6 +125661,7 @@ index 0000000..247427e
 +#include "constants/region_map_sections.h"
 +#include "constants/heal_locations.h"
 +#include "constants/maps.h"
++#include "han_hoenn.h"
 +#include "data/region_map/han_hoenn_names.h"
 +
 +// Hän build: the fly map of Hoenn. SELECT on the Kanto fly map opens it, and SELECT here goes back.
@@ -125668,6 +125672,27 @@ index 0000000..247427e
 +#include "data/han_hoenn_fly.h"
 +
 +#define HOENN_FLY_COUNT ARRAY_COUNT(sHanHoennFlyTowns)
++#define VISIT_FLAG(i) (HAN_HOENN_FLAG_BASE + 480 + (i)) // a town can be flown to once the player has stood in it
++
++// Called every frame of the overworld: standing in a Hoenn fly town unlocks it.
++void HanHoennVisitFrame(void)
++{
++    u8 i, sec = GetCurrentRegionMapSectionId();
++
++    if (sec >= KANTO_MAPSEC_START)
++        return;
++    for (i = 0; i < HOENN_FLY_COUNT; i++)
++        if (sHanHoennFlyTowns[i].mapsec == sec && !FlagGet(VISIT_FLAG(i)))
++            FlagSet(VISIT_FLAG(i));
++}
++
++void HanHoennVisitAll(void)
++{
++    u8 i;
++
++    for (i = 0; i < HOENN_FLY_COUNT; i++)
++        FlagSet(VISIT_FLAG(i));
++}
 +
 +static const u32 sMapTiles[] = INCBIN_U32("graphics/han_hoenn_map/map.8bpp.lz");
 +static const u32 sMapTilemap[] = INCBIN_U32("graphics/han_hoenn_map/map.bin.lz");
@@ -125736,7 +125761,7 @@ index 0000000..247427e
 +
 +    for (i = 0; i < HOENN_FLY_COUNT; i++)
 +    {
-+        if (i == sSel)
++        if (i == sSel || !FlagGet(VISIT_FLAG(i)))
 +            continue;
 +        ddx = (s32)sHanHoennFlyTowns[i].x - sHanHoennFlyTowns[sSel].x;
 +        ddy = (s32)sHanHoennFlyTowns[i].y - sHanHoennFlyTowns[sSel].y;
@@ -125801,6 +125826,8 @@ index 0000000..247427e
 +        LoadSpritePalette(&sCursorSpritePal);
 +        sCursorId = CreateSprite(&sCursorTemplate, 0, 0, 0);
 +        sSel = 0;
++        while (sSel < HOENN_FLY_COUNT - 1 && !FlagGet(VISIT_FLAG(sSel)))
++            sSel++; // the first town visited
 +        sExit = 0;
 +        ShowName();
 +        sState++;
@@ -125840,7 +125867,9 @@ index 0000000..247427e
 +    {
 +        if (gPaletteFade.active)
 +            return;
-+        if (JOY_NEW(A_BUTTON))
++        if (JOY_NEW(A_BUTTON) && !FlagGet(VISIT_FLAG(sSel)))
++            PlaySE(SE_FAILURE);
++        else if (JOY_NEW(A_BUTTON))
 +        {
 +            sExit = 0;
 +            PlaySE(SE_USE_ITEM);
@@ -126357,12 +126386,13 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..86af89e
+index 0000000..13ac181
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,157 @@
+@@ -0,0 +1,160 @@
 +#include "global.h"
 +#include "han_rowan.h"
++#include "han_hoenn.h"
 +#include "event_data.h"
 +#include "han_custom.h"
 +#include "overworld.h"
@@ -126473,6 +126503,7 @@ index 0000000..86af89e
 +    FlagSet(FLAG_SYS_SEVII_MAP_4567);
 +    for (i = 0; i < ARRAY_COUNT(sFlyTowns); i++)
 +        FlagSet(sFlyTowns[i]);
++    HanHoennVisitAll();
 +}
 +
 +// Called at the end of a new game's set-up. Does nothing for any other name.
@@ -126506,6 +126537,7 @@ index 0000000..86af89e
 +    VarSet(VAR_MAP_SCENE_ROUTE22, 1);
 +    for (i = 0; i < ARRAY_COUNT(sFlyTowns); i++)
 +        FlagSet(sFlyTowns[i]);
++    HanHoennVisitAll();
 +
 +    ZeroPlayerPartyMons();
 +    for (i = 0; i < ARRAY_COUNT(sTeam); i++)
@@ -128635,20 +128667,21 @@ index 0b55a34..1dd4ba5 100644
      SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(0x10, 0xE0));
  }
 diff --git a/src/overworld.c b/src/overworld.c
-index 339014d..4a3a040 100644
+index 339014d..bfeef87 100644
 --- a/src/overworld.c
 +++ b/src/overworld.c
-@@ -31,6 +31,9 @@
+@@ -31,6 +31,10 @@
  #include "new_game.h"
  #include "new_menu_helpers.h"
  #include "overworld.h"
 +#include "han_multiplayer.h"
 +#include "han_follower.h"
 +#include "han_rowan.h"
++#include "han_hoenn.h"
  #include "play_time.h"
  #include "quest_log.h"
  #include "quest_log_objects.h"
-@@ -582,6 +585,7 @@ static void SetPlayerCoordsFromWarp(void)
+@@ -582,6 +586,7 @@ static void SetPlayerCoordsFromWarp(void)
  
  void WarpIntoMap(void)
  {
@@ -128656,17 +128689,18 @@ index 339014d..4a3a040 100644
      ApplyCurrentWarp();
      LoadCurrentMapData();
      SetPlayerCoordsFromWarp();
-@@ -1465,6 +1469,9 @@ static void OverworldBasic(void)
+@@ -1465,6 +1470,10 @@ static void OverworldBasic(void)
      CameraUpdate();
      SetQuestLogEvent_Arrived();
      UpdateCameraPanning();
 +    HanMultiplayerFrame(); // Hän build
 +    HanFollowerFrame(); // Hän build
-+    HanWildFrame(); // Hän build
++    HanWildFrame();
++    HanHoennVisitFrame(); // Hän build
      BuildOamBuffer();
      UpdatePaletteFade();
      UpdateTilesetAnimations();
-@@ -1691,6 +1698,8 @@ static void FieldCB_ShowMapNameOnContinue(void)
+@@ -1691,6 +1700,8 @@ static void FieldCB_ShowMapNameOnContinue(void)
  void CB2_ContinueSavedGame(void)
  {
      FieldClearVBlankHBlankCallbacks();
