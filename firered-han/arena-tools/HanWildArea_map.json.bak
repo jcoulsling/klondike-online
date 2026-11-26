@@ -1,0 +1,455 @@
+{
+  "id": "MAP_HAN_WILD_AREA",
+  "name": "HanWildArea",
+  "layout": "LAYOUT_HAN_WILD_AREA",
+  "music": "MUS_ROUTE1",
+  "region_map_section": "MAPSEC_SECRET_BASE",
+  "requires_flash": false,
+  "weather": "WEATHER_SNOW",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": true,
+  "floor_number": 0,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": [
+    {
+      "map": "MAP_HAN_WILD_EAST",
+      "offset": 0,
+      "direction": "right"
+    }
+  ],
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "x": 6,
+      "y": 54,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "HanWild_EventScript_FerrySailor",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 11,
+      "y": 26,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 16,
+      "y": 25,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 20,
+      "y": 27,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 13,
+      "y": 29,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 18,
+      "y": 30,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 10,
+      "y": 31,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 20,
+      "y": 32,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 15,
+      "y": 33,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ROCK_SMASH_ROCK",
+      "x": 19,
+      "y": 28,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 17,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_HAN_WILD_TEMPLE",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 0,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 1,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 2,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 3,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 4,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 10,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 22,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 23,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 24,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 25,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 26,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 28,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 29,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    },
+    {
+      "type": "trigger",
+      "x": 31,
+      "y": 63,
+      "elevation": 0,
+      "var": "VAR_TEMP_F",
+      "var_value": "0",
+      "script": "HanWild_EventScript_SurfOut"
+    }
+  ],
+  "bg_events": []
+}

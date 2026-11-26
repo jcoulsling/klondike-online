@@ -1245,3 +1245,14 @@ Jane: a test patch that starts the player in the Dash Arena, to test the Wild Ar
 ## 2026-11-26h
 Jane: a Pokémon on the screen gets a palette ahead of ones seen earlier.
 - When no palette is free, a kind on the screen (within 7 tiles across or 5 up and down) takes the palette of the held kind that is farthest from the player, if that one is farther than it. Palettes in use by other sprites are never taken.
+
+## 2026-11-26i
+Jane: build the Dash Arena plan (towers, barracks, ancients, camps, items, merchants, obstacles, ford).
+- **Terrain:** 18 towers (stone pillars) and 6 barracks (ruins cobblestone) on the three lanes, each ancient a 3 x 3 ruins patch with a pillar. The middle is a 5 x 5 ford of shallow water to wade through.
+- **Camps (6):** in the tree nooks, 3 + 2 + 2 Pokémon per side, drawn on each visit from the land pool (sPool). Levels follow the party's top level (-8 small, 0 medium, +5 large). A species is dropped if it could not exist at that level (lowest level from the evolution table, src/data/han_camp_levels.h). Strongest ten never appear; an empty band falls back to the one below. Bump into one to battle it; it stays gone for the visit.
+- **Merchants:** Kecleon at the Radiant secret shop (15, 29), Sableye at the Dire one (70, 56), as follower sprites. Walking up opens a Pokémart.
+- **Items:** 12 item balls in open ground off the lanes (Rare Candy, Nugget, Max Revive, Full Restore, PP Up, Ultra Ball per side). They come back on every visit (temp flags).
+- **Obstacles:** 6 cut trees, 6 rock smash rocks and 6 strength boulders (object events with the game's own scripts).
+- Fixed: Pokémon kinds beyond 16 were ignored by the palette code, so far merchants and camps stayed invisible; the limit is now 40.
+- Tools: firered-han/arena-tools (build_arena.py, gen_objects.py, classify_arena.py is in hoenn/wildtiles).
+- Not tested: item pickup, boulders and rocks in play, and levels at other party levels (only the build and the shop were checked in the emulator).
