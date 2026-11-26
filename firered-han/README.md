@@ -1210,3 +1210,12 @@ Jane's game (25t) had no Pokémon in sight. Her ROM was exactly the 25t build an
 Jane at the dock (26b) saw only sea Pokémon: the old rule put one near only when none at all was near, and the sea ones counted.
 - **Always some near**: at least 3 Pokémon within about 15 tiles across or 10 up and down of the player, and at least 1 of them on land wherever there is land about. Short of that, one appears just off the screen every 2 seconds until there are enough (the one farthest away makes room when 14 are out; the sea keeps 4).
 - Tested: standing at the dock, 3-4 near (1-2 on land) the whole time; walking from the dock and from the east edge, never fewer than 3 near and never without land ones, until walking into one started a battle.
+
+## 2026-11-26d
+Jane (26c): they kept disappearing, and on land there was only one species at a time (all SLOWPOKE or all WOOPER), and few.
+Why: a new Pokémon's species had to fit the few palettes in use close by, and at the dock the sea species had taken them all, so every land one copied the species already there; and when more species were near than palettes, some were not drawn.
+- **Two more palettes** for the Pokémon: 2 and 6 as well (NPC 1 and its reflection; the follower has its own), so up to 7.
+- **The sea takes at most 2 species in any one place**, so the land always has room.
+- **A new one prefers a species not yet close by**, so there is a mix.
+- **At least 4 near the player, at least 2 of them on land** (where there is land about), within about 13 tiles across or 8 up and down. Short of that, one appears just off the screen every second; in narrow places it looks a little wider.
+- Tested from four starting points: inland 4-5 land species near at a time (was 1); never fewer than 2 land ones near outside battles; none ever hidden on the screen; none on the wrong ground; after a battle the rest came back.

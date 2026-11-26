@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..760366c
+index 0000000..ab2043c
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1615 @@
+@@ -0,0 +1,1636 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137615,11 +137615,12 @@ index 0000000..760366c
 +// ---- palettes ----
 +// On these maps FireRed keeps sprite palettes 0-11 for people and their reflections, and weather and the follower take two more,
 +// so only two are left (and field effects such as the surf blob need one of those). Palettes 4, 8, 10 and 11 belong to people
-+// that none of the wild maps has (NPC 3, its reflection, the special NPC and its reflection), so the Pokémon use those, and one
++// that none of the wild maps has (NPC 1 and 3 and their reflections, the special NPC and its reflection: the follower has its own
++// palette), so the Pokémon use those, and one
 +// of the free ones when two are free. A palette goes to the kinds nearest the player; one far off the screen gives its palette up,
 +// and while a kind has none it is not drawn (and cannot be met).
-+#define PAL_MAX 5
-+static const u8 sPalFixed[] = {4, 8, 10, 11};
++#define PAL_MAX 7
++static const u8 sPalFixed[] = {2, 4, 6, 8, 10, 11};
 +static u16 sPalKey[PAL_MAX]; // species, plus 0x8000 for the shiny colours; 0 when the palette is unused
 +static u8 sPalNum[PAL_MAX];
 +static u8 sPalCount;
@@ -138332,11 +138333,12 @@ index 0000000..760366c
 +#define ON_SCREEN   15  // screen distance (see ScreenDist) of the screen's edge: 7 tiles across, 5 up and down
 +#define SPAWN_NEAR  16  // a Pokémon put near the player appears just outside the screen...
 +#define SPAWN_FAR   24  // ...not far beyond it
-+#define KIND_AREA   40  // a new one's kind: no more than KIND_MAX kinds this close to it (so every kind in view can have a palette)
-+#define KIND_MAX    4
-+#define NEAR_ZONE   30  // "not too far": about 15 tiles across or 10 up and down
-+#define NEAR_MIN    3   // at least this many always that close (one of them on land, where there is land about)
-+#define NEAR_WAIT   120 // 2 seconds between ones put near the player
++#define KIND_AREA   40  // a new one's kind: within this of it, no more kinds than there are palettes (less one, kept for a shiny)...
++#define SEA_KINDS   2   // ...and no more than this many of them sea kinds, so the land has its share
++#define NEAR_ZONE   26  // "not too far": about 13 tiles across or 8 up and down
++#define NEAR_MIN    4   // at least this many always that close...
++#define NEAR_LAND   2   // ...this many of them on land, where there is land about
++#define NEAR_WAIT   60  // 1 second between ones put near the player
 +#define FILL_WAIT   90  // a gap is filled every 1.5 seconds
 +
 +struct WildAct
@@ -138391,12 +138393,14 @@ index 0000000..760366c
 +    return Save()->species[sAct[a].kind] | (sAct[a].shiny ? 0x8000 : 0);
 +}
 +
-+// may a Pokémon in these colours appear at (x, y): with it, no more than KIND_MAX kinds close by
-+static bool8 KeyFitsAt(u16 key, s16 x, s16 y)
++// may a Pokémon in these colours appear at (x, y), and is it a species not yet close by. Close by, there may be no more kinds
++// than palettes (less one), and no more than SEA_KINDS of them in the sea.
++static bool8 KeyFitsAt(u16 key, bool8 water, s16 x, s16 y, bool8 *isNew)
 +{
 +    u16 keys[MAX_ACT];
-+    u8 i, j, n = 0;
++    u8 i, j, n = 0, sea = 0;
 +
++    *isNew = TRUE;
 +    for (i = 0; i < MAX_ACT; i++)
 +    {
 +        u16 k;
@@ -138404,15 +138408,23 @@ index 0000000..760366c
 +        if (!sAct[i].used || ScreenDist(sAct[i].x, sAct[i].y, x, y) > KIND_AREA)
 +            continue;
 +        k = ActKey(i);
++        if ((k & 0x7FFF) == (key & 0x7FFF))
++            *isNew = FALSE;
 +        if (k == key)
 +            return TRUE;
 +        for (j = 0; j < n; j++)
 +            if (keys[j] == k)
 +                break;
 +        if (j == n)
++        {
 +            keys[n++] = k;
++            if (IsSeaKind(sAct[i].kind))
++                sea++;
++        }
 +    }
-+    return n < KIND_MAX;
++    if (n + 1 >= sPalCount)
++        return FALSE;
++    return !water || sea < SEA_KINDS;
 +}
 +
 +static bool8 MakeAct(u8 a)
@@ -138444,39 +138456,45 @@ index 0000000..760366c
 +static bool8 PutAct(u8 a, bool8 water, s16 x, s16 y)
 +{
 +    struct HanWildSave *sv = Save();
-+    u8 tries, i, k;
++    u8 tries, i, k, pass;
 +
-+    for (tries = 0; tries < 12; tries++)
++    // first a species not yet close by, so that there is a mix; then any that fits
++    for (pass = 0; pass < 2; pass++)
 +    {
-+        bool8 shiny;
-+        u16 sp;
++        for (tries = 0; tries < 12; tries++)
++        {
++            bool8 shiny, isNew;
++            u16 sp;
 +
-+        k = water ? LAND_KINDS + Random() % (WILD_COUNT - LAND_KINDS) : Random() % LAND_KINDS;
-+        sp = sv->species[k];
-+        if (sp == SPECIES_NONE)
-+            continue;
-+        if (IsLegend(sp))
-+        {
-+            for (i = 0; i < MAX_ACT; i++)
-+                if (sAct[i].used && sAct[i].kind == k)
-+                    break;
-+            if (i < MAX_ACT)
-+                continue; // a legendary or mythical one is out alone
-+        }
-+        shiny = ShinyRoll();
-+        if (!KeyFitsAt(sp | (shiny ? 0x8000 : 0), x, y))
-+        {
-+            if (!shiny || !KeyFitsAt(sp, x, y))
++            k = water ? LAND_KINDS + Random() % (WILD_COUNT - LAND_KINDS) : Random() % LAND_KINDS;
++            sp = sv->species[k];
++            if (sp == SPECIES_NONE)
 +                continue;
-+            shiny = FALSE; // no room for its shiny colours here: it comes as a plain one
++            if (IsLegend(sp))
++            {
++                for (i = 0; i < MAX_ACT; i++)
++                    if (sAct[i].used && sAct[i].kind == k)
++                        break;
++                if (i < MAX_ACT)
++                    continue; // a legendary or mythical one is out alone
++            }
++            shiny = ShinyRoll();
++            if (!KeyFitsAt(sp | (shiny ? 0x8000 : 0), water, x, y, &isNew))
++            {
++                if (!shiny || !KeyFitsAt(sp, water, x, y, &isNew))
++                    continue;
++                shiny = FALSE; // no room for its shiny colours here: it comes as a plain one
++            }
++            if (pass == 0 && !isNew)
++                continue;
++            sAct[a].used = TRUE;
++            sAct[a].kind = k;
++            sAct[a].shiny = shiny;
++            sAct[a].x = x;
++            sAct[a].y = y;
++            sAct[a].lvl = RollLevel(TopLevel());
++            return MakeAct(a);
 +        }
-+        sAct[a].used = TRUE;
-+        sAct[a].kind = k;
-+        sAct[a].shiny = shiny;
-+        sAct[a].x = x;
-+        sAct[a].y = y;
-+        sAct[a].lvl = RollLevel(TopLevel());
-+        return MakeAct(a);
 +    }
 +    return FALSE;
 +}
@@ -138536,20 +138554,21 @@ index 0000000..760366c
 +    bool8 water;
 +
 +    PlayerTile(&px, &py);
-+    for (t = 0; t < 24; t++)
++    // just off the screen; in a narrow place, where there is little ground there, a little wider (still off the screen)
++    for (t = 0; t < 80; t++)
 +    {
 +        s16 d;
 +
-+        x = px - 12 + Random() % 25;
-+        y = py - 8 + Random() % 17;
++        x = px - 15 + Random() % 31;
++        y = py - 10 + Random() % 21;
 +        d = ScreenDist(x, y, px, py);
-+        if (d < SPAWN_NEAR || d > SPAWN_FAR || Occupied(NULL, x, y))
++        if (d < SPAWN_NEAR || d > (t < 40 ? SPAWN_FAR : SPAWN_FAR + 6) || Occupied(NULL, x, y))
 +            continue;
 +        water = !landOnly && GroundFor(TRUE, x, y);
 +        if (water || GroundFor(FALSE, x, y))
 +            break;
 +    }
-+    if (t == 24)
++    if (t == 80)
 +        return FALSE;
 +    a = FreeAct();
 +    if (a == MAX_ACT)
@@ -138629,16 +138648,18 @@ index 0000000..760366c
 +    {
 +        u8 land, n = CountNear(&land);
 +
-+        if (land == 0)
++        bool8 put = TRUE;
++
++        if (land < NEAR_LAND)
 +        {
-+            sNearWait = NEAR_WAIT;
-+            if (!PutNear(TRUE) && n < NEAR_MIN)
-+                PutNear(FALSE); // no land just off the screen here: in the sea, then
++            put = PutNear(TRUE);
++            if (!put && n < NEAR_MIN)
++                put = PutNear(FALSE); // no land just off the screen here: in the sea, then
++            sNearWait = put ? NEAR_WAIT : 10; // none could be put: try again soon
 +        }
 +        else if (n < NEAR_MIN)
 +        {
-+            sNearWait = NEAR_WAIT;
-+            PutNear(FALSE);
++            sNearWait = PutNear(FALSE) ? NEAR_WAIT : 10;
 +        }
 +    }
 +}
