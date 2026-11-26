@@ -132630,17 +132630,20 @@ index b39771a..cab768e 100644
              }
              else
 diff --git a/src/field_control_avatar.c b/src/field_control_avatar.c
-index b1b6465..3ea4026 100644
+index b1b6465..1f44c36 100644
 --- a/src/field_control_avatar.c
 +++ b/src/field_control_avatar.c
-@@ -1,4 +1,6 @@
+@@ -1,4 +1,9 @@
  #include "global.h"
++#include "constants/items.h"
++#include "sound.h"
++#include "item.h"
 +#include "han_follower.h"
 +#include "han_rowan.h"
  #include "gflib.h"
  #include "bike.h"
  #include "coord_event_weather.h"
-@@ -43,6 +45,8 @@ static void Task_QuestLogPlayback_OpenStartMenu(u8 taskId);
+@@ -43,6 +48,8 @@ static void Task_QuestLogPlayback_OpenStartMenu(u8 taskId);
  static void GetPlayerPosition(struct MapPosition * position);
  static void GetInFrontOfPlayerPosition(struct MapPosition * position);
  static u16 GetPlayerCurMetatileBehavior(void);
@@ -132649,7 +132652,7 @@ index b1b6465..3ea4026 100644
  static bool8 TryStartInteractionScript(struct MapPosition * position, u16 metatileBehavior, u8 playerDirection);
  static const u8 *GetInteractionScript(struct MapPosition * position, u8 metatileBehavior, u8 playerDirection);
  static const u8 *GetInteractedObjectEventScript(struct MapPosition * position, u8 metatileBehavior, u8 playerDirection);
-@@ -197,6 +201,13 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
+@@ -197,6 +204,21 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
      u16 metatileBehavior;
      u32 metatileAttributes;
  
@@ -132660,10 +132663,18 @@ index b1b6465..3ea4026 100644
 +        return TRUE;
 +    }
 +#endif
++    // Hän build: hold L and R and press SELECT to get the SHINY CHARM (Rowan's key item) in any save
++    if ((gMain.heldKeys & L_BUTTON) && (gMain.heldKeys & R_BUTTON) && (gMain.newKeys & SELECT_BUTTON))
++    {
++        if (!CheckBagHasItem(ITEM_SHINY_CHARM, 1) && AddBagItem(ITEM_SHINY_CHARM, 1))
++            PlaySE(SE_EXP_MAX);
++        else
++            PlaySE(SE_FAILURE);
++    }
      ResetFacingNpcOrSignpostVars();
      playerDirection = GetPlayerFacingDirection();
      GetPlayerPosition(&position);
-@@ -212,6 +223,9 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
+@@ -212,6 +234,9 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
      if (TryRunOnFrameMapScript() == TRUE)
          return TRUE;
  
@@ -132673,7 +132684,7 @@ index b1b6465..3ea4026 100644
      if (input->tookStep)
      {
          IncrementGameStat(GAME_STAT_STEPS);
-@@ -266,6 +280,18 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
+@@ -266,6 +291,18 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
          }
      }
  
@@ -132692,7 +132703,7 @@ index b1b6465..3ea4026 100644
      if (input->pressedAButton && TryStartInteractionScript(&position, metatileBehavior, playerDirection) == TRUE)
      {
          gFieldInputRecord.pressedAButton = TRUE;
-@@ -1005,6 +1031,39 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, u8
+@@ -1005,6 +1042,39 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, u8
      return FALSE;
  }
  

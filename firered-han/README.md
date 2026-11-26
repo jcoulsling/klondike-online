@@ -1134,3 +1134,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 ## 2026-11-25h
 - **Pokémon only live where you can walk to.** At each visit the game works out which land you can reach on foot from where you stand (not behind fences, trees or water) and the walking Pokémon spawn and stay in that area, so none is out of reach.
 - **Easier to touch:** a land Pokémon next to you starts the battle (before, you had to be almost on top of it), and a water Pokémon can be reached from the shore.
+
+## 2026-11-25i
+- **Cheat code for the SHINY CHARM on any save:** in the overworld, hold L and R and press SELECT. A jingle means the charm is in the bag (key items); a buzz means you already have it or the bag is full. Rowan saves still get it by themselves.
