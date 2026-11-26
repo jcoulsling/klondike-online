@@ -1256,3 +1256,9 @@ Jane: build the Dash Arena plan (towers, barracks, ancients, camps, items, merch
 - Fixed: Pokémon kinds beyond 16 were ignored by the palette code, so far merchants and camps stayed invisible; the limit is now 40.
 - Tools: firered-han/arena-tools (build_arena.py, gen_objects.py, classify_arena.py is in hoenn/wildtiles).
 - Not tested: item pickup, boulders and rocks in play, and levels at other party levels (only the build and the shop were checked in the emulator).
+
+## 2026-11-26j
+Jane: the test patch skips the intro and gives a party that can use the field moves.
+- **No intro:** choosing NEW GAME starts at once as TEST (boy, rival BLUE), in the arena beside the Radiant ancient.
+- **Party, all level 75:** Tyranitar (Cut, Rock Smash, Crunch, Earthquake), Blastoise (Surf, Strength, Hydro Pump, Ice Beam), Charizard (Fly, Flamethrower, Dragon Claw, Earthquake). All eight badges are set so the field moves work.
+- Tested: a new game from the title screen starts in the arena with Tyranitar following. The moves were not used in play yet.

@@ -136553,10 +136553,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..b551bd3
+index 0000000..5febaa9
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,285 @@
+@@ -0,0 +1,306 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "han_hoenn.h"
@@ -136823,10 +136823,20 @@ index 0000000..b551bd3
 +    GiveMonToPlayer(&mon);
 +}
 +
-+// A new game named TEST (or Test, or test) starts in the Wild Area with a level 100 Mewtwo. Returns TRUE when it did the warp itself.
++// A new game named TEST (or Test, or test) starts in the Wild Area with three level 75 Pokémon and all badges. Returns TRUE when it did the warp itself.
 +static const u8 sTestName[] = _("TEST");
 +static const u8 sTestName2[] = _("Test");
 +static const u8 sTestName3[] = _("test");
++
++static void GiveTestMon(struct Pokemon *mon, u16 species, u16 m1, u16 m2, u16 m3, u16 m4)
++{
++    CreateMon(mon, species, 75, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
++    SetMonMoveSlot(mon, m1, 0);
++    SetMonMoveSlot(mon, m2, 1);
++    SetMonMoveSlot(mon, m3, 2);
++    SetMonMoveSlot(mon, m4, 3);
++    GiveMonToPlayer(mon);
++}
 +
 +bool8 HanTestStart(void)
 +{
@@ -136836,8 +136846,19 @@ index 0000000..b551bd3
 +     && StringCompare(gSaveBlock2Ptr->playerName, sTestName2) != 0
 +     && StringCompare(gSaveBlock2Ptr->playerName, sTestName3) != 0)
 +        return FALSE;
-+    CreateMon(&mon, SPECIES_MEWTWO, 100, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
-+    GiveMonToPlayer(&mon);
++    // three at level 75 that carry the field moves between them: Tyranitar (Cut, Rock Smash), Blastoise (Surf, Strength), Charizard (Fly)
++    GiveTestMon(&mon, SPECIES_TYRANITAR, MOVE_CUT, MOVE_ROCK_SMASH, MOVE_CRUNCH, MOVE_EARTHQUAKE);
++    GiveTestMon(&mon, SPECIES_BLASTOISE, MOVE_SURF, MOVE_STRENGTH, MOVE_HYDRO_PUMP, MOVE_ICE_BEAM);
++    GiveTestMon(&mon, SPECIES_CHARIZARD, MOVE_FLY, MOVE_FLAMETHROWER, MOVE_DRAGON_CLAW, MOVE_EARTHQUAKE);
++    // the badges, so that the field moves can be used
++    FlagSet(FLAG_BADGE01_GET);
++    FlagSet(FLAG_BADGE02_GET);
++    FlagSet(FLAG_BADGE03_GET);
++    FlagSet(FLAG_BADGE04_GET);
++    FlagSet(FLAG_BADGE05_GET);
++    FlagSet(FLAG_BADGE06_GET);
++    FlagSet(FLAG_BADGE07_GET);
++    FlagSet(FLAG_BADGE08_GET);
 +    SetWarpDestination(MAP_GROUP(MAP_HAN_WILD_AREA), MAP_NUM(MAP_HAN_WILD_AREA), 255, 14, 73);
 +    WarpIntoMap();
 +    return TRUE;
@@ -140869,7 +140890,7 @@ index 3768b3c..a4009ac 100644
  
  static void ResetMiniGamesResults(void)
 diff --git a/src/oak_speech.c b/src/oak_speech.c
-index 77dd3db..9628048 100644
+index 77dd3db..ca900c2 100644
 --- a/src/oak_speech.c
 +++ b/src/oak_speech.c
 @@ -16,6 +16,12 @@
@@ -140911,7 +140932,32 @@ index 77dd3db..9628048 100644
  static void Task_OakSpeech_LoadPlayerPic(u8);
  static void Task_OakSpeech_YourNameWhatIsIt(u8);
  static void Task_OakSpeech_FadeOutForPlayerNamingScreen(u8);
-@@ -724,6 +740,8 @@ static void Task_NewGameScene(u8 taskId)
+@@ -683,12 +699,22 @@ static void CB2_NewGameScene(void)
+     UpdatePaletteFade();
+ }
+ 
++// Hän test build: no intro. A new game starts at once as TEST (see HanTestStart in han_rowan.c).
++static const u8 sTestSkipName[] = _("TEST");
++static const u8 sTestSkipRival[] = _("BLUE");
++
+ void StartNewGameScene(void)
+ {
+     gPlttBufferUnfaded[0] = RGB_BLACK;
+     gPlttBufferFaded[0]   = RGB_BLACK;
+-    CreateTask(Task_NewGameScene, 0);
+-    SetMainCallback2(CB2_NewGameScene);
++    ScanlineEffect_Stop();
++    ResetPaletteFade();
++    ResetSpriteData();
++    FreeAllSpritePalettes();
++    gSaveBlock2Ptr->playerGender = MALE;
++    StringCopy(gSaveBlock2Ptr->playerName, sTestSkipName);
++    StringCopy(gSaveBlock1Ptr->rivalName, sTestSkipRival);
++    SetMainCallback2(CB2_NewGame);
+ }
+ 
+ #define tSpriteTimer                data[0]
+@@ -724,6 +750,8 @@ static void Task_NewGameScene(u8 taskId)
          break;
      case 1:
          sOakSpeechResources = AllocZeroed(sizeof(*sOakSpeechResources));
@@ -140920,7 +140966,7 @@ index 77dd3db..9628048 100644
          CreateMonSpritesGfxManager(1, 1);
          break;
      case 2:
-@@ -1284,10 +1302,153 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
+@@ -1284,10 +1312,153 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
      }
  }
  
@@ -141074,7 +141120,7 @@ index 77dd3db..9628048 100644
          gTasks[taskId].tMenuWindowId = AddWindow(&sIntro_WindowTemplates[WIN_INTRO_BOYGIRL]);
          PutWindowTilemap(gTasks[taskId].tMenuWindowId);
          DrawStdFrameWithCustomTileAndPalette(gTasks[taskId].tMenuWindowId, TRUE, GetStdWindowBaseTileNum(), 14);
-@@ -1300,7 +1461,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1300,7 +1471,7 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
          sOakSpeechResources->textColor[1] = 2;
          sOakSpeechResources->textColor[2] = 3;
          AddTextPrinterParameterized3(gTasks[taskId].tMenuWindowId, FONT_NORMAL, 8, 17, sOakSpeechResources->textColor, 0, gText_Girl);
@@ -141083,7 +141129,7 @@ index 77dd3db..9628048 100644
          CopyWindowToVram(gTasks[taskId].tMenuWindowId, COPYWIN_FULL);
          gTasks[taskId].func = Task_OakSpeech_HandleGenderInput;
      }
-@@ -1308,7 +1469,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+@@ -1308,7 +1479,9 @@ static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
  
  static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  {
@@ -141094,7 +141140,7 @@ index 77dd3db..9628048 100644
      switch (input)
      {
      case 0: // BOY
-@@ -1328,6 +1491,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
+@@ -1328,6 +1501,9 @@ static void Task_OakSpeech_HandleGenderInput(u8 taskId)
  static void Task_OakSpeech_ClearGenderWindows(u8 taskId)
  {
      s16 *data = gTasks[taskId].data;
@@ -141104,7 +141150,7 @@ index 77dd3db..9628048 100644
      ClearStdWindowAndFrameToTransparent(tMenuWindowId, TRUE);
      RemoveWindow(tMenuWindowId);
      tMenuWindowId = WIN_INTRO_TEXTBOX;
-@@ -1967,6 +2133,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
+@@ -1967,6 +2143,11 @@ static void LoadTrainerPic(u16 whichPic, u16 tileOffset)
  {
      u32 i;
  
