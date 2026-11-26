@@ -137810,10 +137810,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..ec4ce3e
+index 0000000..f9f469a
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1688 @@
+@@ -0,0 +1,1714 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138195,6 +138195,7 @@ index 0000000..ec4ce3e
 +}
 +
 +#define PAL_TAKE 22 // within about 11 tiles across or 7 up and down: on the screen or about to be
++#define PAL_ON_SCREEN 16 // on the screen: 7 tiles across or 5 up and down from the player
 +#define PAL_KEEP 28 // a palette is given up only beyond about 14 across or 9 up and down
 +
 +static void UpdatePalettes(void)
@@ -138260,7 +138261,32 @@ index 0000000..ec4ce3e
 +            if (sPalKey[i] == 0 && !(busy & (1 << sPalNum[i])))
 +                break;
 +        if (i == sPalCount)
-+            break;
++        {
++            // none free: a kind on the screen takes the palette of the held kind that is farthest from the player (if that one is farther)
++            u8 v = 0xFF;
++            s16 vd = near[best];
++
++            if (near[best] > PAL_ON_SCREEN)
++                break;
++            for (i = 0; i < sPalCount; i++)
++            {
++                s16 d = 0x7FFF;
++
++                if (busy & (1 << sPalNum[i]))
++                    continue;
++                for (k = 0; k < nk; k++)
++                    if (keys[k] == sPalKey[i])
++                        d = near[k];
++                if (d > vd)
++                {
++                    vd = d;
++                    v = i;
++                }
++            }
++            if (v == 0xFF)
++                break;
++            i = v;
++        }
 +        sPalKey[i] = keys[best];
 +        HanWildPalLoad(keys[best] & 0x7FFF, (keys[best] & 0x8000) != 0, sPalNum[i]);
 +    }

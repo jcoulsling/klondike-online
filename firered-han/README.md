@@ -1241,3 +1241,7 @@ Jane: a test patch that starts the player in the Dash Arena, to test the Wild Ar
 - **Wild Area spawning runs on the arena**: sizes and the no-spawn zone (6 tiles around the Radiant tower) changed in han_wild.c; land and sea tables made again by classify_arena.py.
 - **Test start:** a new game named TEST starts beside the Radiant tower with a level 100 Mewtwo.
 - Not done yet: the cave warp, the B-mash movement, the flag and the drop-off logic.
+
+## 2026-11-26h
+Jane: a Pokémon on the screen gets a palette ahead of ones seen earlier.
+- When no palette is free, a kind on the screen (within 7 tiles across or 5 up and down) takes the palette of the held kind that is farthest from the player, if that one is farther than it. Palettes in use by other sprites are never taken.
