@@ -333,19 +333,20 @@ index 8aa0a10..6dffa50 100644
  	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
  	healthbarupdate BS_ATTACKER
 diff --git a/data/event_scripts.s b/data/event_scripts.s
-index 88d7594..6fba0c9 100644
+index 88d7594..b38a70e 100644
 --- a/data/event_scripts.s
 +++ b/data/event_scripts.s
-@@ -87,6 +87,8 @@ gStdScripts::
+@@ -87,6 +87,9 @@ gStdScripts::
  	.4byte Std_ReceivedItem         @ STD_RECEIVED_ITEM
  gStdScriptsEnd::
  
 +	.include "data/scripts/han_trade.inc"
++	.include "data/scripts/han_cheat.inc"
 +	.include "data/scripts/han_tower.inc"
  	.include "data/maps/BattleColosseum_2P/scripts.inc"
  	.include "data/maps/TradeCenter/scripts.inc"
  	.include "data/maps/RecordCorner/scripts.inc"
-@@ -157,6 +159,7 @@ gStdScriptsEnd::
+@@ -157,6 +160,7 @@ gStdScriptsEnd::
  	.include "data/maps/PokemonMansion_B1F/scripts.inc"
  	.include "data/maps/SafariZone_Center/scripts.inc"
  	.include "data/maps/SafariZone_East/scripts.inc"
@@ -353,7 +354,7 @@ index 88d7594..6fba0c9 100644
  	.include "data/maps/SafariZone_North/scripts.inc"
  	.include "data/maps/SafariZone_West/scripts.inc"
  	.include "data/maps/SafariZone_Center_RestHouse/scripts.inc"
-@@ -814,7 +817,7 @@ Text_WouldYouLikeToMixRecords::
+@@ -814,7 +818,7 @@ Text_WouldYouLikeToMixRecords::
  
  @ Unused
  Text_WeHopeToSeeYouAgain2::
@@ -362,7 +363,7 @@ index 88d7594..6fba0c9 100644
  
  	.include "data/text/pc.inc"
  
-@@ -834,7 +837,7 @@ Text_WelcomeTimeCapsule::
+@@ -834,7 +838,7 @@ Text_WelcomeTimeCapsule::
  	.string "TIME CAPSULE.$"
  
  Text_PleaseComeAgain::
@@ -371,7 +372,7 @@ index 88d7594..6fba0c9 100644
  
  @ Unused
  Text_HavingDiscountSaleToday::
-@@ -843,8 +846,7 @@ Text_HavingDiscountSaleToday::
+@@ -843,8 +847,7 @@ Text_HavingDiscountSaleToday::
  
  @ Unused
  Text_PlayerWhatCanIDoForYou::
@@ -381,7 +382,7 @@ index 88d7594..6fba0c9 100644
  
  	.include "data/text/obtain_item.inc"
  
-@@ -852,7 +854,7 @@ Text_MakingPreparations::
+@@ -852,7 +855,7 @@ Text_MakingPreparations::
  	.string "じゅんびちゅうです！$"
  
  Text_WantWhichFloor::
@@ -390,7 +391,7 @@ index 88d7594..6fba0c9 100644
  
  Text_BagItemCanBeRegistered::
  	.string "An item in the BAG can be\n"
-@@ -870,7 +872,7 @@ Text_TrainerSchoolEmail::
+@@ -870,7 +873,7 @@ Text_TrainerSchoolEmail::
  	.string "‥‥　‥‥　‥‥$"
  
  Text_PlayerBootedUpPC::
@@ -399,7 +400,7 @@ index 88d7594..6fba0c9 100644
  
  @ Unused
  Text_LinkWasCanceled::
-@@ -878,29 +880,24 @@ Text_LinkWasCanceled::
+@@ -878,29 +881,24 @@ Text_LinkWasCanceled::
  
  @ Unused
  Text_GiveNicknameToReceivedMon::
@@ -437,7 +438,7 @@ index 88d7594..6fba0c9 100644
  
  	.include "data/text/surf.inc"
  
-@@ -928,8 +925,8 @@ Text_HandedOverItem::
+@@ -928,8 +926,8 @@ Text_HandedOverItem::
  	.string "{STR_VAR_1}.$"
  
  Text_GiveNicknameToThisMon::
@@ -448,7 +449,7 @@ index 88d7594..6fba0c9 100644
  
  	.include "data/text/itemfinder.inc"
  	.include "data/text/route23.inc"
-@@ -941,7 +938,7 @@ Text_CardKeyOpenedDoor::
+@@ -941,7 +939,7 @@ Text_CardKeyOpenedDoor::
  	.string "The CARD KEY opened the door!$"
  
  Text_ItNeedsCardKey::
@@ -457,7 +458,7 @@ index 88d7594..6fba0c9 100644
  	.string "It needs a CARD KEY!$"
  
  Text_AccessedProfOaksPC::
-@@ -997,8 +994,8 @@ Text_TheresBedLetsRest::
+@@ -997,8 +995,8 @@ Text_TheresBedLetsRest::
  	.string "やすんでいこう$"
  
  Text_FoundTMHMContainsMove::
@@ -468,7 +469,7 @@ index 88d7594..6fba0c9 100644
  
  	.include "data/text/seagallop.inc"
  
-@@ -1360,3 +1357,319 @@ Text_TestMsg::
+@@ -1360,3 +1358,319 @@ Text_TestMsg::
  	.include "data/text/save.inc"
  	.include "data/text/new_game_intro.inc"
  	.include "data/text/pokedude.inc"
@@ -59093,10 +59094,10 @@ index fc2998f..2cf58b9 100644
  	.string "Light is filtering down from above.\n"
 diff --git a/data/scripts/han_cheat.inc b/data/scripts/han_cheat.inc
 new file mode 100644
-index 0000000..dad0219
+index 0000000..7efbadf
 --- /dev/null
 +++ b/data/scripts/han_cheat.inc
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,21 @@
 +@ Test builds (HAN_CHEAT in include/han_rowan.h): B+SELECT on the overworld becomes Rowan with the whole team. Does nothing in the real build.
 +EventScript_HanCheat::
 +	lockall
@@ -59112,6 +59113,12 @@ index 0000000..dad0219
 +
 +EventScript_HanCheat_Start:
 +	.string "Setting up ROWAN...$"
++
++EventScript_HanCheatWildArea::
++	warp MAP_HAN_WILD_AREA, 255, 5, 54
++	waitstate
++	end
++
 diff --git a/data/scripts/han_hoenn.inc b/data/scripts/han_hoenn.inc
 new file mode 100644
 index 0000000..c9ef938
@@ -102007,15 +102014,17 @@ index 0000000..887fe06
 +#endif // GUARD_HAN_MULTIPLAYER_H
 diff --git a/include/han_rowan.h b/include/han_rowan.h
 new file mode 100644
-index 0000000..c340cd5
+index 0000000..065c6c5
 --- /dev/null
 +++ b/include/han_rowan.h
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,10 @@
 +#ifndef GUARD_HAN_ROWAN_H
 +#define GUARD_HAN_ROWAN_H
 +
 +void HanRowanStart(void);
 +void HanRowanContinue(void); // a saved game was loaded
++bool8 HanCheatKeys(u16 keys); // the cheat code's keys, one press at a time
++void HanCheatMewtwo(void);
 +void HanCheatRowan(void); // test builds only (define HAN_CHEAT): B+SELECT makes the player Rowan with everything
 +
 +#endif // GUARD_HAN_ROWAN_H
@@ -135322,10 +135331,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..bc9210d
+index 0000000..75f4b2a
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,228 @@
+@@ -0,0 +1,267 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "han_hoenn.h"
@@ -135554,6 +135563,45 @@ index 0000000..bc9210d
 +#else
 +void HanCheatRowan(void) {}
 +#endif
++
++// UP, DOWN, LEFT, RIGHT, SELECT pressed one after another (each within a second of the last): TRUE on the last
++bool8 HanCheatKeys(u16 keys)
++{
++    static const u16 sCode[] = {DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT, SELECT_BUTTON};
++    static u8 sStep, sWait;
++
++    if (sStep != 0 && ++sWait > 60)
++        sStep = 0;
++    if (keys == 0)
++        return FALSE;
++    if (keys == sCode[sStep])
++    {
++        sStep++;
++        sWait = 0;
++        if (sStep == ARRAY_COUNT(sCode))
++        {
++            sStep = 0;
++            return TRUE;
++        }
++    }
++    else
++    {
++        sStep = (keys == sCode[0]) ? 1 : 0;
++        sWait = 0;
++    }
++    return FALSE;
++}
++
++// MEWTWO, level 70, joins the party (in the last place if the party is full)
++void HanCheatMewtwo(void)
++{
++    u8 slot = gPlayerPartyCount < PARTY_SIZE ? gPlayerPartyCount : PARTY_SIZE - 1;
++
++    CreateMon(&gPlayerParty[slot], SPECIES_MEWTWO, 70, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
++    if (gPlayerPartyCount < PARTY_SIZE)
++        gPlayerPartyCount++;
++}
++
 diff --git a/src/han_starter.c b/src/han_starter.c
 new file mode 100644
 index 0000000..f804abf
@@ -140956,6 +141004,36 @@ index 9060aa5..d204072 100644
  void PlaySE1WithPanning(u16 songNum, s8 pan)
  {
      m4aSongNumStart(songNum);
+diff --git a/src/start_menu.c b/src/start_menu.c
+index 88cc377..c107b62 100644
+--- a/src/start_menu.c
++++ b/src/start_menu.c
+@@ -13,6 +13,7 @@
+ #include "fieldmap.h"
+ #include "safari_zone.h"
+ #include "start_menu.h"
++#include "han_rowan.h"
+ #include "menu.h"
+ #include "load_save.h"
+ #include "strings.h"
+@@ -405,8 +406,17 @@ void ShowStartMenu(void)
+     LockPlayerFieldControls();
+ }
+ 
++extern const u8 EventScript_HanCheatWildArea[]; // data/scripts/han_cheat.inc
++
+ static bool8 StartCB_HandleInput(void)
+ {
++    if (HanCheatKeys(gMain.newKeys))
++    {
++        HanCheatMewtwo();
++        CloseStartMenu();
++        ScriptContext_SetupScript(EventScript_HanCheatWildArea);
++        return TRUE;
++    }
+     if (JOY_NEW(DPAD_UP))
+     {
+         PlaySE(SE_SELECT);
 diff --git a/src/string_util.c b/src/string_util.c
 index 5c26d15..b80f590 100644
 --- a/src/string_util.c

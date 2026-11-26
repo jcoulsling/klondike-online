@@ -1158,3 +1158,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-25o
 - **The sea floor uses the same spawn points:** each kind starts together, and every tile of the maze is searched, so no swimmer is dropped (all 20 spawned in the test).
+
+## 2026-11-25p
+- **Cheat code on the START menu:** press UP, DOWN, LEFT, RIGHT, SELECT (each within a second of the last) with the start menu open. MEWTWO (level 70) joins the party (in the last place if it is full) and you are taken to the Wild Area's dock. The same code in the overworld still gives the SHINY CHARM.
