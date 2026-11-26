@@ -1272,3 +1272,9 @@ Jane: Pokémon were in trees and on the rock boundaries.
 ## 2026-11-26l
 Jane: Pokémon need to be rarer, half as many.
 - Roaming Pokémon halved: at most 7 out (was 14), 5 on land (was 10), at least 2 in the sea (was 4), at least 2 always near the player (was 4), 1 of them on land (was 2). Camps and merchants are not changed.
+
+## 2026-11-26m
+Jane: the encounter is inconsistent to trigger, and Pokémon walk and spawn into trees.
+- **Trees:** a land Pokémon (other than Aipom, Pineco, Seedot) no longer stands or walks on a tile with a solid tile above it OR below it (the tip of a tree is drawn over the feet of a Pokémon on the tile above the tree). Camps and merchants use the same rule. Checked at three places over 40 samples each: none beside a tree above or below, none on wrong ground.
+- **Encounter:** besides walking into a Pokémon or pushing against it, pressing A while facing the Pokémon on the next tile now starts the battle (and opens a merchant's shop).
+- The message was cut off after "and": anything else is not fixed yet.

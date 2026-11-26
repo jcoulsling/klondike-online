@@ -14,7 +14,7 @@ def snap(x, y, rad=6, open_above=False):
     best = None
     for yy in range(y - rad, y + rad + 1):
         for xx in range(x - rad, x + rad + 1):
-            if free(xx, yy) and (not open_above or rows[yy - 1][xx] not in 'T#Q'):
+            if free(xx, yy) and (not open_above or rows[yy - 1][xx] not in 'T#Q' and rows[yy + 1][xx] not in 'T#Q'):
                 d = (xx - x) ** 2 + (yy - y) ** 2
                 if best is None or d < best[0]: best = (d, xx, yy)
     used.add((best[1], best[2])); return best[1], best[2]

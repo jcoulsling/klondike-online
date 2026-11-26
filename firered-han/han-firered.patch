@@ -117039,7 +117039,7 @@ index 0000000..e483bc9
 +};
 diff --git a/src/data/han_wild_camps.h b/src/data/han_wild_camps.h
 new file mode 100644
-index 0000000..d8736a4
+index 0000000..16ef03c
 --- /dev/null
 +++ b/src/data/han_wild_camps.h
 @@ -0,0 +1,7 @@
@@ -117048,8 +117048,8 @@ index 0000000..d8736a4
 +#define CAMP_MEMBERS 14
 +static const u8 sCampSize[CAMP_COUNT] = {3, 2, 2, 3, 2, 2};
 +static const u8 sCampBand[CAMP_COUNT] = {0, 1, 2, 0, 1, 2}; // 0 small, 1 medium, 2 large
-+static const u8 sCampTiles[CAMP_MEMBERS][2] = {{72, 41}, {73, 41}, {72, 42}, {59, 23}, {58, 23}, {48, 29}, {49, 29}, {16, 49}, {17, 49}, {16, 50}, {24, 65}, {24, 64}, {39, 59}, {39, 58}};
-+static const u8 sShopTiles[2][2] = {{15, 29}, {70, 57}}; // Kecleon at the Radiant shop, Sableye at the Dire one
++static const u8 sCampTiles[CAMP_MEMBERS][2] = {{72, 41}, {73, 41}, {72, 42}, {59, 23}, {58, 23}, {50, 28}, {50, 27}, {16, 49}, {17, 49}, {16, 50}, {24, 64}, {24, 63}, {39, 58}, {39, 57}};
++static const u8 sShopTiles[2][2] = {{15, 28}, {70, 57}}; // Kecleon at the Radiant shop, Sableye at the Dire one
 diff --git a/src/data/han_wild_tiles.h b/src/data/han_wild_tiles.h
 new file mode 100644
 index 0000000..f210c9e
@@ -138362,10 +138362,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..cea9572
+index 0000000..77c2e93
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1854 @@
+@@ -0,0 +1,1856 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138603,7 +138603,8 @@ index 0000000..cea9572
 +// a tree (or anything else solid) on the tile above: a Pokémon standing there would look as if it were on top of it
 +static bool8 TreeAbove(s16 tx, s16 ty)
 +{
-+    return MapGridGetCollisionAt(tx + MAP_OFFSET, ty - 1 + MAP_OFFSET) != 0;
++    // above: the sprite is two tiles tall and would be drawn over it; below: the tip of a tree is drawn over the sprite's feet
++    return MapGridGetCollisionAt(tx + MAP_OFFSET, ty - 1 + MAP_OFFSET) != 0 || MapGridGetCollisionAt(tx + MAP_OFFSET, ty + 1 + MAP_OFFSET) != 0;
 +}
 +
 +// the ones that may be over trees
@@ -140089,6 +140090,7 @@ index 0000000..cea9572
 +    bool8 pushing = FALSE;
 +    u8 i, face;
 +    bool8 onShop = FALSE;
++    bool8 pressA = JOY_NEW(A_BUTTON) != 0;
 +
 +    if (!InWildArea() && !InTemple() && !InUnder())
 +        return FALSE;
@@ -140119,7 +140121,7 @@ index 0000000..cea9572
 +        if (s->callback == SpriteCB_Static && (s->data[5] & 0xFF) == 0 && InWildArea())
 +        {
 +            // a merchant: walking up to it opens its shop, once for each time the player gets to its tile
-+            if ((tx == px && ty == py) || (pushing && tx == fx && ty == fy))
++            if ((tx == px && ty == py) || ((pushing || pressA) && tx == fx && ty == fy))
 +            {
 +                onShop = TRUE;
 +                if (!sShopLock)
@@ -140131,7 +140133,7 @@ index 0000000..cea9572
 +            }
 +            continue;
 +        }
-+        if ((tx == px && ty == py) || (pushing && tx == fx && ty == fy))
++        if ((tx == px && ty == py) || ((pushing || pressA) && tx == fx && ty == fy))
 +        {
 +            sBattleSpecies = s->data[2];
 +            sBattleLevel = s->data[5] & 0xFF;
