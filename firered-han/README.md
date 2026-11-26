@@ -1125,3 +1125,8 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - **The frozen pond is bigger** (about 16 by 11 tiles, with more rocks to stop the sliding).
 - **Pokémon now walk about the harbour yard** by the dock too, so some are in view when you arrive.
 - **No random encounters on the sea floor.** The water Pokémon swim about down there and you meet them by walking into them, like everywhere else on the island.
+
+## 2026-11-25g
+- **Fixed: only some of the Wild Area Pokémon were drawn.** The game has only a few free sprite palettes, and a kind that did not get one was left out silently (so you might see two kinds of three and nothing else, and walk into one you could not see). Every kind now gets a palette (extra ones use unused reflection slots), so all fifteen show.
+- Pokémon that are not drawn can no longer start a battle.
+- Walking into a Pokémon while sliding or carried by a current also starts the battle now.

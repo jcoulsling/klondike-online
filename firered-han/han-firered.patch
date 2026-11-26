@@ -133863,10 +133863,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..5ec7cbd
+index 0000000..3c816bd
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,618 @@
+@@ -0,0 +1,619 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -134446,7 +134446,7 @@ index 0000000..5ec7cbd
 +    struct SpriteTemplate template;
 +    const struct SubspriteTable *subs;
 +    struct SpritePalette pal;
-+    bool8 shiny = (n & 0x8000) != 0, noBorrow = (n & 0x4000) != 0;
++    bool8 shiny = (n & 0x8000) != 0;
 +    u8 id;
 +
 +    n &= 0x3FFF;
@@ -134463,9 +134463,10 @@ index 0000000..5ec7cbd
 +        *palIdx = LoadSpritePalette(&pal);
 +        if (*palIdx == 0xFF)
 +        {
-+            if (noBorrow)
-+                return MAX_SPRITES;
-+            *palIdx = 9 - (palTag & 3);
++            // only a few sprite palettes are free: the rest go into slots of the reflection and special-NPC palettes, which nothing here needs
++            static const u8 sBorrow[] = {11, 10, 9, 8, 7, 6, 3, 2};
++
++            *palIdx = sBorrow[(palTag & 15) % ARRAY_COUNT(sBorrow)];
 +            LoadPalette(pal.data, OBJ_PLTT_ID(*palIdx), PLTT_SIZE_4BPP);
 +        }
 +    }
@@ -137020,10 +137021,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..be25555
+index 0000000..2881549
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,940 @@
+@@ -0,0 +1,944 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137863,7 +137864,11 @@ index 0000000..be25555
 +            SpawnStatic();
 +        else
 +            Spawn();
++        return;
 +    }
++    // a Pokémon reached while the player's controls are busy (ice, current, surfing in): the usual input check does not run then
++    if (!ScriptContext_IsEnabled() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) != 0)
++        HanWildCollision();
 +}
 +
 +// called where the player can act: a roamer on the player's tile starts a battle
@@ -137880,7 +137885,7 @@ index 0000000..be25555
 +        struct Sprite *s = &gSprites[i];
 +        s16 dx, dy;
 +
-+        if (!s->inUse || s->data[7] != WILD_TAG || (s->callback != SpriteCB_Roamer && s->callback != SpriteCB_Static))
++        if (!s->inUse || s->data[7] != WILD_TAG || (s->callback != SpriteCB_Roamer && s->callback != SpriteCB_Static) || s->invisible)
 +            continue;
 +        dx = s->x - (player->x + player->x2);
 +        dy = s->y - (player->y + player->y2);
