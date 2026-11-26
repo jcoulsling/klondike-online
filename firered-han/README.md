@@ -1262,3 +1262,9 @@ Jane: the test patch skips the intro and gives a party that can use the field mo
 - **No intro:** choosing NEW GAME starts at once as TEST (boy, rival BLUE), in the arena beside the Radiant ancient.
 - **Party, all level 75:** Tyranitar (Cut, Rock Smash, Crunch, Earthquake), Blastoise (Surf, Strength, Hydro Pump, Ice Beam), Charizard (Fly, Flamethrower, Dragon Claw, Earthquake). All eight badges are set so the field moves work.
 - Tested: a new game from the title screen starts in the arena with Tyranitar following. The moves were not used in play yet.
+
+## 2026-11-26k
+Jane: Pokémon were in trees and on the rock boundaries.
+- Cause: the camp Pokémon and one merchant stood in tree nooks, with a tree on the tile above (the sprite is two tiles tall, so it drew over the tree). The roaming Pokémon were already kept out of those tiles.
+- Camp members and merchants now stand only on tiles with open ground above them (gen_objects.py). Checked at four places in the emulator over 30 samples each: none under a solid tile, none on wrong ground.
+- Not found: any roaming Pokémon on the rock boundary. If you still see one, tell me where.

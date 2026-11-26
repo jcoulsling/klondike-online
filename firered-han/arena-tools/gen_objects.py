@@ -10,23 +10,23 @@ bases = json.load(open('/home/claude/arena/bases.json'))
 rows = open('/home/claude/arena/out/arena.txt').read().split('\n')
 used = set((x, y) for _, _, x, y in bases) | {(11, 73), (72, 17)}
 def free(x, y): return (x, y) in land and (x, y) not in used and rows[y][x] == '.'
-def snap(x, y, rad=6):
+def snap(x, y, rad=6, open_above=False):
     best = None
     for yy in range(y - rad, y + rad + 1):
         for xx in range(x - rad, x + rad + 1):
-            if free(xx, yy):
+            if free(xx, yy) and (not open_above or rows[yy - 1][xx] not in 'T#Q'):
                 d = (xx - x) ** 2 + (yy - y) ** 2
                 if best is None or d < best[0]: best = (d, xx, yy)
     used.add((best[1], best[2])); return best[1], best[2]
 # camps first: they stand in the nooks. members: the nook and its nearest free land tiles
 camps = []
 for side, n, x, y in sorted(p['camps']):
-    cx, cy = snap(x, y)
+    cx, cy = snap(x, y, 6, True)
     members = [(cx, cy)]
     for _ in range({1: 2, 2: 1, 3: 1}[n]):
-        members.append(snap(cx, cy, 3))
+        members.append(snap(cx, cy, 3, True))
     camps.append((n, members))
-shops = [snap(x, y) for _, x, y in p['shops']]
+shops = [snap(x, y, 6, True) for _, x, y in p['shops']]
 items = [snap(x, y) for _, x, y in p['items']]
 want = ['ITEM_RARE_CANDY', 'ITEM_NUGGET', 'ITEM_MAX_REVIVE', 'ITEM_FULL_RESTORE', 'ITEM_PP_UP', 'ITEM_ULTRA_BALL']
 item_ids = [want[i % 6] for i in range(len(items))]

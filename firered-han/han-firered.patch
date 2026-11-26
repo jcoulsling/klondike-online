@@ -117039,7 +117039,7 @@ index 0000000..e483bc9
 +};
 diff --git a/src/data/han_wild_camps.h b/src/data/han_wild_camps.h
 new file mode 100644
-index 0000000..b5702dd
+index 0000000..d8736a4
 --- /dev/null
 +++ b/src/data/han_wild_camps.h
 @@ -0,0 +1,7 @@
@@ -117048,8 +117048,8 @@ index 0000000..b5702dd
 +#define CAMP_MEMBERS 14
 +static const u8 sCampSize[CAMP_COUNT] = {3, 2, 2, 3, 2, 2};
 +static const u8 sCampBand[CAMP_COUNT] = {0, 1, 2, 0, 1, 2}; // 0 small, 1 medium, 2 large
-+static const u8 sCampTiles[CAMP_MEMBERS][2] = {{72, 40}, {73, 40}, {72, 41}, {59, 22}, {58, 22}, {48, 28}, {49, 28}, {16, 48}, {17, 48}, {16, 49}, {24, 65}, {24, 64}, {39, 59}, {39, 58}};
-+static const u8 sShopTiles[2][2] = {{15, 29}, {70, 56}}; // Kecleon at the Radiant shop, Sableye at the Dire one
++static const u8 sCampTiles[CAMP_MEMBERS][2] = {{72, 41}, {73, 41}, {72, 42}, {59, 23}, {58, 23}, {48, 29}, {49, 29}, {16, 49}, {17, 49}, {16, 50}, {24, 65}, {24, 64}, {39, 59}, {39, 58}};
++static const u8 sShopTiles[2][2] = {{15, 29}, {70, 57}}; // Kecleon at the Radiant shop, Sableye at the Dire one
 diff --git a/src/data/han_wild_tiles.h b/src/data/han_wild_tiles.h
 new file mode 100644
 index 0000000..f210c9e
