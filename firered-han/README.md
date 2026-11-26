@@ -1136,4 +1136,7 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - **Easier to touch:** a land Pokémon next to you starts the battle (before, you had to be almost on top of it), and a water Pokémon can be reached from the shore.
 
 ## 2026-11-25i
-- **Cheat code for the SHINY CHARM on any save:** in the overworld, hold L and R and press SELECT. A jingle means the charm is in the bag (key items); a buzz means you already have it or the bag is full. Rowan saves still get it by themselves.
+- **Cheat code for the SHINY CHARM on any save:** in the overworld, press UP, DOWN, LEFT, RIGHT, SELECT (each within a second of the last). A jingle means the charm is in the bag (key items); a buzz means you already have it or the bag is full. Rowan saves still get it by themselves.
+
+## 2026-11-25j
+- The SHINY CHARM code is now UP, DOWN, LEFT, RIGHT, SELECT (the L+R+SELECT code of 2026-11-25i is gone).
