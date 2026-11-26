@@ -135331,10 +135331,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..75f4b2a
+index 0000000..e96dc01
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,267 @@
+@@ -0,0 +1,265 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "han_hoenn.h"
@@ -135592,16 +135592,14 @@ index 0000000..75f4b2a
 +    return FALSE;
 +}
 +
-+// MEWTWO, level 70, joins the party (in the last place if the party is full)
++// MEWTWO, level 70: into the party, or the PC if the party is full
 +void HanCheatMewtwo(void)
 +{
-+    u8 slot = gPlayerPartyCount < PARTY_SIZE ? gPlayerPartyCount : PARTY_SIZE - 1;
++    struct Pokemon mon;
 +
-+    CreateMon(&gPlayerParty[slot], SPECIES_MEWTWO, 70, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
-+    if (gPlayerPartyCount < PARTY_SIZE)
-+        gPlayerPartyCount++;
++    CreateMon(&mon, SPECIES_MEWTWO, 70, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
++    GiveMonToPlayer(&mon);
 +}
-+
 diff --git a/src/han_starter.c b/src/han_starter.c
 new file mode 100644
 index 0000000..f804abf

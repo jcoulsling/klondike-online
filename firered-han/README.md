@@ -1161,3 +1161,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-25p
 - **Cheat code on the START menu:** press UP, DOWN, LEFT, RIGHT, SELECT (each within a second of the last) with the start menu open. MEWTWO (level 70) joins the party (in the last place if it is full) and you are taken to the Wild Area's dock. The same code in the overworld still gives the SHINY CHARM.
+
+## 2026-11-25q
+- **The start-menu cheat sends MEWTWO (level 70) to the PC when the party is full**, instead of replacing your last Pokémon. (Rowan's team fills the party, so it goes to the PC.)
