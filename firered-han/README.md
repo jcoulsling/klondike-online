@@ -1147,3 +1147,7 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-25l
 - Swimming Pokémon (the water-only ones, and everything on the sea floor) now float a few pixels above the ground and bob up and down, so they no longer look like they stand on it.
+
+## 2026-11-25m
+- The land Pokémon's walkable area is now worked out from several fixed points as well as from where you stand, so a bad starting spot can no longer leave the island with only water Pokémon.
+- Water Pokémon now swim right up to the shore (the first row of sea), so you can start a battle from the beach without Surf.

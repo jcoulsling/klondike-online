@@ -137053,10 +137053,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..3e78b50
+index 0000000..650620f
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1056 @@
+@@ -0,0 +1,1068 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137165,7 +137165,7 @@ index 0000000..3e78b50
 +    SPECIES_GOREBYSS, SPECIES_KYOGRE,
 +};
 +
-+#define WATER_T 57 // rows of the sea in gen_wild.py where they walk
++#define WATER_T 55 // rows of the sea in gen_wild.py where they walk
 +#define WATER_B 62
 +#define HOLE_ID 0x1df // the metatile a dug hole becomes (drawn like water; gen_wild.py)
 +
@@ -137300,12 +137300,18 @@ index 0000000..3e78b50
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
 +    py -= MAP_OFFSET;
-+    if (px < 0 || py < 0 || px >= MAP_W || py >= MAP_H || !WalkGet(px, py))
++    // seeds: the player, the dock, and a point in the middle of each part of the snowfield, so a wrong start never shuts the land off
++    if (px >= 0 && py >= 0 && px < MAP_W && py < MAP_H && WalkGet(px, py))
++        ReachSet(px, py);
++    if (InWildArea())
 +    {
-+        px = 5; // surfing: the dock
-+        py = 54;
++        static const u8 sSeeds[][2] = {{5, 54}, {16, 40}, {16, 20}, {16, 8}};
++        u8 k;
++
++        for (k = 0; k < ARRAY_COUNT(sSeeds); k++)
++            if (WalkGet(sSeeds[k][0], sSeeds[k][1]))
++                ReachSet(sSeeds[k][0], sSeeds[k][1]);
 +    }
-+    ReachSet(px, py);
 +    do
 +    {
 +        changed = FALSE;
@@ -137324,7 +137330,13 @@ index 0000000..3e78b50
 +                    changed = TRUE;
 +                }
 +    } while (changed && ++rounds < 60);
-+    sReachDone = TRUE;
++    {
++        u16 n = 0, i;
++
++        for (i = 0; i < sizeof(sReach); i++)
++            n += (sReach[i] != 0);
++        sReachDone = (n >= 8); // a start that found hardly any land: use every free tile instead
++    }
 +}
 +
 +// land: the snowfield, not ice, not water
