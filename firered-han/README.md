@@ -1130,3 +1130,7 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 - **Fixed: only some of the Wild Area Pokémon were drawn.** The game has only a few free sprite palettes, and a kind that did not get one was left out silently (so you might see two kinds of three and nothing else, and walk into one you could not see). Every kind now gets a palette (extra ones use unused reflection slots), so all fifteen show.
 - Pokémon that are not drawn can no longer start a battle.
 - Walking into a Pokémon while sliding or carried by a current also starts the battle now.
+
+## 2026-11-25h
+- **Pokémon only live where you can walk to.** At each visit the game works out which land you can reach on foot from where you stand (not behind fences, trees or water) and the walking Pokémon spawn and stay in that area, so none is out of reach.
+- **Easier to touch:** a land Pokémon next to you starts the battle (before, you had to be almost on top of it), and a water Pokémon can be reached from the shore.

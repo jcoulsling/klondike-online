@@ -137021,10 +137021,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..2881549
+index 0000000..fc41700
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,944 @@
+@@ -0,0 +1,1033 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137213,6 +137213,88 @@ index 0000000..2881549
 +    return px - MAP_OFFSET == tx && py - MAP_OFFSET == ty;
 +}
 +
++// the land the player can walk to from where they stand (so a Pokémon is never shut in behind a fence, trees or water)
++static u8 sReach[MAP_H * MAP_W / 8];
++static u8 sReachDone;
++
++static bool8 ReachGet(s16 tx, s16 ty)
++{
++    u16 i = ty * MAP_W + tx;
++
++    return (sReach[i >> 3] >> (i & 7)) & 1;
++}
++
++static void ReachSet(s16 tx, s16 ty)
++{
++    u16 i = ty * MAP_W + tx;
++
++    sReach[i >> 3] |= 1 << (i & 7);
++}
++
++static bool8 ReachWalkable(s16 tx, s16 ty)
++{
++    if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H)
++        return FALSE;
++    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
++        return FALSE;
++    return !MetatileBehavior_IsSurfableAndNotWaterfall(MapGridGetMetatileBehaviorAt(tx + MAP_OFFSET, ty + MAP_OFFSET));
++}
++
++static u8 sWalk[MAP_H * MAP_W / 8];
++
++static bool8 WalkGet(s16 tx, s16 ty)
++{
++    u16 i = ty * MAP_W + tx;
++
++    return (sWalk[i >> 3] >> (i & 7)) & 1;
++}
++
++static bool8 ReachNear(s16 x, s16 y)
++{
++    return (x > 0 && ReachGet(x - 1, y)) || (x < MAP_W - 1 && ReachGet(x + 1, y)) || (y > 0 && ReachGet(x, y - 1)) || (y < MAP_H - 1 && ReachGet(x, y + 1));
++}
++
++static void ComputeReach(void)
++{
++    s16 px, py, x, y;
++    u8 changed, rounds = 0;
++
++    memset(sReach, 0, sizeof(sReach));
++    memset(sWalk, 0, sizeof(sWalk));
++    for (y = 0; y < MAP_H; y++)
++        for (x = 0; x < MAP_W; x++)
++            if (ReachWalkable(x, y))
++                sWalk[(y * MAP_W + x) >> 3] |= 1 << ((y * MAP_W + x) & 7);
++    PlayerGetDestCoords(&px, &py);
++    px -= MAP_OFFSET;
++    py -= MAP_OFFSET;
++    if (px < 0 || py < 0 || px >= MAP_W || py >= MAP_H || !WalkGet(px, py))
++    {
++        px = 5; // surfing: the dock
++        py = 54;
++    }
++    ReachSet(px, py);
++    do
++    {
++        changed = FALSE;
++        for (y = 0; y < MAP_H; y++)
++            for (x = 0; x < MAP_W; x++)
++                if (WalkGet(x, y) && !ReachGet(x, y) && ReachNear(x, y))
++                {
++                    ReachSet(x, y);
++                    changed = TRUE;
++                }
++        for (y = MAP_H - 1; y >= 0; y--)
++            for (x = MAP_W - 1; x >= 0; x--)
++                if (WalkGet(x, y) && !ReachGet(x, y) && ReachNear(x, y))
++                {
++                    ReachSet(x, y);
++                    changed = TRUE;
++                }
++    } while (changed && ++rounds < 60);
++    sReachDone = TRUE;
++}
++
 +// land: the snowfield, not ice, not water
 +static bool8 TileFree(s16 tx, s16 ty)
 +{
@@ -137224,6 +137306,8 @@ index 0000000..2881549
 +        return FALSE;
 +    b = MapGridGetMetatileBehaviorAt(tx + MAP_OFFSET, ty + MAP_OFFSET);
 +    if (b == MB_ICE || MetatileBehavior_IsSurfableAndNotWaterfall(b))
++        return FALSE;
++    if (sReachDone && !ReachGet(tx, ty))
 +        return FALSE;
 +    return !IsPlayerAt(tx, ty);
 +}
@@ -137863,7 +137947,10 @@ index 0000000..2881549
 +        if (temple)
 +            SpawnStatic();
 +        else
++        {
++            ComputeReach();
 +            Spawn();
++        }
 +        return;
 +    }
 +    // a Pokémon reached while the player's controls are busy (ice, current, surfing in): the usual input check does not run then
@@ -137876,6 +137963,7 @@ index 0000000..2881549
 +{
 +    struct Sprite *player;
 +    u8 i;
++    s16 r;
 +
 +    if (sFirst == 0 || (!InWildArea() && !InTemple() && !InUnder()))
 +        return FALSE;
@@ -137889,7 +137977,8 @@ index 0000000..2881549
 +            continue;
 +        dx = s->x - (player->x + player->x2);
 +        dy = s->y - (player->y + player->y2);
-+        if (dx < 13 && dx > -13 && dy < 13 && dy > -13)
++        r = IsWaterOnly(s->data[2]) ? 23 : 17; // water ones can be reached from the shore; the rest when you are next to them
++        if (dx < r && dx > -r && dy < r && dy > -r)
 +        {
 +            sBattleSpecies = s->data[2];
 +            sBattleLevel = s->data[5] & 0xFF;
