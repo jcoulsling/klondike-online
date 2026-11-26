@@ -1164,3 +1164,10 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 
 ## 2026-11-25q
 - **The start-menu cheat sends MEWTWO (level 70) to the PC when the party is full**, instead of replacing your last Pokémon. (Rowan's team fills the party, so it goes to the PC.)
+
+## 2026-11-25r
+Checked against how the Wild Area works in Sword and Shield (symbol encounters: you only battle by touching a Pokémon; each species flees, ignores you, comes up to greet you or chases you; a Pokémon reacts only once it has noticed you; shinies look normal on the field) and tested in the emulator.
+- **Pokémon notice you within 7 tiles.** Further away they wander. Inside that range: under 300 base stat total runs away (walking or running), 450 and up comes at you (walking or running), in between slowly comes, goes away or ignores you.
+- Over 14 checks (about 4000 frames) all 15 Pokémon were there each time, none on a wall or tree tile, and no water Pokémon on land.
+- Water Pokémon on the surface sit on the water and bob a little; on the sea floor they float higher.
+- Checked in the emulator: a brave Pokémon walked up and the battle started; the cave Pokémon is gone after the battle; the sea-floor swimmers can be touched.
