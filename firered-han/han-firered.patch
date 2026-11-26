@@ -137053,10 +137053,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..fc41700
+index 0000000..3d5a507
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1033 @@
+@@ -0,0 +1,1053 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137360,6 +137360,8 @@ index 0000000..fc41700
 +    if (tx < 1 || tx > 30 || ty < 1 || ty > 46)
 +        return FALSE;
 +    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
++        return FALSE;
++    if (sReachDone && !ReachGet(tx, ty))
 +        return FALSE;
 +    return !IsPlayerAt(tx, ty);
 +}
@@ -137866,10 +137868,11 @@ index 0000000..fc41700
 +    for (i = 0; i < PARTY_SIZE; i++)
 +        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
 +            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
++    ComputeReach();
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
 +    py -= MAP_OFFSET;
-+    for (i = 0; i < 14; i++)
++    for (i = 0; i < 20; i++)
 +    {
 +        u16 sp = sUnder[Random() % ARRAY_COUNT(sUnder)];
 +        s16 tx = 0, ty = 0;
@@ -137953,6 +137956,8 @@ index 0000000..fc41700
 +    sFirst = id + 1;
 +}
 +
++static bool8 sStaticGone; // the one in the building has been met this visit
++
 +// every frame of the overworld
 +void HanWildFrame(void)
 +{
@@ -137962,10 +137967,25 @@ index 0000000..fc41700
 +    if (!InWildArea() && !temple && !under)
 +    {
 +        sFirst = 0;
++        sStaticGone = FALSE;
 +        return;
 +    }
 +    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
 +        return;
++    if (temple)
++    {
++        if (sStaticGone)
++            return;
++        // met: it is gone once the battle is over
++        if (sFirst != 0 && Save()->staticReady == 0 && !ScriptContext_IsEnabled())
++        {
++            if (gSprites[sFirst - 1].inUse && gSprites[sFirst - 1].data[7] == WILD_TAG)
++                DestroySprite(&gSprites[sFirst - 1]);
++            sFirst = 0;
++            sStaticGone = TRUE;
++            return;
++        }
++    }
 +    if (sFirst != 0 && (!gSprites[sFirst - 1].inUse || gSprites[sFirst - 1].data[7] != WILD_TAG))
 +        sFirst = 0;
 +    if (sFirst == 0)
