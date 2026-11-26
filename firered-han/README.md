@@ -1144,3 +1144,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 ## 2026-11-25k
 - **The Pokémon in the cave is gone once the battle is over** (it stayed on screen before). The next visit has a new one.
 - **Sea floor:** the swimmers (20 of them) only live in the parts of the maze you can walk to, and walking into one starts the battle (checked in the emulator).
+
+## 2026-11-25l
+- Swimming Pokémon (the water-only ones, and everything on the sea floor) now float a few pixels above the ground and bob up and down, so they no longer look like they stand on it.

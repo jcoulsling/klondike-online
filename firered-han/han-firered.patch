@@ -137053,10 +137053,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..3d5a507
+index 0000000..3e78b50
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1053 @@
+@@ -0,0 +1,1056 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137430,6 +137430,9 @@ index 0000000..3d5a507
 +        }
 +    }
 +    Place(s);
++    // swimmers float and bob instead of standing on the ground
++    if (IsWaterOnly(s->data[2]) || InUnder())
++        s->y2 = (((gMain.vblankCounter2 >> 4) + (s->data[0] >> 4)) & 1) ? -3 : -5;
 +    s->oam.priority = player->oam.priority;
 +    s->subpriority = (s->y < player->y + player->y2) ? player->subpriority + 1 : (player->subpriority > 0 ? player->subpriority - 1 : 0);
 +}
