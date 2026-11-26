@@ -1189,3 +1189,11 @@ How it works now:
 - **Walking into a Pokémon starts the battle**: you step onto its tile, it steps onto yours, or you push against a sea Pokémon from the shore. Standing next to one does nothing.
 - **After a battle** the one you met is replaced by another species of the same class, away from you; the rest come back where they were.
 - Tested in the emulator: entering takes the usual fade (about 90 frames, was 1500-3000); 540 checks of all 15 Pokémon with none on the wrong ground or stacked; all five touch cases right; Psyduck met and run from, Elekid took its place; temple and sea floor still spawn; the TEST start lands at the dock with MEWTWO at level 100.
+
+## 2026-11-26a
+Jane's game (25t) had no Pokémon in sight. Her ROM was exactly the 25t build and the Pokémon were there, but only 8 land ones in 4 herds, so most of the island had none near. Now, as in Sword and Shield's Wild Area:
+- **Pokémon appear around you as you go**, just off the screen, and go when they are far behind. Up to 7 on land and 3 in the sea are out at once; a few are put near you when you arrive.
+- **More species**: each draw has 11 that live on land and 4 that live in the sea, all different (was 4 and 4). New draw every hour of play, as before.
+- Meeting one sends its species off the island and brings another of the same class (land or sea) in its place.
+- A roster saved by an older patch is drawn again on the new layout.
+- Tested in the emulator from the island's east edge (where Jane was): 4 out on arrival, 7 within seconds, 2-5 on the screen while walking; none ever on the wrong ground; walking into one started the battle; after running away the others were back where they were and the met species was gone. Temple and sea floor unchanged.

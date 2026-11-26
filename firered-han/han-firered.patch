@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..7712d5c
+index 0000000..f9f9559
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1370 @@
+@@ -0,0 +1,1490 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137510,15 +137510,13 @@ index 0000000..7712d5c
 +// Each roster slot is land or sea for good (slots 0-7 land, 8-14 sea), so a sea Pokémon can never be put on, or walk onto, the snow.
 +#include "data/han_wild_tiles.h"
 +
-+#define LAND_SLOTS 8     // roster slots 0-7: four land kinds, two each; 8-14: four sea kinds (the last one alone)
++#define LAND_KINDS 11    // roster slots 0-10: species that live on land; 11-14: species that live in the sea
 +#define SLOTS      16
 +#define LEASH      7     // tiles a Pokémon wanders from the middle of its kind's home ground
 +#define WATER_FLAG 0x20  // in data[3], with the direction and the run bit
-+#define NO_POS     0xFF
 +
-+static u8 sAnchor[SLOTS][2]; // the middle of each slot's home ground (shared by a kind)
-+static u8 sPos[SLOTS][2];    // where each island Pokémon is, kept through a battle; NO_POS when it has none yet
-+static bool8 sPosKept;       // sPos and sAnchor belong to this visit of the island
++static u8 sAnchor[SLOTS][2]; // where each Pokémon out appeared: it wanders up to LEASH tiles from there
++static bool8 sPosKept;       // the Pokémon out (sAct) belong to this visit of the island
 +
 +static bool8 MaskGet(const u8 *mask, s16 tx, s16 ty)
 +{
@@ -138174,77 +138172,72 @@ index 0000000..7712d5c
 +}
 +
 +// the first roster slot of a kind (0-3 land, 4-7 sea), and how many slots it has
-+static u8 KindFirst(u8 k)
++// ---- the island's species ----
++// Fifteen species a draw: eleven that live on land (roster slots 0-10) and four that live in the sea (11-14), all different,
++// each with an overworld picture. Pokémon of these species appear around the player as they go (see "out and about" below).
++static bool8 IsSeaKind(u8 k)
 +{
-+    return k < 4 ? k * 2 : LAND_SLOTS + (k - 4) * 2;
-+}
-+
-+static u8 KindOfSlot(u8 i)
-+{
-+    return i < LAND_SLOTS ? i / 2 : 4 + (i - LAND_SLOTS) / 2;
++    return k >= LAND_KINDS;
 +}
 +
 +static void DrawRoster(void)
 +{
 +    struct HanWildSave *s = Save();
-+    u16 kinds[8];
-+    u8 k, j;
++    u8 k;
 +
 +    CacheParty();
 +    s->stamp = NowMinutes();
 +    s->shiny = 0;
 +    s->staticReady = 0;
-+    for (j = 0; j < WILD_COUNT; j++)
-+        s->species[j] = SPECIES_NONE;
-+    for (k = 0; k < 8; k++)
-+    {
-+        u8 first = KindFirst(k), cnt = 2;
-+        u16 sp = PickClass(k >= 4, FALSE, kinds, k);
-+
-+        kinds[k] = sp;
-+        if (sp == SPECIES_NONE)
-+            continue;
-+        if (first + cnt > WILD_COUNT)
-+            cnt = WILD_COUNT - first;
-+        if (IsLegend(sp))
-+            cnt = 1;
-+        for (j = 0; j < cnt; j++)
-+        {
-+            s->species[first + j] = sp;
-+            if (ShinyRoll())
-+                s->shiny |= 1 << (first + j);
-+        }
-+    }
-+    sPosKept = FALSE; // a new draw: new home grounds
++    for (k = 0; k < WILD_COUNT; k++)
++        s->species[k] = SPECIES_NONE;
++    for (k = 0; k < WILD_COUNT; k++)
++        s->species[k] = PickClass(IsSeaKind(k), FALSE, s->species, k);
++    sPosKept = FALSE; // a new draw: the ones out go
 +}
 +
 +static void EnsureRoster(void)
 +{
 +    struct HanWildSave *s = Save();
 +    u32 now = NowMinutes();
++    u8 k, j;
 +
 +    if (s->stamp == 0 || s->species[0] == SPECIES_NONE || now < s->stamp || now - s->stamp >= 60)
++    {
++        DrawRoster();
++        return;
++    }
++    // a roster saved by an older patch (other slots, pairs of one species) is drawn again
++    for (k = 0; k < WILD_COUNT; k++)
++    {
++        u16 sp = s->species[k];
++
++        if (sp == SPECIES_NONE)
++            continue;
++        if (!HanWildHasSprite(sp) || IsWaterOnly(sp) != IsSeaKind(k))
++            break;
++        for (j = 0; j < k; j++)
++            if (s->species[j] == sp)
++                break;
++        if (j < k)
++            break;
++    }
++    if (k < WILD_COUNT)
 +        DrawRoster();
 +}
 +
-+// a Pokémon has been met: it goes, and one of another species, of the same class, comes in its place somewhere else
-+static void ReplaceRoamer(u8 idx)
++// a Pokémon has been met: its species leaves the island, and another of the same class (land or sea) comes
++static void ReplaceRoamer(u8 k)
 +{
 +    struct HanWildSave *s = Save();
 +    u16 sp;
 +
-+    if (idx >= WILD_COUNT)
++    if (k >= WILD_COUNT)
 +        return;
 +    CacheParty();
-+    sp = PickClass(idx >= LAND_SLOTS, TRUE, s->species, WILD_COUNT);
-+    if (sp == SPECIES_NONE)
-+        sp = PickClass(idx >= LAND_SLOTS, TRUE, NULL, 0);
++    sp = PickClass(IsSeaKind(k), TRUE, s->species, WILD_COUNT);
 +    if (sp != SPECIES_NONE)
-+        s->species[idx] = sp;
-+    s->shiny &= ~(1 << idx);
-+    if (ShinyRoll())
-+        s->shiny |= 1 << idx;
-+    sPos[idx][0] = NO_POS;
++        s->species[k] = sp;
 +}
 +
 +static void ApplyHoles(void)
@@ -138305,63 +138298,6 @@ index 0000000..7712d5c
 +    }
 +}
 +
-+// a tile for a new Pokémon: near (ax, ay) if it can, at least minD from the player, with no one on it. A few tries, never a search.
-+static void SpawnTile(bool8 water, s16 ax, s16 ay, s16 px, s16 py, s16 minD, s16 *ox, s16 *oy)
-+{
-+    u8 t;
-+    s16 x, y;
-+
-+    for (t = 0; t < 32; t++)
-+    {
-+        x = ax - 3 + Random() % 7;
-+        y = ay - 3 + Random() % 7;
-+        if (GroundFor(water, x, y) && Dist(x, y, px, py) >= minD && !Occupied(NULL, x, y))
-+            goto found;
-+    }
-+    for (t = 0; t < 32; t++)
-+    {
-+        RandomTile(water, &x, &y);
-+        if (Dist(x, y, px, py) >= minD && !Occupied(NULL, x, y))
-+            goto found;
-+    }
-+    RandomTile(water, &x, &y);
-+found:
-+    *ox = x;
-+    *oy = y;
-+}
-+
-+// home grounds for the eight kinds, apart from each other and away from the player
-+static void PickAnchors(s16 px, s16 py)
-+{
-+    u8 k, j, t, i;
-+    s16 ax[8], ay[8];
-+
-+    for (k = 0; k < 8; k++)
-+    {
-+        bool8 water = k >= 4;
-+
-+        for (t = 0; t < 48; t++)
-+        {
-+            bool8 ok = TRUE;
-+
-+            RandomTile(water, &ax[k], &ay[k]);
-+            if (t < 40 && Dist(ax[k], ay[k], px, py) < 8)
-+                ok = FALSE;
-+            for (j = (water ? 4 : 0); j < k && ok && t < 24; j++)
-+                if (Dist(ax[k], ay[k], ax[j], ay[j]) < 7)
-+                    ok = FALSE;
-+            if (ok)
-+                break;
-+        }
-+        for (i = 0; i < SLOTS; i++)
-+            if (i < WILD_COUNT && KindOfSlot(i) == k)
-+            {
-+                sAnchor[i][0] = ax[k];
-+                sAnchor[i][1] = ay[k];
-+            }
-+    }
-+}
-+
 +static u8 NewWildSprite(u16 sp, s16 tx, s16 ty, u8 lvl, bool8 shiny, u8 slot, bool8 water, void (*cb)(struct Sprite *))
 +{
 +    u8 id = HanWildSpriteNew(sp);
@@ -138384,62 +138320,224 @@ index 0000000..7712d5c
 +    return id;
 +}
 +
-+// the island: every slot of the roster, where it was (after a battle) or on its kind's home ground
-+static void SpawnIsland(void)
++// ---- out and about ----
++// As in Sword and Shield's Wild Area: Pokémon appear around the player, just off the screen, as they go, and go away again when they
++// are far behind. Up to MAX_LAND on land and MAX_SEA in the sea are out at once; a few are put near the player on arrival.
++// Each one is an entry of sAct (its index is in data[5]), kept through a battle so that they are back where they were afterwards.
++#define MAX_ACT  10
++#define MAX_LAND 7
++#define MAX_SEA  3
++#define SPAWN_NEAR 16  // screen distance (see ScreenDist): a new one appears just outside the screen...
++#define SPAWN_FAR  26  // ...but not far beyond it
++#define GONE_DIST  36  // and goes once this far away
++
++struct WildAct
++{
++    u8 used:1;
++    u8 shiny:1;
++    u8 kind:6;
++    u8 x, y;
++    u8 lvl;
++    u8 sprite;
++};
++
++static struct WildAct sAct[MAX_ACT];
++static u8 sMarker;   // an invisible sprite: gone when the field is made again (after a battle), so the Pokémon are made again too
++static u8 sSpawnTick;
++
++static bool8 MarkerAlive(void)
++{
++    return sMarker < MAX_SPRITES && gSprites[sMarker].inUse && gSprites[sMarker].data[7] == WILD_TAG + 1;
++}
++
++static u8 ActCount(bool8 water)
++{
++    u8 i, n = 0;
++
++    for (i = 0; i < MAX_ACT; i++)
++        if (sAct[i].used && IsSeaKind(sAct[i].kind) == water)
++            n++;
++    return n;
++}
++
++// a new one may come in these colours: every kind out can have a palette (there are only sPalCount)
++static bool8 KeyFits(u16 key)
++{
++    u16 keys[MAX_ACT];
++    u8 i, j, n = 0;
++
++    for (i = 0; i < MAX_ACT; i++)
++    {
++        u16 k;
++
++        if (!sAct[i].used)
++            continue;
++        k = Save()->species[sAct[i].kind] | (sAct[i].shiny ? 0x8000 : 0);
++        if (k == key)
++            return TRUE;
++        for (j = 0; j < n; j++)
++            if (keys[j] == k)
++                break;
++        if (j == n)
++            keys[n++] = k;
++    }
++    return n < sPalCount;
++}
++
++static bool8 MakeAct(u8 a)
++{
++    struct WildAct *w = &sAct[a];
++    u16 sp = Save()->species[w->kind];
++    u8 id;
++
++    id = NewWildSprite(sp, w->x, w->y, w->lvl, w->shiny, a, IsSeaKind(w->kind), SpriteCB_Roamer);
++    if (id == MAX_SPRITES)
++    {
++        w->used = FALSE;
++        return FALSE;
++    }
++    w->sprite = id;
++    sAnchor[a][0] = w->x;
++    sAnchor[a][1] = w->y;
++    return TRUE;
++}
++
++// one more Pokémon near the player, if there is room for it. initial: on arrival, anywhere around (but not right beside the player)
++static void TrySpawn(bool8 initial)
 +{
 +    struct HanWildSave *sv = Save();
-+    u8 i, top = TopLevel();
++    s16 px, py, x, y, d;
++    u8 a, t, k, tries;
++    bool8 water;
++    u16 sp;
++
++    for (a = 0; a < MAX_ACT; a++)
++        if (!sAct[a].used)
++            break;
++    if (a == MAX_ACT)
++        return;
++    water = (Random() % 3) == 0;
++    if (water && ActCount(TRUE) >= MAX_SEA)
++        water = FALSE;
++    if (!water && ActCount(FALSE) >= MAX_LAND)
++        water = TRUE;
++    if (water && ActCount(TRUE) >= MAX_SEA)
++        return;
++    PlayerGetDestCoords(&px, &py);
++    px -= MAP_OFFSET;
++    py -= MAP_OFFSET;
++    for (t = 0; t < 16; t++)
++    {
++        x = px - 13 + Random() % 27;
++        y = py - 9 + Random() % 19;
++        d = ScreenDist(x, y, px, py);
++        if (d > SPAWN_FAR || (initial ? Dist(x, y, px, py) < 3 : d < SPAWN_NEAR))
++            continue;
++        if (GroundFor(water, x, y) && !Occupied(NULL, x, y))
++            break;
++    }
++    if (t == 16)
++        return;
++    for (tries = 0; tries < 8; tries++)
++    {
++        bool8 shiny;
++        u8 i;
++
++        k = water ? LAND_KINDS + Random() % (WILD_COUNT - LAND_KINDS) : Random() % LAND_KINDS;
++        sp = sv->species[k];
++        if (sp == SPECIES_NONE)
++            continue;
++        if (IsLegend(sp))
++        {
++            for (i = 0; i < MAX_ACT; i++)
++                if (sAct[i].used && sAct[i].kind == k)
++                    break;
++            if (i < MAX_ACT)
++                continue; // a legendary or mythical one is out alone
++        }
++        shiny = ShinyRoll();
++        if (!KeyFits(sp | (shiny ? 0x8000 : 0)))
++        {
++            if (!shiny || !KeyFits(sp))
++                continue;
++            shiny = FALSE; // no palette for its shiny colours just now: it comes as a plain one
++        }
++        sAct[a].used = TRUE;
++        sAct[a].kind = k;
++        sAct[a].shiny = shiny;
++        sAct[a].x = x;
++        sAct[a].y = y;
++        sAct[a].lvl = RollLevel(TopLevel());
++        MakeAct(a);
++        return;
++    }
++}
++
++// the ones far behind go
++static void DespawnFar(void)
++{
 +    s16 px, py;
++    u8 a;
 +
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
 +    py -= MAP_OFFSET;
-+    if (!sPosKept)
++    for (a = 0; a < MAX_ACT; a++)
 +    {
-+        PickAnchors(px, py);
-+        for (i = 0; i < SLOTS; i++)
-+            sPos[i][0] = NO_POS;
-+        sPosKept = TRUE;
-+    }
-+    for (i = 0; i < WILD_COUNT; i++)
-+    {
-+        u16 sp = sv->species[i];
-+        bool8 water = i >= LAND_SLOTS;
-+        s16 tx, ty;
++        struct Sprite *s;
 +
-+        if (sp == SPECIES_NONE || !HanWildHasSprite(sp))
++        if (!sAct[a].used)
 +            continue;
-+        if (sPos[i][0] != NO_POS && GroundFor(water, sPos[i][0], sPos[i][1]) && !Occupied(NULL, sPos[i][0], sPos[i][1]))
++        s = &gSprites[sAct[a].sprite];
++        if (ScreenDist(sAct[a].x, sAct[a].y, px, py) > GONE_DIST)
 +        {
-+            tx = sPos[i][0];
-+            ty = sPos[i][1];
++            if (s->inUse && s->data[7] == WILD_TAG && SlotOf(s) == a)
++                DestroySprite(s);
++            sAct[a].used = FALSE;
 +        }
-+        else
-+        {
-+            SpawnTile(water, sAnchor[i][0], sAnchor[i][1], px, py, 6, &tx, &ty);
-+        }
-+        if (NewWildSprite(sp, tx, ty, RollLevel(top), (sv->shiny >> i) & 1, i, water, SpriteCB_Roamer) == MAX_SPRITES)
-+            continue;
-+        sPos[i][0] = tx;
-+        sPos[i][1] = ty;
 +    }
-+    ApplyHoles();
 +}
 +
-+// each frame: where the island's Pokémon stand, so that after a battle they are back where they were
++// each frame: where the ones out are
 +static void RememberPositions(void)
 +{
-+    u8 i;
++    u8 a;
 +
-+    for (i = 0; i < MAX_SPRITES; i++)
++    for (a = 0; a < MAX_ACT; a++)
 +    {
-+        struct Sprite *s = &gSprites[i];
++        struct Sprite *s = &gSprites[sAct[a].sprite];
 +
-+        if (!s->inUse || s->data[7] != WILD_TAG || s->callback != SpriteCB_Roamer)
-+            continue;
-+        sPos[SlotOf(s)][0] = TileX(s);
-+        sPos[SlotOf(s)][1] = TileY(s);
++        if (sAct[a].used && s->inUse && s->data[7] == WILD_TAG && SlotOf(s) == a)
++        {
++            sAct[a].x = TileX(s);
++            sAct[a].y = TileY(s);
++        }
 +    }
++}
++
++// the field has been made (a new visit, or back from a battle): the ones out come back where they were, and on a new visit a few appear
++static void SpawnIsland(void)
++{
++    u8 a, n;
++
++    sMarker = CreateInvisibleSprite(SpriteCallbackDummy);
++    if (sMarker < MAX_SPRITES)
++        gSprites[sMarker].data[7] = WILD_TAG + 1;
++    if (!sPosKept)
++    {
++        for (a = 0; a < MAX_ACT; a++)
++            sAct[a].used = FALSE;
++        sPosKept = TRUE;
++        for (n = 0; n < 6; n++)
++            TrySpawn(TRUE);
++    }
++    else
++    {
++        for (a = 0; a < MAX_ACT; a++)
++            if (sAct[a].used && (!GroundFor(IsSeaKind(sAct[a].kind), sAct[a].x, sAct[a].y) || !MakeAct(a)))
++                sAct[a].used = FALSE;
++    }
++    ApplyHoles();
 +}
 +
 +static const u16 sUnder[] = {
@@ -138549,6 +138647,30 @@ index 0000000..7712d5c
 +            return;
 +        }
 +    }
++    if (island)
++    {
++        if (!MarkerAlive() || !sPosKept)
++        {
++            if (ScriptContext_IsEnabled())
++                return; // a battle is starting (or a script is running): make them when it is over
++            PalReset();
++            EnsureRoster();
++            SpawnIsland();
++            UpdatePalettes();
++            return;
++        }
++        RememberPositions();
++        DespawnFar();
++        if (++sSpawnTick >= 12 && !ScriptContext_IsEnabled())
++        {
++            sSpawnTick = 0;
++            TrySpawn(FALSE);
++        }
++        UpdatePalettes();
++        if (!ScriptContext_IsEnabled() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) != 0)
++            HanWildCollision();
++        return;
++    }
 +    if (sFirst != 0 && (!gSprites[sFirst - 1].inUse || gSprites[sFirst - 1].data[7] != WILD_TAG))
 +        sFirst = 0;
 +    if (sFirst == 0)
@@ -138562,16 +138684,11 @@ index 0000000..7712d5c
 +        else
 +        {
 +            EnsureRoster();
-+            if (temple)
-+                SpawnStatic();
-+            else
-+                SpawnIsland();
++            SpawnStatic();
 +        }
 +        UpdatePalettes();
 +        return;
 +    }
-+    if (island)
-+        RememberPositions();
 +    UpdatePalettes();
 +    // a Pokémon reached while the player's controls are busy (ice, current, surfing in): the usual input check does not run then
 +    if (!ScriptContext_IsEnabled() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) != 0)
@@ -138586,7 +138703,7 @@ index 0000000..7712d5c
 +    bool8 pushing = FALSE;
 +    u8 i, face;
 +
-+    if (sFirst == 0 || (!InWildArea() && !InTemple() && !InUnder()))
++    if (!InWildArea() && !InTemple() && !InUnder())
 +        return FALSE;
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
@@ -138619,8 +138736,11 @@ index 0000000..7712d5c
 +            sBattleShiny = (s->data[5] & SHINY_BIT) != 0;
 +            if (s->callback == SpriteCB_Static)
 +                Save()->staticReady = 0; // met: the next visit has another
-+            else if (InWildArea())
-+                ReplaceRoamer(SlotOf(s)); // met: it goes, and another takes its place
++            else if (InWildArea() && SlotOf(s) < MAX_ACT && sAct[SlotOf(s)].used)
++            {
++                ReplaceRoamer(sAct[SlotOf(s)].kind); // met: its species goes, and another takes its place
++                sAct[SlotOf(s)].used = FALSE;
++            }
 +            s->invisible = TRUE;
 +            s->data[7] = 0; // no longer one of them: it cannot be met twice before the battle starts
 +            ScriptContext_SetupScript(HanWild_EventScript_Battle);
