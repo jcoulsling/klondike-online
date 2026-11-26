@@ -1233,3 +1233,11 @@ Jane: no Pokémon by the dock, and none on top of trees unless they fly (Aipom, 
 - **On land, a Pokémon does not stand under a tree or other solid tile** (the tile above is solid), except Aipom, Pineco and Seedot, which may. Those are never put there when spawning; they may walk there.
 - Removed the hidden ghosts: a Pokémon that has never had colours and has none now is taken away, and another is put in its place.
 - Still open: the coastline. The sea and the coast tiles are consistent in the data; the cause of the blocked surf has not been found.
+
+## 2026-11-26g
+Jane: a test patch that starts the player in the Dash Arena, to test the Wild Area spawning on it.
+- **The Wild Area map is now the Dash Arena** (86 x 86, the Dota 2 map: three lanes, river, Roshan pit as a cave entrance, ruins pillars, one-tile towers, whole 2x2 trees with tips). New layout data/layouts/HanArena and new tileset hoenn_arena (Sevii ruins cobble and pillar, tree tip and trunk pieces).
+- The old connection, warp and events of the Wild Area are removed (the old map is kept as HanWildArea_map.json.bak outside the repo).
+- **Wild Area spawning runs on the arena**: sizes and the no-spawn zone (6 tiles around the Radiant tower) changed in han_wild.c; land and sea tables made again by classify_arena.py.
+- **Test start:** a new game named TEST starts beside the Radiant tower with a level 100 Mewtwo.
+- Not done yet: the cave warp, the B-mash movement, the flag and the drop-off logic.
