@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..f9f9559
+index 0000000..d8563da
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1490 @@
+@@ -0,0 +1,1596 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138321,15 +138321,21 @@ index 0000000..f9f9559
 +}
 +
 +// ---- out and about ----
-+// As in Sword and Shield's Wild Area: Pokémon appear around the player, just off the screen, as they go, and go away again when they
-+// are far behind. Up to MAX_LAND on land and MAX_SEA in the sea are out at once; a few are put near the player on arrival.
++// The island's Pokémon are spread over all its land and all its sea, apart from each other: LAND_TARGET on land and at least
++// SEA_MIN in the sea, never more than MAX_ACT in all. One met in battle leaves a gap, which is filled again somewhere off the screen.
++// If none is on the screen or near it, one appears just off the screen; after that the next such one waits NEAR_WAIT frames.
 +// Each one is an entry of sAct (its index is in data[5]), kept through a battle so that they are back where they were afterwards.
-+#define MAX_ACT  10
-+#define MAX_LAND 7
-+#define MAX_SEA  3
-+#define SPAWN_NEAR 16  // screen distance (see ScreenDist): a new one appears just outside the screen...
-+#define SPAWN_FAR  26  // ...but not far beyond it
-+#define GONE_DIST  36  // and goes once this far away
++#define MAX_ACT     14
++#define LAND_TARGET 10
++#define SEA_MIN     4
++#define ON_SCREEN   15  // screen distance (see ScreenDist) of the screen's edge: 7 tiles across, 5 up and down
++#define NEAR        20  // near the screen
++#define SPAWN_NEAR  16  // a Pokémon put near the player appears just outside the screen...
++#define SPAWN_FAR   24  // ...not far beyond it
++#define KIND_AREA   40  // a new one's kind: no more than KIND_MAX kinds this close to it (so every kind in view can have a palette)
++#define KIND_MAX    4
++#define NEAR_WAIT   300 // 5 seconds
++#define FILL_WAIT   90  // a gap is filled every 1.5 seconds
 +
 +struct WildAct
 +{
@@ -138342,12 +138348,20 @@ index 0000000..f9f9559
 +};
 +
 +static struct WildAct sAct[MAX_ACT];
-+static u8 sMarker;   // an invisible sprite: gone when the field is made again (after a battle), so the Pokémon are made again too
-+static u8 sSpawnTick;
++static u8 sMarker;    // an invisible sprite: gone when the field is made again (after a battle), so the Pokémon are made again too
++static u16 sNearWait; // frames before another can be put near the player
++static u8 sFillWait;  // frames before another gap is filled
 +
 +static bool8 MarkerAlive(void)
 +{
 +    return sMarker < MAX_SPRITES && gSprites[sMarker].inUse && gSprites[sMarker].data[7] == WILD_TAG + 1;
++}
++
++static void PlayerTile(s16 *px, s16 *py)
++{
++    PlayerGetDestCoords(px, py);
++    *px -= MAP_OFFSET;
++    *py -= MAP_OFFSET;
 +}
 +
 +static u8 ActCount(bool8 water)
@@ -138360,8 +138374,23 @@ index 0000000..f9f9559
 +    return n;
 +}
 +
-+// a new one may come in these colours: every kind out can have a palette (there are only sPalCount)
-+static bool8 KeyFits(u16 key)
++static u8 FreeAct(void)
++{
++    u8 a;
++
++    for (a = 0; a < MAX_ACT; a++)
++        if (!sAct[a].used)
++            break;
++    return a;
++}
++
++static u16 ActKey(u8 a)
++{
++    return Save()->species[sAct[a].kind] | (sAct[a].shiny ? 0x8000 : 0);
++}
++
++// may a Pokémon in these colours appear at (x, y): with it, no more than KIND_MAX kinds close by
++static bool8 KeyFitsAt(u16 key, s16 x, s16 y)
 +{
 +    u16 keys[MAX_ACT];
 +    u8 i, j, n = 0;
@@ -138370,9 +138399,9 @@ index 0000000..f9f9559
 +    {
 +        u16 k;
 +
-+        if (!sAct[i].used)
++        if (!sAct[i].used || ScreenDist(sAct[i].x, sAct[i].y, x, y) > KIND_AREA)
 +            continue;
-+        k = Save()->species[sAct[i].kind] | (sAct[i].shiny ? 0x8000 : 0);
++        k = ActKey(i);
 +        if (k == key)
 +            return TRUE;
 +        for (j = 0; j < n; j++)
@@ -138381,16 +138410,14 @@ index 0000000..f9f9559
 +        if (j == n)
 +            keys[n++] = k;
 +    }
-+    return n < sPalCount;
++    return n < KIND_MAX;
 +}
 +
 +static bool8 MakeAct(u8 a)
 +{
 +    struct WildAct *w = &sAct[a];
-+    u16 sp = Save()->species[w->kind];
-+    u8 id;
++    u8 id = NewWildSprite(Save()->species[w->kind], w->x, w->y, w->lvl, w->shiny, a, IsSeaKind(w->kind), SpriteCB_Roamer);
 +
-+    id = NewWildSprite(sp, w->x, w->y, w->lvl, w->shiny, a, IsSeaKind(w->kind), SpriteCB_Roamer);
 +    if (id == MAX_SPRITES)
 +    {
 +        w->used = FALSE;
@@ -138402,46 +138429,25 @@ index 0000000..f9f9559
 +    return TRUE;
 +}
 +
-+// one more Pokémon near the player, if there is room for it. initial: on arrival, anywhere around (but not right beside the player)
-+static void TrySpawn(bool8 initial)
++static void RemoveAct(u8 a)
++{
++    struct Sprite *s = &gSprites[sAct[a].sprite];
++
++    if (s->inUse && s->data[7] == WILD_TAG && SlotOf(s) == a)
++        DestroySprite(s);
++    sAct[a].used = FALSE;
++}
++
++// a Pokémon of the right class at (x, y), in entry a: its kind chosen so the colours fit there
++static bool8 PutAct(u8 a, bool8 water, s16 x, s16 y)
 +{
 +    struct HanWildSave *sv = Save();
-+    s16 px, py, x, y, d;
-+    u8 a, t, k, tries;
-+    bool8 water;
-+    u16 sp;
++    u8 tries, i, k;
 +
-+    for (a = 0; a < MAX_ACT; a++)
-+        if (!sAct[a].used)
-+            break;
-+    if (a == MAX_ACT)
-+        return;
-+    water = (Random() % 3) == 0;
-+    if (water && ActCount(TRUE) >= MAX_SEA)
-+        water = FALSE;
-+    if (!water && ActCount(FALSE) >= MAX_LAND)
-+        water = TRUE;
-+    if (water && ActCount(TRUE) >= MAX_SEA)
-+        return;
-+    PlayerGetDestCoords(&px, &py);
-+    px -= MAP_OFFSET;
-+    py -= MAP_OFFSET;
-+    for (t = 0; t < 16; t++)
-+    {
-+        x = px - 13 + Random() % 27;
-+        y = py - 9 + Random() % 19;
-+        d = ScreenDist(x, y, px, py);
-+        if (d > SPAWN_FAR || (initial ? Dist(x, y, px, py) < 3 : d < SPAWN_NEAR))
-+            continue;
-+        if (GroundFor(water, x, y) && !Occupied(NULL, x, y))
-+            break;
-+    }
-+    if (t == 16)
-+        return;
-+    for (tries = 0; tries < 8; tries++)
++    for (tries = 0; tries < 12; tries++)
 +    {
 +        bool8 shiny;
-+        u8 i;
++        u16 sp;
 +
 +        k = water ? LAND_KINDS + Random() % (WILD_COUNT - LAND_KINDS) : Random() % LAND_KINDS;
 +        sp = sv->species[k];
@@ -138456,11 +138462,11 @@ index 0000000..f9f9559
 +                continue; // a legendary or mythical one is out alone
 +        }
 +        shiny = ShinyRoll();
-+        if (!KeyFits(sp | (shiny ? 0x8000 : 0)))
++        if (!KeyFitsAt(sp | (shiny ? 0x8000 : 0), x, y))
 +        {
-+            if (!shiny || !KeyFits(sp))
++            if (!shiny || !KeyFitsAt(sp, x, y))
 +                continue;
-+            shiny = FALSE; // no palette for its shiny colours just now: it comes as a plain one
++            shiny = FALSE; // no room for its shiny colours here: it comes as a plain one
 +        }
 +        sAct[a].used = TRUE;
 +        sAct[a].kind = k;
@@ -138468,34 +138474,116 @@ index 0000000..f9f9559
 +        sAct[a].x = x;
 +        sAct[a].y = y;
 +        sAct[a].lvl = RollLevel(TopLevel());
-+        MakeAct(a);
-+        return;
++        return MakeAct(a);
 +    }
++    return FALSE;
 +}
 +
-+// the ones far behind go
-+static void DespawnFar(void)
++// a tile of the class anywhere on the island, as far as it can be from the others of its class (best of a few), and at least
++// minScreen from the player (0: anywhere but right beside the player)
++static bool8 SpreadTile(bool8 water, s16 minScreen, s16 *ox, s16 *oy)
++{
++    s16 px, py, x, y, best = -1;
++    u8 t, i;
++
++    PlayerTile(&px, &py);
++    for (t = 0; t < 10; t++)
++    {
++        s16 near = 0x7FFF;
++
++        RandomTile(water, &x, &y);
++        if (Occupied(NULL, x, y) || Dist(x, y, px, py) < 3 || ScreenDist(x, y, px, py) < minScreen)
++            continue;
++        for (i = 0; i < MAX_ACT; i++)
++            if (sAct[i].used && IsSeaKind(sAct[i].kind) == water && Dist(x, y, sAct[i].x, sAct[i].y) < near)
++                near = Dist(x, y, sAct[i].x, sAct[i].y);
++        if (near > best)
++        {
++            best = near;
++            *ox = x;
++            *oy = y;
++        }
++    }
++    return best >= 0;
++}
++
++// fill one gap: in the sea first while it has fewer than SEA_MIN, then on land up to LAND_TARGET; off the screen unless arriving
++static void FillGap(bool8 arriving)
++{
++    u8 a = FreeAct();
++    bool8 water;
++    s16 x, y;
++
++    if (a == MAX_ACT)
++        return;
++    if (ActCount(TRUE) < SEA_MIN)
++        water = TRUE;
++    else if (ActCount(FALSE) < LAND_TARGET)
++        water = FALSE;
++    else
++        return;
++    if (SpreadTile(water, arriving ? 0 : SPAWN_NEAR, &x, &y))
++        PutAct(a, water, x, y);
++}
++
++// none on the screen or near it: one just off the screen (making room if all MAX_ACT are out)
++static void PutNear(void)
++{
++    s16 px, py, x, y;
++    u8 a, t, i;
++    bool8 water;
++
++    PlayerTile(&px, &py);
++    for (t = 0; t < 24; t++)
++    {
++        s16 d;
++
++        x = px - 12 + Random() % 25;
++        y = py - 8 + Random() % 17;
++        d = ScreenDist(x, y, px, py);
++        if (d < SPAWN_NEAR || d > SPAWN_FAR || Occupied(NULL, x, y))
++            continue;
++        water = GroundFor(TRUE, x, y);
++        if (water || GroundFor(FALSE, x, y))
++            break;
++    }
++    if (t == 24)
++        return;
++    a = FreeAct();
++    if (a == MAX_ACT)
++    {
++        // make room: the one farthest from the player, but the sea keeps SEA_MIN
++        s16 far = -1;
++
++        for (i = 0; i < MAX_ACT; i++)
++        {
++            s16 d = ScreenDist(sAct[i].x, sAct[i].y, px, py);
++
++            if (IsSeaKind(sAct[i].kind) && !water && ActCount(TRUE) <= SEA_MIN)
++                continue;
++            if (d > far)
++            {
++                far = d;
++                a = i;
++            }
++        }
++        if (a == MAX_ACT)
++            return;
++        RemoveAct(a);
++    }
++    PutAct(a, water, x, y);
++}
++
++static bool8 AnyNear(void)
 +{
 +    s16 px, py;
 +    u8 a;
 +
-+    PlayerGetDestCoords(&px, &py);
-+    px -= MAP_OFFSET;
-+    py -= MAP_OFFSET;
++    PlayerTile(&px, &py);
 +    for (a = 0; a < MAX_ACT; a++)
-+    {
-+        struct Sprite *s;
-+
-+        if (!sAct[a].used)
-+            continue;
-+        s = &gSprites[sAct[a].sprite];
-+        if (ScreenDist(sAct[a].x, sAct[a].y, px, py) > GONE_DIST)
-+        {
-+            if (s->inUse && s->data[7] == WILD_TAG && SlotOf(s) == a)
-+                DestroySprite(s);
-+            sAct[a].used = FALSE;
-+        }
-+    }
++        if (sAct[a].used && ScreenDist(sAct[a].x, sAct[a].y, px, py) <= NEAR)
++            return TRUE;
++    return FALSE;
 +}
 +
 +// each frame: where the ones out are
@@ -138515,7 +138603,28 @@ index 0000000..f9f9559
 +    }
 +}
 +
-+// the field has been made (a new visit, or back from a battle): the ones out come back where they were, and on a new visit a few appear
++// each frame on the island, once the Pokémon are out
++static void IslandTick(void)
++{
++    if (ScriptContext_IsEnabled())
++        return;
++    if (sNearWait > 0)
++        sNearWait--;
++    if (sFillWait > 0)
++        sFillWait--;
++    if (sFillWait == 0)
++    {
++        sFillWait = FILL_WAIT;
++        FillGap(FALSE);
++    }
++    if (sNearWait == 0 && !AnyNear())
++    {
++        sNearWait = NEAR_WAIT;
++        PutNear();
++    }
++}
++
++// the field has been made (a new visit, or back from a battle): the ones out come back where they were; on a new visit they spread out
 +static void SpawnIsland(void)
 +{
 +    u8 a, n;
@@ -138528,8 +138637,9 @@ index 0000000..f9f9559
 +        for (a = 0; a < MAX_ACT; a++)
 +            sAct[a].used = FALSE;
 +        sPosKept = TRUE;
-+        for (n = 0; n < 6; n++)
-+            TrySpawn(TRUE);
++        sNearWait = 0;
++        for (n = 0; n < SEA_MIN + LAND_TARGET; n++)
++            FillGap(TRUE);
 +    }
 +    else
 +    {
@@ -138537,6 +138647,7 @@ index 0000000..f9f9559
 +            if (sAct[a].used && (!GroundFor(IsSeaKind(sAct[a].kind), sAct[a].x, sAct[a].y) || !MakeAct(a)))
 +                sAct[a].used = FALSE;
 +    }
++    sFillWait = FILL_WAIT;
 +    ApplyHoles();
 +}
 +
@@ -138660,12 +138771,7 @@ index 0000000..f9f9559
 +            return;
 +        }
 +        RememberPositions();
-+        DespawnFar();
-+        if (++sSpawnTick >= 12 && !ScriptContext_IsEnabled())
-+        {
-+            sSpawnTick = 0;
-+            TrySpawn(FALSE);
-+        }
++        IslandTick();
 +        UpdatePalettes();
 +        if (!ScriptContext_IsEnabled() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) != 0)
 +            HanWildCollision();

@@ -1197,3 +1197,11 @@ Jane's game (25t) had no Pokémon in sight. Her ROM was exactly the 25t build an
 - Meeting one sends its species off the island and brings another of the same class (land or sea) in its place.
 - A roster saved by an older patch is drawn again on the new layout.
 - Tested in the emulator from the island's east edge (where Jane was): 4 out on arrival, 7 within seconds, 2-5 on the screen while walking; none ever on the wrong ground; walking into one started the battle; after running away the others were back where they were and the met species was gone. Temple and sea floor unchanged.
+
+## 2026-11-26b
+- **Spread over the whole island.** The Pokémon are spread over all the land and all the sea, apart from each other, not only near the player: 10 on land and 4 in the sea, 14 at most.
+- **Always some in the sea**: never fewer than 4.
+- **None in sight**: when none is on the screen or near it, one appears just off the screen; the next such one waits 5 seconds. With 14 out, the one farthest away makes room (never taking the sea below 4).
+- A gap left by a battle is filled again off the screen, one every 1.5 seconds.
+- Each new one's species is chosen so that no part of the island has more than 4 species close together, so every one in view can be drawn.
+- Tested: 14 out spread from row 7 to the sea, 4 in the sea throughout; walking from the east edge, at most a few seconds with none in view; none ever on the wrong ground; after a battle the rest came back where they were.
