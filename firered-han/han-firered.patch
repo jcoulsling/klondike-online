@@ -102433,10 +102433,10 @@ index 0000000..7440cbe
 +#endif // GUARD_HAN_CUSTOM_H
 diff --git a/include/han_follower.h b/include/han_follower.h
 new file mode 100644
-index 0000000..3e0d958
+index 0000000..1543bcc
 --- /dev/null
 +++ b/include/han_follower.h
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,34 @@
 +#ifndef GUARD_HAN_FOLLOWER_H
 +#define GUARD_HAN_FOLLOWER_H
 +
@@ -102452,7 +102452,8 @@ index 0000000..3e0d958
 +u8 HanWildSpriteCreate(u16 n, u16 palTag, u8 *palIdx, bool8 load); // a Wild Area Pokémon
 +bool8 HanWildHasSprite(u16 n);
 +u8 HanWildSpriteNew(u16 species);                  // a Wild Area Pokémon, with no palette yet
-+void HanWildPalLoad(u16 species, bool8 shiny, u8 slot); // its colours into a sprite palette slot
++void HanWildPalLoad(u16 species, bool8 shiny, u8 slot);
++void HanWildSetBall(struct Sprite *s, u16 species, bool8 ball); // a Wild Area sprite as its species, or as an item ball // its colours into a sprite palette slot
 +void HanMonMakeShiny(struct Pokemon *mon, bool8 shiny); // src/han_wild.c: the same Pokémon made shiny or not
 +void HanMonCharmRoll(struct Pokemon *mon); // with the SHINY CHARM, a wild Pokémon is shiny one time in five
 +void HanWildFrame(void); // src/han_wild.c
@@ -135091,10 +135092,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..443dd83
+index 0000000..24a0eee
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,654 @@
+@@ -0,0 +1,692 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -135692,6 +135693,44 @@ index 0000000..443dd83
 +    gSprites[id].centerToCornerVecX = -16;
 +    gSprites[id].centerToCornerVecY = -16;
 +    return id;
++}
++
++// a Wild Area Pokémon's sprite shows as its species, or (ball) as an item ball when it has no colours: same sprite, other graphics
++void HanWildSetBall(struct Sprite *s, u16 species, bool8 ball)
++{
++    struct SpriteTemplate template;
++    const struct SubspriteTable *subs;
++
++    if (ball)
++    {
++        CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_ITEM_BALL, s->callback, &template, &subs);
++        s->images = template.images;
++        s->anims = template.anims;
++        s->oam = *template.oam;
++        s->oam.paletteNum = IndexOfSpritePaletteTag(template.paletteTag);
++        s->subspriteTables = NULL;
++        s->subspriteTableNum = 0;
++        s->centerToCornerVecX = -8;
++        s->centerToCornerVecY = -8;
++    }
++    else
++    {
++        CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_HAN_FOLLOWER, s->callback, &template, &subs);
++        s->images = sHanFollowImg[sHanFollowIndex[species]];
++        s->anims = template.anims;
++        s->oam = *template.oam;
++        s->oam.paletteNum = 0;
++        s->subspriteTables = NULL;
++        s->subspriteTableNum = 0;
++        if (subs != NULL)
++        {
++            SetSubspriteTables(s, subs);
++            s->subspriteMode = SUBSPRITES_IGNORE_PRIORITY;
++        }
++        s->centerToCornerVecX = -16;
++        s->centerToCornerVecY = -16;
++    }
++    StartSpriteAnim(s, 0);
 +}
 +
 +// a Wild Area Pokémon's colours (its shiny ones if shiny) into sprite palette slot
@@ -138362,10 +138401,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..773e40a
+index 0000000..a90350e
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1873 @@
+@@ -0,0 +1,1880 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138852,10 +138891,9 @@ index 0000000..773e40a
 +}
 +
 +// a sprite shows only with its kind's palette
-+#define PAL_HAD 0x40 // in data[3]: this Pokémon has had its colours at least once
++#define PAL_HAD  0x40 // in data[3]: this Pokémon has had its colours at least once
++#define BALL_FLAG 0x80 // in data[3]: shown as an item ball (no colours of its own)
 +
-+// a Pokémon that has its colours stays on the screen even if its palette is taken back for a moment (it keeps the last one);
-+// only one that has never had colours waits hidden
 +static void ApplyPalette(struct Sprite *s)
 +{
 +    u8 n;
@@ -138863,14 +138901,22 @@ index 0000000..773e40a
 +    if (IsBall(s))
 +        return;
 +    n = PalFor(SpriteKey(s));
-+
 +    if (n != 0xFF)
 +    {
++        if (s->data[3] & BALL_FLAG)
++        {
++            HanWildSetBall(s, s->data[2], FALSE);
++            s->data[3] &= ~BALL_FLAG;
++        }
 +        s->oam.paletteNum = n;
 +        s->data[3] |= PAL_HAD;
 +    }
-+    else if (!(s->data[3] & PAL_HAD))
-+        s->invisible = TRUE;
++    else if (!(s->data[3] & BALL_FLAG))
++    {
++        // no colours for it (it is far from the player): it shows as a ball, which uses the item ball's palette
++        HanWildSetBall(s, s->data[2], TRUE);
++        s->data[3] |= BALL_FLAG;
++    }
 +}
 +
 +static void Place(struct Sprite *s)
@@ -138966,7 +139012,7 @@ index 0000000..773e40a
 +                    dir = DirToPlayer(tx, ty, roll == 1);
 +                }
 +            }
-+            s->data[3] = dir | (run ? 0x10 : 0) | (s->data[3] & (WATER_FLAG | PAL_HAD));
++            s->data[3] = dir | (run ? 0x10 : 0) | (s->data[3] & (WATER_FLAG | PAL_HAD | BALL_FLAG));
 +            s->data[4] = run ? 6 + (Random() & 15) : 40 + (Random() & 63);
 +            switch (dir)
 +            {
