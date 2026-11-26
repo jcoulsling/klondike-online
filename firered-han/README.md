@@ -1205,3 +1205,8 @@ Jane's game (25t) had no Pokémon in sight. Her ROM was exactly the 25t build an
 - A gap left by a battle is filled again off the screen, one every 1.5 seconds.
 - Each new one's species is chosen so that no part of the island has more than 4 species close together, so every one in view can be drawn.
 - Tested: 14 out spread from row 7 to the sea, 4 in the sea throughout; walking from the east edge, at most a few seconds with none in view; none ever on the wrong ground; after a battle the rest came back where they were.
+
+## 2026-11-26c
+Jane at the dock (26b) saw only sea Pokémon: the old rule put one near only when none at all was near, and the sea ones counted.
+- **Always some near**: at least 3 Pokémon within about 15 tiles across or 10 up and down of the player, and at least 1 of them on land wherever there is land about. Short of that, one appears just off the screen every 2 seconds until there are enough (the one farthest away makes room when 14 are out; the sea keeps 4).
+- Tested: standing at the dock, 3-4 near (1-2 on land) the whole time; walking from the dock and from the east edge, never fewer than 3 near and never without land ones, until walking into one started a battle.

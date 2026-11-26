@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..d8563da
+index 0000000..760366c
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1596 @@
+@@ -0,0 +1,1615 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138323,18 +138323,20 @@ index 0000000..d8563da
 +// ---- out and about ----
 +// The island's Pokémon are spread over all its land and all its sea, apart from each other: LAND_TARGET on land and at least
 +// SEA_MIN in the sea, never more than MAX_ACT in all. One met in battle leaves a gap, which is filled again somewhere off the screen.
-+// If none is on the screen or near it, one appears just off the screen; after that the next such one waits NEAR_WAIT frames.
++// Fewer than NEAR_MIN near the player (or none of them on land, where there is land about): one appears just off the screen,
++// every NEAR_WAIT frames until there are enough.
 +// Each one is an entry of sAct (its index is in data[5]), kept through a battle so that they are back where they were afterwards.
 +#define MAX_ACT     14
 +#define LAND_TARGET 10
 +#define SEA_MIN     4
 +#define ON_SCREEN   15  // screen distance (see ScreenDist) of the screen's edge: 7 tiles across, 5 up and down
-+#define NEAR        20  // near the screen
 +#define SPAWN_NEAR  16  // a Pokémon put near the player appears just outside the screen...
 +#define SPAWN_FAR   24  // ...not far beyond it
 +#define KIND_AREA   40  // a new one's kind: no more than KIND_MAX kinds this close to it (so every kind in view can have a palette)
 +#define KIND_MAX    4
-+#define NEAR_WAIT   300 // 5 seconds
++#define NEAR_ZONE   30  // "not too far": about 15 tiles across or 10 up and down
++#define NEAR_MIN    3   // at least this many always that close (one of them on land, where there is land about)
++#define NEAR_WAIT   120 // 2 seconds between ones put near the player
 +#define FILL_WAIT   90  // a gap is filled every 1.5 seconds
 +
 +struct WildAct
@@ -138527,7 +138529,7 @@ index 0000000..d8563da
 +}
 +
 +// none on the screen or near it: one just off the screen (making room if all MAX_ACT are out)
-+static void PutNear(void)
++static bool8 PutNear(bool8 landOnly)
 +{
 +    s16 px, py, x, y;
 +    u8 a, t, i;
@@ -138543,12 +138545,12 @@ index 0000000..d8563da
 +        d = ScreenDist(x, y, px, py);
 +        if (d < SPAWN_NEAR || d > SPAWN_FAR || Occupied(NULL, x, y))
 +            continue;
-+        water = GroundFor(TRUE, x, y);
++        water = !landOnly && GroundFor(TRUE, x, y);
 +        if (water || GroundFor(FALSE, x, y))
 +            break;
 +    }
 +    if (t == 24)
-+        return;
++        return FALSE;
 +    a = FreeAct();
 +    if (a == MAX_ACT)
 +    {
@@ -138568,22 +138570,28 @@ index 0000000..d8563da
 +            }
 +        }
 +        if (a == MAX_ACT)
-+            return;
++            return FALSE;
 +        RemoveAct(a);
 +    }
-+    PutAct(a, water, x, y);
++    return PutAct(a, water, x, y);
 +}
 +
-+static bool8 AnyNear(void)
++// how many are near the player, and how many of those on land
++static u8 CountNear(u8 *land)
 +{
 +    s16 px, py;
-+    u8 a;
++    u8 a, n = 0;
 +
++    *land = 0;
 +    PlayerTile(&px, &py);
 +    for (a = 0; a < MAX_ACT; a++)
-+        if (sAct[a].used && ScreenDist(sAct[a].x, sAct[a].y, px, py) <= NEAR)
-+            return TRUE;
-+    return FALSE;
++        if (sAct[a].used && ScreenDist(sAct[a].x, sAct[a].y, px, py) <= NEAR_ZONE)
++        {
++            n++;
++            if (!IsSeaKind(sAct[a].kind))
++                *land += 1;
++        }
++    return n;
 +}
 +
 +// each frame: where the ones out are
@@ -138617,10 +138625,21 @@ index 0000000..d8563da
 +        sFillWait = FILL_WAIT;
 +        FillGap(FALSE);
 +    }
-+    if (sNearWait == 0 && !AnyNear())
++    if (sNearWait == 0)
 +    {
-+        sNearWait = NEAR_WAIT;
-+        PutNear();
++        u8 land, n = CountNear(&land);
++
++        if (land == 0)
++        {
++            sNearWait = NEAR_WAIT;
++            if (!PutNear(TRUE) && n < NEAR_MIN)
++                PutNear(FALSE); // no land just off the screen here: in the sea, then
++        }
++        else if (n < NEAR_MIN)
++        {
++            sNearWait = NEAR_WAIT;
++            PutNear(FALSE);
++        }
 +    }
 +}
 +
