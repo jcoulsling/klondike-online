@@ -1151,3 +1151,7 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 ## 2026-11-25m
 - The land Pokémon's walkable area is now worked out from several fixed points as well as from where you stand, so a bad starting spot can no longer leave the island with only water Pokémon.
 - Water Pokémon now swim right up to the shore (the first row of sea), so you can start a battle from the beach without Surf.
+
+## 2026-11-25n
+- **Every kind has a spawn point.** Each kind of three starts together, a few tiles from a point picked for it, and every tile on the island is searched, so no Pokémon is dropped at spawn (all 15 spawned in the test).
+- **Temperament from base stat total:** under 300 runs away from you (walking, or running two times in three); 300 to 449 is unsure, going slowly towards you or away; 450 and up comes up to you, walking or running.

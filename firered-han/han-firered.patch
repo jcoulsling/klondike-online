@@ -137053,10 +137053,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..650620f
+index 0000000..8078393
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1068 @@
+@@ -0,0 +1,1173 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137396,15 +137396,39 @@ index 0000000..650620f
 +    s->invisible = (s->x < -48 || s->x > 288 || s->y < -48 || s->y > 208);
 +}
 +
++// the way towards the player (or away from them), along the longer of the two gaps
++static u8 DirToPlayer(s16 tx, s16 ty, bool8 away)
++{
++    s16 px, py, dx, dy;
++
++    PlayerGetDestCoords(&px, &py);
++    dx = px - MAP_OFFSET - tx;
++    dy = py - MAP_OFFSET - ty;
++    if (dx == 0 && dy == 0)
++        return 1 + (Random() & 3);
++    if (away)
++    {
++        dx = -dx;
++        dy = -dy;
++    }
++    if ((dx < 0 ? -dx : dx) > (dy < 0 ? -dy : dy))
++        return dx > 0 ? DIR_EAST : DIR_WEST;
++    return dy > 0 ? DIR_SOUTH : DIR_NORTH;
++}
++
++static u8 Courage(u16 sp);
++static u8 DirToPlayer(s16 tx, s16 ty, bool8 away);
++
 +static void SpriteCB_Roamer(struct Sprite *s)
 +{
 +    struct Sprite *player = &gSprites[gPlayerAvatar.spriteId];
-+    u8 dir = s->data[3];
++    u8 dir = s->data[3] & 0x0F;
++    bool8 run = (s->data[3] & 0x10) != 0;
 +
 +    if (s->data[6] > 0)
 +    {
-+        s->data[6]--; // in half pixels: one pixel every second frame
-+        if ((s->data[6] & 1) == 0)
++        s->data[6] -= run ? 2 : 1; // in half pixels: walking, one pixel every second frame; running, one every frame
++        if (run || (s->data[6] & 1) == 0)
 +        {
 +            switch (dir)
 +            {
@@ -137426,10 +137450,26 @@ index 0000000..650620f
 +        else
 +        {
 +            s16 tx = s->data[0] >> 4, ty = s->data[1] >> 4;
++            u8 c = Courage(s->data[2]);
++            bool8 away = (Random() & 1) != 0;
 +
-+            dir = 1 + (Random() & 3);
-+            s->data[3] = dir;
-+            s->data[4] = 40 + (Random() & 63);
++            if (c == 0)
++            {
++                dir = DirToPlayer(tx, ty, TRUE);
++                run = (Random() % 3) != 0;
++            }
++            else if (c == 2)
++            {
++                dir = DirToPlayer(tx, ty, FALSE);
++                run = (Random() & 1) != 0;
++            }
++            else
++            {
++                dir = DirToPlayer(tx, ty, away);
++                run = FALSE;
++            }
++            s->data[3] = dir | (run ? 0x10 : 0);
++            s->data[4] = run ? 6 + (Random() & 15) : 40 + (Random() & 63);
 +            switch (dir)
 +            {
 +            case DIR_SOUTH: ty++; break;
@@ -137466,6 +137506,19 @@ index 0000000..650620f
 +
 +    return b->baseHP + b->baseAttack + b->baseDefense + b->baseSpeed + b->baseSpAttack + b->baseSpDefense;
 +}
++
++// how a Pokémon takes to people: 0 runs off, 1 is unsure (slowly towards or away), 2 comes up to you
++static u8 Courage(u16 sp)
++{
++    s32 b = Bst(sp);
++
++    if (b < 300)
++        return 0;
++    if (b < 450)
++        return 1;
++    return 2;
++}
++
 +
 +static bool8 InParty(u16 species)
 +{
@@ -137787,12 +137840,71 @@ index 0000000..650620f
 +    return id;
 +}
 +
++// a tile this Pokémon may spawn on: pass 0 wants it away from the player, pass 1 takes any free tile
++static bool8 CanSpawnAt(u16 sp, s16 x, s16 y, u8 pass, s16 px, s16 py)
++{
++    s16 d = (x > px ? x - px : px - x) + (y > py ? y - py : py - y);
++
++    if (pass == 0 && d < 7)
++        return FALSE;
++    return FreeFor(sp, x, y);
++}
++
++// a random tile for sp: the whole area searched (so one is found if there is any), within r of (ax, ay) when r is not 0
++static bool8 FindTile(u16 sp, bool8 water, s16 ax, s16 ay, s16 r, s16 px, s16 py, s16 *ox, s16 *oy)
++{
++    s16 x0, x1, y0, y1, x, y;
++    u8 pass;
++
++    if (water)
++    {
++        x0 = 1; x1 = 30; y0 = WATER_T; y1 = WATER_B;
++    }
++    else
++    {
++        x0 = LAND_L + 3; x1 = LAND_R - 4; y0 = LAND_T; y1 = LAND_B - 4;
++    }
++    if (r)
++    {
++        if (ax - r > x0) x0 = ax - r;
++        if (ax + r < x1) x1 = ax + r;
++        if (ay - r > y0) y0 = ay - r;
++        if (ay + r < y1) y1 = ay + r;
++    }
++    for (pass = 0; pass < 2; pass++)
++    {
++        u32 n = 0, pick, seen = 0;
++
++        for (y = y0; y <= y1; y++)
++            for (x = x0; x <= x1; x++)
++                if (CanSpawnAt(sp, x, y, pass, px, py))
++                    n++;
++        if (n == 0)
++            continue;
++        pick = Random() % n;
++        for (y = y0; y <= y1; y++)
++            for (x = x0; x <= x1; x++)
++                if (CanSpawnAt(sp, x, y, pass, px, py))
++                {
++                    if (seen == pick)
++                    {
++                        *ox = x;
++                        *oy = y;
++                        return TRUE;
++                    }
++                    seen++;
++                }
++    }
++    return FALSE;
++}
++
 +static bool8 Spawn(void)
 +{
 +    struct HanWildSave *sv = Save();
 +    u16 kindSp[WILD_COUNT], loaded = 0;
 +    u8 palIdx[WILD_COUNT * 2];
-+    u8 nk = 0, i, k, tries, top = 5, lvl;
++    s16 ax[WILD_COUNT], ay[WILD_COUNT];
++    u8 nk = 0, i, k, top = 5, lvl;
 +    s16 px, py;
 +
 +    // level: about that of the player's best Pokémon
@@ -137813,28 +137925,21 @@ index 0000000..650620f
 +        if (sp == SPECIES_NONE)
 +            continue;
 +        water = IsWaterOnly(sp);
-+        for (tries = 0; tries < 60; tries++)
-+        {
-+            if (water)
-+            {
-+                tx = 1 + Random() % 30;
-+                ty = WATER_T + Random() % (WATER_B - WATER_T + 1);
-+            }
-+            else
-+            {
-+                tx = LAND_L + 3 + Random() % (LAND_R - LAND_L - 6);
-+                ty = LAND_T + Random() % (LAND_B - LAND_T - 3);
-+            }
-+            if (FreeFor(sp, tx, ty) && (tx > px ? tx - px : px - tx) + (ty > py ? ty - py : py - ty) >= 7)
-+                break;
-+        }
-+        if (tries == 60)
-+            continue;
 +        for (k = 0; k < nk; k++)
 +            if (kindSp[k] == sp)
 +                break;
 +        if (k == nk)
++        {
 +            kindSp[nk++] = sp;
++            // the kind's spawn point: its members start together, a few tiles from it
++            if (!FindTile(sp, water, 0, 0, 0, px, py, &ax[k], &ay[k]))
++            {
++                ax[k] = 0;
++                ay[k] = 0;
++            }
++        }
++        if (!FindTile(sp, water, ax[k], ay[k], 3, px, py, &tx, &ty) && !FindTile(sp, water, 0, 0, 0, px, py, &tx, &ty))
++            continue;
 +        lvl = top - 3 + Random() % 5;
 +        if (lvl < 5)
 +            lvl = 5;
