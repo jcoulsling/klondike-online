@@ -138362,7 +138362,7 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..2a1c4de
+index 0000000..cea9572
 --- /dev/null
 +++ b/src/han_wild.c
 @@ -0,0 +1,1854 @@
@@ -139434,17 +139434,17 @@ index 0000000..2a1c4de
 +// Fewer than NEAR_MIN near the player (or none of them on land, where there is land about): one appears just off the screen,
 +// every NEAR_WAIT frames until there are enough.
 +// Each one is an entry of sAct (its index is in data[5]), kept through a battle so that they are back where they were afterwards.
-+#define MAX_ACT     14
-+#define LAND_TARGET 10
-+#define SEA_MIN     4
++#define MAX_ACT     7
++#define LAND_TARGET 5
++#define SEA_MIN     2
 +#define ON_SCREEN   15  // screen distance (see ScreenDist) of the screen's edge: 7 tiles across, 5 up and down
 +#define SPAWN_NEAR  16  // a Pokémon put near the player appears just outside the screen...
 +#define SPAWN_FAR   24  // ...not far beyond it
 +#define KIND_AREA   40  // a new one's kind: within this of it, no more kinds than there are palettes (less one, kept for a shiny)...
 +#define SEA_KINDS   2   // ...and no more than this many of them sea kinds, so the land has its share
 +#define NEAR_ZONE   26  // "not too far": about 13 tiles across or 8 up and down
-+#define NEAR_MIN    4   // at least this many always that close...
-+#define NEAR_LAND   2   // ...this many of them on land, where there is land about
++#define NEAR_MIN    2   // at least this many always that close...
++#define NEAR_LAND   1   // ...this many of them on land, where there is land about
 +#define NEAR_WAIT   60  // 1 second between ones put near the player
 +#define FILL_WAIT   90  // a gap is filled every 1.5 seconds
 +

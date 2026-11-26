@@ -1268,3 +1268,7 @@ Jane: Pokémon were in trees and on the rock boundaries.
 - Cause: the camp Pokémon and one merchant stood in tree nooks, with a tree on the tile above (the sprite is two tiles tall, so it drew over the tree). The roaming Pokémon were already kept out of those tiles.
 - Camp members and merchants now stand only on tiles with open ground above them (gen_objects.py). Checked at four places in the emulator over 30 samples each: none under a solid tile, none on wrong ground.
 - Not found: any roaming Pokémon on the rock boundary. If you still see one, tell me where.
+
+## 2026-11-26l
+Jane: Pokémon need to be rarer, half as many.
+- Roaming Pokémon halved: at most 7 out (was 14), 5 on land (was 10), at least 2 in the sea (was 4), at least 2 always near the player (was 4), 1 of them on land (was 2). Camps and merchants are not changed.
