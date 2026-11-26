@@ -137053,10 +137053,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..8078393
+index 0000000..fcefa57
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1173 @@
+@@ -0,0 +1,1211 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137978,12 +137978,52 @@ index 0000000..8078393
 +};
 +
 +// the sea floor: a handful of the water Pokémon swim about, met by touching them
++// a sea-floor tile: searched in full like FindTile, within r of (ax, ay) when r is not 0
++static bool8 FindUnderTile(s16 ax, s16 ay, s16 r, s16 px, s16 py, s16 *ox, s16 *oy)
++{
++    s16 x0 = 1, x1 = 30, y0 = 1, y1 = 46, x, y;
++    u8 pass;
++
++    if (r)
++    {
++        if (ax - r > x0) x0 = ax - r;
++        if (ax + r < x1) x1 = ax + r;
++        if (ay - r > y0) y0 = ay - r;
++        if (ay + r < y1) y1 = ay + r;
++    }
++    for (pass = 0; pass < 2; pass++)
++    {
++        u32 n = 0, pick, seen = 0;
++
++        for (y = y0; y <= y1; y++)
++            for (x = x0; x <= x1; x++)
++                if (UnderFree(x, y) && (pass == 1 || (x > px ? x - px : px - x) + (y > py ? y - py : py - y) >= 5))
++                    n++;
++        if (n == 0)
++            continue;
++        pick = Random() % n;
++        for (y = y0; y <= y1; y++)
++            for (x = x0; x <= x1; x++)
++                if (UnderFree(x, y) && (pass == 1 || (x > px ? x - px : px - x) + (y > py ? y - py : py - y) >= 5))
++                {
++                    if (seen == pick)
++                    {
++                        *ox = x;
++                        *oy = y;
++                        return TRUE;
++                    }
++                    seen++;
++                }
++    }
++    return FALSE;
++}
++
 +static void SpawnUnder(void)
 +{
 +    u16 kindSp[WILD_COUNT], loaded = 0;
 +    u8 palIdx[WILD_COUNT * 2];
-+    u8 nk = 0, i, k, tries, top = 5, lvl, id;
-+    s16 px, py;
++    u8 nk = 0, i, k, top = 5, lvl, id;
++    s16 px, py, ax[WILD_COUNT], ay[WILD_COUNT];
 +
 +    for (i = 0; i < PARTY_SIZE; i++)
 +        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
@@ -137997,15 +138037,6 @@ index 0000000..8078393
 +        u16 sp = sUnder[Random() % ARRAY_COUNT(sUnder)];
 +        s16 tx = 0, ty = 0;
 +
-+        for (tries = 0; tries < 60; tries++)
-+        {
-+            tx = 1 + Random() % 30;
-+            ty = 1 + Random() % 46;
-+            if (UnderFree(tx, ty) && (tx > px ? tx - px : px - tx) + (ty > py ? ty - py : py - ty) >= 5)
-+                break;
-+        }
-+        if (tries == 60)
-+            continue;
 +        for (k = 0; k < nk; k++)
 +            if (kindSp[k] == sp)
 +                break;
@@ -138014,7 +138045,14 @@ index 0000000..8078393
 +            if (nk >= WILD_COUNT)
 +                continue;
 +            kindSp[nk++] = sp;
++            if (!FindUnderTile(0, 0, 0, px, py, &ax[k], &ay[k]))
++            {
++                ax[k] = 0;
++                ay[k] = 0;
++            }
 +        }
++        if (!FindUnderTile(ax[k], ay[k], 3, px, py, &tx, &ty) && !FindUnderTile(0, 0, 0, px, py, &tx, &ty))
++            continue;
 +        lvl = top - 3 + Random() % 5;
 +        if (lvl < 5)
 +            lvl = 5;

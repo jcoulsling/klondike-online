@@ -1155,3 +1155,6 @@ on each step) and adds them as new walking pictures (graphics ids from 154; 37 i
 ## 2026-11-25n
 - **Every kind has a spawn point.** Each kind of three starts together, a few tiles from a point picked for it, and every tile on the island is searched, so no Pokémon is dropped at spawn (all 15 spawned in the test).
 - **Temperament from base stat total:** under 300 runs away from you (walking, or running two times in three); 300 to 449 is unsure, going slowly towards you or away; 450 and up comes up to you, walking or running.
+
+## 2026-11-25o
+- **The sea floor uses the same spawn points:** each kind starts together, and every tile of the maze is searched, so no swimmer is dropped (all 20 spawned in the test).
