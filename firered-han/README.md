@@ -1219,3 +1219,10 @@ Why: a new Pokémon's species had to fit the few palettes in use close by, and a
 - **A new one prefers a species not yet close by**, so there is a mix.
 - **At least 4 near the player, at least 2 of them on land** (where there is land about), within about 13 tiles across or 8 up and down. Short of that, one appears just off the screen every second; in narrow places it looks a little wider.
 - Tested from four starting points: inland 4-5 land species near at a time (was 1); never fewer than 2 land ones near outside battles; none ever hidden on the screen; none on the wrong ground; after a battle the rest came back.
+
+## 2026-11-26e
+Jane (26d): Pokémon sometimes just popped out of existence.
+Why: a Pokémon was hidden whenever its colours were missing for a moment, and a palette was taken back when another sprite (a person or the surf blob) used that slot, even while Pokémon near the player were using it.
+- **A Pokémon that has had its colours stays on the screen** if its palette is taken back for a moment (it keeps the last one). Only one that has never had colours waits hidden.
+- **A palette in use by one near the player is kept** even if another sprite uses that slot: a wrong colour is better than a Pokémon vanishing.
+- Tested by walking from the dock: none hidden on screen, none on the wrong ground, at least 4 near the player at every sample.

@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..ab2043c
+index 0000000..505d24b
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1636 @@
+@@ -0,0 +1,1644 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137725,7 +137725,8 @@ index 0000000..ab2043c
 +        for (k = 0; k < nk; k++)
 +            if (keys[k] == sPalKey[i])
 +                break;
-+        if (k == nk || near[k] > PAL_KEEP || (busy & (1 << sPalNum[i])))
++        // a palette in use by one near the player is kept even if someone else's sprite uses that slot: a wrong colour is better than a Pokémon vanishing
++        if (k == nk || near[k] > PAL_KEEP)
 +            sPalKey[i] = 0;
 +    }
 +    // the nearest kinds without one get the free palettes
@@ -137749,14 +137750,21 @@ index 0000000..ab2043c
 +}
 +
 +// a sprite shows only with its kind's palette
++#define PAL_HAD 0x40 // in data[3]: this Pokémon has had its colours at least once
++
++// a Pokémon that has its colours stays on the screen even if its palette is taken back for a moment (it keeps the last one);
++// only one that has never had colours waits hidden
 +static void ApplyPalette(struct Sprite *s)
 +{
 +    u8 n = PalFor(SpriteKey(s));
 +
-+    if (n == 0xFF)
-+        s->invisible = TRUE;
-+    else
++    if (n != 0xFF)
++    {
 +        s->oam.paletteNum = n;
++        s->data[3] |= PAL_HAD;
++    }
++    else if (!(s->data[3] & PAL_HAD))
++        s->invisible = TRUE;
 +}
 +
 +static void Place(struct Sprite *s)
@@ -137852,7 +137860,7 @@ index 0000000..ab2043c
 +                    dir = DirToPlayer(tx, ty, roll == 1);
 +                }
 +            }
-+            s->data[3] = dir | (run ? 0x10 : 0) | (s->data[3] & WATER_FLAG);
++            s->data[3] = dir | (run ? 0x10 : 0) | (s->data[3] & (WATER_FLAG | PAL_HAD));
 +            s->data[4] = run ? 6 + (Random() & 15) : 40 + (Random() & 63);
 +            switch (dir)
 +            {
