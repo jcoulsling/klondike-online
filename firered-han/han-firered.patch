@@ -138362,10 +138362,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..77c2e93
+index 0000000..773e40a
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1856 @@
+@@ -0,0 +1,1873 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138691,6 +138691,8 @@ index 0000000..77c2e93
 +// palette), so the Pokémon use those, and one
 +// of the free ones when two are free. A palette goes to the kinds nearest the player; one far off the screen gives its palette up,
 +// and while a kind has none it is not drawn (and cannot be met).
++// the merchants are shown as Poké Balls (the item ball's own palette, already on the map), so they use no species palette
++#define IsBall(s) ((s)->data[2] == SPECIES_NONE)
 +#define PAL_MAX 7
 +static const u8 sPalFixed[] = {2, 4, 6, 8, 10, 11};
 +static u16 sPalKey[PAL_MAX]; // species, plus 0x8000 for the shiny colours; 0 when the palette is unused
@@ -138774,7 +138776,7 @@ index 0000000..77c2e93
 +
 +        if (s->inUse && s->data[7] != WILD_TAG)
 +            busy |= 1 << s->oam.paletteNum; // someone else's palette (a person, another player): not to be used here
-+        if (!s->inUse || s->data[7] != WILD_TAG)
++        if (!s->inUse || s->data[7] != WILD_TAG || IsBall(s))
 +            continue;
 +        key = SpriteKey(s);
 +        d = ScreenDist(TileX(s), TileY(s), px, py);
@@ -138856,7 +138858,11 @@ index 0000000..77c2e93
 +// only one that has never had colours waits hidden
 +static void ApplyPalette(struct Sprite *s)
 +{
-+    u8 n = PalFor(SpriteKey(s));
++    u8 n;
++
++    if (IsBall(s))
++        return;
++    n = PalFor(SpriteKey(s));
 +
 +    if (n != 0xFF)
 +    {
@@ -139407,9 +139413,30 @@ index 0000000..77c2e93
 +    }
 +}
 +
++static u8 BallSpriteNew(void (*cb)(struct Sprite *))
++{
++    struct SpriteTemplate template;
++    const struct SubspriteTable *subs;
++    u8 id, pal;
++
++    CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_ITEM_BALL, cb, &template, &subs); // its palette tag is the item ball's
++    pal = IndexOfSpritePaletteTag(template.paletteTag);
++    if (pal == 0xFF)
++        return MAX_SPRITES;
++    template.paletteTag = TAG_NONE;
++    id = CreateSprite(&template, 0, 0, 0);
++    if (id == MAX_SPRITES)
++        return MAX_SPRITES;
++    gSprites[id].oam.paletteNum = pal;
++    gSprites[id].coordOffsetEnabled = TRUE;
++    gSprites[id].centerToCornerVecX = -8;
++    gSprites[id].centerToCornerVecY = -8;
++    return id;
++}
++
 +static u8 NewWildSprite(u16 sp, s16 tx, s16 ty, u8 lvl, bool8 shiny, u8 slot, bool8 water, void (*cb)(struct Sprite *))
 +{
-+    u8 id = HanWildSpriteNew(sp);
++    u8 id = sp == SPECIES_NONE ? BallSpriteNew(cb) : HanWildSpriteNew(sp);
 +
 +    if (id == MAX_SPRITES)
 +        return MAX_SPRITES;
@@ -139881,24 +139908,14 @@ index 0000000..77c2e93
 +{
 +    u8 k, id;
 +
-+    for (k = 0; k < CAMP_MEMBERS; k++)
-+    {
-+        if (sCampGone[k])
-+            continue;
-+        id = NewWildSprite(sCampSp[k], sCampTiles[k][0], sCampTiles[k][1], sCampLv[k], FALSE, k, FALSE, SpriteCB_Static);
-+        if (id == MAX_SPRITES)
-+            continue;
-+        gSprites[id].data[3] = DIR_SOUTH;
-+        StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_SOUTH));
-+    }
++    // the jungle camps' static Pokémon are no longer placed (the camp data is still rolled, but not shown)
 +    // the merchants (level 0 marks them), slots 14 and 15
 +    for (k = 0; k < 2; k++)
 +    {
-+        id = NewWildSprite(k == 0 ? SPECIES_KECLEON : SPECIES_SABLEYE, sShopTiles[k][0], sShopTiles[k][1], 0, FALSE, 14 + k, FALSE, SpriteCB_Static);
++        id = NewWildSprite(SPECIES_NONE, sShopTiles[k][0], sShopTiles[k][1], 0, FALSE, 14 + k, FALSE, SpriteCB_Static);
 +        if (id == MAX_SPRITES)
 +            continue;
 +        gSprites[id].data[3] = DIR_SOUTH;
-+        StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_SOUTH));
 +    }
 +}
 +
