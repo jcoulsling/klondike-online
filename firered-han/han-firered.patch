@@ -101854,10 +101854,10 @@ index 0000000..7440cbe
 +#endif // GUARD_HAN_CUSTOM_H
 diff --git a/include/han_follower.h b/include/han_follower.h
 new file mode 100644
-index 0000000..e131f4d
+index 0000000..3e0d958
 --- /dev/null
 +++ b/include/han_follower.h
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,33 @@
 +#ifndef GUARD_HAN_FOLLOWER_H
 +#define GUARD_HAN_FOLLOWER_H
 +
@@ -101872,6 +101872,8 @@ index 0000000..e131f4d
 +u8 HanGhostFollowerCreate(u16 what, u16 palTag); // another player's follower; MAX_SPRITES if it cannot be made
 +u8 HanWildSpriteCreate(u16 n, u16 palTag, u8 *palIdx, bool8 load); // a Wild Area Pokémon
 +bool8 HanWildHasSprite(u16 n);
++u8 HanWildSpriteNew(u16 species);                  // a Wild Area Pokémon, with no palette yet
++void HanWildPalLoad(u16 species, bool8 shiny, u8 slot); // its colours into a sprite palette slot
 +void HanMonMakeShiny(struct Pokemon *mon, bool8 shiny); // src/han_wild.c: the same Pokémon made shiny or not
 +void HanMonCharmRoll(struct Pokemon *mon); // with the SHINY CHARM, a wild Pokémon is shiny one time in five
 +void HanWildFrame(void); // src/han_wild.c
@@ -102014,10 +102016,10 @@ index 0000000..887fe06
 +#endif // GUARD_HAN_MULTIPLAYER_H
 diff --git a/include/han_rowan.h b/include/han_rowan.h
 new file mode 100644
-index 0000000..065c6c5
+index 0000000..90f7426
 --- /dev/null
 +++ b/include/han_rowan.h
-@@ -0,0 +1,10 @@
+@@ -0,0 +1,11 @@
 +#ifndef GUARD_HAN_ROWAN_H
 +#define GUARD_HAN_ROWAN_H
 +
@@ -102025,6 +102027,7 @@ index 0000000..065c6c5
 +void HanRowanContinue(void); // a saved game was loaded
 +bool8 HanCheatKeys(u16 keys); // the cheat code's keys, one press at a time
 +void HanCheatMewtwo(void);
++bool8 HanTestStart(void);
 +void HanCheatRowan(void); // test builds only (define HAN_CHEAT): B+SELECT makes the player Rowan with everything
 +
 +#endif // GUARD_HAN_ROWAN_H
@@ -116446,6 +116449,169 @@ index 0000000..e483bc9
 +    0xCC, 0xBF, 0xBE, 0xFF, // RED
 +    0xC6, 0xBF, 0xBB, 0xC0, 0xFF, // LEAF
 +    0xFF
++};
+diff --git a/src/data/han_wild_tiles.h b/src/data/han_wild_tiles.h
+new file mode 100644
+index 0000000..5c42656
+--- /dev/null
++++ b/src/data/han_wild_tiles.h
+@@ -0,0 +1,157 @@
++// Made by hoenn/wildtiles/classify.py from data/layouts/HanWildArea/map.bin. Do not edit: run it again after the map changes.
++// Land: snow the player can walk to from the dock (no ice, trees, fences, lake or ledges). Sea: the water joined to the south edge.
++
++static const u8 sWildLandMask[256] = {
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x01, 0x30, 0x00, 0x00, 0x01, 0x30, 0x00, 0x00, 0xff, 0x3f, 0x00, 0x00, 0xfc, 0x0f, 0x00,
++    0x00, 0xf0, 0x03, 0x00, 0x00, 0xf0, 0x03, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00,
++    0x00, 0xc0, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0xf0, 0xf0, 0xc3, 0x03, 0xf0, 0xf0, 0xc3, 0x03,
++    0xf0, 0xf0, 0xc3, 0x03, 0xfe, 0xf0, 0xc3, 0x3f, 0xfe, 0xc3, 0xf0, 0x3f, 0xfe, 0xc3, 0xf0, 0x3f,
++    0xf0, 0xcf, 0xfc, 0x3f, 0xf0, 0xcf, 0xfc, 0x03, 0xc0, 0xff, 0xff, 0x00, 0xc0, 0xff, 0xff, 0x00,
++    0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3c, 0x00, 0x00, 0x0f, 0x3c, 0x00, 0x00, 0x3f,
++    0xfe, 0x00, 0x00, 0x3f, 0xfe, 0x00, 0x00, 0x3f, 0x3c, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x01, 0x80, 0x00, 0xc0, 0xff, 0xff, 0x00,
++    0xf0, 0xcf, 0xfc, 0x03, 0xf0, 0xcf, 0xfc, 0x03, 0xfe, 0xc3, 0xf0, 0x3f, 0xfe, 0xc3, 0xf0, 0x3f,
++    0xfe, 0xf0, 0xc3, 0x3f, 0xfe, 0xf0, 0xc3, 0x3f, 0xfe, 0xf0, 0xc3, 0x3f, 0x02, 0xf0, 0x03, 0x00,
++    0x00, 0xc0, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x06, 0xc0, 0x00, 0x00, 0xfe, 0xff, 0xff, 0x07,
++    0xfe, 0xff, 0xff, 0x07, 0xfe, 0xff, 0xff, 0x07, 0xfe, 0xff, 0xff, 0x07, 0xfe, 0xff, 0xff, 0x07,
++    0xfe, 0xff, 0xff, 0x07, 0xfe, 0xff, 0xff, 0x07, 0xfe, 0xff, 0xff, 0x07, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++};
++static const u8 sWildLandTiles[672][2] = {
++    {8, 4}, {20, 4}, {21, 4}, {8, 5}, {20, 5}, {21, 5}, {8, 6}, {9, 6},
++    {10, 6}, {11, 6}, {12, 6}, {13, 6}, {14, 6}, {15, 6}, {16, 6}, {17, 6},
++    {18, 6}, {19, 6}, {20, 6}, {21, 6}, {10, 7}, {11, 7}, {12, 7}, {13, 7},
++    {14, 7}, {15, 7}, {16, 7}, {17, 7}, {18, 7}, {19, 7}, {12, 8}, {13, 8},
++    {14, 8}, {15, 8}, {16, 8}, {17, 8}, {12, 9}, {13, 9}, {14, 9}, {15, 9},
++    {16, 9}, {17, 9}, {14, 10}, {15, 10}, {14, 11}, {15, 11}, {14, 12}, {15, 12},
++    {14, 13}, {15, 13}, {4, 14}, {5, 14}, {6, 14}, {7, 14}, {12, 14}, {13, 14},
++    {14, 14}, {15, 14}, {16, 14}, {17, 14}, {22, 14}, {23, 14}, {24, 14}, {25, 14},
++    {4, 15}, {5, 15}, {6, 15}, {7, 15}, {12, 15}, {13, 15}, {14, 15}, {15, 15},
++    {16, 15}, {17, 15}, {22, 15}, {23, 15}, {24, 15}, {25, 15}, {4, 16}, {5, 16},
++    {6, 16}, {7, 16}, {12, 16}, {13, 16}, {14, 16}, {15, 16}, {16, 16}, {17, 16},
++    {22, 16}, {23, 16}, {24, 16}, {25, 16}, {1, 17}, {2, 17}, {3, 17}, {4, 17},
++    {5, 17}, {6, 17}, {7, 17}, {12, 17}, {13, 17}, {14, 17}, {15, 17}, {16, 17},
++    {17, 17}, {22, 17}, {23, 17}, {24, 17}, {25, 17}, {26, 17}, {27, 17}, {28, 17},
++    {29, 17}, {1, 18}, {2, 18}, {3, 18}, {4, 18}, {5, 18}, {6, 18}, {7, 18},
++    {8, 18}, {9, 18}, {14, 18}, {15, 18}, {20, 18}, {21, 18}, {22, 18}, {23, 18},
++    {24, 18}, {25, 18}, {26, 18}, {27, 18}, {28, 18}, {29, 18}, {1, 19}, {2, 19},
++    {3, 19}, {4, 19}, {5, 19}, {6, 19}, {7, 19}, {8, 19}, {9, 19}, {14, 19},
++    {15, 19}, {20, 19}, {21, 19}, {22, 19}, {23, 19}, {24, 19}, {25, 19}, {26, 19},
++    {27, 19}, {28, 19}, {29, 19}, {4, 20}, {5, 20}, {6, 20}, {7, 20}, {8, 20},
++    {9, 20}, {10, 20}, {11, 20}, {14, 20}, {15, 20}, {18, 20}, {19, 20}, {20, 20},
++    {21, 20}, {22, 20}, {23, 20}, {24, 20}, {25, 20}, {26, 20}, {27, 20}, {28, 20},
++    {29, 20}, {4, 21}, {5, 21}, {6, 21}, {7, 21}, {8, 21}, {9, 21}, {10, 21},
++    {11, 21}, {14, 21}, {15, 21}, {18, 21}, {19, 21}, {20, 21}, {21, 21}, {22, 21},
++    {23, 21}, {24, 21}, {25, 21}, {6, 22}, {7, 22}, {8, 22}, {9, 22}, {10, 22},
++    {11, 22}, {12, 22}, {13, 22}, {14, 22}, {15, 22}, {16, 22}, {17, 22}, {18, 22},
++    {19, 22}, {20, 22}, {21, 22}, {22, 22}, {23, 22}, {6, 23}, {7, 23}, {8, 23},
++    {9, 23}, {10, 23}, {11, 23}, {12, 23}, {13, 23}, {14, 23}, {15, 23}, {16, 23},
++    {17, 23}, {18, 23}, {19, 23}, {20, 23}, {21, 23}, {22, 23}, {23, 23}, {8, 24},
++    {2, 26}, {3, 26}, {4, 26}, {5, 26}, {24, 26}, {25, 26}, {26, 26}, {27, 26},
++    {2, 27}, {3, 27}, {4, 27}, {5, 27}, {24, 27}, {25, 27}, {26, 27}, {27, 27},
++    {28, 27}, {29, 27}, {1, 28}, {2, 28}, {3, 28}, {4, 28}, {5, 28}, {6, 28},
++    {7, 28}, {24, 28}, {25, 28}, {26, 28}, {27, 28}, {28, 28}, {29, 28}, {1, 29},
++    {2, 29}, {3, 29}, {4, 29}, {5, 29}, {6, 29}, {7, 29}, {24, 29}, {25, 29},
++    {26, 29}, {27, 29}, {28, 29}, {29, 29}, {2, 30}, {3, 30}, {4, 30}, {5, 30},
++    {24, 30}, {25, 30}, {26, 30}, {27, 30}, {28, 30}, {29, 30}, {6, 34}, {7, 34},
++    {8, 34}, {23, 34}, {6, 35}, {7, 35}, {8, 35}, {9, 35}, {10, 35}, {11, 35},
++    {12, 35}, {13, 35}, {14, 35}, {15, 35}, {16, 35}, {17, 35}, {18, 35}, {19, 35},
++    {20, 35}, {21, 35}, {22, 35}, {23, 35}, {4, 36}, {5, 36}, {6, 36}, {7, 36},
++    {8, 36}, {9, 36}, {10, 36}, {11, 36}, {14, 36}, {15, 36}, {18, 36}, {19, 36},
++    {20, 36}, {21, 36}, {22, 36}, {23, 36}, {24, 36}, {25, 36}, {4, 37}, {5, 37},
++    {6, 37}, {7, 37}, {8, 37}, {9, 37}, {10, 37}, {11, 37}, {14, 37}, {15, 37},
++    {18, 37}, {19, 37}, {20, 37}, {21, 37}, {22, 37}, {23, 37}, {24, 37}, {25, 37},
++    {1, 38}, {2, 38}, {3, 38}, {4, 38}, {5, 38}, {6, 38}, {7, 38}, {8, 38},
++    {9, 38}, {14, 38}, {15, 38}, {20, 38}, {21, 38}, {22, 38}, {23, 38}, {24, 38},
++    {25, 38}, {26, 38}, {27, 38}, {28, 38}, {29, 38}, {1, 39}, {2, 39}, {3, 39},
++    {4, 39}, {5, 39}, {6, 39}, {7, 39}, {8, 39}, {9, 39}, {14, 39}, {15, 39},
++    {20, 39}, {21, 39}, {22, 39}, {23, 39}, {24, 39}, {25, 39}, {26, 39}, {27, 39},
++    {28, 39}, {29, 39}, {1, 40}, {2, 40}, {3, 40}, {4, 40}, {5, 40}, {6, 40},
++    {7, 40}, {12, 40}, {13, 40}, {14, 40}, {15, 40}, {16, 40}, {17, 40}, {22, 40},
++    {23, 40}, {24, 40}, {25, 40}, {26, 40}, {27, 40}, {28, 40}, {29, 40}, {1, 41},
++    {2, 41}, {3, 41}, {4, 41}, {5, 41}, {6, 41}, {7, 41}, {12, 41}, {13, 41},
++    {14, 41}, {15, 41}, {16, 41}, {17, 41}, {22, 41}, {23, 41}, {24, 41}, {25, 41},
++    {26, 41}, {27, 41}, {28, 41}, {29, 41}, {1, 42}, {2, 42}, {3, 42}, {4, 42},
++    {5, 42}, {6, 42}, {7, 42}, {12, 42}, {13, 42}, {14, 42}, {15, 42}, {16, 42},
++    {17, 42}, {22, 42}, {23, 42}, {24, 42}, {25, 42}, {26, 42}, {27, 42}, {28, 42},
++    {29, 42}, {1, 43}, {12, 43}, {13, 43}, {14, 43}, {15, 43}, {16, 43}, {17, 43},
++    {14, 44}, {15, 44}, {14, 45}, {15, 45}, {1, 46}, {2, 46}, {14, 46}, {15, 46},
++    {1, 47}, {2, 47}, {3, 47}, {4, 47}, {5, 47}, {6, 47}, {7, 47}, {8, 47},
++    {9, 47}, {10, 47}, {11, 47}, {12, 47}, {13, 47}, {14, 47}, {15, 47}, {16, 47},
++    {17, 47}, {18, 47}, {19, 47}, {20, 47}, {21, 47}, {22, 47}, {23, 47}, {24, 47},
++    {25, 47}, {26, 47}, {1, 48}, {2, 48}, {3, 48}, {4, 48}, {5, 48}, {6, 48},
++    {7, 48}, {8, 48}, {9, 48}, {10, 48}, {11, 48}, {12, 48}, {13, 48}, {14, 48},
++    {15, 48}, {16, 48}, {17, 48}, {18, 48}, {19, 48}, {20, 48}, {21, 48}, {22, 48},
++    {23, 48}, {24, 48}, {25, 48}, {26, 48}, {1, 49}, {2, 49}, {3, 49}, {4, 49},
++    {5, 49}, {6, 49}, {7, 49}, {8, 49}, {9, 49}, {10, 49}, {11, 49}, {12, 49},
++    {13, 49}, {14, 49}, {15, 49}, {16, 49}, {17, 49}, {18, 49}, {19, 49}, {20, 49},
++    {21, 49}, {22, 49}, {23, 49}, {24, 49}, {25, 49}, {26, 49}, {1, 50}, {2, 50},
++    {3, 50}, {4, 50}, {5, 50}, {6, 50}, {7, 50}, {8, 50}, {9, 50}, {10, 50},
++    {11, 50}, {12, 50}, {13, 50}, {14, 50}, {15, 50}, {16, 50}, {17, 50}, {18, 50},
++    {19, 50}, {20, 50}, {21, 50}, {22, 50}, {23, 50}, {24, 50}, {25, 50}, {26, 50},
++    {1, 51}, {2, 51}, {3, 51}, {4, 51}, {5, 51}, {6, 51}, {7, 51}, {8, 51},
++    {9, 51}, {10, 51}, {11, 51}, {12, 51}, {13, 51}, {14, 51}, {15, 51}, {16, 51},
++    {17, 51}, {18, 51}, {19, 51}, {20, 51}, {21, 51}, {22, 51}, {23, 51}, {24, 51},
++    {25, 51}, {26, 51}, {1, 52}, {2, 52}, {3, 52}, {4, 52}, {5, 52}, {6, 52},
++    {7, 52}, {8, 52}, {9, 52}, {10, 52}, {11, 52}, {12, 52}, {13, 52}, {14, 52},
++    {15, 52}, {16, 52}, {17, 52}, {18, 52}, {19, 52}, {20, 52}, {21, 52}, {22, 52},
++    {23, 52}, {24, 52}, {25, 52}, {26, 52}, {1, 53}, {2, 53}, {3, 53}, {4, 53},
++    {5, 53}, {6, 53}, {7, 53}, {8, 53}, {9, 53}, {10, 53}, {11, 53}, {12, 53},
++    {13, 53}, {14, 53}, {15, 53}, {16, 53}, {17, 53}, {18, 53}, {19, 53}, {20, 53},
++    {21, 53}, {22, 53}, {23, 53}, {24, 53}, {25, 53}, {26, 53}, {1, 54}, {2, 54},
++    {3, 54}, {4, 54}, {5, 54}, {6, 54}, {7, 54}, {8, 54}, {9, 54}, {10, 54},
++    {11, 54}, {12, 54}, {13, 54}, {14, 54}, {15, 54}, {16, 54}, {17, 54}, {18, 54},
++    {19, 54}, {20, 54}, {21, 54}, {22, 54}, {23, 54}, {24, 54}, {25, 54}, {26, 54},
++};
++
++static const u8 sWildSeaMask[256] = {
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0xff, 0xff, 0x3f,
++    0xfe, 0xff, 0xff, 0x3f, 0xfe, 0xff, 0xff, 0x3f, 0xfe, 0xff, 0xff, 0x3f, 0xfe, 0xff, 0xff, 0x3f,
++    0xfe, 0xff, 0xff, 0x3f, 0xfe, 0xff, 0xff, 0x3f, 0xfe, 0xff, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00,
++};
++static const u8 sWildSeaTiles[232][2] = {
++    {1, 55}, {2, 55}, {3, 55}, {4, 55}, {5, 55}, {6, 55}, {7, 55}, {8, 55},
++    {9, 55}, {10, 55}, {11, 55}, {12, 55}, {13, 55}, {14, 55}, {15, 55}, {16, 55},
++    {17, 55}, {18, 55}, {19, 55}, {20, 55}, {21, 55}, {22, 55}, {23, 55}, {24, 55},
++    {25, 55}, {26, 55}, {27, 55}, {28, 55}, {29, 55}, {1, 56}, {2, 56}, {3, 56},
++    {4, 56}, {5, 56}, {6, 56}, {7, 56}, {8, 56}, {9, 56}, {10, 56}, {11, 56},
++    {12, 56}, {13, 56}, {14, 56}, {15, 56}, {16, 56}, {17, 56}, {18, 56}, {19, 56},
++    {20, 56}, {21, 56}, {22, 56}, {23, 56}, {24, 56}, {25, 56}, {26, 56}, {27, 56},
++    {28, 56}, {29, 56}, {1, 57}, {2, 57}, {3, 57}, {4, 57}, {5, 57}, {6, 57},
++    {7, 57}, {8, 57}, {9, 57}, {10, 57}, {11, 57}, {12, 57}, {13, 57}, {14, 57},
++    {15, 57}, {16, 57}, {17, 57}, {18, 57}, {19, 57}, {20, 57}, {21, 57}, {22, 57},
++    {23, 57}, {24, 57}, {25, 57}, {26, 57}, {27, 57}, {28, 57}, {29, 57}, {1, 58},
++    {2, 58}, {3, 58}, {4, 58}, {5, 58}, {6, 58}, {7, 58}, {8, 58}, {9, 58},
++    {10, 58}, {11, 58}, {12, 58}, {13, 58}, {14, 58}, {15, 58}, {16, 58}, {17, 58},
++    {18, 58}, {19, 58}, {20, 58}, {21, 58}, {22, 58}, {23, 58}, {24, 58}, {25, 58},
++    {26, 58}, {27, 58}, {28, 58}, {29, 58}, {1, 59}, {2, 59}, {3, 59}, {4, 59},
++    {5, 59}, {6, 59}, {7, 59}, {8, 59}, {9, 59}, {10, 59}, {11, 59}, {12, 59},
++    {13, 59}, {14, 59}, {15, 59}, {16, 59}, {17, 59}, {18, 59}, {19, 59}, {20, 59},
++    {21, 59}, {22, 59}, {23, 59}, {24, 59}, {25, 59}, {26, 59}, {27, 59}, {28, 59},
++    {29, 59}, {1, 60}, {2, 60}, {3, 60}, {4, 60}, {5, 60}, {6, 60}, {7, 60},
++    {8, 60}, {9, 60}, {10, 60}, {11, 60}, {12, 60}, {13, 60}, {14, 60}, {15, 60},
++    {16, 60}, {17, 60}, {18, 60}, {19, 60}, {20, 60}, {21, 60}, {22, 60}, {23, 60},
++    {24, 60}, {25, 60}, {26, 60}, {27, 60}, {28, 60}, {29, 60}, {1, 61}, {2, 61},
++    {3, 61}, {4, 61}, {5, 61}, {6, 61}, {7, 61}, {8, 61}, {9, 61}, {10, 61},
++    {11, 61}, {12, 61}, {13, 61}, {14, 61}, {15, 61}, {16, 61}, {17, 61}, {18, 61},
++    {19, 61}, {20, 61}, {21, 61}, {22, 61}, {23, 61}, {24, 61}, {25, 61}, {26, 61},
++    {27, 61}, {28, 61}, {29, 61}, {1, 62}, {2, 62}, {3, 62}, {4, 62}, {5, 62},
++    {6, 62}, {7, 62}, {8, 62}, {9, 62}, {10, 62}, {11, 62}, {12, 62}, {13, 62},
++    {14, 62}, {15, 62}, {16, 62}, {17, 62}, {18, 62}, {19, 62}, {20, 62}, {21, 62},
++    {22, 62}, {23, 62}, {24, 62}, {25, 62}, {26, 62}, {27, 62}, {28, 62}, {29, 62},
 +};
 diff --git a/src/data/heal_locations.json b/src/data/heal_locations.json
 index 9802525..39e7a8e 100644
@@ -133904,10 +134070,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..3c816bd
+index 0000000..443dd83
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,619 @@
+@@ -0,0 +1,654 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -134478,6 +134644,41 @@ index 0000000..3c816bd
 +bool8 HanWildHasSprite(u16 n)
 +{
 +    return n != 0 && n < HAN_FOLLOW_SPECIES && sHanFollowIndex[n] != 0xFFFF;
++}
++
++// A sprite for a Pokémon of the Wild Area, with no palette of its own: han_wild.c gives it one (HanWildPalLoad) when it is near.
++u8 HanWildSpriteNew(u16 species)
++{
++    struct SpriteTemplate template;
++    const struct SubspriteTable *subs;
++    u8 id;
++
++    if (!HanWildHasSprite(species))
++        return MAX_SPRITES;
++    CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_HAN_FOLLOWER, SpriteCB_Follower, &template, &subs);
++    template.images = sHanFollowImg[sHanFollowIndex[species]];
++    template.paletteTag = TAG_NONE;
++    id = CreateSprite(&template, 0, 0, 0);
++    if (id == MAX_SPRITES)
++        return MAX_SPRITES;
++    gSprites[id].oam.paletteNum = 0;
++    if (subs != NULL)
++    {
++        SetSubspriteTables(&gSprites[id], subs);
++        gSprites[id].subspriteMode = SUBSPRITES_IGNORE_PRIORITY;
++    }
++    gSprites[id].coordOffsetEnabled = TRUE;
++    gSprites[id].centerToCornerVecX = -16;
++    gSprites[id].centerToCornerVecY = -16;
++    return id;
++}
++
++// a Wild Area Pokémon's colours (its shiny ones if shiny) into sprite palette slot
++void HanWildPalLoad(u16 species, bool8 shiny, u8 slot)
++{
++    if (!HanWildHasSprite(species))
++        return;
++    LoadPalette(&sHanFollowPal[sHanFollowIndex[species] * 32 + (shiny ? 16 : 0)], OBJ_PLTT_ID(slot), PLTT_SIZE_4BPP);
 +}
 +
 +// n: species, plus 0x8000 for a shiny one (its palette is the second of the species' two), plus 0x4000 if the palette must not be borrowed from the
@@ -135331,10 +135532,10 @@ index 0000000..2d31104
 +}
 diff --git a/src/han_rowan.c b/src/han_rowan.c
 new file mode 100644
-index 0000000..e96dc01
+index 0000000..1ad0b39
 --- /dev/null
 +++ b/src/han_rowan.c
-@@ -0,0 +1,265 @@
+@@ -0,0 +1,285 @@
 +#include "global.h"
 +#include "han_rowan.h"
 +#include "han_hoenn.h"
@@ -135599,6 +135800,26 @@ index 0000000..e96dc01
 +
 +    CreateMon(&mon, SPECIES_MEWTWO, 70, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
 +    GiveMonToPlayer(&mon);
++}
++
++// A new game named TEST (or Test, or test) starts in the Wild Area with a level 100 Mewtwo. Returns TRUE when it did the warp itself.
++static const u8 sTestName[] = _("TEST");
++static const u8 sTestName2[] = _("Test");
++static const u8 sTestName3[] = _("test");
++
++bool8 HanTestStart(void)
++{
++    struct Pokemon mon;
++
++    if (StringCompare(gSaveBlock2Ptr->playerName, sTestName) != 0
++     && StringCompare(gSaveBlock2Ptr->playerName, sTestName2) != 0
++     && StringCompare(gSaveBlock2Ptr->playerName, sTestName3) != 0)
++        return FALSE;
++    CreateMon(&mon, SPECIES_MEWTWO, 100, 31, TRUE, Random32(), OT_ID_PLAYER_ID, 0);
++    GiveMonToPlayer(&mon);
++    SetWarpDestination(MAP_GROUP(MAP_HAN_WILD_AREA), MAP_NUM(MAP_HAN_WILD_AREA), 255, 5, 54);
++    WarpIntoMap();
++    return TRUE;
 +}
 diff --git a/src/han_starter.c b/src/han_starter.c
 new file mode 100644
@@ -137099,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..95ba677
+index 0000000..7712d5c
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1222 @@
+@@ -0,0 +1,1370 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137284,152 +137505,259 @@ index 0000000..95ba677
 +    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_TEMPLE) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_TEMPLE);
 +}
 +
-+static bool8 IsPlayerAt(s16 tx, s16 ty)
++// ---- where they may stand (Jane, 25 November 2026: rebuilt from first principles) ----
++// The island's land and sea are worked out once, from the map itself, by hoenn/wildtiles/classify.py: nothing is searched while you play.
++// Each roster slot is land or sea for good (slots 0-7 land, 8-14 sea), so a sea Pokémon can never be put on, or walk onto, the snow.
++#include "data/han_wild_tiles.h"
++
++#define LAND_SLOTS 8     // roster slots 0-7: four land kinds, two each; 8-14: four sea kinds (the last one alone)
++#define SLOTS      16
++#define LEASH      7     // tiles a Pokémon wanders from the middle of its kind's home ground
++#define WATER_FLAG 0x20  // in data[3], with the direction and the run bit
++#define NO_POS     0xFF
++
++static u8 sAnchor[SLOTS][2]; // the middle of each slot's home ground (shared by a kind)
++static u8 sPos[SLOTS][2];    // where each island Pokémon is, kept through a battle; NO_POS when it has none yet
++static bool8 sPosKept;       // sPos and sAnchor belong to this visit of the island
++
++static bool8 MaskGet(const u8 *mask, s16 tx, s16 ty)
 +{
-+    s16 px, py;
++    u16 i;
 +
-+    PlayerGetDestCoords(&px, &py);
-+    return px - MAP_OFFSET == tx && py - MAP_OFFSET == ty;
-+}
-+
-+// the land the player can walk to from where they stand (so a Pokémon is never shut in behind a fence, trees or water)
-+static u8 sReach[MAP_H * MAP_W / 8];
-+static u8 sReachDone;
-+
-+static bool8 ReachGet(s16 tx, s16 ty)
-+{
-+    u16 i = ty * MAP_W + tx;
-+
-+    return (sReach[i >> 3] >> (i & 7)) & 1;
-+}
-+
-+static void ReachSet(s16 tx, s16 ty)
-+{
-+    u16 i = ty * MAP_W + tx;
-+
-+    sReach[i >> 3] |= 1 << (i & 7);
-+}
-+
-+static bool8 ReachWalkable(s16 tx, s16 ty)
-+{
 +    if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H)
 +        return FALSE;
-+    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
-+        return FALSE;
-+    return !MetatileBehavior_IsSurfableAndNotWaterfall(MapGridGetMetatileBehaviorAt(tx + MAP_OFFSET, ty + MAP_OFFSET));
++    i = ty * MAP_W + tx;
++    return (mask[i >> 3] >> (i & 7)) & 1;
 +}
 +
-+static u8 sWalk[MAP_H * MAP_W / 8];
-+
-+static bool8 WalkGet(s16 tx, s16 ty)
-+{
-+    u16 i = ty * MAP_W + tx;
-+
-+    return (sWalk[i >> 3] >> (i & 7)) & 1;
-+}
-+
-+static bool8 ReachNear(s16 x, s16 y)
-+{
-+    return (x > 0 && ReachGet(x - 1, y)) || (x < MAP_W - 1 && ReachGet(x + 1, y)) || (y > 0 && ReachGet(x, y - 1)) || (y < MAP_H - 1 && ReachGet(x, y + 1));
-+}
-+
-+static void ComputeReach(void)
-+{
-+    s16 px, py, x, y;
-+    u8 changed, rounds = 0;
-+
-+    memset(sReach, 0, sizeof(sReach));
-+    memset(sWalk, 0, sizeof(sWalk));
-+    for (y = 0; y < MAP_H; y++)
-+        for (x = 0; x < MAP_W; x++)
-+            if (ReachWalkable(x, y))
-+                sWalk[(y * MAP_W + x) >> 3] |= 1 << ((y * MAP_W + x) & 7);
-+    PlayerGetDestCoords(&px, &py);
-+    px -= MAP_OFFSET;
-+    py -= MAP_OFFSET;
-+    // seeds: the player, the dock, and a point in the middle of each part of the snowfield, so a wrong start never shuts the land off
-+    if (px >= 0 && py >= 0 && px < MAP_W && py < MAP_H && WalkGet(px, py))
-+        ReachSet(px, py);
-+    if (InWildArea())
-+    {
-+        static const u8 sSeeds[][2] = {{5, 54}, {16, 40}, {16, 20}, {16, 8}};
-+        u8 k;
-+
-+        for (k = 0; k < ARRAY_COUNT(sSeeds); k++)
-+            if (WalkGet(sSeeds[k][0], sSeeds[k][1]))
-+                ReachSet(sSeeds[k][0], sSeeds[k][1]);
-+    }
-+    do
-+    {
-+        changed = FALSE;
-+        for (y = 0; y < MAP_H; y++)
-+            for (x = 0; x < MAP_W; x++)
-+                if (WalkGet(x, y) && !ReachGet(x, y) && ReachNear(x, y))
-+                {
-+                    ReachSet(x, y);
-+                    changed = TRUE;
-+                }
-+        for (y = MAP_H - 1; y >= 0; y--)
-+            for (x = MAP_W - 1; x >= 0; x--)
-+                if (WalkGet(x, y) && !ReachGet(x, y) && ReachNear(x, y))
-+                {
-+                    ReachSet(x, y);
-+                    changed = TRUE;
-+                }
-+    } while (changed && ++rounds < 60);
-+    {
-+        u16 n = 0, i;
-+
-+        for (i = 0; i < sizeof(sReach); i++)
-+            n += (sReach[i] != 0);
-+        sReachDone = (n >= 8); // a start that found hardly any land: use every free tile instead
-+    }
-+}
-+
-+// land: the snowfield, not ice, not water
-+static bool8 TileFree(s16 tx, s16 ty)
-+{
-+    u8 b;
-+
-+    if (tx < LAND_L + 2 || ty < LAND_T || tx >= LAND_R - 1 || ty >= LAND_B - 1)
-+        return FALSE;
-+    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
-+        return FALSE;
-+    b = MapGridGetMetatileBehaviorAt(tx + MAP_OFFSET, ty + MAP_OFFSET);
-+    if (b == MB_ICE || MetatileBehavior_IsSurfableAndNotWaterfall(b))
-+        return FALSE;
-+    if (sReachDone && !ReachGet(tx, ty))
-+        return FALSE;
-+    return !IsPlayerAt(tx, ty);
-+}
-+
-+// water: the sea south of the island
-+static bool8 WaterFree(s16 tx, s16 ty)
-+{
-+    if (tx < 1 || tx > 30 || ty < WATER_T || ty > WATER_B)
-+        return FALSE;
-+    if (!MetatileBehavior_IsSurfableAndNotWaterfall(MapGridGetMetatileBehaviorAt(tx + MAP_OFFSET, ty + MAP_OFFSET)))
-+        return FALSE;
-+    return !IsPlayerAt(tx, ty);
-+}
-+
-+// the sea floor: anywhere that can be walked
++// the sea floor: any open tile
 +static bool8 UnderFree(s16 tx, s16 ty)
 +{
 +    if (tx < 1 || tx > 30 || ty < 1 || ty > 46)
 +        return FALSE;
-+    if (MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) != 0)
-+        return FALSE;
-+    if (sReachDone && !ReachGet(tx, ty))
-+        return FALSE;
-+    return !IsPlayerAt(tx, ty);
++    return MapGridGetCollisionAt(tx + MAP_OFFSET, ty + MAP_OFFSET) == 0;
 +}
 +
-+static bool8 FreeFor(u16 sp, s16 tx, s16 ty)
++// ground for a Pokémon: on the island, the snow for land ones and the sea for sea ones; on the sea floor, any open tile
++static bool8 GroundFor(bool8 water, s16 tx, s16 ty)
 +{
 +    if (InUnder())
 +        return UnderFree(tx, ty);
-+    return IsWaterOnly(sp) ? WaterFree(tx, ty) : TileFree(tx, ty);
++    return MaskGet(water ? sWildSeaMask : sWildLandMask, tx, ty);
++}
++
++static s16 Dist(s16 ax, s16 ay, s16 bx, s16 by)
++{
++    s16 dx = ax > bx ? ax - bx : bx - ax, dy = ay > by ? ay - by : by - ay;
++
++    return dx > dy ? dx : dy;
++}
++
++static u8 SlotOf(struct Sprite *s)
++{
++    return ((u16)s->data[5] >> 9) & 15;
++}
++
++// the tile a sprite stands on (the nearer one while it walks)
++static s16 TileX(struct Sprite *s)
++{
++    return (s->data[0] + 8) >> 4;
++}
++
++static s16 TileY(struct Sprite *s)
++{
++    return (s->data[1] + 8) >> 4;
++}
++
++// another Pokémon stands on (x, y) or is walking into it
++static bool8 Occupied(struct Sprite *self, s16 x, s16 y)
++{
++    u8 i;
++
++    for (i = 0; i < MAX_SPRITES; i++)
++    {
++        struct Sprite *s = &gSprites[i];
++        s16 tx, ty;
++
++        if (s == self || !s->inUse || s->data[7] != WILD_TAG)
++            continue;
++        tx = s->data[0] >> 4;
++        ty = s->data[1] >> 4;
++        if (tx == x && ty == y)
++            return TRUE;
++        if (s->data[6] > 0)
++        {
++            switch (s->data[3] & 0x0F)
++            {
++            case DIR_SOUTH: ty++; break;
++            case DIR_NORTH: ty--; break;
++            case DIR_WEST: tx--; break;
++            default: tx++; break;
++            }
++            if (tx == x && ty == y)
++                return TRUE;
++        }
++    }
++    return FALSE;
++}
++
++// may this Pokémon take a step onto (tx, ty)
++static bool8 CanStep(struct Sprite *s, s16 tx, s16 ty)
++{
++    u8 slot = SlotOf(s);
++
++    if (!GroundFor((s->data[3] & WATER_FLAG) != 0, tx, ty))
++        return FALSE;
++    if (Dist(tx, ty, sAnchor[slot][0], sAnchor[slot][1]) > LEASH
++     && Dist(tx, ty, sAnchor[slot][0], sAnchor[slot][1]) > Dist(s->data[0] >> 4, s->data[1] >> 4, sAnchor[slot][0], sAnchor[slot][1]))
++        return FALSE; // too far from home, and going further
++    return !Occupied(s, tx, ty);
++}
++
++// ---- palettes ----
++// On these maps FireRed keeps sprite palettes 0-11 for people and their reflections, and weather and the follower take two more,
++// so only two are left (and field effects such as the surf blob need one of those). Palettes 4, 8, 10 and 11 belong to people
++// that none of the wild maps has (NPC 3, its reflection, the special NPC and its reflection), so the Pokémon use those, and one
++// of the free ones when two are free. A palette goes to the kinds nearest the player; one far off the screen gives its palette up,
++// and while a kind has none it is not drawn (and cannot be met).
++#define PAL_MAX 5
++static const u8 sPalFixed[] = {4, 8, 10, 11};
++static u16 sPalKey[PAL_MAX]; // species, plus 0x8000 for the shiny colours; 0 when the palette is unused
++static u8 sPalNum[PAL_MAX];
++static u8 sPalCount;
++
++static u16 SpriteKey(struct Sprite *s)
++{
++    return (u16)s->data[2] | ((s->data[5] & SHINY_BIT) ? 0x8000 : 0);
++}
++
++static void PalReset(void)
++{
++    u8 i, free = 0;
++
++    for (i = 0; i < ARRAY_COUNT(sPalFixed); i++)
++    {
++        sPalNum[i] = sPalFixed[i];
++        sPalKey[i] = 0;
++    }
++    sPalCount = ARRAY_COUNT(sPalFixed);
++    FreeSpritePaletteByTag(WILD_PAL);
++    for (i = gReservedSpritePaletteCount; i < 16; i++)
++        if (GetSpritePaletteTagByPaletteNum(i) == TAG_NONE)
++            free++;
++    if (free >= 2)
++    {
++        u8 n = AllocSpritePalette(WILD_PAL);
++
++        if (n != 0xFF)
++        {
++            sPalNum[sPalCount] = n;
++            sPalKey[sPalCount] = 0;
++            sPalCount++;
++        }
++    }
++}
++
++static u8 PalFor(u16 key)
++{
++    u8 i;
++
++    for (i = 0; i < sPalCount; i++)
++        if (sPalKey[i] == key)
++            return sPalNum[i];
++    return 0xFF;
++}
++
++// how far a tile is from the middle of the screen, in screen terms (the screen is 15 tiles wide and 10 high)
++static s16 ScreenDist(s16 tx, s16 ty, s16 px, s16 py)
++{
++    s16 dx = tx > px ? tx - px : px - tx, dy = ty > py ? ty - py : py - ty;
++
++    dx *= 2;
++    dy *= 3;
++    return dx > dy ? dx : dy;
++}
++
++#define PAL_TAKE 22 // within about 11 tiles across or 7 up and down: on the screen or about to be
++#define PAL_KEEP 28 // a palette is given up only beyond about 14 across or 9 up and down
++
++static void UpdatePalettes(void)
++{
++    u16 keys[SLOTS];
++    s16 near[SLOTS];
++    u8 nk = 0, i, k;
++    s16 px, py;
++    u16 busy = 0;
++
++    PlayerGetDestCoords(&px, &py);
++    px -= MAP_OFFSET;
++    py -= MAP_OFFSET;
++    for (i = 0; i < MAX_SPRITES; i++)
++    {
++        struct Sprite *s = &gSprites[i];
++        u16 key;
++        s16 d;
++
++        if (s->inUse && s->data[7] != WILD_TAG)
++            busy |= 1 << s->oam.paletteNum; // someone else's palette (a person, another player): not to be used here
++        if (!s->inUse || s->data[7] != WILD_TAG)
++            continue;
++        key = SpriteKey(s);
++        d = ScreenDist(TileX(s), TileY(s), px, py);
++        for (k = 0; k < nk; k++)
++            if (keys[k] == key)
++                break;
++        if (k == nk)
++        {
++            if (nk == SLOTS)
++                continue;
++            keys[nk] = key;
++            near[nk] = 0x7FFF;
++            nk++;
++        }
++        if (d < near[k])
++            near[k] = d;
++    }
++    // give up the palettes of kinds that are gone or far away
++    for (i = 0; i < sPalCount; i++)
++    {
++        if (sPalKey[i] == 0)
++            continue;
++        for (k = 0; k < nk; k++)
++            if (keys[k] == sPalKey[i])
++                break;
++        if (k == nk || near[k] > PAL_KEEP || (busy & (1 << sPalNum[i])))
++            sPalKey[i] = 0;
++    }
++    // the nearest kinds without one get the free palettes
++    for (;;)
++    {
++        u8 best = 0xFF;
++
++        for (k = 0; k < nk; k++)
++            if (near[k] <= PAL_TAKE && PalFor(keys[k]) == 0xFF && (best == 0xFF || near[k] < near[best]))
++                best = k;
++        if (best == 0xFF)
++            break;
++        for (i = 0; i < sPalCount; i++)
++            if (sPalKey[i] == 0 && !(busy & (1 << sPalNum[i])))
++                break;
++        if (i == sPalCount)
++            break;
++        sPalKey[i] = keys[best];
++        HanWildPalLoad(keys[best] & 0x7FFF, (keys[best] & 0x8000) != 0, sPalNum[i]);
++    }
++}
++
++// a sprite shows only with its kind's palette
++static void ApplyPalette(struct Sprite *s)
++{
++    u8 n = PalFor(SpriteKey(s));
++
++    if (n == 0xFF)
++        s->invisible = TRUE;
++    else
++        s->oam.paletteNum = n;
 +}
 +
 +static void Place(struct Sprite *s)
@@ -137525,7 +137853,7 @@ index 0000000..95ba677
 +                    dir = DirToPlayer(tx, ty, roll == 1);
 +                }
 +            }
-+            s->data[3] = dir | (run ? 0x10 : 0);
++            s->data[3] = dir | (run ? 0x10 : 0) | (s->data[3] & WATER_FLAG);
 +            s->data[4] = run ? 6 + (Random() & 15) : 40 + (Random() & 63);
 +            switch (dir)
 +            {
@@ -137534,13 +137862,14 @@ index 0000000..95ba677
 +            case DIR_WEST: tx--; break;
 +            default: tx++; break;
 +            }
-+            if (FreeFor(s->data[2], tx, ty))
++            if (CanStep(s, tx, ty))
 +                s->data[6] = 32;
 +        }
 +    }
 +    Place(s);
 +    // swimmers float and bob instead of standing on the ground
-+    if (IsWaterOnly(s->data[2]) || InUnder())
++    ApplyPalette(s);
++    if ((s->data[3] & WATER_FLAG) || InUnder())
 +        s->y2 = InUnder() ? ((((gMain.vblankCounter2 >> 4) + (s->data[0] >> 4)) & 1) ? -3 : -5) : ((((gMain.vblankCounter2 >> 4) + (s->data[0] >> 4)) & 1) ? 0 : -2); // afloat on the sea floor, bobbing on the surface
 +    s->oam.priority = player->oam.priority;
 +    s->subpriority = (s->y < player->y + player->y2) ? player->subpriority + 1 : (player->subpriority > 0 ? player->subpriority - 1 : 0);
@@ -137551,6 +137880,7 @@ index 0000000..95ba677
 +    struct Sprite *player = &gSprites[gPlayerAvatar.spriteId];
 +
 +    Place(s);
++    ApplyPalette(s);
 +    s->oam.priority = player->oam.priority;
 +    s->subpriority = (s->y < player->y + player->y2) ? player->subpriority + 1 : (player->subpriority > 0 ? player->subpriority - 1 : 0);
 +}
@@ -137577,12 +137907,23 @@ index 0000000..95ba677
 +}
 +
 +
++// the party's species, read once before a draw (reading a Pokémon's data decrypts it, which is slow to do for every species)
++static u16 sParty[PARTY_SIZE];
++
++static void CacheParty(void)
++{
++    u8 i;
++
++    for (i = 0; i < PARTY_SIZE; i++)
++        sParty[i] = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
++}
++
 +static bool8 InParty(u16 species)
 +{
 +    u8 i;
 +
 +    for (i = 0; i < PARTY_SIZE; i++)
-+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == species && species != SPECIES_NONE)
++        if (sParty[i] == species && species != SPECIES_NONE)
 +            return TRUE;
 +    return FALSE;
 +}
@@ -137623,29 +137964,6 @@ index 0000000..95ba677
 +    return sFish[i - ARRAY_COUNT(sLegend)];
 +}
 +
-+static u16 PickSpecies(bool8 noLegend)
-+{
-+    u32 total = 0, roll, i;
-+
-+    for (i = 0; i < POOL_SIZE; i++)
-+        if (!(noLegend && IsLegend(PoolAt(i))))
-+            total += WeightOf(PoolAt(i));
-+    roll = Random32() % total;
-+    for (i = 0; i < POOL_SIZE; i++)
-+    {
-+        u16 sp = PoolAt(i);
-+        u32 w;
-+
-+        if (noLegend && IsLegend(sp))
-+            continue;
-+        w = WeightOf(sp);
-+        if (roll < w)
-+            return sp;
-+        roll -= w;
-+    }
-+    return SPECIES_MAGIKARP;
-+}
-+
 +// the building: any Pokémon with a total of 350 or more (and a picture), on the same scale
 +static bool8 StaticOk(u16 sp)
 +{
@@ -137656,6 +137974,8 @@ index 0000000..95ba677
 +{
 +    u32 total = 0, roll;
 +    u16 i;
++
++    CacheParty();
 +
 +    for (i = 1; i < NUM_SPECIES; i++)
 +        if (StaticOk(i))
@@ -137809,44 +138129,93 @@ index 0000000..95ba677
 +    return size;
 +}
 +
-+// A new draw of the Pokémon on the island: kinds of three (a legendary or mythical one alone) until there are WILD_COUNT of them
++// ---- the roster ----
++// Eight kinds: four that live on land (slots 0-7, two of each) and four that live in the sea (slots 8-14, two of each, the last alone).
++// A legendary or mythical one comes alone. Each kind is drawn only from its own class, and only from species that have an overworld
++// picture, so every slot can be shown. The weights read the party once (sParty), not once per species.
++static u16 PickClass(bool8 water, bool8 noLegend, const u16 *taken, u8 nTaken)
++{
++    u32 total = 0, roll, i, w;
++    u8 j;
++
++    for (i = 0; i < POOL_SIZE; i++)
++    {
++        u16 sp = PoolAt(i);
++
++        if (!HanWildHasSprite(sp) || IsWaterOnly(sp) != water || (noLegend && IsLegend(sp)))
++            continue;
++        for (j = 0; j < nTaken; j++)
++            if (taken[j] == sp)
++                break;
++        if (j < nTaken)
++            continue;
++        total += WeightOf(sp);
++    }
++    if (total == 0)
++        return SPECIES_NONE;
++    roll = Random32() % total;
++    for (i = 0; i < POOL_SIZE; i++)
++    {
++        u16 sp = PoolAt(i);
++
++        if (!HanWildHasSprite(sp) || IsWaterOnly(sp) != water || (noLegend && IsLegend(sp)))
++            continue;
++        for (j = 0; j < nTaken; j++)
++            if (taken[j] == sp)
++                break;
++        if (j < nTaken)
++            continue;
++        w = WeightOf(sp);
++        if (roll < w)
++            return sp;
++        roll -= w;
++    }
++    return SPECIES_NONE;
++}
++
++// the first roster slot of a kind (0-3 land, 4-7 sea), and how many slots it has
++static u8 KindFirst(u8 k)
++{
++    return k < 4 ? k * 2 : LAND_SLOTS + (k - 4) * 2;
++}
++
++static u8 KindOfSlot(u8 i)
++{
++    return i < LAND_SLOTS ? i / 2 : 4 + (i - LAND_SLOTS) / 2;
++}
++
 +static void DrawRoster(void)
 +{
 +    struct HanWildSave *s = Save();
-+    u16 kinds[WILD_COUNT];
-+    u8 n = 0, nk = 0, i, j;
++    u16 kinds[8];
++    u8 k, j;
 +
++    CacheParty();
 +    s->stamp = NowMinutes();
 +    s->shiny = 0;
 +    s->staticReady = 0;
-+    for (i = 0; i < WILD_COUNT; i++)
-+        s->species[i] = SPECIES_NONE;
-+    while (n < WILD_COUNT)
++    for (j = 0; j < WILD_COUNT; j++)
++        s->species[j] = SPECIES_NONE;
++    for (k = 0; k < 8; k++)
 +    {
-+        u16 sp;
-+        bool8 dup;
-+        u8 cnt;
++        u8 first = KindFirst(k), cnt = 2;
++        u16 sp = PickClass(k >= 4, FALSE, kinds, k);
 +
-+        do
-+        {
-+            sp = PickSpecies(FALSE);
-+            dup = FALSE;
-+            for (j = 0; j < nk; j++)
-+                if (kinds[j] == sp)
-+                    dup = TRUE;
-+        } while (dup);
-+        kinds[nk++] = sp;
-+        cnt = IsLegend(sp) ? 1 : PER_KIND;
-+        if (cnt > WILD_COUNT - n)
-+            cnt = WILD_COUNT - n;
++        kinds[k] = sp;
++        if (sp == SPECIES_NONE)
++            continue;
++        if (first + cnt > WILD_COUNT)
++            cnt = WILD_COUNT - first;
++        if (IsLegend(sp))
++            cnt = 1;
 +        for (j = 0; j < cnt; j++)
 +        {
-+            s->species[n] = sp;
++            s->species[first + j] = sp;
 +            if (ShinyRoll())
-+                s->shiny |= 1 << n;
-+            n++;
++                s->shiny |= 1 << (first + j);
 +        }
 +    }
++    sPosKept = FALSE; // a new draw: new home grounds
 +}
 +
 +static void EnsureRoster(void)
@@ -137858,15 +138227,24 @@ index 0000000..95ba677
 +        DrawRoster();
 +}
 +
-+// a legendary or mythical Pokémon has been met: some other Pokémon takes its place
++// a Pokémon has been met: it goes, and one of another species, of the same class, comes in its place somewhere else
 +static void ReplaceRoamer(u8 idx)
 +{
 +    struct HanWildSave *s = Save();
++    u16 sp;
 +
-+    s->species[idx] = PickSpecies(TRUE);
++    if (idx >= WILD_COUNT)
++        return;
++    CacheParty();
++    sp = PickClass(idx >= LAND_SLOTS, TRUE, s->species, WILD_COUNT);
++    if (sp == SPECIES_NONE)
++        sp = PickClass(idx >= LAND_SLOTS, TRUE, NULL, 0);
++    if (sp != SPECIES_NONE)
++        s->species[idx] = sp;
 +    s->shiny &= ~(1 << idx);
 +    if (ShinyRoll())
 +        s->shiny |= 1 << idx;
++    sPos[idx][0] = NO_POS;
 +}
 +
 +static void ApplyHoles(void)
@@ -137886,147 +138264,182 @@ index 0000000..95ba677
 +        DrawWholeMapView();
 +}
 +
-+static u8 MakeSprite(u16 sp, bool8 shiny, u8 kind, u8 *palIdx, u16 *loaded)
++// ---- spawning ----
++static u8 TopLevel(void)
 +{
-+    u8 slot = kind * 2 + (shiny ? 1 : 0), id;
-+    bool8 noBorrow = shiny || kind >= 2;
++    u8 i, top = 5;
 +
-+    id = HanWildSpriteCreate(sp | (shiny ? 0x8000 : 0) | (noBorrow ? 0x4000 : 0), WILD_PAL + slot, &palIdx[slot], !(*loaded & (1 << slot)));
-+    if (id != MAX_SPRITES)
-+        *loaded |= 1 << slot;
-+    return id;
-+}
-+
-+// a tile this Pokémon may spawn on: pass 0 wants it away from the player, pass 1 takes any free tile
-+static bool8 CanSpawnAt(u16 sp, s16 x, s16 y, u8 pass, s16 px, s16 py)
-+{
-+    s16 d = (x > px ? x - px : px - x) + (y > py ? y - py : py - y);
-+
-+    if (pass == 0 && d < 7)
-+        return FALSE;
-+    return FreeFor(sp, x, y);
-+}
-+
-+// a random tile for sp: the whole area searched (so one is found if there is any), within r of (ax, ay) when r is not 0
-+static bool8 FindTile(u16 sp, bool8 water, s16 ax, s16 ay, s16 r, s16 px, s16 py, s16 *ox, s16 *oy)
-+{
-+    s16 x0, x1, y0, y1, x, y;
-+    u8 pass;
-+
-+    if (water)
-+    {
-+        x0 = 1; x1 = 30; y0 = WATER_T; y1 = WATER_B;
-+    }
-+    else
-+    {
-+        x0 = LAND_L + 3; x1 = LAND_R - 4; y0 = LAND_T; y1 = LAND_B - 4;
-+    }
-+    if (r)
-+    {
-+        if (ax - r > x0) x0 = ax - r;
-+        if (ax + r < x1) x1 = ax + r;
-+        if (ay - r > y0) y0 = ay - r;
-+        if (ay + r < y1) y1 = ay + r;
-+    }
-+    for (pass = 0; pass < 2; pass++)
-+    {
-+        u32 n = 0, pick, seen = 0;
-+
-+        for (y = y0; y <= y1; y++)
-+            for (x = x0; x <= x1; x++)
-+                if (CanSpawnAt(sp, x, y, pass, px, py))
-+                    n++;
-+        if (n == 0)
-+            continue;
-+        pick = Random() % n;
-+        for (y = y0; y <= y1; y++)
-+            for (x = x0; x <= x1; x++)
-+                if (CanSpawnAt(sp, x, y, pass, px, py))
-+                {
-+                    if (seen == pick)
-+                    {
-+                        *ox = x;
-+                        *oy = y;
-+                        return TRUE;
-+                    }
-+                    seen++;
-+                }
-+    }
-+    return FALSE;
-+}
-+
-+static bool8 Spawn(void)
-+{
-+    struct HanWildSave *sv = Save();
-+    u16 kindSp[WILD_COUNT], loaded = 0;
-+    u8 palIdx[WILD_COUNT * 2];
-+    s16 ax[WILD_COUNT], ay[WILD_COUNT];
-+    u8 nk = 0, i, k, top = 5, lvl;
-+    s16 px, py;
-+
-+    // level: about that of the player's best Pokémon
 +    for (i = 0; i < PARTY_SIZE; i++)
 +        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
 +            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
++    return top;
++}
++
++static u8 RollLevel(u8 top)
++{
++    s16 lvl = top - 3 + Random() % 5;
++
++    if (lvl < 5)
++        lvl = 5;
++    if (lvl > 70)
++        lvl = 70;
++    return lvl;
++}
++
++// a random tile of the island's land or sea (from the table: always ground, always reachable)
++static void RandomTile(bool8 water, s16 *x, s16 *y)
++{
++    u16 i;
++
++    if (water)
++    {
++        i = Random() % ARRAY_COUNT(sWildSeaTiles);
++        *x = sWildSeaTiles[i][0];
++        *y = sWildSeaTiles[i][1];
++    }
++    else
++    {
++        i = Random() % ARRAY_COUNT(sWildLandTiles);
++        *x = sWildLandTiles[i][0];
++        *y = sWildLandTiles[i][1];
++    }
++}
++
++// a tile for a new Pokémon: near (ax, ay) if it can, at least minD from the player, with no one on it. A few tries, never a search.
++static void SpawnTile(bool8 water, s16 ax, s16 ay, s16 px, s16 py, s16 minD, s16 *ox, s16 *oy)
++{
++    u8 t;
++    s16 x, y;
++
++    for (t = 0; t < 32; t++)
++    {
++        x = ax - 3 + Random() % 7;
++        y = ay - 3 + Random() % 7;
++        if (GroundFor(water, x, y) && Dist(x, y, px, py) >= minD && !Occupied(NULL, x, y))
++            goto found;
++    }
++    for (t = 0; t < 32; t++)
++    {
++        RandomTile(water, &x, &y);
++        if (Dist(x, y, px, py) >= minD && !Occupied(NULL, x, y))
++            goto found;
++    }
++    RandomTile(water, &x, &y);
++found:
++    *ox = x;
++    *oy = y;
++}
++
++// home grounds for the eight kinds, apart from each other and away from the player
++static void PickAnchors(s16 px, s16 py)
++{
++    u8 k, j, t, i;
++    s16 ax[8], ay[8];
++
++    for (k = 0; k < 8; k++)
++    {
++        bool8 water = k >= 4;
++
++        for (t = 0; t < 48; t++)
++        {
++            bool8 ok = TRUE;
++
++            RandomTile(water, &ax[k], &ay[k]);
++            if (t < 40 && Dist(ax[k], ay[k], px, py) < 8)
++                ok = FALSE;
++            for (j = (water ? 4 : 0); j < k && ok && t < 24; j++)
++                if (Dist(ax[k], ay[k], ax[j], ay[j]) < 7)
++                    ok = FALSE;
++            if (ok)
++                break;
++        }
++        for (i = 0; i < SLOTS; i++)
++            if (i < WILD_COUNT && KindOfSlot(i) == k)
++            {
++                sAnchor[i][0] = ax[k];
++                sAnchor[i][1] = ay[k];
++            }
++    }
++}
++
++static u8 NewWildSprite(u16 sp, s16 tx, s16 ty, u8 lvl, bool8 shiny, u8 slot, bool8 water, void (*cb)(struct Sprite *))
++{
++    u8 id = HanWildSpriteNew(sp);
++
++    if (id == MAX_SPRITES)
++        return MAX_SPRITES;
++    gSprites[id].invisible = TRUE; // until it has a palette
++    gSprites[id].data[0] = tx * 16;
++    gSprites[id].data[1] = ty * 16;
++    gSprites[id].data[2] = sp;
++    gSprites[id].data[3] = (1 + (Random() & 3)) | (water ? WATER_FLAG : 0);
++    gSprites[id].data[4] = Random() & 63;
++    gSprites[id].data[5] = lvl | (shiny ? SHINY_BIT : 0) | (slot << 9);
++    gSprites[id].data[6] = 0;
++    gSprites[id].data[7] = WILD_TAG;
++    gSprites[id].callback = cb;
++    Place(&gSprites[id]);
++    if (sFirst == 0)
++        sFirst = id + 1;
++    return id;
++}
++
++// the island: every slot of the roster, where it was (after a battle) or on its kind's home ground
++static void SpawnIsland(void)
++{
++    struct HanWildSave *sv = Save();
++    u8 i, top = TopLevel();
++    s16 px, py;
 +
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
 +    py -= MAP_OFFSET;
++    if (!sPosKept)
++    {
++        PickAnchors(px, py);
++        for (i = 0; i < SLOTS; i++)
++            sPos[i][0] = NO_POS;
++        sPosKept = TRUE;
++    }
 +    for (i = 0; i < WILD_COUNT; i++)
 +    {
 +        u16 sp = sv->species[i];
-+        bool8 shiny = (sv->shiny >> i) & 1, water;
-+        u8 id;
-+        s16 tx = 0, ty = 0;
++        bool8 water = i >= LAND_SLOTS;
++        s16 tx, ty;
 +
-+        if (sp == SPECIES_NONE)
++        if (sp == SPECIES_NONE || !HanWildHasSprite(sp))
 +            continue;
-+        water = IsWaterOnly(sp);
-+        for (k = 0; k < nk; k++)
-+            if (kindSp[k] == sp)
-+                break;
-+        if (k == nk)
++        if (sPos[i][0] != NO_POS && GroundFor(water, sPos[i][0], sPos[i][1]) && !Occupied(NULL, sPos[i][0], sPos[i][1]))
 +        {
-+            kindSp[nk++] = sp;
-+            // the kind's spawn point: its members start together, a few tiles from it
-+            if (!FindTile(sp, water, 0, 0, 0, px, py, &ax[k], &ay[k]))
-+            {
-+                ax[k] = 0;
-+                ay[k] = 0;
-+            }
++            tx = sPos[i][0];
++            ty = sPos[i][1];
 +        }
-+        if (!FindTile(sp, water, ax[k], ay[k], 3, px, py, &tx, &ty) && !FindTile(sp, water, 0, 0, 0, px, py, &tx, &ty))
-+            continue;
-+        lvl = top - 3 + Random() % 5;
-+        if (lvl < 5)
-+            lvl = 5;
-+        if (lvl > 70)
-+            lvl = 70;
-+        id = MAX_SPRITES;
-+        if (shiny)
-+            id = MakeSprite(sp, TRUE, k, palIdx, &loaded);
-+        if (id == MAX_SPRITES) // no shiny palette to spare: this one is drawn in the usual colours, and is not shiny
++        else
 +        {
-+            shiny = FALSE;
-+            id = MakeSprite(sp, FALSE, k, palIdx, &loaded);
++            SpawnTile(water, sAnchor[i][0], sAnchor[i][1], px, py, 6, &tx, &ty);
 +        }
-+        if (id == MAX_SPRITES)
++        if (NewWildSprite(sp, tx, ty, RollLevel(top), (sv->shiny >> i) & 1, i, water, SpriteCB_Roamer) == MAX_SPRITES)
 +            continue;
-+        gSprites[id].data[0] = tx * 16;
-+        gSprites[id].data[1] = ty * 16;
-+        gSprites[id].data[2] = sp;
-+        gSprites[id].data[3] = 1 + (Random() & 3);
-+        gSprites[id].data[4] = Random() & 63;
-+        gSprites[id].data[5] = lvl | (shiny ? SHINY_BIT : 0) | (i << 9);
-+        gSprites[id].data[6] = 0;
-+        gSprites[id].data[7] = WILD_TAG;
-+        gSprites[id].callback = SpriteCB_Roamer;
-+        Place(&gSprites[id]);
-+        if (sFirst == 0)
-+            sFirst = id + 1;
++        sPos[i][0] = tx;
++        sPos[i][1] = ty;
 +    }
 +    ApplyHoles();
-+    return sFirst != 0;
++}
++
++// each frame: where the island's Pokémon stand, so that after a battle they are back where they were
++static void RememberPositions(void)
++{
++    u8 i;
++
++    for (i = 0; i < MAX_SPRITES; i++)
++    {
++        struct Sprite *s = &gSprites[i];
++
++        if (!s->inUse || s->data[7] != WILD_TAG || s->callback != SpriteCB_Roamer)
++            continue;
++        sPos[SlotOf(s)][0] = TileX(s);
++        sPos[SlotOf(s)][1] = TileY(s);
++    }
 +}
 +
 +static const u16 sUnder[] = {
@@ -138034,102 +138447,50 @@ index 0000000..95ba677
 +    SPECIES_REMORAID, SPECIES_QWILFISH, SPECIES_CORSOLA, SPECIES_WAILMER, SPECIES_LUVDISC, SPECIES_LAPRAS,
 +};
 +
-+// the sea floor: a handful of the water Pokémon swim about, met by touching them
-+// a sea-floor tile: searched in full like FindTile, within r of (ax, ay) when r is not 0
-+static bool8 FindUnderTile(s16 ax, s16 ay, s16 r, s16 px, s16 py, s16 *ox, s16 *oy)
-+{
-+    s16 x0 = 1, x1 = 30, y0 = 1, y1 = 46, x, y;
-+    u8 pass;
-+
-+    if (r)
-+    {
-+        if (ax - r > x0) x0 = ax - r;
-+        if (ax + r < x1) x1 = ax + r;
-+        if (ay - r > y0) y0 = ay - r;
-+        if (ay + r < y1) y1 = ay + r;
-+    }
-+    for (pass = 0; pass < 2; pass++)
-+    {
-+        u32 n = 0, pick, seen = 0;
-+
-+        for (y = y0; y <= y1; y++)
-+            for (x = x0; x <= x1; x++)
-+                if (UnderFree(x, y) && (pass == 1 || (x > px ? x - px : px - x) + (y > py ? y - py : py - y) >= 5))
-+                    n++;
-+        if (n == 0)
-+            continue;
-+        pick = Random() % n;
-+        for (y = y0; y <= y1; y++)
-+            for (x = x0; x <= x1; x++)
-+                if (UnderFree(x, y) && (pass == 1 || (x > px ? x - px : px - x) + (y > py ? y - py : py - y) >= 5))
-+                {
-+                    if (seen == pick)
-+                    {
-+                        *ox = x;
-+                        *oy = y;
-+                        return TRUE;
-+                    }
-+                    seen++;
-+                }
-+    }
-+    return FALSE;
-+}
-+
++// the sea floor: four kinds of three swim about, met by touching them (they are not kept: each dive brings others)
 +static void SpawnUnder(void)
 +{
-+    u16 kindSp[WILD_COUNT], loaded = 0;
-+    u8 palIdx[WILD_COUNT * 2];
-+    u8 nk = 0, i, k, top = 5, lvl, id;
-+    s16 px, py, ax[WILD_COUNT], ay[WILD_COUNT];
++    u16 kinds[4];
++    u8 k, j, i, t, top = TopLevel();
++    s16 px, py, ax, ay, tx, ty;
 +
-+    for (i = 0; i < PARTY_SIZE; i++)
-+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
-+            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
-+    ComputeReach();
 +    PlayerGetDestCoords(&px, &py);
 +    px -= MAP_OFFSET;
 +    py -= MAP_OFFSET;
-+    for (i = 0; i < 20; i++)
++    for (k = 0; k < 4; k++)
 +    {
-+        u16 sp = sUnder[Random() % ARRAY_COUNT(sUnder)];
-+        s16 tx = 0, ty = 0;
-+
-+        for (k = 0; k < nk; k++)
-+            if (kindSp[k] == sp)
-+                break;
-+        if (k == nk)
++        do
 +        {
-+            if (nk >= WILD_COUNT)
-+                continue;
-+            kindSp[nk++] = sp;
-+            if (!FindUnderTile(0, 0, 0, px, py, &ax[k], &ay[k]))
-+            {
-+                ax[k] = 0;
-+                ay[k] = 0;
-+            }
++            kinds[k] = sUnder[Random() % ARRAY_COUNT(sUnder)];
++            for (j = 0; j < k; j++)
++                if (kinds[j] == kinds[k])
++                    break;
++        } while (j < k);
++        ax = 1 + Random() % 30;
++        ay = 1 + Random() % 46;
++        for (t = 0; t < 40 && (!UnderFree(ax, ay) || Dist(ax, ay, px, py) < 6); t++)
++        {
++            ax = 1 + Random() % 30;
++            ay = 1 + Random() % 46;
 +        }
-+        if (!FindUnderTile(ax[k], ay[k], 3, px, py, &tx, &ty) && !FindUnderTile(0, 0, 0, px, py, &tx, &ty))
-+            continue;
-+        lvl = top - 3 + Random() % 5;
-+        if (lvl < 5)
-+            lvl = 5;
-+        if (lvl > 70)
-+            lvl = 70;
-+        id = MakeSprite(sp, FALSE, k, palIdx, &loaded);
-+        if (id == MAX_SPRITES)
-+            continue;
-+        gSprites[id].data[0] = tx * 16;
-+        gSprites[id].data[1] = ty * 16;
-+        gSprites[id].data[2] = sp;
-+        gSprites[id].data[3] = 1 + (Random() & 3);
-+        gSprites[id].data[4] = Random() & 63;
-+        gSprites[id].data[5] = lvl;
-+        gSprites[id].data[6] = 0;
-+        gSprites[id].data[7] = WILD_TAG;
-+        gSprites[id].callback = SpriteCB_Roamer;
-+        Place(&gSprites[id]);
-+        if (sFirst == 0)
-+            sFirst = id + 1;
++        for (j = 0; j < 3; j++)
++        {
++            i = k * 3 + j;
++            tx = ax;
++            ty = ay;
++            for (t = 0; t < 24; t++)
++            {
++                tx = ax - 2 + Random() % 5;
++                ty = ay - 2 + Random() % 5;
++                if (UnderFree(tx, ty) && !Occupied(NULL, tx, ty))
++                    break;
++            }
++            if (t == 24)
++                continue;
++            sAnchor[i][0] = ax;
++            sAnchor[i][1] = ay;
++            NewWildSprite(kinds[k], tx, ty, RollLevel(top), FALSE, i, TRUE, SpriteCB_Roamer);
++        }
 +    }
 +}
 +
@@ -138137,9 +138498,7 @@ index 0000000..95ba677
 +static void SpawnStatic(void)
 +{
 +    struct HanWildSave *sv = Save();
-+    u8 palIdx = 0, id, top = 5, i;
-+    u16 sp;
-+    bool8 shiny;
++    u8 top = TopLevel(), id;
 +
 +    if (!sv->staticReady)
 +    {
@@ -138147,44 +138506,33 @@ index 0000000..95ba677
 +        sv->staticShiny = ShinyRoll();
 +        sv->staticReady = 1;
 +    }
-+    sp = sv->staticSpecies;
-+    shiny = sv->staticShiny;
-+    for (i = 0; i < PARTY_SIZE; i++)
-+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE && GetMonData(&gPlayerParty[i], MON_DATA_LEVEL) > top)
-+            top = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
 +    if (top > 70)
 +        top = 70;
-+    id = HanWildSpriteCreate(sp | (shiny ? 0x8000 : 0), STATIC_PAL, &palIdx, TRUE);
++    id = NewWildSprite(sv->staticSpecies, 7, 8, top, sv->staticShiny, 0, FALSE, SpriteCB_Static);
 +    if (id == MAX_SPRITES)
 +        return;
-+    gSprites[id].data[0] = 7 * 16;
-+    gSprites[id].data[1] = 8 * 16;
-+    gSprites[id].data[2] = sp;
 +    gSprites[id].data[3] = DIR_NORTH;
-+    gSprites[id].data[4] = 0;
-+    gSprites[id].data[5] = top | (shiny ? SHINY_BIT : 0);
-+    gSprites[id].data[6] = 0;
-+    gSprites[id].data[7] = WILD_TAG;
-+    gSprites[id].callback = SpriteCB_Static;
 +    StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_NORTH));
-+    Place(&gSprites[id]);
-+    sFirst = id + 1;
 +}
 +
-+static bool8 sStaticGone; // the one in the building has been met this visit
++static EWRAM_DATA bool8 sStaticGone = 0; // the one in the building has been met this visit
 +
 +// every frame of the overworld
 +void HanWildFrame(void)
 +{
 +    bool8 temple = InTemple();
 +    bool8 under = InUnder();
++    bool8 island = InWildArea();
 +
-+    if (!InWildArea() && !temple && !under)
++    if (!island && !temple && !under)
 +    {
 +        sFirst = 0;
 +        sStaticGone = FALSE;
++        sPosKept = FALSE;
 +        return;
 +    }
++    if (!island)
++        sPosKept = FALSE; // the island's Pokémon spread out again when you come back to it
 +    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
 +        return;
 +    if (temple)
@@ -138205,55 +138553,76 @@ index 0000000..95ba677
 +        sFirst = 0;
 +    if (sFirst == 0)
 +    {
++        if (ScriptContext_IsEnabled())
++            return; // a battle is starting (or a script is running): make them when it is over
++        // a new map, or back from a battle: the sprites are made again (after a battle, the island's ones where they were)
++        PalReset();
 +        if (under)
-+        {
 +            SpawnUnder();
-+            return;
-+        }
-+        EnsureRoster();
-+        if (temple)
-+            SpawnStatic();
 +        else
 +        {
-+            ComputeReach();
-+            Spawn();
++            EnsureRoster();
++            if (temple)
++                SpawnStatic();
++            else
++                SpawnIsland();
 +        }
++        UpdatePalettes();
 +        return;
 +    }
++    if (island)
++        RememberPositions();
++    UpdatePalettes();
 +    // a Pokémon reached while the player's controls are busy (ice, current, surfing in): the usual input check does not run then
 +    if (!ScriptContext_IsEnabled() && (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_FORCED) != 0)
 +        HanWildCollision();
 +}
 +
-+// called where the player can act: a roamer on the player's tile starts a battle
++// Walking into a Pokémon starts the battle: the player steps onto its tile (or it walks onto the player's), or the player pushes
++// against one on the tile in front that cannot be walked onto (a sea Pokémon seen from the shore). Called every frame the player can act.
 +bool8 HanWildCollision(void)
 +{
-+    struct Sprite *player;
-+    u8 i;
-+    s16 r;
++    s16 px, py, fx, fy;
++    bool8 pushing = FALSE;
++    u8 i, face;
 +
 +    if (sFirst == 0 || (!InWildArea() && !InTemple() && !InUnder()))
 +        return FALSE;
-+    player = &gSprites[gPlayerAvatar.spriteId];
++    PlayerGetDestCoords(&px, &py);
++    px -= MAP_OFFSET;
++    py -= MAP_OFFSET;
++    face = GetPlayerFacingDirection();
++    fx = px;
++    fy = py;
++    switch (face)
++    {
++    case DIR_SOUTH: fy++; pushing = JOY_HELD(DPAD_DOWN) != 0; break;
++    case DIR_NORTH: fy--; pushing = JOY_HELD(DPAD_UP) != 0; break;
++    case DIR_WEST: fx--; pushing = JOY_HELD(DPAD_LEFT) != 0; break;
++    default: fx++; pushing = JOY_HELD(DPAD_RIGHT) != 0; break;
++    }
++    if (gPlayerAvatar.tileTransitionState == T_TILE_TRANSITION)
++        pushing = FALSE; // mid-step, the tile in front is two away
 +    for (i = 0; i < MAX_SPRITES; i++)
 +    {
 +        struct Sprite *s = &gSprites[i];
-+        s16 dx, dy;
++        s16 tx, ty;
 +
 +        if (!s->inUse || s->data[7] != WILD_TAG || (s->callback != SpriteCB_Roamer && s->callback != SpriteCB_Static) || s->invisible)
 +            continue;
-+        dx = s->x - (player->x + player->x2);
-+        dy = s->y - (player->y + player->y2);
-+        r = IsWaterOnly(s->data[2]) ? 23 : 17; // water ones can be reached from the shore; the rest when you are next to them
-+        if (dx < r && dx > -r && dy < r && dy > -r)
++        tx = TileX(s);
++        ty = TileY(s);
++        if ((tx == px && ty == py) || (pushing && tx == fx && ty == fy))
 +        {
 +            sBattleSpecies = s->data[2];
 +            sBattleLevel = s->data[5] & 0xFF;
 +            sBattleShiny = (s->data[5] & SHINY_BIT) != 0;
 +            if (s->callback == SpriteCB_Static)
 +                Save()->staticReady = 0; // met: the next visit has another
-+            else if (IsLegend(sBattleSpecies))
-+                ReplaceRoamer((s->data[5] >> 9) & 15);
++            else if (InWildArea())
++                ReplaceRoamer(SlotOf(s)); // met: it goes, and another takes its place
++            s->invisible = TRUE;
++            s->data[7] = 0; // no longer one of them: it cannot be met twice before the battle starts
 +            ScriptContext_SetupScript(HanWild_EventScript_Battle);
 +            return TRUE;
 +        }
@@ -138971,7 +139340,7 @@ index deef705..5ad13a9 100644
      AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL_COPY_1, buffer, 1, 1, 0, NULL);
      PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 diff --git a/src/new_game.c b/src/new_game.c
-index 3768b3c..5739bbd 100644
+index 3768b3c..a4009ac 100644
 --- a/src/new_game.c
 +++ b/src/new_game.c
 @@ -1,4 +1,5 @@
@@ -138980,7 +139349,13 @@ index 3768b3c..5739bbd 100644
  #include "gflib.h"
  #include "random.h"
  #include "overworld.h"
-@@ -149,6 +150,7 @@ void NewGameInitData(void)
+@@ -145,10 +146,12 @@ void NewGameInitData(void)
+     ResetMiniGamesResults();
+     ClearMysteryGift();
+     SetAllRenewableItemFlags();
+-    WarpToPlayersRoom();
++    if (!HanTestStart())
++        WarpToPlayersRoom();
      RunScriptImmediately(EventScript_ResetAllMapFlags);
      StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
      ResetTrainerTowerResults();

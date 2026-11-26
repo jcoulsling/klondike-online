@@ -1171,3 +1171,21 @@ Checked against how the Wild Area works in Sword and Shield (symbol encounters: 
 - Over 14 checks (about 4000 frames) all 15 Pokémon were there each time, none on a wall or tree tile, and no water Pokémon on land.
 - Water Pokémon on the surface sit on the water and bob a little; on the sea floor they float higher.
 - Checked in the emulator: a brave Pokémon walked up and the battle started; the cave Pokémon is gone after the battle; the sea-floor swimmers can be touched.
+
+## 2026-11-25s
+- **A new game named TEST** (or Test, or test) starts at the Wild Area dock with a level 100 MEWTWO. Any other name starts as before. `HanTestStart` in `src/han_rowan.c`, called from `NewGameInitData` in `src/new_game.c`.
+
+## 2026-11-25t
+The Wild Area's spawning, rebuilt from first principles. What was wrong, found from the game itself:
+- Only 2 sprite palettes are free on the island (FireRed keeps 0-11 for people and their reflections; snow and the follower take 12 and 13). The old fallback put two kinds on one borrowed palette, so Pokémon showed in each other's colours, and kinds with no palette never appeared.
+- Species with no overworld picture were drawn into the roster and then skipped.
+- Entering froze for 25-50 seconds: each spawn flood-filled the map, and each species pick read (decrypted) the whole party once per species.
+
+How it works now:
+- **Land and sea from the map.** `hoenn/wildtiles/classify.py` reads `data/layouts/HanWildArea/map.bin` and the tilesets and writes `src/data/han_wild_tiles.h`: 672 land tiles (snow reachable from the dock, crossing the ice; no ice, trees, fences, lake or ledges) and 232 sea tiles. Run it again if the map changes.
+- **Each roster slot is land or sea for good**: slots 0-7 are four land kinds (two each), slots 8-14 four sea kinds (the last alone). A land slot only draws land species and only steps on land; a sea slot only sea. Only species with a picture are drawn.
+- **Home grounds.** Each kind lives around its own spot, apart from the others, and wanders up to 7 tiles from it. Two Pokémon never share a tile.
+- **Palettes.** The Pokémon use sprite palettes 4, 8, 10 and 11 (people none of the wild maps has), and one free palette when two are free. The kinds nearest the player get them; a kind far off the screen gives its palette back. A palette that anything else is using is skipped.
+- **Walking into a Pokémon starts the battle**: you step onto its tile, it steps onto yours, or you push against a sea Pokémon from the shore. Standing next to one does nothing.
+- **After a battle** the one you met is replaced by another species of the same class, away from you; the rest come back where they were.
+- Tested in the emulator: entering takes the usual fade (about 90 frames, was 1500-3000); 540 checks of all 15 Pokémon with none on the wrong ground or stacked; all five touch cases right; Psyduck met and run from, Elekid took its place; temple and sea floor still spawn; the TEST start lands at the dock with MEWTWO at level 100.
