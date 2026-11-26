@@ -137320,10 +137320,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..505d24b
+index 0000000..a83e916
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1644 @@
+@@ -0,0 +1,1688 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -137551,6 +137551,31 @@ index 0000000..505d24b
 +    return dx > dy ? dx : dy;
 +}
 +
++// the dock, where the player arrives: no Pokémon are put within DOCK_ZONE tiles of it
++#define DOCK_X 5
++#define DOCK_Y 54
++#define DOCK_ZONE 6
++
++// a tree (or anything else solid) on the tile above: a Pokémon standing there would look as if it were on top of it
++static bool8 TreeAbove(s16 tx, s16 ty)
++{
++    return MapGridGetCollisionAt(tx + MAP_OFFSET, ty - 1 + MAP_OFFSET) != 0;
++}
++
++// the ones that may be over trees
++static bool8 MayFly(u16 sp)
++{
++    return sp == SPECIES_AIPOM || sp == SPECIES_PINECO || sp == SPECIES_SEEDOT;
++}
++
++// a new one may be put at (x, y): not by the dock, and on land not under a tree
++static bool8 CanSpawnAt(bool8 water, s16 x, s16 y)
++{
++    if (Dist(x, y, DOCK_X, DOCK_Y) <= DOCK_ZONE)
++        return FALSE;
++    return water || !TreeAbove(x, y);
++}
++
 +static u8 SlotOf(struct Sprite *s)
 +{
 +    return ((u16)s->data[5] >> 9) & 15;
@@ -137605,6 +137630,8 @@ index 0000000..505d24b
 +    u8 slot = SlotOf(s);
 +
 +    if (!GroundFor((s->data[3] & WATER_FLAG) != 0, tx, ty))
++        return FALSE;
++    if (!(s->data[3] & WATER_FLAG) && !MayFly(s->data[2]) && TreeAbove(tx, ty))
 +        return FALSE;
 +    if (Dist(tx, ty, sAnchor[slot][0], sAnchor[slot][1]) > LEASH
 +     && Dist(tx, ty, sAnchor[slot][0], sAnchor[slot][1]) > Dist(s->data[0] >> 4, s->data[1] >> 4, sAnchor[slot][0], sAnchor[slot][1]))
@@ -138460,6 +138487,22 @@ index 0000000..505d24b
 +    sAct[a].used = FALSE;
 +}
 +
++// a roaming one that has never had colours and has none now would only be a hidden ghost: it is taken away, and another put in its place
++static void DropColourless(void)
++{
++    u8 i;
++
++    for (i = 0; i < MAX_SPRITES; i++)
++    {
++        struct Sprite *s = &gSprites[i];
++
++        if (!s->inUse || s->data[7] != WILD_TAG || s->callback != SpriteCB_Roamer || (s->data[3] & PAL_HAD) || PalFor(SpriteKey(s)) != 0xFF)
++            continue;
++        if (SlotOf(s) < MAX_ACT && sAct[SlotOf(s)].used)
++            RemoveAct(SlotOf(s));
++    }
++}
++
 +// a Pokémon of the right class at (x, y), in entry a: its kind chosen so the colours fit there
 +static bool8 PutAct(u8 a, bool8 water, s16 x, s16 y)
 +{
@@ -138520,7 +138563,7 @@ index 0000000..505d24b
 +        s16 near = 0x7FFF;
 +
 +        RandomTile(water, &x, &y);
-+        if (Occupied(NULL, x, y) || Dist(x, y, px, py) < 3 || ScreenDist(x, y, px, py) < minScreen)
++        if (Occupied(NULL, x, y) || Dist(x, y, px, py) < 3 || ScreenDist(x, y, px, py) < minScreen || !CanSpawnAt(water, x, y))
 +            continue;
 +        for (i = 0; i < MAX_ACT; i++)
 +            if (sAct[i].used && IsSeaKind(sAct[i].kind) == water && Dist(x, y, sAct[i].x, sAct[i].y) < near)
@@ -138573,7 +138616,7 @@ index 0000000..505d24b
 +        if (d < SPAWN_NEAR || d > (t < 40 ? SPAWN_FAR : SPAWN_FAR + 6) || Occupied(NULL, x, y))
 +            continue;
 +        water = !landOnly && GroundFor(TRUE, x, y);
-+        if (water || GroundFor(FALSE, x, y))
++        if ((water || GroundFor(FALSE, x, y)) && CanSpawnAt(water, x, y))
 +            break;
 +    }
 +    if (t == 80)
@@ -138641,6 +138684,7 @@ index 0000000..505d24b
 +// each frame on the island, once the Pokémon are out
 +static void IslandTick(void)
 +{
++    DropColourless();
 +    if (ScriptContext_IsEnabled())
 +        return;
 +    if (sNearWait > 0)

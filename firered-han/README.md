@@ -1226,3 +1226,10 @@ Why: a Pokémon was hidden whenever its colours were missing for a moment, and a
 - **A Pokémon that has had its colours stays on the screen** if its palette is taken back for a moment (it keeps the last one). Only one that has never had colours waits hidden.
 - **A palette in use by one near the player is kept** even if another sprite uses that slot: a wrong colour is better than a Pokémon vanishing.
 - Tested by walking from the dock: none hidden on screen, none on the wrong ground, at least 4 near the player at every sample.
+
+## 2026-11-26f
+Jane: no Pokémon by the dock, and none on top of trees unless they fly (Aipom, Pineco, Seedot).
+- **No spawns within 6 tiles of the dock** where the player arrives.
+- **On land, a Pokémon does not stand under a tree or other solid tile** (the tile above is solid), except Aipom, Pineco and Seedot, which may. Those are never put there when spawning; they may walk there.
+- Removed the hidden ghosts: a Pokémon that has never had colours and has none now is taken away, and another is put in its place.
+- Still open: the coastline. The sea and the coast tiles are consistent in the data; the cause of the blocked surf has not been found.
