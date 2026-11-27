@@ -135092,10 +135092,10 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..24a0eee
+index 0000000..520ea82
 --- /dev/null
 +++ b/src/han_follower.c
-@@ -0,0 +1,692 @@
+@@ -0,0 +1,697 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -135106,6 +135106,8 @@ index 0000000..24a0eee
 +#include "pokemon.h"
 +#include "constants/event_objects.h"
 +#include "constants/species.h"
++#include "constants/map_groups.h"
++#include "constants/maps.h"
 +#include "data/han_follow_data.h"
 +#include "data/han_follow_ball.h"
 +#include "palette.h"
@@ -135551,6 +135553,9 @@ index 0000000..24a0eee
 +        return;
 +    HanPlayerLookEnsure(); // a changed look shows at once
 +    want = LeadSpecies();
++    // no follower in the Wild Area: the party stays in its balls there
++    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_HAN_WILD_AREA) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_HAN_WILD_AREA))
++        want = 0;
 +    if (want == 0 || (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_SURFING | PLAYER_AVATAR_FLAG_UNDERWATER)))
 +    {
 +        Destroy();
