@@ -102433,10 +102433,10 @@ index 0000000..7440cbe
 +#endif // GUARD_HAN_CUSTOM_H
 diff --git a/include/han_follower.h b/include/han_follower.h
 new file mode 100644
-index 0000000..1543bcc
+index 0000000..d2cae4f
 --- /dev/null
 +++ b/include/han_follower.h
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,35 @@
 +#ifndef GUARD_HAN_FOLLOWER_H
 +#define GUARD_HAN_FOLLOWER_H
 +
@@ -102453,6 +102453,7 @@ index 0000000..1543bcc
 +bool8 HanWildHasSprite(u16 n);
 +u8 HanWildSpriteNew(u16 species);                  // a Wild Area Pokémon, with no palette yet
 +void HanWildPalLoad(u16 species, bool8 shiny, u8 slot);
++#define HAN_BALL_PAL 0x57B1 // the item ball's colours, loaded once per map for the Wild Area Pokémon shown as balls
 +void HanWildSetBall(struct Sprite *s, u16 species, bool8 ball); // a Wild Area sprite as its species, or as an item ball // its colours into a sprite palette slot
 +void HanMonMakeShiny(struct Pokemon *mon, bool8 shiny); // src/han_wild.c: the same Pokémon made shiny or not
 +void HanMonCharmRoll(struct Pokemon *mon); // with the SHINY CHARM, a wild Pokémon is shiny one time in five
@@ -135092,7 +135093,7 @@ index 0000000..10a53be
 +}
 diff --git a/src/han_follower.c b/src/han_follower.c
 new file mode 100644
-index 0000000..5442123
+index 0000000..04e2c10
 --- /dev/null
 +++ b/src/han_follower.c
 @@ -0,0 +1,696 @@
@@ -135711,7 +135712,7 @@ index 0000000..5442123
 +        s->images = template.images;
 +        s->anims = template.anims;
 +        s->oam = *template.oam;
-+        s->oam.paletteNum = IndexOfSpritePaletteTag(template.paletteTag);
++        s->oam.paletteNum = IndexOfSpritePaletteTag(HAN_BALL_PAL);
 +        s->subspriteTables = NULL;
 +        s->subspriteTableNum = 0;
 +        s->centerToCornerVecX = -8;
@@ -138405,10 +138406,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..a90350e
+index 0000000..a38126b
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1880 @@
+@@ -0,0 +1,1888 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138738,6 +138739,7 @@ index 0000000..a90350e
 +#define IsBall(s) ((s)->data[2] == SPECIES_NONE)
 +#define PAL_MAX 7
 +static const u8 sPalFixed[] = {2, 4, 6, 8, 10, 11};
++extern const u16 gObjectEventPal_NpcWhite[];
 +static u16 sPalKey[PAL_MAX]; // species, plus 0x8000 for the shiny colours; 0 when the palette is unused
 +static u8 sPalNum[PAL_MAX];
 +static u8 sPalCount;
@@ -138758,6 +138760,13 @@ index 0000000..a90350e
 +    }
 +    sPalCount = ARRAY_COUNT(sPalFixed);
 +    FreeSpritePaletteByTag(WILD_PAL);
++    // the ball's colours get a palette of their own, so they do not depend on an item ball being on screen
++    {
++        struct SpritePalette bp = {gObjectEventPal_NpcWhite, HAN_BALL_PAL};
++
++        FreeSpritePaletteByTag(HAN_BALL_PAL);
++        LoadSpritePalette(&bp);
++    }
 +    for (i = gReservedSpritePaletteCount; i < 16; i++)
 +        if (GetSpritePaletteTagByPaletteNum(i) == TAG_NONE)
 +            free++;
@@ -139469,8 +139478,8 @@ index 0000000..a90350e
 +    const struct SubspriteTable *subs;
 +    u8 id, pal;
 +
-+    CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_ITEM_BALL, cb, &template, &subs); // its palette tag is the item ball's
-+    pal = IndexOfSpritePaletteTag(template.paletteTag);
++    CopyObjectGraphicsInfoToSpriteTemplate(OBJ_EVENT_GFX_ITEM_BALL, cb, &template, &subs);
++    pal = IndexOfSpritePaletteTag(HAN_BALL_PAL);
 +    if (pal == 0xFF)
 +        return MAX_SPRITES;
 +    template.paletteTag = TAG_NONE;
