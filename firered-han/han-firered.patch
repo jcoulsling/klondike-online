@@ -138406,7 +138406,7 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..3f6c1c0
+index 0000000..163beba
 --- /dev/null
 +++ b/src/han_wild.c
 @@ -0,0 +1,1907 @@
@@ -138809,9 +138809,9 @@ index 0000000..3f6c1c0
 +    return dx > dy ? dx : dy;
 +}
 +
-+#define PAL_TAKE 22 // within about 11 tiles across or 7 up and down: on the screen or about to be
-+#define PAL_ON_SCREEN 16 // on the screen: 7 tiles across or 5 up and down from the player
-+#define PAL_KEEP 28 // a palette is given up only beyond about 14 across or 9 up and down
++#define PAL_TAKE 32 // within about 16 tiles across or 10 up and down: well before it is on the screen
++#define PAL_ON_SCREEN 22 // close enough to take a palette from one that is farther
++#define PAL_KEEP 40 // a palette is given up only beyond about 20 across or 13 up and down
 +
 +#define PAL_KINDS 40 // the kinds looked at in one go: the ones out, the camps and the merchants
 +
