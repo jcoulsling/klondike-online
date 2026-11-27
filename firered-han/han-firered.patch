@@ -138406,10 +138406,10 @@ index 0000000..d240834
 +}
 diff --git a/src/han_wild.c b/src/han_wild.c
 new file mode 100644
-index 0000000..a38126b
+index 0000000..3f6c1c0
 --- /dev/null
 +++ b/src/han_wild.c
-@@ -0,0 +1,1888 @@
+@@ -0,0 +1,1907 @@
 +#include "global.h"
 +#include "gflib.h"
 +#include "event_object_movement.h"
@@ -138739,7 +138739,8 @@ index 0000000..a38126b
 +#define IsBall(s) ((s)->data[2] == SPECIES_NONE)
 +#define PAL_MAX 7
 +static const u8 sPalFixed[] = {2, 4, 6, 8, 10, 11};
-+extern const u16 gObjectEventPal_NpcWhite[];
++#define HAN_SHADOW_PAL 0x57B2
++static const u16 sShadowPal[16] = {0, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A, 0x498A}; // one dark blue-grey, so the shape shows but not the colours
 +static u16 sPalKey[PAL_MAX]; // species, plus 0x8000 for the shiny colours; 0 when the palette is unused
 +static u8 sPalNum[PAL_MAX];
 +static u8 sPalCount;
@@ -138760,13 +138761,7 @@ index 0000000..a38126b
 +    }
 +    sPalCount = ARRAY_COUNT(sPalFixed);
 +    FreeSpritePaletteByTag(WILD_PAL);
-+    // the ball's colours get a palette of their own, so they do not depend on an item ball being on screen
-+    {
-+        struct SpritePalette bp = {gObjectEventPal_NpcWhite, HAN_BALL_PAL};
-+
-+        FreeSpritePaletteByTag(HAN_BALL_PAL);
-+        LoadSpritePalette(&bp);
-+    }
++    FreeSpritePaletteByTag(HAN_SHADOW_PAL);
 +    for (i = gReservedSpritePaletteCount; i < 16; i++)
 +        if (GetSpritePaletteTagByPaletteNum(i) == TAG_NONE)
 +            free++;
@@ -138780,6 +138775,17 @@ index 0000000..a38126b
 +            sPalKey[sPalCount] = 0;
 +            sPalCount++;
 +        }
++    }
++    // one shared palette for the shadows of the Pokémon too far off to have their colours (kept only if one more stays free)
++    free = 0;
++    for (i = gReservedSpritePaletteCount; i < 16; i++)
++        if (GetSpritePaletteTagByPaletteNum(i) == TAG_NONE)
++            free++;
++    if (free >= 2)
++    {
++        struct SpritePalette sp = {sShadowPal, HAN_SHADOW_PAL};
++
++        LoadSpritePalette(&sp);
 +    }
 +}
 +
@@ -138909,26 +138915,22 @@ index 0000000..a38126b
 +
 +static void ApplyPalette(struct Sprite *s)
 +{
-+    u8 n;
++    u8 n = PalFor(SpriteKey(s));
 +
-+    if (IsBall(s))
-+        return;
-+    n = PalFor(SpriteKey(s));
 +    if (n != 0xFF)
 +    {
-+        if (s->data[3] & BALL_FLAG)
-+        {
-+            HanWildSetBall(s, s->data[2], FALSE);
-+            s->data[3] &= ~BALL_FLAG;
-+        }
 +        s->oam.paletteNum = n;
 +        s->data[3] |= PAL_HAD;
 +    }
-+    else if (!(s->data[3] & BALL_FLAG))
++    else
 +    {
-+        // no colours for it (it is far from the player): it shows as a ball, which uses the item ball's palette
-+        HanWildSetBall(s, s->data[2], TRUE);
-+        s->data[3] |= BALL_FLAG;
++        // too far off to have its colours: it shows as a shadow (one palette shared by all of them), with its colours once it is near
++        u8 sh = IndexOfSpritePaletteTag(HAN_SHADOW_PAL);
++
++        if (sh != 0xFF)
++            s->oam.paletteNum = sh;
++        else
++            s->invisible = TRUE;
 +    }
 +}
 +
@@ -139646,20 +139648,33 @@ index 0000000..a38126b
 +    sAct[a].used = FALSE;
 +}
 +
-+// a roaming one that has never had colours and has none now would only be a hidden ghost: it is taken away, and another put in its place
-+static void DropColourless(void)
++// a free tile within two of another of kind k that is out already, and as far from the player as (x, y) is (so a herd does not pop up on the screen)
++static bool8 HerdTile(u8 k, bool8 water, s16 *x, s16 *y)
 +{
-+    u8 i;
++    s16 px, py;
++    u8 i, t;
++    bool8 far;
 +
-+    for (i = 0; i < MAX_SPRITES; i++)
++    PlayerTile(&px, &py);
++    far = ScreenDist(*x, *y, px, py) > ON_SCREEN;
++    for (i = 0; i < MAX_ACT; i++)
 +    {
-+        struct Sprite *s = &gSprites[i];
-+
-+        if (!s->inUse || s->data[7] != WILD_TAG || s->callback != SpriteCB_Roamer || (s->data[3] & PAL_HAD) || PalFor(SpriteKey(s)) != 0xFF)
++        if (!sAct[i].used || sAct[i].kind != k)
 +            continue;
-+        if (SlotOf(s) < MAX_ACT && sAct[SlotOf(s)].used)
-+            RemoveAct(SlotOf(s));
++        for (t = 0; t < 8; t++)
++        {
++            s16 nx = sAct[i].x + (s16)(Random() % 5) - 2, ny = sAct[i].y + (s16)(Random() % 5) - 2;
++
++            if (Occupied(NULL, nx, ny) || !CanSpawnAt(water, nx, ny) || Dist(nx, ny, px, py) < 3)
++                continue;
++            if (far && ScreenDist(nx, ny, px, py) <= ON_SCREEN)
++                continue;
++            *x = nx;
++            *y = ny;
++            return TRUE;
++        }
 +    }
++    return FALSE;
 +}
 +
 +// a Pokémon of the right class at (x, y), in entry a: its kind chosen so the colours fit there
@@ -139696,7 +139711,11 @@ index 0000000..a38126b
 +                shiny = FALSE; // no room for its shiny colours here: it comes as a plain one
 +            }
 +            if (pass == 0 && !isNew)
-+                continue;
++            {
++                // a species already out here: now and then it comes as part of a herd, beside one of the same kind
++                if (Random() % 3 != 0 || !HerdTile(k, water, &x, &y))
++                    continue;
++            }
 +            sAct[a].used = TRUE;
 +            sAct[a].kind = k;
 +            sAct[a].shiny = shiny;
@@ -139843,7 +139862,6 @@ index 0000000..a38126b
 +// each frame on the island, once the Pokémon are out
 +static void IslandTick(void)
 +{
-+    DropColourless();
 +    if (ScriptContext_IsEnabled())
 +        return;
 +    if (sNearWait > 0)
@@ -139971,10 +139989,11 @@ index 0000000..a38126b
 +    // the merchants (level 0 marks them), slots 14 and 15
 +    for (k = 0; k < 2; k++)
 +    {
-+        id = NewWildSprite(SPECIES_NONE, sShopTiles[k][0], sShopTiles[k][1], 0, FALSE, 14 + k, FALSE, SpriteCB_Static);
++        id = NewWildSprite(k == 0 ? SPECIES_KECLEON : SPECIES_SABLEYE, sShopTiles[k][0], sShopTiles[k][1], 0, FALSE, 14 + k, FALSE, SpriteCB_Static);
 +        if (id == MAX_SPRITES)
 +            continue;
 +        gSprites[id].data[3] = DIR_SOUTH;
++        StartSpriteAnimIfDifferent(&gSprites[id], GetFaceDirectionAnimNum(DIR_SOUTH));
 +    }
 +}
 +
